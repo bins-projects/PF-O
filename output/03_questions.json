@@ -1,0 +1,3762 @@
+[
+  {
+    "question_number": 1,
+    "stem": "** A patient with hypertension asks the nurse why lifestyle changes are important even if they feel fine. What is the best response?",
+    "raw_lines": [
+      "**1.** A patient with hypertension asks the nurse why lifestyle changes are important even if they feel fine. What is the best response?",
+      "a. “Hypertension is usually caused by stress, so relaxation is the only thing you need.”",
+      "b. “Lifestyle changes like diet, exercise, and weight loss can help lower blood pressure and reduce the need for medication.”",
+      "c. “Once your blood pressure is controlled with medication, you no longer need to change your habits.”",
+      "d. “Hypertension is genetic, so lifestyle changes won’t make a difference.”",
+      "**Answer: B**",
+      "**Rationale:** Lifestyle modifications (DASH diet, exercise, weight loss, sodium reduction) are first-line treatment for hypertension and can significantly lower BP. Hypertension is often called the “silent killer” because it is frequently asymptomatic.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 2,
+    "stem": "** The nurse is caring for a patient admitted with heart failure. Which assessment finding is most indicative of **right-sided** heart failure?",
+    "raw_lines": [
+      "**2.** The nurse is caring for a patient admitted with heart failure. Which assessment finding is most indicative of **right-sided** heart failure?",
+      "a. Crackles in the lung bases and orthopnea",
+      "b. Jugular vein distention, dependent edema, and weight gain",
+      "c. S3 heart sound and frothy pink sputum",
+      "d. Tachycardia and cool, clammy skin",
+      "**Answer: B**",
+      "**Rationale:** Right-sided heart failure leads to backup of blood into the systemic circulation, causing JVD, peripheral edema, and fluid retention. Left-sided failure primarily causes pulmonary symptoms.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 3,
+    "stem": "** A patient with chronic stable angina is prescribed sublingual nitroglycerin. The nurse should teach the patient to:",
+    "raw_lines": [
+      "**3.** A patient with chronic stable angina is prescribed sublingual nitroglycerin. The nurse should teach the patient to:",
+      "a. Take it every 4 hours around the clock.",
+      "b. Sit or lie down before taking it and repeat every 5 minutes up to 3 doses if pain persists.",
+      "c. Chew the tablet for faster absorption.",
+      "d. Take it only when pain is severe.",
+      "**Answer: B**",
+      "**Rationale:** Standard teaching for acute angina: sit/lie down, take 1 SL NTG, wait 5 minutes, repeat up to 3 doses. If pain remains, call 911.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 4,
+    "stem": "** The nurse is assessing a patient with suspected peripheral arterial disease (PAD). Which symptom is most characteristic?",
+    "raw_lines": [
+      "**4.** The nurse is assessing a patient with suspected peripheral arterial disease (PAD). Which symptom is most characteristic?",
+      "a. Leg pain that improves with walking",
+      "b. Intermittent claudication — cramping pain with activity, relieved by rest",
+      "c. Constant burning pain in the feet at rest",
+      "d. Unilateral leg swelling and redness",
+      "**Answer: B**",
+      "**Rationale:** Intermittent claudication is the classic symptom of PAD due to insufficient blood supply during exertion.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 5,
+    "stem": "** A patient with heart failure is prescribed digoxin. The nurse should hold the dose and notify the provider if the apical heart rate is:",
+    "raw_lines": [
+      "**5.** A patient with heart failure is prescribed digoxin. The nurse should hold the dose and notify the provider if the apical heart rate is:",
+      "a. 68 beats/min",
+      "b. 52 beats/min",
+      "c. 88 beats/min",
+      "d. 110 beats/min",
+      "**Answer: B**",
+      "**Rationale:** Hold digoxin if apical pulse <60 (adult) due to risk of bradycardia and toxicity.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 6,
+    "stem": "** The nurse is teaching a patient with hypertension about dietary changes. Which statement shows good understanding?",
+    "raw_lines": [
+      "**6.** The nurse is teaching a patient with hypertension about dietary changes. Which statement shows good understanding?",
+      "a. “I can eat as much canned soup as I want.”",
+      "b. “I will use herbs and spices instead of salt to flavor my food.”",
+      "c. “Processed foods are fine as long as I take my medication.”",
+      "d. “I don’t need to watch my potassium intake.”",
+      "**Answer: B**",
+      "**Rationale:** Sodium restriction is essential. Herbs/spices are a good alternative to salt.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 7,
+    "stem": "** A patient with atrial fibrillation is at highest risk for which complication?",
+    "raw_lines": [
+      "**7.** A patient with atrial fibrillation is at highest risk for which complication?",
+      "a. Pulmonary embolism",
+      "b. Cerebrovascular accident (stroke)",
+      "c. Myocardial infarction",
+      "d. Aortic aneurysm",
+      "**Answer: B**",
+      "**Rationale:** Stasis of blood in the atria leads to clot formation and embolization to the brain (stroke).",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 8,
+    "stem": "** The nurse is caring for a patient after cardiac catheterization via the femoral artery. Which finding requires immediate reporting?",
+    "raw_lines": [
+      "**8.** The nurse is caring for a patient after cardiac catheterization via the femoral artery. Which finding requires immediate reporting?",
+      "a. Mild bruising at the site",
+      "b. Weak pedal pulse in the affected leg",
+      "c. Mild discomfort",
+      "d. Slight oozing of serous fluid",
+      "**Answer: B**",
+      "**Rationale:** Weak distal pulse may indicate arterial occlusion or hematoma — emergency.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 9,
+    "stem": "** A patient with chronic venous insufficiency should be taught to:",
+    "raw_lines": [
+      "**9.** A patient with chronic venous insufficiency should be taught to:",
+      "a. Elevate the legs above heart level when sitting",
+      "b. Apply heat packs daily",
+      "c. Wear tight knee-high socks",
+      "d. Cross legs when sitting",
+      "**Answer: A**",
+      "**Rationale:** Elevation promotes venous return and reduces edema.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 10,
+    "stem": "** Which instruction is most important for a patient taking warfarin?",
+    "raw_lines": [
+      "**10.** Which instruction is most important for a patient taking warfarin?",
+      "a. Eat large amounts of green leafy vegetables daily",
+      "b. Maintain consistent intake of vitamin K-rich foods",
+      "c. Avoid all fruits and vegetables",
+      "d. Take with food to prevent stomach upset",
+      "**Answer: B**",
+      "**Rationale:** Consistent vitamin K intake is needed for stable INR.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 11,
+    "stem": "** A patient is prescribed a beta-blocker for hypertension. The nurse should monitor for:",
+    "raw_lines": [
+      "**11.** A patient is prescribed a beta-blocker for hypertension. The nurse should monitor for:",
+      "a. Tachycardia",
+      "b. Bradycardia",
+      "c. Hypertension",
+      "d. Hyperglycemia",
+      "**Answer: B**",
+      "**Rationale:** Beta-blockers decrease heart rate.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 12,
+    "stem": "** Which position provides most relief from chest pain in acute pericarditis?",
+    "raw_lines": [
+      "**12.** Which position provides most relief from chest pain in acute pericarditis?",
+      "a. Supine",
+      "b. Sitting upright and leaning forward",
+      "c. Left lateral",
+      "d. High Fowler’s",
+      "**Answer: B**",
+      "**Rationale:** Leaning forward reduces pericardial friction.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 13,
+    "stem": "** A patient with a venous stasis ulcer should have which intervention?",
+    "raw_lines": [
+      "**13.** A patient with a venous stasis ulcer should have which intervention?",
+      "a. Keep leg dependent with dry dressings",
+      "b. Elevate leg and use compression/moist dressings",
+      "c. Apply heat packs",
+      "d. Encourage prolonged standing",
+      "**Answer: B**",
+      "**Rationale:** Elevation and compression are standard for venous ulcers.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 14,
+    "stem": "** Which statement by a patient with hypertension indicates need for further teaching?",
+    "raw_lines": [
+      "**14.** Which statement by a patient with hypertension indicates need for further teaching?",
+      "a. “I will check my BP at home.”",
+      "b. “I can stop my medication once BP is normal.”",
+      "c. “I will walk 30 minutes most days.”",
+      "d. “I will reduce salt in my diet.”",
+      "**Answer: B**",
+      "**Rationale:** Hypertension is chronic; medication should not be stopped without provider approval.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 15,
+    "stem": "** A patient with aortic stenosis is most likely to report:",
+    "raw_lines": [
+      "**15.** A patient with aortic stenosis is most likely to report:",
+      "a. Palpitations",
+      "b. Syncope or dizziness with exertion",
+      "c. Sudden sharp chest pain radiating to back",
+      "d. Peripheral edema",
+      "**Answer: B**",
+      "**Rationale:** Exertional syncope is classic due to fixed cardiac output.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 16,
+    "stem": "** The nurse is caring for a patient receiving heparin. Which lab value is monitored?",
+    "raw_lines": [
+      "**16.** The nurse is caring for a patient receiving heparin. Which lab value is monitored?",
+      "a. INR",
+      "b. aPTT",
+      "c. Platelet count only",
+      "d. Hemoglobin only",
+      "**Answer: B**",
+      "**Rationale:** Heparin is monitored with aPTT.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 17,
+    "stem": "** A patient with chronic heart failure should report a weight gain of how many pounds in 1–2 days?",
+    "raw_lines": [
+      "**17.** A patient with chronic heart failure should report a weight gain of how many pounds in 1–2 days?",
+      "a. 1",
+      "b. 2–3",
+      "c. 5",
+      "d. 10",
+      "**Answer: B**",
+      "**Rationale:** 2–3 lb gain indicates fluid retention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 18,
+    "stem": "** A patient with a new permanent pacemaker should be taught to:",
+    "raw_lines": [
+      "**18.** A patient with a new permanent pacemaker should be taught to:",
+      "a. Avoid all electromagnetic devices",
+      "b. Report signs of infection and avoid lifting the arm on affected side",
+      "c. Use microwave freely",
+      "d. Perform heavy lifting immediately",
+      "**Answer: B**",
+      "**Rationale:** Arm restriction prevents lead dislodgement.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 19,
+    "stem": "** Which finding is most concerning in a patient with abdominal aortic aneurysm?",
+    "raw_lines": [
+      "**19.** Which finding is most concerning in a patient with abdominal aortic aneurysm?",
+      "a. BP 138/82",
+      "b. Sudden severe back or abdominal pain",
+      "c. Mild abdominal bruit",
+      "d. HR 88",
+      "**Answer: B**",
+      "**Rationale:** Sudden pain may indicate rupture — emergency.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 20,
+    "stem": "** Smoking is the most important modifiable risk factor for coronary artery disease because it:",
+    "raw_lines": [
+      "**20.** Smoking is the most important modifiable risk factor for coronary artery disease because it:",
+      "a. Only affects older adults",
+      "b. Damages endothelium and promotes atherosclerosis",
+      "c. Is non-modifiable",
+      "d. Has minimal effect",
+      "**Answer: B**",
+      "**Rationale:** Smoking is the top modifiable risk factor for CAD.",
+      "---",
+      "**Great!** Here's **Batch 2 (Questions 21–40)** — each with full question, options, correct answer, and rationale.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 21,
+    "stem": "** The nurse is teaching a patient about modifiable risk factors for coronary artery disease. Which is most important to address?",
+    "raw_lines": [
+      "**21.** The nurse is teaching a patient about modifiable risk factors for coronary artery disease. Which is most important to address?",
+      "a. Family history",
+      "b. Smoking",
+      "c. Age over 55",
+      "d. Male gender",
+      "**Answer: B**",
+      "**Rationale:** Smoking is the single most important modifiable risk factor. It damages blood vessels and accelerates atherosclerosis.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 22,
+    "stem": "** A patient with suspected cardiac tamponade would most likely show:",
+    "raw_lines": [
+      "**22.** A patient with suspected cardiac tamponade would most likely show:",
+      "a. Widened pulse pressure",
+      "b. Muffled heart sounds, hypotension, and JVD (Beck’s triad)",
+      "c. Bounding pulses",
+      "d. Elevated temperature",
+      "**Answer: B**",
+      "**Rationale:** Beck’s triad is classic for cardiac tamponade.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 23,
+    "stem": "** Which instruction should be given to a patient with varicose veins?",
+    "raw_lines": [
+      "**23.** Which instruction should be given to a patient with varicose veins?",
+      "a. Cross legs when sitting",
+      "b. Wear compression stockings",
+      "c. Stand for long periods",
+      "d. Apply heat to legs",
+      "**Answer: B**",
+      "**Rationale:** Compression stockings help improve venous return.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 24,
+    "stem": "** The nurse is caring for a patient receiving thrombolytic therapy for MI. The major risk is:",
+    "raw_lines": [
+      "**24.** The nurse is caring for a patient receiving thrombolytic therapy for MI. The major risk is:",
+      "a. Hypertension",
+      "b. Bleeding",
+      "c. Bradycardia",
+      "d. Hyperglycemia",
+      "**Answer: B**",
+      "**Rationale:** Thrombolytics dissolve clots and increase bleeding risk.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 25,
+    "stem": "** Left-sided heart failure is most often associated with:",
+    "raw_lines": [
+      "**25.** Left-sided heart failure is most often associated with:",
+      "a. Dependent edema",
+      "b. Hepatomegaly",
+      "c. Dyspnea and pulmonary crackles",
+      "d. Jugular vein distention",
+      "**Answer: C**",
+      "**Rationale:** Backup of blood into the lungs causes pulmonary symptoms.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 26,
+    "stem": "** A patient with peripheral arterial disease should avoid:",
+    "raw_lines": [
+      "**26.** A patient with peripheral arterial disease should avoid:",
+      "a. Walking",
+      "b. Smoking",
+      "c. Elevation of legs",
+      "d. Warm socks",
+      "**Answer: B**",
+      "**Rationale:** Smoking causes vasoconstriction and worsens PAD.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 27,
+    "stem": "** The best position for a patient experiencing an acute angina attack is:",
+    "raw_lines": [
+      "**27.** The best position for a patient experiencing an acute angina attack is:",
+      "a. Supine",
+      "b. Sitting upright",
+      "c. Trendelenburg",
+      "d. Prone",
+      "**Answer: B**",
+      "**Rationale:** Sitting reduces cardiac workload.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 28,
+    "stem": "** A patient on digoxin should be taught to report which symptom immediately?",
+    "raw_lines": [
+      "**28.** A patient on digoxin should be taught to report which symptom immediately?",
+      "a. Mild nausea",
+      "b. Yellow-green halos around lights",
+      "c. Constipation",
+      "d. Increased appetite",
+      "**Answer: B**",
+      "**Rationale:** Visual changes (halos) are a sign of digoxin toxicity.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 29,
+    "stem": "** Which is a key nursing intervention after a cardiac catheterization?",
+    "raw_lines": [
+      "**29.** Which is a key nursing intervention after a cardiac catheterization?",
+      "a. Keep patient flat for 6 hours",
+      "b. Encourage early ambulation",
+      "c. Apply heat to insertion site",
+      "d. Allow bathroom privileges immediately",
+      "**Answer: A**",
+      "**Rationale:** Bedrest with leg straight helps prevent bleeding at site.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 30,
+    "stem": "** The nurse knows that the most common cause of secondary hypertension is:",
+    "raw_lines": [
+      "**30.** The nurse knows that the most common cause of secondary hypertension is:",
+      "a. Stress",
+      "b. Renal disease",
+      "c. Obesity",
+      "d. Smoking",
+      "**Answer: B**",
+      "**Rationale:** Renal disease is a common cause of secondary hypertension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 31,
+    "stem": "** A patient with hypertension is prescribed an ACE inhibitor. The nurse should monitor for:",
+    "raw_lines": [
+      "**31.** A patient with hypertension is prescribed an ACE inhibitor. The nurse should monitor for:",
+      "a. Hyperkalemia",
+      "b. Hypokalemia",
+      "c. Bradycardia",
+      "d. Tachycardia",
+      "**Answer: A**",
+      "**Rationale:** ACE inhibitors can cause potassium retention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 32,
+    "stem": "** Intermittent claudication distance in PAD is used to monitor:",
+    "raw_lines": [
+      "**32.** Intermittent claudication distance in PAD is used to monitor:",
+      "a. Disease progression",
+      "b. Medication effectiveness",
+      "c. Both A and B",
+      "d. None of the above",
+      "**Answer: C**",
+      "**Rationale:** Changes in claudication distance help evaluate disease and treatment.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 33,
+    "stem": "** The priority nursing diagnosis for a patient with acute MI is:",
+    "raw_lines": [
+      "**33.** The priority nursing diagnosis for a patient with acute MI is:",
+      "a. Risk for infection",
+      "b. Acute pain",
+      "c. Deficient knowledge",
+      "d. Ineffective coping",
+      "**Answer: B**",
+      "**Rationale:** Pain management is priority to reduce myocardial oxygen demand.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 34,
+    "stem": "** A patient with heart failure should limit daily sodium intake to:",
+    "raw_lines": [
+      "**34.** A patient with heart failure should limit daily sodium intake to:",
+      "a. 4–5 grams",
+      "b. 2–3 grams",
+      "c. 1 gram",
+      "d. No restriction needed",
+      "**Answer: B**",
+      "**Rationale:** 2–3 g sodium restriction is standard for HF.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 35,
+    "stem": "** Which symptom is common in patients taking calcium channel blockers?",
+    "raw_lines": [
+      "**35.** Which symptom is common in patients taking calcium channel blockers?",
+      "a. Bradycardia",
+      "b. Peripheral edema",
+      "c. Hypertension",
+      "d. Weight loss",
+      "**Answer: B**",
+      "**Rationale:** Vasodilation causes fluid retention and edema.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 36,
+    "stem": "** The nurse should teach a patient with an abdominal aortic aneurysm to:",
+    "raw_lines": [
+      "**36.** The nurse should teach a patient with an abdominal aortic aneurysm to:",
+      "a. Report any new back or abdominal pain immediately",
+      "b. Exercise vigorously",
+      "c. Ignore mild pain",
+      "d. Lift heavy objects",
+      "**Answer: A**",
+      "**Rationale:** Sudden pain may signal expansion or rupture.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 37,
+    "stem": "** Which lab test is most important when monitoring a patient on warfarin?",
+    "raw_lines": [
+      "**37.** Which lab test is most important when monitoring a patient on warfarin?",
+      "a. aPTT",
+      "b. INR",
+      "c. Platelet count",
+      "d. Bleeding time",
+      "**Answer: B**",
+      "**Rationale:** INR is the standard for monitoring warfarin therapy.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 38,
+    "stem": "** A patient with chronic venous insufficiency is most likely to have:",
+    "raw_lines": [
+      "**38.** A patient with chronic venous insufficiency is most likely to have:",
+      "a. Cool, pale legs",
+      "b. Brownish discoloration around ankles",
+      "c. Absent pedal pulses",
+      "d. Sharp pain with walking",
+      "**Answer: B**",
+      "**Rationale:** Hemosiderin staining causes brownish discoloration.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 39,
+    "stem": "** The best way to prevent deep vein thrombosis in a hospitalized patient is:",
+    "raw_lines": [
+      "**39.** The best way to prevent deep vein thrombosis in a hospitalized patient is:",
+      "a. Bedrest",
+      "b. Early ambulation and compression stockings",
+      "c. High-fat diet",
+      "d. Leg massage",
+      "**Answer: B**",
+      "**Rationale:** Mobility and compression are key preventive measures.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 40,
+    "stem": "** A patient taking nitroglycerin should avoid:",
+    "raw_lines": [
+      "**40.** A patient taking nitroglycerin should avoid:",
+      "a. Alcohol",
+      "b. Grapefruit juice",
+      "c. Both A and B",
+      "d. None of the above",
+      "**Answer: C**",
+      "**Rationale:** Both can cause severe hypotension when combined with nitrates.",
+      "---",
+      "**Here's Batch 3 (Questions 41–60)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 41,
+    "stem": "** The nurse is assessing a patient with possible myocardial infarction. Which symptom is most common?",
+    "raw_lines": [
+      "**41.** The nurse is assessing a patient with possible myocardial infarction. Which symptom is most common?",
+      "a. Sudden sharp chest pain radiating to the back",
+      "b. Crushing substernal chest pain radiating to the left arm/jaw",
+      "c. Mild indigestion",
+      "d. Shortness of breath without pain",
+      "**Answer: B**",
+      "**Rationale:** Classic MI pain is crushing/substernal and radiates to arm, jaw, or back.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 42,
+    "stem": "** A patient with heart failure is on a loop diuretic. The nurse should monitor for:",
+    "raw_lines": [
+      "**42.** A patient with heart failure is on a loop diuretic. The nurse should monitor for:",
+      "a. Hyperkalemia",
+      "b. Hypokalemia",
+      "c. Hypernatremia",
+      "d. Hypocalcemia",
+      "**Answer: B**",
+      "**Rationale:** Loop diuretics (e.g., furosemide) commonly cause potassium loss.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 43,
+    "stem": "** Which finding indicates effective teaching for a patient with hypertension?",
+    "raw_lines": [
+      "**43.** Which finding indicates effective teaching for a patient with hypertension?",
+      "a. “I can stop my meds when I feel better.”",
+      "b. “I will take my blood pressure medication every day as prescribed.”",
+      "c. “Salt is okay as long as I exercise.”",
+      "d. “I don’t need to lose weight.”",
+      "**Answer: B**",
+      "**Rationale:** Lifelong medication adherence is essential for control.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 44,
+    "stem": "** The priority goal for a patient in the first 24 hours after MI is to:",
+    "raw_lines": [
+      "**44.** The priority goal for a patient in the first 24 hours after MI is to:",
+      "a. Increase activity",
+      "b. Decrease myocardial oxygen demand",
+      "c. Teach about risk factors",
+      "d. Discharge planning",
+      "**Answer: B**",
+      "**Rationale:** Reducing oxygen demand helps limit infarct size.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 45,
+    "stem": "** A patient with PAD should be taught to:",
+    "raw_lines": [
+      "**45.** A patient with PAD should be taught to:",
+      "a. Cross legs when sitting",
+      "b. Walk to the point of pain, rest, and walk again (supervised exercise)",
+      "c. Keep legs dependent",
+      "d. Use heating pads on legs",
+      "**Answer: B**",
+      "**Rationale:** Structured walking improves collateral circulation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 46,
+    "stem": "** Which medication is commonly used for rate control in atrial fibrillation?",
+    "raw_lines": [
+      "**46.** Which medication is commonly used for rate control in atrial fibrillation?",
+      "a. Digoxin or beta-blockers",
+      "b. Nitroglycerin",
+      "c. ACE inhibitors only",
+      "d. Diuretics",
+      "**Answer: A**",
+      "**Rationale:** Digoxin and beta-blockers slow ventricular response in AFib.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 47,
+    "stem": "** The nurse should instruct a patient taking nitroglycerin to store the tablets:",
+    "raw_lines": [
+      "**47.** The nurse should instruct a patient taking nitroglycerin to store the tablets:",
+      "a. In a plastic bag",
+      "b. In the original dark glass bottle, away from heat and moisture",
+      "c. In the refrigerator",
+      "d. In a daily pill organizer",
+      "**Answer: B**",
+      "**Rationale:** Nitroglycerin is sensitive to light, heat, and moisture.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 48,
+    "stem": "** A patient with suspected deep vein thrombosis (DVT) would most likely have:",
+    "raw_lines": [
+      "**48.** A patient with suspected deep vein thrombosis (DVT) would most likely have:",
+      "a. Pain, swelling, and warmth in one calf",
+      "b. Bilateral leg edema",
+      "c. Cool, pale extremities",
+      "d. Intermittent claudication",
+      "**Answer: A**",
+      "**Rationale:** Unilateral swelling, pain, and warmth are classic DVT signs.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 49,
+    "stem": "** The best position for a patient with left-sided heart failure and dyspnea is:",
+    "raw_lines": [
+      "**49.** The best position for a patient with left-sided heart failure and dyspnea is:",
+      "a. Supine",
+      "b. High Fowler’s or semi-Fowler’s",
+      "c. Trendelenburg",
+      "d. Prone",
+      "**Answer: B**",
+      "**Rationale:** Upright position eases breathing by reducing venous return to the heart.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 50,
+    "stem": "** A common side effect of ACE inhibitors is:",
+    "raw_lines": [
+      "**50.** A common side effect of ACE inhibitors is:",
+      "a. Dry cough",
+      "b. Tachycardia",
+      "c. Constipation",
+      "d. Weight gain",
+      "**Answer: A**",
+      "**Rationale:** Dry, persistent cough is a frequent side effect of ACE inhibitors.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 51,
+    "stem": "** The nurse is caring for a patient post-CABG. Priority postoperative assessment includes:",
+    "raw_lines": [
+      "**51.** The nurse is caring for a patient post-CABG. Priority postoperative assessment includes:",
+      "a. Chest tube output and dysrhythmias",
+      "b. Bowel sounds",
+      "c. Urine output only",
+      "d. Appetite",
+      "**Answer: A**",
+      "**Rationale:** Monitoring for bleeding and cardiac dysrhythmias is critical.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 52,
+    "stem": "** Which lab value is most important to monitor in a patient on spironolactone?",
+    "raw_lines": [
+      "**52.** Which lab value is most important to monitor in a patient on spironolactone?",
+      "a. Sodium",
+      "b. Potassium (risk of hyperkalemia)",
+      "c. Glucose",
+      "d. BUN only",
+      "**Answer: B**",
+      "**Rationale:** Spironolactone is potassium-sparing.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 53,
+    "stem": "** A patient with hypertension should avoid which over-the-counter medication?",
+    "raw_lines": [
+      "**53.** A patient with hypertension should avoid which over-the-counter medication?",
+      "a. Acetaminophen",
+      "b. NSAIDs (e.g., ibuprofen)",
+      "c. Multivitamins",
+      "d. Antacids",
+      "**Answer: B**",
+      "**Rationale:** NSAIDs can cause fluid retention and raise blood pressure.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 54,
+    "stem": "** The most common complication of untreated hypertension is:",
+    "raw_lines": [
+      "**54.** The most common complication of untreated hypertension is:",
+      "a. Stroke",
+      "b. Kidney failure",
+      "c. Vision loss",
+      "d. All of the above",
+      "**Answer: D**",
+      "**Rationale:** Long-term hypertension damages heart, brain, kidneys, and eyes.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 55,
+    "stem": "** A patient with angina should take nitroglycerin prophylactically:",
+    "raw_lines": [
+      "**55.** A patient with angina should take nitroglycerin prophylactically:",
+      "a. Before activities that cause pain",
+      "b. Only after pain starts",
+      "c. Every morning",
+      "d. At bedtime",
+      "**Answer: A**",
+      "**Rationale:** Prophylactic use before exertion can prevent attacks.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 56,
+    "stem": "** Which pulse assessment is important after femoral cardiac catheterization?",
+    "raw_lines": [
+      "**56.** Which pulse assessment is important after femoral cardiac catheterization?",
+      "a. Apical pulse",
+      "b. Pedal pulses in both feet",
+      "c. Radial pulse only",
+      "d. Carotid pulse",
+      "**Answer: B**",
+      "**Rationale:** To check for circulation in the affected leg.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 57,
+    "stem": "** The term “preload” refers to:",
+    "raw_lines": [
+      "**57.** The term “preload” refers to:",
+      "a. The pressure the heart must pump against",
+      "b. The volume of blood returning to the heart",
+      "c. Contractility of the heart muscle",
+      "d. Afterload",
+      "**Answer: B**",
+      "**Rationale:** Preload is end-diastolic volume.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 58,
+    "stem": "** A patient with Buerger’s disease should be strongly advised to:",
+    "raw_lines": [
+      "**58.** A patient with Buerger’s disease should be strongly advised to:",
+      "a. Stop all tobacco use",
+      "b. Increase caffeine",
+      "c. Exercise vigorously",
+      "d. Take aspirin daily",
+      "**Answer: A**",
+      "**Rationale:** Tobacco use is the primary cause and exacerbating factor.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 59,
+    "stem": "** The first-line pharmacologic treatment for mild hypertension is often:",
+    "raw_lines": [
+      "**59.** The first-line pharmacologic treatment for mild hypertension is often:",
+      "a. Beta-blockers",
+      "b. Thiazide diuretics",
+      "c. Calcium channel blockers",
+      "d. ACE inhibitors",
+      "**Answer: B**",
+      "**Rationale:** Thiazides are often first-line for uncomplicated hypertension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 60,
+    "stem": "** A patient with heart failure should report which symptom immediately?",
+    "raw_lines": [
+      "**60.** A patient with heart failure should report which symptom immediately?",
+      "a. Weight gain of 2–3 pounds in 1–2 days",
+      "b. Mild fatigue",
+      "c. Increased appetite",
+      "d. Slight ankle swelling that improves with elevation",
+      "**Answer: A**",
+      "**Rationale:** Rapid weight gain indicates fluid overload.",
+      "---",
+      "**Here's Batch 3 (Questions 41–60)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 41,
+    "stem": "** The nurse is assessing a patient with possible myocardial infarction. Which symptom is most common?",
+    "raw_lines": [
+      "**41.** The nurse is assessing a patient with possible myocardial infarction. Which symptom is most common?",
+      "a. Sudden sharp chest pain radiating to the back",
+      "b. Crushing substernal chest pain radiating to the left arm/jaw",
+      "c. Mild indigestion",
+      "d. Shortness of breath without pain",
+      "**Answer: B**",
+      "**Rationale:** Classic MI pain is crushing/substernal and radiates to arm, jaw, or back.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 42,
+    "stem": "** A patient with heart failure is on a loop diuretic. The nurse should monitor for:",
+    "raw_lines": [
+      "**42.** A patient with heart failure is on a loop diuretic. The nurse should monitor for:",
+      "a. Hyperkalemia",
+      "b. Hypokalemia",
+      "c. Hypernatremia",
+      "d. Hypocalcemia",
+      "**Answer: B**",
+      "**Rationale:** Loop diuretics (e.g., furosemide) commonly cause potassium loss.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 43,
+    "stem": "** Which finding indicates effective teaching for a patient with hypertension?",
+    "raw_lines": [
+      "**43.** Which finding indicates effective teaching for a patient with hypertension?",
+      "a. “I can stop my meds when I feel better.”",
+      "b. “I will take my blood pressure medication every day as prescribed.”",
+      "c. “Salt is okay as long as I exercise.”",
+      "d. “I don’t need to lose weight.”",
+      "**Answer: B**",
+      "**Rationale:** Lifelong medication adherence is essential for control.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 44,
+    "stem": "** The priority goal for a patient in the first 24 hours after MI is to:",
+    "raw_lines": [
+      "**44.** The priority goal for a patient in the first 24 hours after MI is to:",
+      "a. Increase activity",
+      "b. Decrease myocardial oxygen demand",
+      "c. Teach about risk factors",
+      "d. Discharge planning",
+      "**Answer: B**",
+      "**Rationale:** Reducing oxygen demand helps limit infarct size.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 45,
+    "stem": "** A patient with PAD should be taught to:",
+    "raw_lines": [
+      "**45.** A patient with PAD should be taught to:",
+      "a. Cross legs when sitting",
+      "b. Walk to the point of pain, rest, and walk again (supervised exercise)",
+      "c. Keep legs dependent",
+      "d. Use heating pads on legs",
+      "**Answer: B**",
+      "**Rationale:** Structured walking improves collateral circulation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 46,
+    "stem": "** Which medication is commonly used for rate control in atrial fibrillation?",
+    "raw_lines": [
+      "**46.** Which medication is commonly used for rate control in atrial fibrillation?",
+      "a. Digoxin or beta-blockers",
+      "b. Nitroglycerin",
+      "c. ACE inhibitors only",
+      "d. Diuretics",
+      "**Answer: A**",
+      "**Rationale:** Digoxin and beta-blockers slow ventricular response in AFib.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 47,
+    "stem": "** The nurse should instruct a patient taking nitroglycerin to store the tablets:",
+    "raw_lines": [
+      "**47.** The nurse should instruct a patient taking nitroglycerin to store the tablets:",
+      "a. In a plastic bag",
+      "b. In the original dark glass bottle, away from heat and moisture",
+      "c. In the refrigerator",
+      "d. In a daily pill organizer",
+      "**Answer: B**",
+      "**Rationale:** Nitroglycerin is sensitive to light, heat, and moisture.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 48,
+    "stem": "** A patient with suspected deep vein thrombosis (DVT) would most likely have:",
+    "raw_lines": [
+      "**48.** A patient with suspected deep vein thrombosis (DVT) would most likely have:",
+      "a. Pain, swelling, and warmth in one calf",
+      "b. Bilateral leg edema",
+      "c. Cool, pale extremities",
+      "d. Intermittent claudication",
+      "**Answer: A**",
+      "**Rationale:** Unilateral swelling, pain, and warmth are classic DVT signs.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 49,
+    "stem": "** The best position for a patient with left-sided heart failure and dyspnea is:",
+    "raw_lines": [
+      "**49.** The best position for a patient with left-sided heart failure and dyspnea is:",
+      "a. Supine",
+      "b. High Fowler’s or semi-Fowler’s",
+      "c. Trendelenburg",
+      "d. Prone",
+      "**Answer: B**",
+      "**Rationale:** Upright position eases breathing by reducing venous return to the heart.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 50,
+    "stem": "** A common side effect of ACE inhibitors is:",
+    "raw_lines": [
+      "**50.** A common side effect of ACE inhibitors is:",
+      "a. Dry cough",
+      "b. Tachycardia",
+      "c. Constipation",
+      "d. Weight gain",
+      "**Answer: A**",
+      "**Rationale:** Dry, persistent cough is a frequent side effect of ACE inhibitors.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 51,
+    "stem": "** The nurse is caring for a patient post-CABG. Priority postoperative assessment includes:",
+    "raw_lines": [
+      "**51.** The nurse is caring for a patient post-CABG. Priority postoperative assessment includes:",
+      "a. Chest tube output and dysrhythmias",
+      "b. Bowel sounds",
+      "c. Urine output only",
+      "d. Appetite",
+      "**Answer: A**",
+      "**Rationale:** Monitoring for bleeding and cardiac dysrhythmias is critical.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 52,
+    "stem": "** Which lab value is most important to monitor in a patient on spironolactone?",
+    "raw_lines": [
+      "**52.** Which lab value is most important to monitor in a patient on spironolactone?",
+      "a. Sodium",
+      "b. Potassium (risk of hyperkalemia)",
+      "c. Glucose",
+      "d. BUN only",
+      "**Answer: B**",
+      "**Rationale:** Spironolactone is potassium-sparing.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 53,
+    "stem": "** A patient with hypertension should avoid which over-the-counter medication?",
+    "raw_lines": [
+      "**53.** A patient with hypertension should avoid which over-the-counter medication?",
+      "a. Acetaminophen",
+      "b. NSAIDs (e.g., ibuprofen)",
+      "c. Multivitamins",
+      "d. Antacids",
+      "**Answer: B**",
+      "**Rationale:** NSAIDs can cause fluid retention and raise blood pressure.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 54,
+    "stem": "** The most common complication of untreated hypertension is:",
+    "raw_lines": [
+      "**54.** The most common complication of untreated hypertension is:",
+      "a. Stroke",
+      "b. Kidney failure",
+      "c. Vision loss",
+      "d. All of the above",
+      "**Answer: D**",
+      "**Rationale:** Long-term hypertension damages heart, brain, kidneys, and eyes.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 55,
+    "stem": "** A patient with angina should take nitroglycerin prophylactically:",
+    "raw_lines": [
+      "**55.** A patient with angina should take nitroglycerin prophylactically:",
+      "a. Before activities that cause pain",
+      "b. Only after pain starts",
+      "c. Every morning",
+      "d. At bedtime",
+      "**Answer: A**",
+      "**Rationale:** Prophylactic use before exertion can prevent attacks.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 56,
+    "stem": "** Which pulse assessment is important after femoral cardiac catheterization?",
+    "raw_lines": [
+      "**56.** Which pulse assessment is important after femoral cardiac catheterization?",
+      "a. Apical pulse",
+      "b. Pedal pulses in both feet",
+      "c. Radial pulse only",
+      "d. Carotid pulse",
+      "**Answer: B**",
+      "**Rationale:** To check for circulation in the affected leg.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 57,
+    "stem": "** The term “preload” refers to:",
+    "raw_lines": [
+      "**57.** The term “preload” refers to:",
+      "a. The pressure the heart must pump against",
+      "b. The volume of blood returning to the heart",
+      "c. Contractility of the heart muscle",
+      "d. Afterload",
+      "**Answer: B**",
+      "**Rationale:** Preload is end-diastolic volume.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 58,
+    "stem": "** A patient with Buerger’s disease should be strongly advised to:",
+    "raw_lines": [
+      "**58.** A patient with Buerger’s disease should be strongly advised to:",
+      "a. Stop all tobacco use",
+      "b. Increase caffeine",
+      "c. Exercise vigorously",
+      "d. Take aspirin daily",
+      "**Answer: A**",
+      "**Rationale:** Tobacco use is the primary cause and exacerbating factor.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 59,
+    "stem": "** The first-line pharmacologic treatment for mild hypertension is often:",
+    "raw_lines": [
+      "**59.** The first-line pharmacologic treatment for mild hypertension is often:",
+      "a. Beta-blockers",
+      "b. Thiazide diuretics",
+      "c. Calcium channel blockers",
+      "d. ACE inhibitors",
+      "**Answer: B**",
+      "**Rationale:** Thiazides are often first-line for uncomplicated hypertension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 60,
+    "stem": "** A patient with heart failure should report which symptom immediately?",
+    "raw_lines": [
+      "**60.** A patient with heart failure should report which symptom immediately?",
+      "a. Weight gain of 2–3 pounds in 1–2 days",
+      "b. Mild fatigue",
+      "c. Increased appetite",
+      "d. Slight ankle swelling that improves with elevation",
+      "**Answer: A**",
+      "**Rationale:** Rapid weight gain indicates fluid overload.",
+      "---",
+      "**Here's Batch 4 (Questions 61–80)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 61,
+    "stem": "** The nurse is teaching a patient about signs of digoxin toxicity. Which symptom should be reported?",
+    "raw_lines": [
+      "**61.** The nurse is teaching a patient about signs of digoxin toxicity. Which symptom should be reported?",
+      "a. Headache",
+      "b. Nausea, vomiting, and yellow halos around lights",
+      "c. Increased energy",
+      "d. Constipation",
+      "**Answer: B**",
+      "**Rationale:** Gastrointestinal symptoms and visual disturbances (halos) are early signs of digoxin toxicity.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 62,
+    "stem": "** Which condition is a contraindication for thrombolytic therapy?",
+    "raw_lines": [
+      "**62.** Which condition is a contraindication for thrombolytic therapy?",
+      "a. Recent surgery or active bleeding",
+      "b. Hypertension that is well controlled",
+      "c. Age over 65",
+      "d. History of asthma",
+      "**Answer: A**",
+      "**Rationale:** Recent surgery, stroke, or bleeding increases risk of hemorrhage with thrombolytics.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 63,
+    "stem": "** A patient with chronic venous insufficiency is best treated with:",
+    "raw_lines": [
+      "**63.** A patient with chronic venous insufficiency is best treated with:",
+      "a. Leg elevation and compression stockings",
+      "b. Leg dependency",
+      "c. Heat therapy",
+      "d. Tight constrictive clothing",
+      "**Answer: A**",
+      "**Rationale:** Elevation and graduated compression are standard management.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 64,
+    "stem": "** The nurse knows that afterload is decreased by:",
+    "raw_lines": [
+      "**64.** The nurse knows that afterload is decreased by:",
+      "a. Vasoconstriction",
+      "b. Vasodilators (e.g., ACE inhibitors, nitrates)",
+      "c. Increased blood volume",
+      "d. Beta-blockers",
+      "**Answer: B**",
+      "**Rationale:** Vasodilators reduce the resistance the heart pumps against.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 65,
+    "stem": "** A common early complication after MI is:",
+    "raw_lines": [
+      "**65.** A common early complication after MI is:",
+      "a. Dysrhythmias",
+      "b. Infection",
+      "c. Constipation",
+      "d. Dehydration",
+      "**Answer: A**",
+      "**Rationale:** Ventricular dysrhythmias are common in the first 24–48 hours post-MI.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 66,
+    "stem": "** The patient with hypertension should aim for a blood pressure goal of:",
+    "raw_lines": [
+      "**66.** The patient with hypertension should aim for a blood pressure goal of:",
+      "a. <140/90 mm Hg (general)",
+      "b. <130/80 mm Hg (for diabetes or kidney disease)",
+      "c. Both A and B depending on comorbidities",
+      "d. <120/80 mm Hg for everyone",
+      "**Answer: C**",
+      "**Rationale:** Goals are individualized based on patient conditions.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 67,
+    "stem": "** Which food should a patient on warfarin limit or keep consistent?",
+    "raw_lines": [
+      "**67.** Which food should a patient on warfarin limit or keep consistent?",
+      "a. Green leafy vegetables (high in vitamin K)",
+      "b. Red meat",
+      "c. Dairy products",
+      "d. Citrus fruits",
+      "**Answer: A**",
+      "**Rationale:** Consistent vitamin K intake prevents INR fluctuations.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 68,
+    "stem": "** The best exercise recommendation for a patient with stable angina is:",
+    "raw_lines": [
+      "**68.** The best exercise recommendation for a patient with stable angina is:",
+      "a. Strenuous weight lifting",
+      "b. Moderate aerobic exercise (walking) as tolerated",
+      "c. Complete bedrest",
+      "d. High-intensity interval training",
+      "**Answer: B**",
+      "**Rationale:** Regular moderate aerobic activity improves cardiac conditioning.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 69,
+    "stem": "** A patient with an abdominal aortic aneurysm should avoid:",
+    "raw_lines": [
+      "**69.** A patient with an abdominal aortic aneurysm should avoid:",
+      "a. Heavy lifting and straining",
+      "b. Walking",
+      "c. Blood pressure control",
+      "d. Regular check-ups",
+      "**Answer: A**",
+      "**Rationale:** Increased intra-abdominal pressure can risk rupture.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 70,
+    "stem": "** Which medication class is first-line for heart failure with reduced ejection fraction?",
+    "raw_lines": [
+      "**70.** Which medication class is first-line for heart failure with reduced ejection fraction?",
+      "a. ACE inhibitors or ARBs",
+      "b. Calcium channel blockers",
+      "c. NSAIDs",
+      "d. Antihistamines",
+      "**Answer: A**",
+      "**Rationale:** ACE inhibitors/ARBs reduce mortality in HFrEF.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 71,
+    "stem": "** The nurse should assess for orthostatic hypotension in patients taking:",
+    "raw_lines": [
+      "**71.** The nurse should assess for orthostatic hypotension in patients taking:",
+      "a. Antihypertensives (especially alpha-blockers, diuretics)",
+      "b. Antibiotics",
+      "c. Antacids",
+      "d. Antidepressants only",
+      "**Answer: A**",
+      "**Rationale:** Many BP medications can cause postural hypotension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 72,
+    "stem": "** A patient with PAD should keep legs:",
+    "raw_lines": [
+      "**72.** A patient with PAD should keep legs:",
+      "a. Elevated above heart level when resting",
+      "b. Dependent (slightly below heart) when sitting",
+      "c. Crossed",
+      "d. Wrapped tightly",
+      "**Answer: B**",
+      "**Rationale:** Dependent position improves arterial flow in PAD.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 73,
+    "stem": "** The most important teaching for a patient with a new pacemaker is:",
+    "raw_lines": [
+      "**73.** The most important teaching for a patient with a new pacemaker is:",
+      "a. Carry a pacemaker ID card at all times",
+      "b. Ignore any dizziness",
+      "c. Use cell phones on the opposite side",
+      "d. Both A and C",
+      "**Answer: D**",
+      "**Rationale:** ID card and avoiding strong electromagnetic fields are key.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 74,
+    "stem": "** Which symptom is typical of right-sided heart failure?",
+    "raw_lines": [
+      "**74.** Which symptom is typical of right-sided heart failure?",
+      "a. Pulmonary edema",
+      "b. Ascites and peripheral edema",
+      "c. Paroxysmal nocturnal dyspnea",
+      "d. Orthopnea",
+      "**Answer: B**",
+      "**Rationale:** Systemic congestion leads to edema and ascites.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 75,
+    "stem": "** The nurse should hold a beta-blocker and notify the provider if the heart rate is:",
+    "raw_lines": [
+      "**75.** The nurse should hold a beta-blocker and notify the provider if the heart rate is:",
+      "a. <60 beats/min",
+      "b. >100 beats/min",
+      "c. 80 beats/min",
+      "d. Irregular",
+      "**Answer: A**",
+      "**Rationale:** Beta-blockers can cause symptomatic bradycardia.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 76,
+    "stem": "** A patient with hyperlipidemia and hypertension should be encouraged to follow which diet?",
+    "raw_lines": [
+      "**76.** A patient with hyperlipidemia and hypertension should be encouraged to follow which diet?",
+      "a. DASH diet",
+      "b. High-protein diet",
+      "c. High-fat diet",
+      "d. Low-carbohydrate only",
+      "**Answer: A**",
+      "**Rationale:** DASH diet is effective for both hypertension and lipid management.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 77,
+    "stem": "** The priority intervention for a patient experiencing acute pulmonary edema is:",
+    "raw_lines": [
+      "**77.** The priority intervention for a patient experiencing acute pulmonary edema is:",
+      "a. High Fowler’s position + oxygen",
+      "b. Lay flat",
+      "c. Encourage fluids",
+      "d. Administer antidiarrheals",
+      "**Answer: A**",
+      "**Rationale:** Upright position and oxygen improve oxygenation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 78,
+    "stem": "** Which test is used to diagnose peripheral arterial disease?",
+    "raw_lines": [
+      "**78.** Which test is used to diagnose peripheral arterial disease?",
+      "a. Ankle-Brachial Index (ABI)",
+      "b. Chest X-ray",
+      "c. Echocardiogram",
+      "d. Troponin levels",
+      "**Answer: A**",
+      "**Rationale:** ABI is the primary noninvasive test for PAD.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 79,
+    "stem": "** A patient taking both digoxin and a diuretic is at increased risk for:",
+    "raw_lines": [
+      "**79.** A patient taking both digoxin and a diuretic is at increased risk for:",
+      "a. Digoxin toxicity (due to hypokalemia)",
+      "b. Hyperkalemia",
+      "c. Hypertension",
+      "d. Bradycardia only",
+      "**Answer: A**",
+      "**Rationale:** Low potassium potentiates digoxin toxicity.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 80,
+    "stem": "** The nurse should teach a patient with angina to stop activity and take nitroglycerin when:",
+    "raw_lines": [
+      "**80.** The nurse should teach a patient with angina to stop activity and take nitroglycerin when:",
+      "a. Pain occurs",
+      "b. Shortness of breath occurs",
+      "c. Both A and B",
+      "d. Only when pain is severe",
+      "**Here's Batch 5 (Questions 81–100)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 81,
+    "stem": "** The nurse is caring for a patient with a new diagnosis of hypertension. The priority nursing diagnosis is:",
+    "raw_lines": [
+      "**81.** The nurse is caring for a patient with a new diagnosis of hypertension. The priority nursing diagnosis is:",
+      "a. Deficient Knowledge",
+      "b. Risk for Ineffective Tissue Perfusion",
+      "c. Acute Pain",
+      "d. Anxiety",
+      "**Answer: A**",
+      "**Rationale:** Education on lifestyle and medication adherence is a priority for newly diagnosed patients.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 82,
+    "stem": "** A patient with heart failure should be taught to weigh daily at the same time:",
+    "raw_lines": [
+      "**82.** A patient with heart failure should be taught to weigh daily at the same time:",
+      "a. After breakfast",
+      "b. Before breakfast, after voiding",
+      "c. At bedtime",
+      "d. After exercise",
+      "**Answer: B**",
+      "**Rationale:** Consistent conditions allow accurate detection of fluid retention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 83,
+    "stem": "** Which drug is used to treat hypertensive crisis?",
+    "raw_lines": [
+      "**83.** Which drug is used to treat hypertensive crisis?",
+      "a. Nitroprusside or labetalol (IV)",
+      "b. Oral diuretic",
+      "c. Aspirin",
+      "d. Antacid",
+      "**Answer: A**",
+      "**Rationale:** IV vasodilators are used for rapid BP reduction in hypertensive emergency.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 84,
+    "stem": "** The classic symptom of intermittent claudication is pain that:",
+    "raw_lines": [
+      "**84.** The classic symptom of intermittent claudication is pain that:",
+      "a. Occurs at rest",
+      "b. Is relieved by elevation",
+      "c. Occurs with activity and is relieved by rest",
+      "d. Is constant and burning",
+      "**Answer: C**",
+      "**Rationale:** Pain with exertion relieved by rest defines claudication.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 85,
+    "stem": "** A patient on warfarin has an INR of 5.0. The nurse should:",
+    "raw_lines": [
+      "**85.** A patient on warfarin has an INR of 5.0. The nurse should:",
+      "a. Give the next dose as scheduled",
+      "b. Hold the dose and notify the provider",
+      "c. Increase the dose",
+      "d. Give vitamin K immediately without notifying provider",
+      "**Answer: B**",
+      "**Rationale:** INR >4–5 is supratherapeutic and increases bleeding risk.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 86,
+    "stem": "** The best way to reduce afterload in heart failure is with:",
+    "raw_lines": [
+      "**86.** The best way to reduce afterload in heart failure is with:",
+      "a. Diuretics",
+      "b. ACE inhibitors or ARBs",
+      "c. Beta-blockers only",
+      "d. Digoxin",
+      "**Answer: B**",
+      "**Rationale:** ACEIs/ARBs are vasodilators that reduce afterload.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 87,
+    "stem": "** A patient with suspected aortic dissection would most likely complain of:",
+    "raw_lines": [
+      "**87.** A patient with suspected aortic dissection would most likely complain of:",
+      "a. Sudden tearing chest pain radiating to the back",
+      "b. Mild substernal pressure",
+      "c. Intermittent claudication",
+      "d. Calf pain",
+      "**Answer: A**",
+      "**Rationale:** Sudden, severe tearing pain is classic for aortic dissection.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 88,
+    "stem": "** The nurse should monitor for which side effect in a patient taking a calcium channel blocker?",
+    "raw_lines": [
+      "**88.** The nurse should monitor for which side effect in a patient taking a calcium channel blocker?",
+      "a. Constipation and peripheral edema",
+      "b. Dry cough",
+      "c. Hyperkalemia",
+      "d. Bradycardia only",
+      "**Answer: A**",
+      "**Rationale:** CCBs commonly cause constipation and ankle edema.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 89,
+    "stem": "** The priority action for a patient experiencing ventricular fibrillation is:",
+    "raw_lines": [
+      "**89.** The priority action for a patient experiencing ventricular fibrillation is:",
+      "a. Defibrillation",
+      "b. Administer amiodarone",
+      "c. Start CPR only",
+      "d. Give atropine",
+      "**Answer: A**",
+      "**Rationale:** Immediate defibrillation is the treatment for VF.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 90,
+    "stem": "** A patient with chronic stable angina should be taught to:",
+    "raw_lines": [
+      "**90.** A patient with chronic stable angina should be taught to:",
+      "a. Avoid all physical activity",
+      "b. Use nitroglycerin before planned exertion",
+      "c. Take nitroglycerin every 6 hours",
+      "d. Ignore mild chest discomfort",
+      "**Answer: B**",
+      "**Rationale:** Prophylactic nitroglycerin can prevent angina episodes.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 91,
+    "stem": "** Which assessment finding is expected in a patient with left-sided heart failure?",
+    "raw_lines": [
+      "**91.** Which assessment finding is expected in a patient with left-sided heart failure?",
+      "a. Jugular vein distention",
+      "b. Bilateral crackles in lungs",
+      "c. Ascites",
+      "d. Peripheral edema only",
+      "**Answer: B**",
+      "**Rationale:** Pulmonary congestion causes crackles.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 92,
+    "stem": "** The most common cause of secondary hypertension in older adults is:",
+    "raw_lines": [
+      "**92.** The most common cause of secondary hypertension in older adults is:",
+      "a. Renal artery stenosis",
+      "b. Coarctation of the aorta",
+      "c. Pheochromocytoma",
+      "d. Primary (essential) hypertension",
+      "**Answer: A**",
+      "**Rationale:** Renal artery stenosis is a frequent cause of secondary HTN.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 93,
+    "stem": "** A patient post-MI should be encouraged to:",
+    "raw_lines": [
+      "**93.** A patient post-MI should be encouraged to:",
+      "a. Resume all normal activities immediately",
+      "b. Participate in cardiac rehabilitation",
+      "c. Avoid all exercise",
+      "d. Stay on strict bedrest for 6 weeks",
+      "**Answer: B**",
+      "**Rationale:** Cardiac rehab improves outcomes and confidence.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 94,
+    "stem": "** The nurse should teach a patient taking beta-blockers to:",
+    "raw_lines": [
+      "**94.** The nurse should teach a patient taking beta-blockers to:",
+      "a. Never stop the medication abruptly",
+      "b. Take it only when BP is high",
+      "c. Expect increased heart rate",
+      "d. Avoid all exercise",
+      "**Answer: A**",
+      "**Rationale:** Abrupt withdrawal can cause rebound hypertension or angina.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 95,
+    "stem": "** Which food is highest in sodium and should be limited in hypertension?",
+    "raw_lines": [
+      "**95.** Which food is highest in sodium and should be limited in hypertension?",
+      "a. Fresh fruits",
+      "b. Canned soups and processed meats",
+      "c. Unsalted nuts",
+      "d. Fresh vegetables",
+      "**Answer: B**",
+      "**Rationale:** Processed and canned foods are major sources of sodium.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 96,
+    "stem": "** The nurse recognizes that cardiac output is calculated as:",
+    "raw_lines": [
+      "**96.** The nurse recognizes that cardiac output is calculated as:",
+      "a. Heart rate × stroke volume",
+      "b. Blood pressure × vascular resistance",
+      "c. Preload + afterload",
+      "d. Contractility only",
+      "**Answer: A**",
+      "**Rationale:** CO = HR × SV.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 97,
+    "stem": "** A patient with pericarditis is likely to have pain that:",
+    "raw_lines": [
+      "**97.** A patient with pericarditis is likely to have pain that:",
+      "a. Improves when leaning forward",
+      "b. Worsens when leaning forward",
+      "c. Is relieved by lying flat",
+      "d. Radiates only to the arm",
+      "**Answer: A**",
+      "**Rationale:** Leaning forward reduces pericardial irritation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 98,
+    "stem": "** The best indicator of fluid overload in heart failure is:",
+    "raw_lines": [
+      "**98.** The best indicator of fluid overload in heart failure is:",
+      "a. Daily weight gain",
+      "b. Increased urine output",
+      "c. Decreased blood pressure",
+      "d. Clear lung sounds",
+      "**Answer: A**",
+      "**Rationale:** Rapid weight gain is the most sensitive indicator of fluid retention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 99,
+    "stem": "** A patient with a mechanical heart valve will require:",
+    "raw_lines": [
+      "**99.** A patient with a mechanical heart valve will require:",
+      "a. Lifelong anticoagulation",
+      "b. No medication",
+      "c. Short-term antibiotics only",
+      "d. Diuretics only",
+      "**Answer: A**",
+      "**Rationale:** Mechanical valves require lifelong warfarin to prevent thrombosis.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 100,
+    "stem": "** The nurse should encourage smoking cessation because it:",
+    "raw_lines": [
+      "**100.** The nurse should encourage smoking cessation because it:",
+      "a. Has no effect on cardiovascular disease",
+      "b. Immediately improves endothelial function and reduces risk",
+      "c. Only helps after 10 years",
+      "d. Increases HDL cholesterol",
+      "**Answer: B**",
+      "**Rationale:** Benefits of quitting begin within hours to days.",
+      "---",
+      "**Here's Batch 6 (Questions 101–120)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 101,
+    "stem": "** The nurse is assessing a patient with possible heart failure. Which finding is consistent with left-sided failure?",
+    "raw_lines": [
+      "**101.** The nurse is assessing a patient with possible heart failure. Which finding is consistent with left-sided failure?",
+      "a. Jugular vein distention",
+      "b. Orthopnea and paroxysmal nocturnal dyspnea",
+      "c. Hepatomegaly",
+      "d. Dependent edema",
+      "**Answer: B**",
+      "**Rationale:** Left-sided failure causes backup into the pulmonary system, leading to orthopnea and PND.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 102,
+    "stem": "** A patient taking a statin should be monitored for:",
+    "raw_lines": [
+      "**102.** A patient taking a statin should be monitored for:",
+      "a. Muscle pain or weakness (rhabdomyolysis)",
+      "b. Hypertension",
+      "c. Bradycardia",
+      "d. Dry cough",
+      "**Answer: A**",
+      "**Rationale:** Myopathy is a serious side effect of statins.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 103,
+    "stem": "** The best way to prevent venous thromboembolism in a postoperative patient is:",
+    "raw_lines": [
+      "**103.** The best way to prevent venous thromboembolism in a postoperative patient is:",
+      "a. Early ambulation and SCDs/compression stockings",
+      "b. Strict bedrest",
+      "c. High-dose aspirin only",
+      "d. Leg massage",
+      "**Answer: A**",
+      "**Rationale:** Mobility and mechanical prophylaxis are key.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 104,
+    "stem": "** A patient with atrial fibrillation is at risk for:",
+    "raw_lines": [
+      "**104.** A patient with atrial fibrillation is at risk for:",
+      "a. Embolic stroke",
+      "b. Pulmonary embolism only",
+      "c. Myocardial infarction only",
+      "d. Aortic rupture",
+      "**Answer: A**",
+      "**Rationale:** Atrial stasis leads to thrombus formation and embolization to the brain.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 105,
+    "stem": "** The nurse should teach a patient with hypertension to avoid:",
+    "raw_lines": [
+      "**105.** The nurse should teach a patient with hypertension to avoid:",
+      "a. Sudden changes in position (to prevent orthostatic hypotension)",
+      "b. All exercise",
+      "c. Potassium-rich foods",
+      "d. Fluid intake",
+      "**Answer: A**",
+      "**Rationale:** Many antihypertensives cause postural hypotension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 106,
+    "stem": "** Which symptom is most indicative of arterial insufficiency in the legs?",
+    "raw_lines": [
+      "**106.** Which symptom is most indicative of arterial insufficiency in the legs?",
+      "a. Pain with walking relieved by rest (claudication)",
+      "b. Pain relieved by elevation",
+      "c. Warm, edematous legs",
+      "d. Brownish discoloration around ankles",
+      "**Answer: A**",
+      "**Rationale:** Claudication is hallmark of arterial disease.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 107,
+    "stem": "** The primary goal of treatment for a patient with acute MI is to:",
+    "raw_lines": [
+      "**107.** The primary goal of treatment for a patient with acute MI is to:",
+      "a. Reperfuse the myocardium as quickly as possible",
+      "b. Increase preload",
+      "c. Decrease contractility",
+      "d. Restrict all activity permanently",
+      "**Answer: A**",
+      "**Rationale:** Timely reperfusion (PCI or thrombolytics) limits infarct size.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 108,
+    "stem": "** A patient with heart failure is prescribed spironolactone. The nurse should monitor for:",
+    "raw_lines": [
+      "**108.** A patient with heart failure is prescribed spironolactone. The nurse should monitor for:",
+      "a. Hyperkalemia",
+      "b. Hypokalemia",
+      "c. Hyponatremia",
+      "d. Hypoglycemia",
+      "**Answer: A**",
+      "**Rationale:** Spironolactone is potassium-sparing.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 109,
+    "stem": "** The nurse knows that afterload is primarily determined by:",
+    "raw_lines": [
+      "**109.** The nurse knows that afterload is primarily determined by:",
+      "a. Systemic vascular resistance",
+      "b. Venous return",
+      "c. Heart rate",
+      "d. Preload",
+      "**Answer: A**",
+      "**Rationale:** Afterload is the resistance the left ventricle must overcome.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 110,
+    "stem": "** A patient with a venous leg ulcer should have the leg:",
+    "raw_lines": [
+      "**110.** A patient with a venous leg ulcer should have the leg:",
+      "a. Elevated",
+      "b. Dependent",
+      "c. Wrapped tightly with elastic bandages",
+      "d. Kept flat",
+      "**Answer: A**",
+      "**Rationale:** Elevation reduces venous hypertension.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 111,
+    "stem": "** Which medication is contraindicated in a patient with asthma and hypertension?",
+    "raw_lines": [
+      "**111.** Which medication is contraindicated in a patient with asthma and hypertension?",
+      "a. Non-selective beta-blockers",
+      "b. ACE inhibitors",
+      "c. Calcium channel blockers",
+      "d. Diuretics",
+      "**Answer: A**",
+      "**Rationale:** Non-selective beta-blockers can cause bronchospasm.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 112,
+    "stem": "** The most reliable indicator of cardiac tamponade is:",
+    "raw_lines": [
+      "**112.** The most reliable indicator of cardiac tamponade is:",
+      "a. Pulsus paradoxus",
+      "b. Hypertension",
+      "c. Bounding pulses",
+      "d. Clear lung sounds",
+      "**Answer: A**",
+      "**Rationale:** Pulsus paradoxus (exaggerated drop in SBP on inspiration) is classic.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 113,
+    "stem": "** A patient post-cardiac surgery should be monitored closely for:",
+    "raw_lines": [
+      "**113.** A patient post-cardiac surgery should be monitored closely for:",
+      "a. Bleeding from chest tubes and dysrhythmias",
+      "b. Increased appetite",
+      "c. Weight loss",
+      "d. Constipation",
+      "**Answer: A**",
+      "**Rationale:** Hemorrhage and arrhythmias are common early complications.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 114,
+    "stem": "** The DASH diet emphasizes:",
+    "raw_lines": [
+      "**114.** The DASH diet emphasizes:",
+      "a. Fruits, vegetables, low-fat dairy, and reduced sodium",
+      "b. High protein and high fat",
+      "c. Low carbohydrate only",
+      "d. Unlimited processed foods",
+      "**Answer: A**",
+      "**Rationale:** DASH diet is proven to lower blood pressure.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 115,
+    "stem": "** The nurse should instruct a patient with angina to call 911 if chest pain:",
+    "raw_lines": [
+      "**115.** The nurse should instruct a patient with angina to call 911 if chest pain:",
+      "a. Is relieved after 3 nitroglycerin doses",
+      "b. Is not relieved after 3 nitroglycerin doses",
+      "c. Lasts less than 5 minutes",
+      "d. Occurs only with extreme exertion",
+      "**Answer: B**",
+      "**Rationale:** Unrelieved pain after 3 doses may indicate acute coronary syndrome.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 116,
+    "stem": "** Which lab test is elevated in myocardial injury?",
+    "raw_lines": [
+      "**116.** Which lab test is elevated in myocardial injury?",
+      "a. Troponin",
+      "b. BNP only",
+      "c. INR",
+      "d. aPTT",
+      "**Answer: A**",
+      "**Rationale:** Troponin is the most specific marker for MI.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 117,
+    "stem": "** A patient with peripheral arterial disease should avoid:",
+    "raw_lines": [
+      "**117.** A patient with peripheral arterial disease should avoid:",
+      "a. Tobacco use",
+      "b. Walking programs",
+      "c. Foot care",
+      "d. Blood pressure control",
+      "**Answer: A**",
+      "**Rationale:** Smoking is the strongest risk factor and worsens PAD dramatically.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 118,
+    "stem": "** The term “ejection fraction” refers to:",
+    "raw_lines": [
+      "**118.** The term “ejection fraction” refers to:",
+      "a. Percentage of blood ejected from the left ventricle with each beat",
+      "b. Total blood volume",
+      "c. Heart rate",
+      "d. Vascular resistance",
+      "**Answer: A**",
+      "**Rationale:** EF is a key measure of left ventricular function.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 119,
+    "stem": "** A common side effect of nitrates is:",
+    "raw_lines": [
+      "**119.** A common side effect of nitrates is:",
+      "a. Headache",
+      "b. Hypertension",
+      "c. Bradycardia",
+      "d. Constipation",
+      "**Answer: A**",
+      "**Rationale:** Vasodilation often causes headaches.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 120,
+    "stem": "** The nurse should teach a patient with heart failure to report which symptom immediately?",
+    "raw_lines": [
+      "**120.** The nurse should teach a patient with heart failure to report which symptom immediately?",
+      "a. Shortness of breath at rest or waking up at night",
+      "b. Mild fatigue",
+      "c. Slight ankle swelling that resolves with elevation",
+      "d. Increased appetite",
+      "**Answer: A**",
+      "**Rationale:** These indicate worsening pulmonary congestion.",
+      "---",
+      "**Here's Batch 7 (Questions 121–140)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 121,
+    "stem": "** The nurse is caring for a patient with hypertensive crisis. The priority action is to:",
+    "raw_lines": [
+      "**121.** The nurse is caring for a patient with hypertensive crisis. The priority action is to:",
+      "a. Reduce blood pressure gradually with IV medications",
+      "b. Reduce BP rapidly to normal levels immediately",
+      "c. Encourage oral fluids",
+      "d. Place the patient in Trendelenburg position",
+      "**Answer: A**",
+      "**Rationale:** Rapid reduction can cause cerebral ischemia; gradual controlled reduction is safer.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 122,
+    "stem": "** A patient with a history of MI should be taught to avoid:",
+    "raw_lines": [
+      "**122.** A patient with a history of MI should be taught to avoid:",
+      "a. Isometric exercises (e.g., heavy lifting)",
+      "b. Moderate walking",
+      "c. Cardiac rehabilitation",
+      "d. Low-sodium diet",
+      "**Answer: A**",
+      "**Rationale:** Isometric activity increases myocardial oxygen demand significantly.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 123,
+    "stem": "** The best indicator that a patient with heart failure is responding to diuretic therapy is:",
+    "raw_lines": [
+      "**123.** The best indicator that a patient with heart failure is responding to diuretic therapy is:",
+      "a. Decreased daily weight",
+      "b. Increased heart rate",
+      "c. Decreased urine output",
+      "d. Increased edema",
+      "**Answer: A**",
+      "**Rationale:** Weight loss reflects fluid removal.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 124,
+    "stem": "** Which statement by a patient with PAD indicates good understanding?",
+    "raw_lines": [
+      "**124.** Which statement by a patient with PAD indicates good understanding?",
+      "a. “I will stop smoking and walk daily.”",
+      "b. “I can cross my legs when sitting.”",
+      "c. “I should keep my legs elevated all the time.”",
+      "d. “Warm soaks are good for my legs.”",
+      "**Answer: A**",
+      "**Rationale:** Smoking cessation and supervised walking are cornerstone treatments.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 125,
+    "stem": "** The nurse knows that BNP (B-type natriuretic peptide) is elevated in:",
+    "raw_lines": [
+      "**125.** The nurse knows that BNP (B-type natriuretic peptide) is elevated in:",
+      "a. Heart failure",
+      "b. Hypertension only",
+      "c. PAD",
+      "d. Varicose veins",
+      "**Answer: A**",
+      "**Rationale:** BNP is released in response to ventricular stretch in HF.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 126,
+    "stem": "** A patient taking digoxin and furosemide is at risk for:",
+    "raw_lines": [
+      "**126.** A patient taking digoxin and furosemide is at risk for:",
+      "a. Hypokalemia leading to digoxin toxicity",
+      "b. Hyperkalemia",
+      "c. Hyponatremia",
+      "d. Metabolic acidosis",
+      "**Answer: A**",
+      "**Rationale:** Potassium loss from diuretics increases digoxin toxicity risk.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 127,
+    "stem": "** The priority nursing intervention for a patient with acute pulmonary edema is:",
+    "raw_lines": [
+      "**127.** The priority nursing intervention for a patient with acute pulmonary edema is:",
+      "a. Administer oxygen and place in high Fowler’s position",
+      "b. Restrict fluids completely",
+      "c. Encourage ambulation",
+      "d. Give oral diuretics slowly",
+      "**Answer: A**",
+      "**Rationale:** Oxygen and upright positioning improve oxygenation immediately.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 128,
+    "stem": "** Which medication is used to treat symptomatic bradycardia?",
+    "raw_lines": [
+      "**128.** Which medication is used to treat symptomatic bradycardia?",
+      "a. Atropine",
+      "b. Beta-blockers",
+      "c. Calcium channel blockers",
+      "d. ACE inhibitors",
+      "**Answer: A**",
+      "**Rationale:** Atropine increases heart rate by blocking vagal effects.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 129,
+    "stem": "** A patient with an implantable cardioverter-defibrillator (ICD) should be taught to:",
+    "raw_lines": [
+      "**129.** A patient with an implantable cardioverter-defibrillator (ICD) should be taught to:",
+      "a. Avoid strong magnetic fields",
+      "b. Carry an ICD identification card",
+      "c. Both A and B",
+      "d. Ignore shocks",
+      "**Answer: C**",
+      "**Rationale:** Magnetic fields can interfere; ID card is essential.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 130,
+    "stem": "** The most common cause of mitral stenosis is:",
+    "raw_lines": [
+      "**130.** The most common cause of mitral stenosis is:",
+      "a. Rheumatic heart disease",
+      "b. Hypertension",
+      "c. Congenital defect",
+      "d. Myocardial infarction",
+      "**Answer: A**",
+      "**Rationale:** Rheumatic fever is the leading cause of mitral stenosis.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 131,
+    "stem": "** The nurse should assess for which complication in a patient with an arterial line?",
+    "raw_lines": [
+      "**131.** The nurse should assess for which complication in a patient with an arterial line?",
+      "a. Infection and thrombosis",
+      "b. Hypotension only",
+      "c. Hyperglycemia",
+      "d. Constipation",
+      "**Answer: A**",
+      "**Rationale:** Invasive lines carry risk of infection and clotting.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 132,
+    "stem": "** A patient with varicose veins should avoid:",
+    "raw_lines": [
+      "**132.** A patient with varicose veins should avoid:",
+      "a. Prolonged standing or sitting",
+      "b. Walking",
+      "c. Leg elevation",
+      "d. Compression stockings",
+      "**Answer: A**",
+      "**Rationale:** Prolonged immobility worsens venous pooling.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 133,
+    "stem": "** The target INR for a patient with a mechanical mitral valve is usually:",
+    "raw_lines": [
+      "**133.** The target INR for a patient with a mechanical mitral valve is usually:",
+      "a. 2.0–3.0",
+      "b. 2.5–3.5",
+      "c. 1.5–2.0",
+      "d. 3.5–4.5",
+      "**Answer: B**",
+      "**Rationale:** Higher INR range for mitral valves due to higher thrombosis risk.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 134,
+    "stem": "** The nurse recognizes that cardiac tamponade can cause:",
+    "raw_lines": [
+      "**134.** The nurse recognizes that cardiac tamponade can cause:",
+      "a. Equalization of diastolic pressures",
+      "b. Hypertension",
+      "c. Bounding pulses",
+      "d. Clear heart sounds",
+      "**Answer: A**",
+      "**Rationale:** Fluid in the pericardium equalizes pressures.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 135,
+    "stem": "** Which lifestyle change has the greatest effect on lowering blood pressure?",
+    "raw_lines": [
+      "**135.** Which lifestyle change has the greatest effect on lowering blood pressure?",
+      "a. Weight reduction",
+      "b. Sodium restriction alone",
+      "c. Increasing potassium only",
+      "d. Stress management alone",
+      "**Answer: A**",
+      "**Rationale:** Weight loss has the most significant impact.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 136,
+    "stem": "** A patient with suspected endocarditis should be assessed for:",
+    "raw_lines": [
+      "**136.** A patient with suspected endocarditis should be assessed for:",
+      "a. New heart murmur and fever",
+      "b. Intermittent claudication",
+      "c. Orthostatic hypotension",
+      "d. Peripheral edema only",
+      "**Answer: A**",
+      "**Rationale:** Fever and new murmur are classic signs.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 137,
+    "stem": "** The best position for a patient with pericarditis pain is:",
+    "raw_lines": [
+      "**137.** The best position for a patient with pericarditis pain is:",
+      "a. Sitting and leaning forward",
+      "b. Supine with knees flexed",
+      "c. Left lateral decubitus",
+      "d. Trendelenburg",
+      "**Answer: A**",
+      "**Rationale:** This position reduces pressure on the pericardium.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 138,
+    "stem": "** The nurse should teach a patient on warfarin to report:",
+    "raw_lines": [
+      "**138.** The nurse should teach a patient on warfarin to report:",
+      "a. Any signs of bleeding (bruising, blood in stool/urine)",
+      "b. Mild headache only",
+      "c. Increased energy",
+      "d. Constipation",
+      "**Answer: A**",
+      "**Rationale:** Bleeding is the major risk with anticoagulation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 139,
+    "stem": "** A common complication of untreated atrial fibrillation is:",
+    "raw_lines": [
+      "**139.** A common complication of untreated atrial fibrillation is:",
+      "a. Thromboembolism",
+      "b. Bradycardia",
+      "c. Hypertension",
+      "d. Hypokalemia",
+      "**Answer: A**",
+      "**Rationale:** Clot formation in the atria leads to emboli.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 140,
+    "stem": "** The nurse knows that preload can be decreased by:",
+    "raw_lines": [
+      "**140.** The nurse knows that preload can be decreased by:",
+      "a. Diuretics and venodilators (e.g., nitrates)",
+      "b. Vasoconstrictors",
+      "c. Fluid bolus",
+      "d. Beta-agonists",
+      "**Answer: A**",
+      "**Rationale:** These reduce venous return to the heart.",
+      "---",
+      "**Here's Batch 8 (Questions 141–160)**",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 141,
+    "stem": "** The nurse is caring for a patient with acute decompensated heart failure. The priority assessment is:",
+    "raw_lines": [
+      "**141.** The nurse is caring for a patient with acute decompensated heart failure. The priority assessment is:",
+      "a. Lung sounds and oxygen saturation",
+      "b. Bowel sounds",
+      "c. Peripheral pulses only",
+      "d. Skin turgor",
+      "**Answer: A**",
+      "**Rationale:** Pulmonary edema is life-threatening and requires immediate attention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 142,
+    "stem": "** A patient with a history of angina should be taught to take nitroglycerin:",
+    "raw_lines": [
+      "**142.** A patient with a history of angina should be taught to take nitroglycerin:",
+      "a. At the first sign of chest pain",
+      "b. Only when pain is severe",
+      "c. Daily at bedtime",
+      "d. Before every meal",
+      "**Answer: A**",
+      "**Rationale:** Early use prevents progression to MI.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 143,
+    "stem": "** Which finding is most concerning in a patient with an abdominal aortic aneurysm?",
+    "raw_lines": [
+      "**143.** Which finding is most concerning in a patient with an abdominal aortic aneurysm?",
+      "a. Sudden severe abdominal or back pain",
+      "b. Stable BP of 130/80",
+      "c. Mild bruit",
+      "d. Normal pedal pulses",
+      "**Answer: A**",
+      "**Rationale:** Sudden pain may indicate expansion or rupture — surgical emergency.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 144,
+    "stem": "** The nurse should monitor which lab value in a patient taking an ACE inhibitor?",
+    "raw_lines": [
+      "**144.** The nurse should monitor which lab value in a patient taking an ACE inhibitor?",
+      "a. Serum potassium (risk of hyperkalemia)",
+      "b. Serum sodium only",
+      "c. INR",
+      "d. Troponin",
+      "**Answer: A**",
+      "**Rationale:** ACE inhibitors can cause potassium retention.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 145,
+    "stem": "** A patient with chronic venous insufficiency will most likely have:",
+    "raw_lines": [
+      "**145.** A patient with chronic venous insufficiency will most likely have:",
+      "a. Stasis dermatitis and ulceration around the ankles",
+      "b. Sharp pain with walking",
+      "c. Absent pedal pulses",
+      "d. Cool, pale legs",
+      "**Answer: A**",
+      "**Rationale:** Chronic venous hypertension leads to skin changes and ulcers.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 146,
+    "stem": "** The best way to confirm the diagnosis of heart failure is:",
+    "raw_lines": [
+      "**146.** The best way to confirm the diagnosis of heart failure is:",
+      "a. Echocardiogram (to assess ejection fraction)",
+      "b. Chest X-ray only",
+      "c. ECG",
+      "d. Cardiac enzymes",
+      "**Answer: A**",
+      "**Rationale:** Echo provides direct visualization of heart function.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 147,
+    "stem": "** A patient taking clopidogrel (Plavix) should be taught to:",
+    "raw_lines": [
+      "**147.** A patient taking clopidogrel (Plavix) should be taught to:",
+      "a. Report any unusual bleeding",
+      "b. Take it with antacids",
+      "c. Stop it before dental procedures without notifying provider",
+      "d. Expect increased energy",
+      "**Answer: A**",
+      "**Rationale:** Antiplatelet therapy increases bleeding risk.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 148,
+    "stem": "** The term “cardiac index” refers to:",
+    "raw_lines": [
+      "**148.** The term “cardiac index” refers to:",
+      "a. Cardiac output adjusted for body surface area",
+      "b. Heart rate only",
+      "c. Stroke volume",
+      "d. Blood pressure",
+      "**Answer: A**",
+      "**Rationale:** Cardiac index is a more accurate measure of cardiac performance.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 149,
+    "stem": "** The nurse should instruct a patient with a pacemaker to:",
+    "raw_lines": [
+      "**149.** The nurse should instruct a patient with a pacemaker to:",
+      "a. Avoid MRI unless the device is MRI-compatible",
+      "b. Use cell phone on the same side as the pacemaker",
+      "c. Lift heavy objects with the affected arm",
+      "d. Ignore any dizziness",
+      "**Answer: A**",
+      "**Rationale:** Strong magnetic fields can interfere with pacemaker function.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 150,
+    "stem": "** Which medication is commonly prescribed for rate control in atrial fibrillation?",
+    "raw_lines": [
+      "**150.** Which medication is commonly prescribed for rate control in atrial fibrillation?",
+      "a. Beta-blockers or digoxin",
+      "b. Nitroglycerin",
+      "c. Warfarin only",
+      "d. Statins",
+      "**Answer: A**",
+      "**Rationale:** These slow the ventricular response.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 151,
+    "stem": "** The priority goal in the management of cardiogenic shock is to:",
+    "raw_lines": [
+      "**151.** The priority goal in the management of cardiogenic shock is to:",
+      "a. Improve cardiac output and tissue perfusion",
+      "b. Increase preload aggressively",
+      "c. Restrict all fluids",
+      "d. Administer beta-blockers",
+      "**Answer: A**",
+      "**Rationale:** Maintaining perfusion is critical.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 152,
+    "stem": "** A patient with pericarditis is at risk for:",
+    "raw_lines": [
+      "**152.** A patient with pericarditis is at risk for:",
+      "a. Cardiac tamponade",
+      "b. Pulmonary embolism",
+      "c. Hypertension",
+      "d. Hypovolemia",
+      "**Answer: A**",
+      "**Rationale:** Fluid accumulation in the pericardial sac can lead to tamponade.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 153,
+    "stem": "** The nurse knows that the most common cause of primary (essential) hypertension is:",
+    "raw_lines": [
+      "**153.** The nurse knows that the most common cause of primary (essential) hypertension is:",
+      "a. Multifactorial (genetic + lifestyle)",
+      "b. Renal disease",
+      "c. Endocrine disorder",
+      "d. Coarctation of the aorta",
+      "**Answer: A**",
+      "**Rationale:** Most cases of hypertension have no single identifiable cause.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 154,
+    "stem": "** A patient with suspected DVT should have which diagnostic test?",
+    "raw_lines": [
+      "**154.** A patient with suspected DVT should have which diagnostic test?",
+      "a. Duplex ultrasound",
+      "b. Chest X-ray",
+      "c. Troponin level",
+      "d. ECG",
+      "**Answer: A**",
+      "**Rationale:** Duplex ultrasound is the primary test for DVT.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 155,
+    "stem": "** The nurse should teach a patient taking nitroglycerin to:",
+    "raw_lines": [
+      "**155.** The nurse should teach a patient taking nitroglycerin to:",
+      "a. Sit or lie down before taking it to prevent dizziness",
+      "b. Stand quickly after taking it",
+      "c. Take it with food",
+      "d. Chew the tablet",
+      "**Answer: A**",
+      "**Rationale:** Orthostatic hypotension is common with nitrates.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 156,
+    "stem": "** Which symptom is typical of right-sided heart failure?",
+    "raw_lines": [
+      "**156.** Which symptom is typical of right-sided heart failure?",
+      "a. Peripheral edema and JVD",
+      "b. Crackles and dyspnea",
+      "c. Orthopnea",
+      "d. Paroxysmal nocturnal dyspnea",
+      "**Answer: A**",
+      "**Rationale:** Systemic congestion is characteristic of right-sided failure.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 157,
+    "stem": "** The best exercise for patients with PAD is:",
+    "raw_lines": [
+      "**157.** The best exercise for patients with PAD is:",
+      "a. Supervised walking program to the point of pain",
+      "b. Complete rest",
+      "c. High-impact aerobics",
+      "d. Weight lifting",
+      "**Answer: A**",
+      "**Rationale:** This promotes collateral circulation development.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 158,
+    "stem": "** A patient with heart failure and atrial fibrillation may be prescribed:",
+    "raw_lines": [
+      "**158.** A patient with heart failure and atrial fibrillation may be prescribed:",
+      "a. Anticoagulant therapy (e.g., warfarin or DOAC)",
+      "b. Beta-blocker for rate control",
+      "c. Both A and B",
+      "d. Neither",
+      "**Answer: C**",
+      "**Rationale:** Rate control and stroke prevention are both important.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 159,
+    "stem": "** The nurse should assess for which complication in a patient with an intra-aortic balloon pump?",
+    "raw_lines": [
+      "**159.** The nurse should assess for which complication in a patient with an intra-aortic balloon pump?",
+      "a. Limb ischemia in the affected leg",
+      "b. Hypertension",
+      "c. Bradycardia",
+      "d. Hypoglycemia",
+      "**Answer: A**",
+      "**Rationale:** The balloon can obstruct blood flow to the leg.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 160,
+    "stem": "** The most important modifiable risk factor for stroke in a patient with hypertension is:",
+    "raw_lines": [
+      "**160.** The most important modifiable risk factor for stroke in a patient with hypertension is:",
+      "a. Blood pressure control",
+      "b. Weight gain",
+      "c. High potassium intake",
+      "d. Low exercise",
+      "**Answer: A**",
+      "**Rationale:** Hypertension is the leading modifiable risk factor for stroke.",
+      "---",
+      "**Here's the final Batch 9 (Questions 161–180+)** — wrapping up the main set from Chapters 33–36.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 161,
+    "stem": "** The nurse is teaching a patient about the importance of medication adherence in hypertension. The best statement is:",
+    "raw_lines": [
+      "**161.** The nurse is teaching a patient about the importance of medication adherence in hypertension. The best statement is:",
+      "a. “You can stop the medication when your BP is normal for 2 weeks.”",
+      "b. “Consistent daily medication is needed because hypertension is a chronic condition.”",
+      "c. “Take the medication only when you feel symptoms.”",
+      "d. “Herbal supplements can replace prescription medication.”",
+      "**Answer: B**",
+      "**Rationale:** Hypertension is chronic and usually requires lifelong management.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 162,
+    "stem": "** A patient with a mechanical valve replacement will need:",
+    "raw_lines": [
+      "**162.** A patient with a mechanical valve replacement will need:",
+      "a. Lifelong anticoagulation therapy",
+      "b. Short-term antibiotics only",
+      "c. No special precautions",
+      "d. Daily aspirin only",
+      "**Answer: A**",
+      "**Rationale:** Mechanical valves have high risk of thrombus formation.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 163,
+    "stem": "** The nurse knows that the S3 heart sound is often associated with:",
+    "raw_lines": [
+      "**163.** The nurse knows that the S3 heart sound is often associated with:",
+      "a. Heart failure (volume overload)",
+      "b. Normal finding in young adults",
+      "c. Pericarditis",
+      "d. Aortic stenosis",
+      "**Answer: A**",
+      "**Rationale:** S3 (ventricular gallop) indicates fluid overload in adults.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 164,
+    "stem": "** A patient with suspected venous thromboembolism should be assessed for:",
+    "raw_lines": [
+      "**164.** A patient with suspected venous thromboembolism should be assessed for:",
+      "a. Homans’ sign (though not reliable) and unilateral leg swelling",
+      "b. Bilateral cool extremities",
+      "c. Intermittent claudication",
+      "d. Sharp chest pain only",
+      "**Answer: A**",
+      "**Rationale:** Unilateral swelling is a key finding.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 165,
+    "stem": "** The priority nursing diagnosis for a patient in cardiogenic shock is:",
+    "raw_lines": [
+      "**165.** The priority nursing diagnosis for a patient in cardiogenic shock is:",
+      "a. Decreased Cardiac Output",
+      "b. Risk for Infection",
+      "c. Acute Pain",
+      "d. Deficient Knowledge",
+      "**Answer: A**",
+      "**Rationale:** Improving cardiac output is the immediate priority.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 166,
+    "stem": "** The nurse should teach a patient taking a statin to report:",
+    "raw_lines": [
+      "**166.** The nurse should teach a patient taking a statin to report:",
+      "a. Unexplained muscle pain or dark urine",
+      "b. Mild headache",
+      "c. Increased appetite",
+      "d. Constipation",
+      "**Answer: A**",
+      "**Rationale:** These may indicate rhabdomyolysis.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 167,
+    "stem": "** Which intervention is most important for a patient with an arterial ulcer on the toe?",
+    "raw_lines": [
+      "**167.** Which intervention is most important for a patient with an arterial ulcer on the toe?",
+      "a. Keep the foot dependent",
+      "b. Apply moist dressings and protect from trauma",
+      "c. Elevate the leg above heart level constantly",
+      "d. Apply heat",
+      "**Answer: B**",
+      "**Rationale:** Arterial ulcers need protection and careful perfusion management.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 168,
+    "stem": "** A patient with heart failure should limit fluid intake to approximately:",
+    "raw_lines": [
+      "**168.** A patient with heart failure should limit fluid intake to approximately:",
+      "a. 1.5–2 liters per day (as prescribed)",
+      "b. Unlimited fluids",
+      "c. 500 mL per day",
+      "d. 4 liters per day",
+      "**Answer: A**",
+      "**Rationale:** Fluid restriction helps prevent overload.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 169,
+    "stem": "** The nurse recognizes that pulsus paradoxus is associated with:",
+    "raw_lines": [
+      "**169.** The nurse recognizes that pulsus paradoxus is associated with:",
+      "a. Cardiac tamponade",
+      "b. Hypertension",
+      "c. Aortic stenosis",
+      "d. Atrial fibrillation",
+      "**Answer: A**",
+      "**Rationale:** Exaggerated drop in systolic BP during inspiration.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 170,
+    "stem": "** The best way to assess for peripheral edema is to:",
+    "raw_lines": [
+      "**170.** The best way to assess for peripheral edema is to:",
+      "a. Press over the tibia or ankle and note pitting",
+      "b. Measure abdominal girth",
+      "c. Weigh daily only",
+      "d. Ask the patient if legs feel heavy",
+      "**Answer: A**",
+      "**Rationale:** Pitting edema assessment is standard.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 171,
+    "stem": "** A patient with unstable angina is at high risk for:",
+    "raw_lines": [
+      "**171.** A patient with unstable angina is at high risk for:",
+      "a. Progression to myocardial infarction",
+      "b. Stable angina",
+      "c. Venous thrombosis",
+      "d. Pericarditis",
+      "**Answer: A**",
+      "**Rationale:** Unstable angina is a medical emergency.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 172,
+    "stem": "** The nurse should monitor which electrolyte closely in a patient on loop diuretics and digoxin?",
+    "raw_lines": [
+      "**172.** The nurse should monitor which electrolyte closely in a patient on loop diuretics and digoxin?",
+      "a. Potassium",
+      "b. Sodium",
+      "c. Calcium",
+      "d. Magnesium only",
+      "**Answer: A**",
+      "**Rationale:** Hypokalemia potentiates digoxin toxicity.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 173,
+    "stem": "** Which statement indicates good understanding of lifestyle changes for hypertension?",
+    "raw_lines": [
+      "**173.** Which statement indicates good understanding of lifestyle changes for hypertension?",
+      "a. “I will try to lose weight and reduce salt intake.”",
+      "b. “I can have as much alcohol as I want.”",
+      "c. “Smoking is okay if I exercise.”",
+      "d. “I don’t need to check my BP at home.”",
+      "**Answer: A**",
+      "**Rationale:** Weight loss and sodium reduction are effective.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 174,
+    "stem": "** The most common site for arterial emboli to lodge is the:",
+    "raw_lines": [
+      "**174.** The most common site for arterial emboli to lodge is the:",
+      "a. Lower extremities (femoral/popliteal arteries)",
+      "b. Brain",
+      "c. Kidneys",
+      "d. Arms",
+      "**Answer: A**",
+      "**Rationale:** Lower extremities are common sites.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 175,
+    "stem": "** A patient with aortic stenosis may experience:",
+    "raw_lines": [
+      "**175.** A patient with aortic stenosis may experience:",
+      "a. Syncope, angina, and dyspnea on exertion",
+      "b. Bounding pulses",
+      "c. Hypotension",
+      "d. Bradycardia only",
+      "**Answer: A**",
+      "**Rationale:** Classic triad for symptomatic aortic stenosis.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 176,
+    "stem": "** The nurse should teach a patient with a new pacemaker to:",
+    "raw_lines": [
+      "**176.** The nurse should teach a patient with a new pacemaker to:",
+      "a. Report any redness, swelling, or fever at insertion site",
+      "b. Use the affected arm normally immediately",
+      "c. Ignore dizziness",
+      "d. Sleep on the affected side",
+      "**Answer: A**",
+      "**Rationale:** Signs of infection must be reported promptly.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 177,
+    "stem": "** Which medication class reduces preload?",
+    "raw_lines": [
+      "**177.** Which medication class reduces preload?",
+      "a. Nitrates (venodilators)",
+      "b. Beta-blockers",
+      "c. ACE inhibitors",
+      "d. Statins",
+      "**Answer: A**",
+      "**Rationale:** Nitrates primarily reduce preload.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 178,
+    "stem": "** The best prevention for varicose veins is:",
+    "raw_lines": [
+      "**178.** The best prevention for varicose veins is:",
+      "a. Regular exercise, leg elevation, and avoiding prolonged standing",
+      "b. Tight clothing",
+      "c. High-salt diet",
+      "d. Smoking",
+      "**Answer: A**",
+      "**Rationale:** These promote good venous return.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 179,
+    "stem": "** A patient with heart failure and an EF of 35% has:",
+    "raw_lines": [
+      "**179.** A patient with heart failure and an EF of 35% has:",
+      "a. Reduced ejection fraction (systolic dysfunction)",
+      "b. Preserved ejection fraction",
+      "c. Normal heart function",
+      "d. Diastolic dysfunction only",
+      "**Answer: A**",
+      "**Rationale:** EF <40% indicates systolic HF.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 180,
+    "stem": "** The overall goal of nursing care for patients with cardiovascular disorders is to:",
+    "raw_lines": [
+      "**180.** The overall goal of nursing care for patients with cardiovascular disorders is to:",
+      "a. Improve cardiac output and tissue perfusion while preventing complications",
+      "b. Eliminate all risk factors",
+      "c. Avoid all medications",
+      "d. Focus only on education",
+      "**Answer: A**",
+      "**Rationale:** This is the central goal across cardiac nursing.",
+      "---",
+      "**Here's the final batch** (as much as I could reliably pull):",
+      "### Final Batch 10 (Questions 181–192)"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 181,
+    "stem": "** Which are risk factors for hypertension? (Select all that apply)",
+    "raw_lines": [
+      "**181.** Which are risk factors for hypertension? (Select all that apply)",
+      "a. African American race",
+      "b. Obesity",
+      "c. Smoking",
+      "d. High potassium diet",
+      "e. Family history",
+      "**Answer: A, B, C, E**",
+      "**Rationale:** These are well-established risk factors. High potassium is protective."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 182,
+    "stem": "** The nurse is caring for a patient with heart failure. Which are signs of right-sided failure? (Select all that apply)",
+    "raw_lines": [
+      "**182.** The nurse is caring for a patient with heart failure. Which are signs of right-sided failure? (Select all that apply)",
+      "a. Jugular vein distention",
+      "b. Peripheral edema",
+      "c. Ascites",
+      "d. Crackles in lungs",
+      "e. Orthopnea",
+      "**Answer: A, B, C**",
+      "**Rationale:** Right-sided failure causes systemic congestion. Left-sided causes pulmonary symptoms."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 183,
+    "stem": "** Priority interventions for a patient with suspected MI include: (Select all that apply)",
+    "raw_lines": [
+      "**183.** Priority interventions for a patient with suspected MI include: (Select all that apply)",
+      "a. Oxygen if SpO2 <94%",
+      "b. Aspirin (chewed)",
+      "c. Nitroglycerin",
+      "d. Morphine for pain",
+      "e. Immediate reperfusion therapy",
+      "**Answer: A, B, C, D, E**",
+      "**Rationale:** MONA + reperfusion is standard."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 184,
+    "stem": "** Patient teaching for a patient with PAD includes: (Select all that apply)",
+    "raw_lines": [
+      "**184.** Patient teaching for a patient with PAD includes: (Select all that apply)",
+      "a. Stop smoking",
+      "b. Walk to point of pain then rest",
+      "c. Keep legs dependent when sitting",
+      "d. Inspect feet daily",
+      "e. Wear well-fitting shoes",
+      "**Answer: A, B, C, D, E**",
+      "**Rationale:** All are important for PAD management."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 185,
+    "stem": "** A patient is prescribed warfarin. Which foods should they keep consistent? (Select all that apply)",
+    "raw_lines": [
+      "**185.** A patient is prescribed warfarin. Which foods should they keep consistent? (Select all that apply)",
+      "a. Green leafy vegetables",
+      "b. Broccoli",
+      "c. Bananas",
+      "d. Oranges",
+      "**Answer: A, B**",
+      "**Rationale:** Vitamin K-rich foods affect INR."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 186,
+    "stem": "** Signs of digoxin toxicity include: (Select all that apply)",
+    "raw_lines": [
+      "**186.** Signs of digoxin toxicity include: (Select all that apply)",
+      "a. Nausea/vomiting",
+      "b. Yellow-green halos",
+      "c. Bradycardia",
+      "d. Visual disturbances",
+      "e. Diarrhea",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** GI and visual symptoms are common."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 187,
+    "stem": "** The nurse should monitor for complications of heart failure including: (Select all that apply)",
+    "raw_lines": [
+      "**187.** The nurse should monitor for complications of heart failure including: (Select all that apply)",
+      "a. Pulmonary edema",
+      "b. Atrial fibrillation",
+      "c. Renal failure",
+      "d. Liver congestion",
+      "e. Stroke",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** These are common complications."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 188,
+    "stem": "** Lifestyle modifications for hypertension include: (Select all that apply)",
+    "raw_lines": [
+      "**188.** Lifestyle modifications for hypertension include: (Select all that apply)",
+      "a. DASH diet",
+      "b. Regular aerobic exercise",
+      "c. Weight loss if overweight",
+      "d. Sodium restriction",
+      "e. Alcohol moderation",
+      "**Answer: A, B, C, D, E**",
+      "**Rationale:** All are recommended."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 189,
+    "stem": "** Priority assessment after cardiac catheterization includes: (Select all that apply)",
+    "raw_lines": [
+      "**189.** Priority assessment after cardiac catheterization includes: (Select all that apply)",
+      "a. Distal pulses",
+      "b. Insertion site for bleeding/hematoma",
+      "c. Vital signs frequently",
+      "d. Urine output",
+      "e. Neurological status",
+      "**Answer: A, B, C**",
+      "**Rationale:** Focus on bleeding and perfusion."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 190,
+    "stem": "** Patient teaching for nitroglycerin includes: (Select all that apply)",
+    "raw_lines": [
+      "**190.** Patient teaching for nitroglycerin includes: (Select all that apply)",
+      "a. Sit or lie down before taking",
+      "b. Call 911 if pain not relieved after 3 doses",
+      "c. Store in original container",
+      "d. Replace every 6 months",
+      "e. Take with food",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** Proper storage and use are critical."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 191,
+    "stem": "** Which are signs of cardiac tamponade? (Select all that apply)",
+    "raw_lines": [
+      "**191.** Which are signs of cardiac tamponade? (Select all that apply)",
+      "a. Muffled heart sounds",
+      "b. Hypotension",
+      "c. Jugular vein distention",
+      "d. Pulsus paradoxus",
+      "e. Bounding pulses",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** Beck’s triad + pulsus paradoxus."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 192,
+    "stem": "** The nurse should teach a patient with heart failure to report immediately: (Select all that apply)",
+    "raw_lines": [
+      "**192.** The nurse should teach a patient with heart failure to report immediately: (Select all that apply)",
+      "a. Weight gain of 2–3 lbs in 1–2 days",
+      "b. Increased shortness of breath",
+      "c. Swelling in legs or abdomen",
+      "d. Fatigue that is worsening",
+      "e. Mild cough",
+      "**Answer: A, B, C**",
+      "**Rationale:** These indicate worsening fluid overload.",
+      "---",
+      "**Here’s everything additional I can pull right now** that hasn’t been included in previous batches:",
+      "### New / Additional Questions (Mostly SATA & Varied Formats)"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 193,
+    "stem": "** The nurse is assessing an older adult patient. Which age-related cardiovascular changes should the nurse expect? (Select all that apply)",
+    "raw_lines": [
+      "**193.** The nurse is assessing an older adult patient. Which age-related cardiovascular changes should the nurse expect? (Select all that apply)",
+      "a. Decreased elasticity of blood vessels",
+      "b. Increased blood pressure",
+      "c. Decreased cardiac output",
+      "d. Thickening of heart valves",
+      "e. Increased resting heart rate",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** Aging leads to stiffer vessels, higher BP, reduced compliance, and valve thickening. Resting HR usually stays the same or slightly decreases."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 194,
+    "stem": "** The nurse is teaching a patient about modifiable risk factors for cardiovascular disease. Which are modifiable? (Select all that apply)",
+    "raw_lines": [
+      "**194.** The nurse is teaching a patient about modifiable risk factors for cardiovascular disease. Which are modifiable? (Select all that apply)",
+      "a. Smoking",
+      "b. Obesity",
+      "c. Sedentary lifestyle",
+      "d. Family history",
+      "e. Age",
+      "**Answer: A, B, C**",
+      "**Rationale:** Smoking, obesity, and inactivity are modifiable. Family history and age are not."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 195,
+    "stem": "** Priority nursing interventions for a patient with acute angina include: (Select all that apply)",
+    "raw_lines": [
+      "**195.** Priority nursing interventions for a patient with acute angina include: (Select all that apply)",
+      "a. Administer oxygen",
+      "b. Administer nitroglycerin",
+      "c. Assess pain level",
+      "d. Encourage activity to “walk it off”",
+      "e. Obtain 12-lead ECG",
+      "**Answer: A, B, C, E**",
+      "**Rationale:** MONA protocol + ECG. Activity should be stopped."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 196,
+    "stem": "** The nurse is caring for a patient on heparin. Which assessments are important? (Select all that apply)",
+    "raw_lines": [
+      "**196.** The nurse is caring for a patient on heparin. Which assessments are important? (Select all that apply)",
+      "a. Monitor aPTT",
+      "b. Assess for bleeding",
+      "c. Monitor platelet count (for HIT)",
+      "d. Assess for hypertension",
+      "e. Give IM injections as needed",
+      "**Answer: A, B, C**",
+      "**Rationale:** Heparin requires coagulation monitoring and bleeding precautions. Avoid IM injections."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 197,
+    "stem": "** Patient education for a patient with heart failure includes: (Select all that apply)",
+    "raw_lines": [
+      "**197.** Patient education for a patient with heart failure includes: (Select all that apply)",
+      "a. Daily weights at the same time",
+      "b. Report weight gain of 2–3 lbs in 1–2 days",
+      "c. Low-sodium diet",
+      "d. Fluid restriction as prescribed",
+      "e. Unrestricted activity",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** Activity is usually limited based on tolerance."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 198,
+    "stem": "** Which statements by a patient with hypertension show understanding? (Select all that apply)",
+    "raw_lines": [
+      "**198.** Which statements by a patient with hypertension show understanding? (Select all that apply)",
+      "a. “I will check my blood pressure regularly at home.”",
+      "b. “I will continue my medication even when I feel better.”",
+      "c. “I will reduce salt and eat more fruits and vegetables.”",
+      "d. “I can stop exercising if my BP is normal.”",
+      "e. “I will limit alcohol intake.”",
+      "**Answer: A, B, C, E**",
+      "**Rationale:** Exercise should be continued."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 199,
+    "stem": "** The nurse is assessing a patient with suspected vascular disorder. Which findings suggest arterial disease rather than venous? (Select all that apply)",
+    "raw_lines": [
+      "**199.** The nurse is assessing a patient with suspected vascular disorder. Which findings suggest arterial disease rather than venous? (Select all that apply)",
+      "a. Pain with walking relieved by rest",
+      "b. Cool, pale extremity",
+      "c. Absent or diminished pulses",
+      "d. Brownish discoloration around ankles",
+      "e. Edema that improves with elevation",
+      "**Answer: A, B, C**",
+      "**Rationale:** Arterial: pain on exertion, cool/pale, poor pulses. Venous: discoloration, edema."
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  },
+  {
+    "question_number": 200,
+    "stem": "** Important discharge teaching for a patient after MI includes: (Select all that apply)",
+    "raw_lines": [
+      "**200.** Important discharge teaching for a patient after MI includes: (Select all that apply)",
+      "a. Report chest pain that is not relieved by nitroglycerin",
+      "b. Participate in cardiac rehabilitation",
+      "c. Take medications as prescribed",
+      "d. Avoid heavy lifting for several weeks",
+      "e. Resume all previous activities immediately",
+      "**Answer: A, B, C, D**",
+      "**Rationale:** Gradual return to activity is recommended.",
+      "---"
+    ],
+    "choices": [],
+    "answer": null,
+    "rationale": null
+  }
+]
