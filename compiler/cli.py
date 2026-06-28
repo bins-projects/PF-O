@@ -5,7 +5,7 @@ from pathlib import Path
 from compiler.docx_reader import read_docx
 from compiler.tokenizer import tokenize
 from compiler.parser import parse_questions
-
+from compiler.validator import validate_questions
 
 def main():
     print("PrepFlow Compiler")
@@ -35,7 +35,7 @@ def main():
 
     question_path = output_dir / "03_questions.json"
     questions = parse_questions(str(token_path), str(question_path))
-
+    problems = validate_questions(questions)
     print("Loaded document.")
     print(f"Source: {raw_document['source_path']}")
     print(f"Paragraphs: {raw_document['paragraph_count']}")
@@ -48,7 +48,13 @@ def main():
     print("Parsed questions.")
     print(f"Question blocks: {len(questions)}")
     print(f"Question artifact: {question_path}")
+    
+    print()
+    print("Validation.")
+    print(f"Problems found: {len(problems)}")
 
+    for problem in problems:
+        print(f"- {problem}") 
 
 if __name__ == "__main__":
     main()
