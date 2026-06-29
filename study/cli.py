@@ -2,12 +2,13 @@ from study.loader import load_questions
 from study.question import ask_question
 from study.session import SessionManager
 from study.scoring import ScoreTracker
-
+from study.review import ReviewQueue
 
 def main():
     questions = load_questions()
     session = SessionManager(questions)
     score = ScoreTracker()
+    review = ReviewQueue()
 
     print(f"Loaded {len(questions)} questions.\n")
 
@@ -16,6 +17,9 @@ def main():
         is_correct = ask_question(question)
         score.record_answer(question, is_correct)
 
+        if not is_correct:
+            review.add(question)
+            
         if session.is_block_complete() and session.has_next_question():
             print("\n" + "=" * 40)
             print(f"Block {session.current_block_number()} Complete")
