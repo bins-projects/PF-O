@@ -1,7 +1,8 @@
 class ScoreTracker:
     def __init__(self):
-        self.correct = 0
-        self.missed = 0
+        self.first_attempt_correct = 0
+        self.first_attempt_missed = 0
+        self.review_corrected = 0
         self.completed = 0
         self.missed_questions = []
 
@@ -9,14 +10,19 @@ class ScoreTracker:
         self.completed += 1
 
         if is_correct:
-            self.correct += 1
+            self.first_attempt_correct += 1
         else:
-            self.missed += 1
+            self.first_attempt_missed += 1
             self.missed_questions.append(question)
+
+    def record_review_answer(self, is_correct):
+        if is_correct:
+            self.review_corrected += 1
 
     def summary(self):
         return {
-            "correct": self.correct,
-            "missed": self.missed,
+            "first_attempt_correct": self.first_attempt_correct,
+            "first_attempt_missed": self.first_attempt_missed,
+            "review_corrected": self.review_corrected,
             "completed": self.completed,
         }

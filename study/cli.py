@@ -4,6 +4,7 @@ from study.session import SessionManager
 from study.scoring import ScoreTracker
 from study.review import ReviewQueue
 
+
 def main():
     questions = load_questions()
     session = SessionManager(questions)
@@ -26,16 +27,18 @@ def main():
             print(f"Block {session.current_block_number()} Complete")
             print("=" * 40)
             print(f"You have {review.count()} review question(s).")
+
             while review.has_questions():
                 review_question = review.next_question()
                 print("\n--- Review Question ---")
                 review_correct = ask_question(review_question)
+                score.record_review_answer(review_correct)
 
                 if not review_correct:
                     review.add(review_question)
 
             print("\n" + "=" * 40)
-            print("Review Complete ✓")
+            print("Review Complete ✅")
             print("All missed questions corrected.")
             print("=" * 40)
 
