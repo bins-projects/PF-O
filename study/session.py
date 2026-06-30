@@ -1,5 +1,5 @@
 class SessionManager:
-    def __init__(self, questions, block_size=3):
+    def __init__(self, questions, block_size=15):
         self.questions = questions
         self.current_index = 0
         self.block_size = block_size
