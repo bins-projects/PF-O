@@ -14,7 +14,8 @@ def main():
 
     while session.has_next_question():
         question = session.get_next_question()
-        is_correct = ask_question(question)
+        header = f"Block {session.current_block_number()} • Question {session.question_in_block()} of {session.block_size}"
+        is_correct = ask_question(question, header)
         score.record_answer(question, is_correct)
 
         if not is_correct:

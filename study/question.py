@@ -21,9 +21,14 @@ def check_answer(user_answer, correct_answers):
     return user_set == correct_set
 
 
-def ask_question(question):
+def ask_question(question, header=None):
     print()
-    print(f"Question {question['question_number']}")
+
+    if header:
+        print(header)
+    else:
+        print(f"Question {question['question_number']}")
+
     print()
     print(question["stem"])
     print()
@@ -31,7 +36,6 @@ def ask_question(question):
     print()
 
     answer = input("Your answer: ")
-
     is_correct = check_answer(answer, question["correct_answers"])
 
     print()
