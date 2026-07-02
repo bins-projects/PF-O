@@ -1,7 +1,7 @@
 import json
 import sys
 from pathlib import Path
-
+from collections import defaultdict
 from compiler.docx_reader import read_docx
 from compiler.tokenizer import tokenize
 from compiler.parser import parse_questions
@@ -39,9 +39,27 @@ def main():
     if problems:
         print()
         print("Validation failed.")
-        for problem in problems:
-            print(problem)
-        sys.exit(1)  
+        print(f"Problems found: {len(problems)}")
+        print()
+
+    grouped_problems = defaultdict(list)
+
+    for problem in problems:
+        if ": " in problem:
+            question_label, issue = problem.split(": ", 1)
+            grouped_problems[question_label].append(issue)
+        else:
+            grouped_problems["General"].append(problem)
+
+    for question_label, issues in grouped_problems.items():
+        print(question_label)
+        for issue in issues:
+            print(f"  - {issue}")
+        print()
+
+    print()
+    print("Compilation aborted.")
+    sys.exit(1)
 
     print("Loaded document.")
     print(f"Source: {raw_document['source_path']}")

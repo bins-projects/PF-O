@@ -4,15 +4,18 @@ def validate_questions(questions: list[dict]) -> list[str]:
     """
 
     problems = []
-    seen_stems = {}
-    seen_numbers = set()
+    seen_stems = set ()
+    seen_numbers = {}
     for question in questions:
         number = question["question_number"]
         stem = question["stem"].strip()
         if number in seen_numbers:
-                    problems.append(f"Question {number}: duplicate question number")
+            original = seen_numbers[number]["question_number"]
+            problems.append(
+                f"Question {number}: duplicate question number (already used by Question {original})"
+            )
         else:
-            seen_numbers.add(number)
+            seen_numbers[number] = question
             
         if stem in seen_stems:
             problems.append(f"Question {number}: duplicate question text")
