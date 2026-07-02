@@ -1,113 +1,83 @@
 # PrepFlow
 
-PrepFlow is a Python application for compiling educational content into validated study packs and delivering those packs through an interactive command-line study engine.
+PrepFlow is a modular Python application for converting educational source material into validated study packs and delivering them through an interactive study engine.
 
 ---
 
-# Current Status
+## Project Structure
 
-**Version:** 0.6.0
-
-**Current Sprint:** Sprint 6 – Pack Validation
-
-**Development Status:** Active
+```
+prepflow/
+├── compiler/
+├── data/
+├── docs/
+├── output/
+├── study/
+├── tests/
+├── tools/
+├── README.md
+└── requirements.txt
+```
 
 ---
 
-# Components
+## Components
 
-## Compiler
+### Compiler
 
 Responsible for:
 
 - Loading source documents
-- Tokenizing content
 - Parsing questions
-- Validating question packs
-- Exporting standardized JSON
+- Validating study packs
+- Exporting JSON artifacts
 
-Current validation includes:
+### Study Engine
 
-- Duplicate question numbers
-- Duplicate question text
-- Missing stems
-- Missing answer choices
-- Missing correct answers
-- Missing rationales
-- Missing question types
+Responsible for:
 
----
-
-## Study Engine
-
-Features include:
-
-- Randomized question order
+- Interactive quiz sessions
 - Block mode
-- Review queue
-- Running score
-- Session manager
-- Rationales
 - Progress tracking
+- Review queues
+- Session management
 
 ---
 
-# Repository Layout
+## Documentation
 
-```text
-compiler/
-study/
-tools/
-tests/
-data/
-output/
-docs/
-```
+Project documentation is located in the `docs/` folder.
 
----
-
-# Documentation
-
-Project documentation is located in:
-
-```
-docs/
-```
-
-Primary documents:
+Key documents include:
 
 - PROJECT_STATE.md
 - CHANGELOG.md
 - VISION.md
+- RESTART_PACKET.md
+- SESSION_CHECKLIST.md
 
 ---
 
-# Typical Development Workflow
+## Current Status
 
-1. Build one feature.
-2. Test it.
+Current Version: **0.6.0**
+
+Current Sprint: **Sprint 6 – Pack Validation**
+
+The current development focus is improving compiler validation before expanding Study Engine features.
+
+---
+
+## Development Workflow
+
+1. Implement one feature.
+2. Test thoroughly.
 3. Review changes.
-4. Commit.
-5. Push.
+4. Commit to Git.
+5. Push to GitHub.
 6. Update documentation.
-7. Verify working tree clean.
+7. Generate a new Restart Packet.
 
 ---
 
-# Current Goal
-
-Finish Sprint 6 by completing the Pack Validation system before continuing Study Engine improvements.
-
----
-
-# Version Roadmap
-
-0.6.x — Validation
-
-0.7.x — Compiler Completion
-
-0.8.x — Study Engine Polish
-
-0.9.x — Beta
-
-1.0 — Initial Release
+This repository is under active development.

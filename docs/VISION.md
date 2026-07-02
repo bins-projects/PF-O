@@ -2,136 +2,61 @@
 
 ## Mission
 
-PrepFlow is a study platform designed to transform educational source material into high-quality interactive study experiences.
-
-The goal is to eliminate repetitive manual study preparation while preserving accuracy, flexibility, and an excellent user experience.
+Build a reliable, modular study platform that transforms educational content into validated study packs and delivers an efficient, repeatable study experience.
 
 ---
 
-# Core Philosophy
+## Core Principles
 
-PrepFlow has two major responsibilities.
-
-## Compiler
-
-Responsible for creating a perfect study pack.
-
-The compiler should detect errors before a student ever sees them.
-
-A compiled pack should be trusted.
+- Reliability before features.
+- Modular architecture.
+- Clear separation between Compiler and Study Engine.
+- Validation before execution.
+- Simple, maintainable code.
+- Thorough documentation.
+- Git-first development workflow.
 
 ---
 
-## Study Engine
+## Long-Term Goals
 
-Responsible for delivering an enjoyable study experience.
+### Compiler
 
-The Study Engine should never need to compensate for bad data.
-
-It assumes every compiled pack has already passed validation.
-
----
-
-# Design Principles
-
-- Simple architecture
-- Readable code
-- Small functions
-- Clear responsibilities
-- Early validation
-- Helpful error messages
-- Repeatable workflows
-- Minimal user friction
+- Complete validation suite.
+- Better compiler diagnostics.
+- Configurable validation rules.
+- Multiple import formats.
+- Export versioning.
+- Pack metadata.
 
 ---
 
-# Current Roadmap
+### Study Engine
 
-## Phase 1
-
-Compiler Foundation
-
-- Document loading
-- Tokenization
-- Parsing
-- JSON export
-
-Status:
-Complete
+- Timed mode.
+- Difficulty filters.
+- Study statistics.
+- Resume previous sessions.
+- Multiple study modes.
+- Desktop interface.
+- Optional web interface.
 
 ---
 
-## Phase 2
+### Project
 
-Validation
-
-- Missing data detection
-- Duplicate detection
-- Pack integrity verification
-- Helpful validation reporting
-
-Status:
-In Progress
+- Automated testing.
+- Continuous integration.
+- Installer/package distribution.
+- Plugin-friendly architecture.
+- Support additional educational subjects beyond NCLEX.
 
 ---
 
-## Phase 3
+## Success Criteria
 
-Study Engine
+PrepFlow should become a dependable study platform where:
 
-- Block mode
-- Review mode
-- Session tracking
-- Score tracking
-- Randomization
-
-Status:
-Mostly Complete
-
----
-
-## Phase 4
-
-User Experience
-
-- Better CLI output
-- Cleaner reports
-- Better documentation
-- Easier setup
-- Improved testing
-
-Status:
-Planned
-
----
-
-## Phase 5
-
-Version 1.0
-
-Complete study workflow from source document to finished study session.
-
----
-
-# Long-Term Goals
-
-- Multiple question banks
-- Multiple subjects
-- Statistics
-- Session history
-- Adaptive review
-- Difficulty tracking
-- GUI version
-- Import/export improvements
-
----
-
-# Development Philosophy
-
-Every change should improve one of three things:
-
-1. Reliability
-2. Readability
-3. User Experience
-
-If a feature does not improve at least one of those, reconsider whether it belongs in the project.
+- The compiler guarantees valid study packs.
+- The Study Engine focuses only on delivering an excellent learning experience.
+- Every component has a single, well-defined responsibility.

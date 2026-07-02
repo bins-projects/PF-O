@@ -1,146 +1,125 @@
-# PROJECT_STATE
+# PrepFlow — Project State
 
-Last Updated:
-Sprint 4 Documentation Phase
+## Project Information
 
----
+**Project:** PrepFlow
 
-# Current Milestone
+**Version:** 0.6.0
 
-Sprint 4 – Initial Study Engine Foundation
+**Current Sprint:** Sprint 6 – Pack Validation
 
-Status:
-Documentation in progress.
----
+**Status:** Active Development
 
-# Current Repository Status
-
-Git Status:
-Working tree clean before documentation.
-
-Current major folders:
-
-```
-compiler/
-study/
-docs/
-output/
-data/
-tests/
-```
+**Branch:** master
 
 ---
 
-# Completed Features
+# Project Overview
+
+PrepFlow is a modular Python application that converts educational source material into validated study packs and delivers those packs through an interactive study engine.
+
+The project consists of two primary systems:
+
+- Compiler
+- Study Engine
+
+The compiler is responsible for producing reliable study packs.
+
+The Study Engine is responsible for presenting those packs to the user.
+
+---
+
+# Current Progress
 
 ## Compiler
 
-- DOCX Reader
-- Tokenizer
-- Parser
-- Validator
-- Permanent Question IDs
-- JSON Export Pipeline
+Completed:
 
-Output:
-
-```
-output/03_questions.json
-```
+- Document loading
+- Tokenization
+- Question parsing
+- JSON export
+- Validation framework
+- Missing stem validation
+- Missing answer validation
+- Missing rationale validation
+- Missing question type validation
+- Duplicate question number detection
+- Duplicate question text detection
+- Validation failure handling
+- Duplicate detection utility
 
 ---
 
 ## Study Engine
 
-Implemented:
+Completed:
 
-- Load compiled question bank
-- Display questions
-- Format answer choices
-- Accept user answers
-- Grade responses
-- Display rationale
-- Advance through session
-- Hidden ScoreTracker
-
-Current limitations:
-
-- Questions presented sequentially
-- No block engine
-- No review queue
-- No session manager
+- Block mode
+- Question loader
+- Session manager
+- Review queue
+- Running score
+- Rationales
+- Progress tracking
+- Randomized question ordering
 
 ---
 
-# Locked Product Decisions
+# Current Sprint
 
-PrepFlow is a universal study engine.
+Sprint 6 – Pack Validation
 
-Content is provided through Packs.
+Objective:
 
-The engine itself contains no subject-specific logic.
+Continue improving compiler validation and reporting before resuming Study Engine feature development.
 
-Core hierarchy:
+Current work includes:
 
-PrepFlow
-→ Pack
-→ Section (optional)
-→ Session
-→ Block
-→ Review Queue
-
-Question IDs are permanent.
-
-Questions are never generated.
-
-The compiler is the single source of truth.
+- Validation improvements
+- Better compiler output
+- Pack integrity verification
 
 ---
 
-# Immediate Next Objectives
+# Documentation
 
-1. Finish project documentation.
-2. Commit documentation.
-3. Build Session Manager.
-4. Build Balanced Block Engine.
-5. Build Review Queue.
-6. Implement Shuffle-once session generation.
-7. Preserve first-attempt scoring.
+Repository documentation lives in:
 
----
+docs/
 
-# Long-Term Roadmap
+Primary files:
 
-Compiler ✓
-
-Study Engine Foundation ✓
-
-Documentation ← CURRENT
-
-Session Manager
-
-Block Engine
-
-Review Queue
-
-Pack Manager
-
-Statistics
-
-Save/Resume Sessions
-
-GUI
-
-Pack Creator
-
-Public Release
+- PROJECT_STATE.md
+- CHANGELOG.md
+- VISION.md
+- RESTART_PACKET.md
+- SESSION_CHECKLIST.md
 
 ---
 
-# Notes
+# Development Workflow
 
-The Project Bible is the human-readable project resume.
+Standard workflow:
 
-PROJECT_STATE.md is the repository's living development log.
+1. Build feature
+2. Test feature
+3. Review changes
+4. git add
+5. git commit
+6. git push
+7. Verify working tree clean
+8. Update documentation
 
-This file should be updated at the end of every coding session.
+---
+
+# Next Development Target
+
+Continue expanding the compiler validation system and improve validation reporting before beginning the next Study Engine sprint.
+
+---
+
+Last Updated
+
+Sprint 6
+Version 0.6.0

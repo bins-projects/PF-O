@@ -1,49 +1,71 @@
 # PrepFlow Changelog
 
-This changelog tracks meaningful project milestones beginning with Version 0.6.0.
-
-Earlier development history remains available through Git commit history.
+This document records major project milestones. Minor edits and intermediate work are preserved in Git history.
 
 ---
 
-# Version 0.6.0 — Sprint 6
-Date: July 2026
+# Version 0.6.0 — Sprint 6 Documentation Refresh
 
 ## Repository
 
-- Reorganized project documentation.
-- Centralized documentation under `docs/`.
-- Established PROJECT_STATE.md as the source of truth.
-- Standardized project organization and session workflow.
+- Reorganized all project documentation into the `docs/` directory.
+- Established `PROJECT_STATE.md` as the primary source of truth.
+- Added `RESTART_PACKET.md` for starting new ChatGPT sessions.
+- Added `SESSION_CHECKLIST.md` for standardized end-of-session workflow.
+- Simplified project documentation structure.
+- Removed duplicate documentation files.
+- Standardized repository organization.
+
+---
 
 ## Compiler
 
-- Implemented question validation framework.
-- Added duplicate question number detection.
-- Added duplicate question stem detection.
-- Added validation for:
-  - Missing stems
-  - Missing answer choices
-  - Missing correct answers
-  - Missing rationales
-  - Missing question types
-- Compiler now displays validation errors before aborting compilation.
-- Added developer duplicate detection utility.
+Completed features:
+
+- DOCX document loader
+- Tokenizer
+- Question parser
+- JSON artifact generation
+- Validation framework
+- Duplicate question number detection
+- Duplicate question text detection
+- Missing question stem detection
+- Missing answer choice detection
+- Missing correct answer detection
+- Missing rationale detection
+- Missing question type detection
+- Graceful compiler failure when validation errors are found
+- Human-readable validation reporting
+
+---
 
 ## Study Engine
 
-- Stable block progression.
-- Review queue implemented.
-- Session manager implemented.
-- Running score tracking.
-- Randomized question ordering.
-- Block completion flow operational.
+Completed features:
 
-## Development Workflow
+- Interactive terminal quiz
+- Block mode
+- Session manager
+- Running score
+- Review queue
+- Progress tracking
+- Rationales
+- Question randomization
 
-- Standardized Git workflow.
-- Standardized end-of-session documentation updates.
-- Introduced repository-based project documentation.
+---
+
+## Documentation
+
+Current documentation system:
+
+- PROJECT_STATE.md
+- CHANGELOG.md
+- VISION.md
+- RESTART_PACKET.md
+- SESSION_CHECKLIST.md
+- ARCHITECTURE.md
+- PACK_SPEC.md
+- IDEAS.md
 
 ---
 
