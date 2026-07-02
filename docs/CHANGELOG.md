@@ -2,6 +2,15 @@
 
 This document records major project milestones. Minor edits and intermediate work are preserved in Git history.
 ## Sprint 6 — Pack Validation
+v0.6.1
+
+- Added Med-Surg PDF importer
+- Added pypdf integration
+- Implemented chapter detection
+- Implemented inventory generation
+- Added JSON inventory export
+- Added source_banks ignore rules
+- Verified 63 chapters from Med-Surg bank
 
 - Fixed validator crash caused by duplicate stem tracking.
 - Improved compiler validation output with grouped problem reporting.
