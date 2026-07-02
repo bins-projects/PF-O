@@ -36,6 +36,13 @@ def main():
     question_path = output_dir / "03_questions.json"
     questions = parse_questions(str(token_path), str(question_path))
     problems = validate_questions(questions)
+    if problems:
+        print()
+        print("Validation failed.")
+        for problem in problems:
+            print(problem)
+        sys.exit(1)  
+
     print("Loaded document.")
     print(f"Source: {raw_document['source_path']}")
     print(f"Paragraphs: {raw_document['paragraph_count']}")
