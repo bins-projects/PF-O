@@ -1,7 +1,12 @@
 # PrepFlow Changelog
 
 This document records major project milestones. Minor edits and intermediate work are preserved in Git history.
+## Sprint 6 — Pack Validation
 
+- Fixed validator crash caused by duplicate stem tracking.
+- Improved compiler validation output with grouped problem reporting.
+- Added clearer duplicate question number reporting.
+- - Validation reports now group multiple issues under each affected question.
 ---
 
 # Version 0.6.0 — Sprint 6 Documentation Refresh

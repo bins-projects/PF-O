@@ -4,63 +4,79 @@ This document is a quick project briefing used to begin a new ChatGPT session.
 
 The repository documentation is the source of truth.
 
-**If this Restart Packet and the repository documentation ever disagree, always trust the repository documentation.**
+---
+
+## Project
+
+PrepFlow
+
+Version: 0.6.0
+
+Current Sprint:
+Sprint 6 — Pack Validation
+
+Status:
+Active Development
 
 ---
 
-# Project
-
-**Name:** PrepFlow
-
-**Version:** 0.6.0
-
-**Current Sprint:** Sprint 6 — Pack Validation
-
-**Status:** Active Development
-
----
-
-# Read These First
-
-Before beginning development, review:
+## Read These First
 
 1. PROJECT_STATE.md
 2. CHANGELOG.md
 3. VISION.md
 
-These documents are the authoritative project record.
+These documents are the authoritative project state.
 
 ---
 
-# Current Objective
+## Current Objective
 
-Continue Sprint 6 by expanding the compiler validation system.
+Continue improving the Pack Validation system.
 
 Current priorities:
 
-- Improve validation reporting
+- Improve compiler validation reporting
 - Improve compiler output
-- Expand validation coverage
-- Continue compiler robustness improvements
+- Continue parser robustness improvements
+- Add compiler success summary
+- Continue pack integrity verification
 
 ---
 
-# Resume Development
+## Resume Coding Here
 
-Current development focus:
+Primary file:
 
 ```
-compiler/
+compiler/validator.py
 ```
 
-Primary files:
+Secondary file:
 
-- compiler/cli.py
-- compiler/validator.py
+```
+compiler/cli.py
+```
 
 ---
 
-# Startup Commands
+## Current State
+
+Completed:
+
+- Validator crash fixed (`set()` bug).
+- Duplicate question reporting improved.
+- Validation output grouped by question.
+- Duplicate question numbers identify the original conflicting question.
+- Compiler validation reporting improvements committed and pushed to GitHub.
+
+Repository status:
+
+- Working tree should be clean before new work begins.
+
+---
+
+## Startup Checklist
 
 Verify repository:
 
@@ -71,58 +87,34 @@ git status
 Run compiler:
 
 ```bash
-python compiler/cli.py
+python -m compiler.cli "cardiac questions.docx"
 ```
 
-Run Study Engine:
+If validation fails:
 
-```bash
-python study/cli.py
-```
+- Fix reported problems.
+- Re-run compiler.
+- Repeat until clean.
 
 ---
 
-# Expected Repository State
+## Development Workflow
 
-```
-Working tree clean
-```
+For every completed milestone:
 
----
-
-# Standard Development Workflow
-
-1. Review PROJECT_STATE.md
-2. Verify Git status
-3. Build one feature
-4. Test the feature
-5. Review changes (`git diff`)
-6. Commit
-7. Push
-8. Update documentation
-9. Generate a new Restart Packet
+1. Verify compiler.
+2. Verify `git status`.
+3. Commit.
+4. Push to GitHub.
+5. Update:
+   - CHANGELOG.md
+   - PROJECT_STATE.md
+6. Regenerate this RESTART_PACKET.md.
 
 ---
 
-# Documentation Location
+## Important Rule
 
-All project documentation is located in:
+Repository documentation is always the source of truth.
 
-```
-docs/
-```
-
-Important documents:
-
-- PROJECT_STATE.md
-- CHANGELOG.md
-- VISION.md
-- SESSION_CHECKLIST.md
-- RESTART_PACKET.md
-- ARCHITECTURE.md
-- PACK_SPEC.md
-- IDEAS.md
-
----
-
-End of Restart Packet.
+If this packet ever disagrees with the documentation, trust the documentation.

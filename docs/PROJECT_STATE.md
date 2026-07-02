@@ -68,18 +68,31 @@ Completed:
 
 # Current Sprint
 
-Sprint 6 – Pack Validation
+# Current Sprint
+
+Sprint 6 — Pack Validation
+
+Status:
+Active development
 
 Objective:
 
-Continue improving compiler validation and reporting before resuming Study Engine feature development.
+Complete the Pack Validation system and improve compiler diagnostics before resuming Study Engine feature development.
 
-Current work includes:
+Completed this sprint:
 
-- Validation improvements
-- Better compiler output
-- Pack integrity verification
+- Fixed validator crash caused by duplicate stem tracking (`set()` instead of `{}`).
+- Improved validation output formatting.
+- Grouped validation problems by question.
+- Duplicate question numbers now identify the original conflicting question.
+- Validation improvements committed and pushed to GitHub.
 
+Current focus:
+
+- Continue improving compiler robustness.
+- Expand validation checks.
+- Improve compiler success summary.
+- Prepare for resuming Study Engine development.
 ---
 
 # Documentation
@@ -115,7 +128,19 @@ Standard workflow:
 
 # Next Development Target
 
-Continue expanding the compiler validation system and improve validation reporting before beginning the next Study Engine sprint.
+# Next Development Target
+
+Priority:
+
+Continue Pack Validation improvements.
+
+Immediate tasks:
+
+1. Add compiler success summary.
+2. Add validation totals.
+3. Improve parser robustness.
+4. Continue pack integrity verification.
+5. Resume Study Engine development after Pack Validation reaches MVP.
 
 ---
 
