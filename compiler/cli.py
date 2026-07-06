@@ -6,6 +6,7 @@ from compiler.docx_reader import read_docx
 from compiler.tokenizer import tokenize
 from compiler.parser import parse_questions
 from compiler.validator import validate_questions
+from compiler.builder import build_pack, build_questions
 
 def main():
     print("PrepFlow Compiler")
@@ -35,6 +36,12 @@ def main():
 
     question_path = output_dir / "03_questions.json"
     questions = parse_questions(str(token_path), str(question_path))
+    canonical_questions = build_questions(questions)
+    pack = build_pack(
+    canonical_questions,
+    pack_id="compiled_pack",
+    title=Path(source_path).stem,
+)
     problems = validate_questions(questions)
 
     if problems:
@@ -74,6 +81,8 @@ def main():
     print("Parsed questions.")
     print(f"Question blocks: {len(questions)}")
     print(f"Question artifact: {question_path}")
+    print(f"Canonical questions built: {len(canonical_questions)}")
+    print(f"Pack built: {pack.id}")
     
     print()
     print("Validation.")

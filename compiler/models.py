@@ -69,7 +69,6 @@ class Question:
     """
 
     id: str
-    pack_id: str
     version: int
     origin: Origin
     content: Content
