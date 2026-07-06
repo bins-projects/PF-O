@@ -129,6 +129,80 @@ Current documentation system:
 - PACK_SPEC.md
 - IDEAS.md
 
+# Version 0.7.0
+
+Sprint 7 — Canonical Compiler Architecture
+
+---
+
+## Compiler
+
+Major architectural refactor completed.
+
+Implemented:
+
+- Reusable compiler pipeline
+- Dedicated normalization stage
+- Library-first compiler architecture
+- CLI orchestration layer
+
+Added:
+
+- compiler/normalizer.py
+
+Pipeline now consists of:
+
+- Reader / Loader
+- Tokenizer (DOCX)
+- Parser (DOCX)
+- Normalizer
+- Validator
+- Deduplicator
+- Builder
+- Canonical Pack
+
+Validation, deduplication, and canonical object creation now occur inside the compiler pipeline instead of the CLI.
+
+---
+
+## Architecture
+
+Introduced explicit compiler data representations:
+
+- Parsed Question
+- Normalized Question
+- Canonical Question
+
+Schema compatibility is now handled exclusively by the Normalizer.
+
+Applications consume compiler functionality rather than implementing compiler logic directly.
+
+---
+
+## Validation
+
+Validator updated to validate normalized compiler input.
+
+Duplicate question numbers are now evaluated within chapter scope.
+
+Known remaining validation failures are confirmed source-data issues:
+
+- Duplicate block (Questions 41–60)
+- Missing correct answer and rationale (Question 80)
+- Duplicate stems (Questions 117 and 156)
+
+---
+
+## Documentation
+
+Updated:
+
+- ARCHITECTURE_BIBLE.md
+- PROJECT_STATE.md
+
+Compiler architecture documentation now reflects the implemented library-first design.
+
+---
 ---
 
 Future releases should be added above this line.

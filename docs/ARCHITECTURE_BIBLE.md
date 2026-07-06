@@ -10,31 +10,233 @@ Architectural decisions recorded here are considered stable unless explicitly re
 
 # Design Philosophy
 
-PrepFlow is a universal study engine.
+PrepFlow is a library-first study platform.
 
-The engine is independent of subject matter.
+The compiler, study engine, and future applications are independent systems connected through a shared canonical data model.
 
 All study content is supplied through interchangeable Packs.
 
-The application contains no nursing-specific logic.
+Applications consume reusable compiler components rather than implementing compiler logic themselves.
 
-The compiler converts source material into a normalized format that the study engine consumes.
+The application contains no nursing-specific logic.
 
 ---
 
-# Core Hierarchy
+# System Architecture
 
-PrepFlow
+PrepFlow consists of three major systems.
 
-→ Pack
+## 1. Import Layer
 
-→ Section (optional)
+Purpose:
 
-→ Session
+Convert supported source material into parsed question dictionaries.
 
-→ Block
+Supported inputs:
 
-→ Review Queue
+- DOCX
+- JSON
+
+Future inputs:
+
+- PDF
+- CSV
+- AI-assisted imports
+
+The Import Layer performs extraction only.
+
+It does not validate, repair, or build canonical objects.
+
+---
+
+## 2. Canonical Compiler
+
+The compiler transforms parsed question dictionaries into canonical PrepFlow objects.
+
+Compiler pipeline:
+
+Reader / Loader
+
+↓
+
+Tokenizer (DOCX only)
+
+↓
+
+Parser (DOCX only)
+
+↓
+
+Normalizer
+
+↓
+
+Validator
+
+↓
+
+Deduplicator
+
+↓
+
+Builder
+
+↓
+
+Canonical Pack
+
+↓
+
+Exporter
+
+Each compiler stage has exactly one responsibility.
+
+---
+
+## 3. Applications
+
+Applications consume the compiler.
+
+Current applications:
+
+- Compiler CLI
+- Study Engine
+
+Future applications:
+
+- Desktop GUI
+- Web API
+- Automated testing
+- Additional exporters
+
+Applications never duplicate compiler logic.
+
+---
+
+# Compiler Stages
+
+## Reader / Loader
+
+Loads source material.
+
+DOCX uses the Reader.
+
+JSON uses the Loader.
+
+---
+
+## Tokenizer
+
+Converts raw document content into parser tokens.
+
+DOCX only.
+
+---
+
+## Parser
+
+Extracts question dictionaries from tokens.
+
+Parser never validates.
+
+Parser never repairs source data.
+
+---
+
+## Normalizer
+
+Converts supported source formats into one compiler input schema.
+
+Normalization handles source compatibility.
+
+No later compiler stage performs schema translation.
+
+---
+
+## Validator
+
+Reports structural problems.
+
+Examples:
+
+- Missing stem
+- Missing answer choices
+- Missing correct answer
+- Missing rationale
+- Missing question type
+- Duplicate question numbers
+- Duplicate stems
+
+Validator reports problems only.
+
+Validator never repairs data.
+
+---
+
+## Deduplicator
+
+Removes duplicate records after validation.
+
+Responsibilities:
+
+- Keep first occurrence
+- Remove duplicate question numbers
+- Remove duplicate stems
+- Report every removal
+
+---
+
+## Builder
+
+Creates canonical PrepFlow objects.
+
+Responsibilities:
+
+- Build Question objects
+- Build Pack objects
+
+---
+
+## Exporter
+
+Writes canonical Packs into reusable formats.
+
+Future exporters may include:
+
+- JSON
+- PrepFlow Pack
+- Additional interchange formats
+
+---
+
+# Canonical Domain Model
+
+The canonical model consists of:
+
+Pack
+
+↓
+
+Question
+
+↓
+
+Answer
+
+Additional supporting objects include:
+
+- Origin
+- Content
+- Classification
+- Metadata
+
+Rules:
+
+Pack owns Questions.
+
+Question never owns Pack.
+
+Stable Question IDs are publisher independent.
 
 ---
 
@@ -42,21 +244,14 @@ PrepFlow
 
 ## Pack
 
-A complete collection of study material for one subject.
-
-Examples:
-
-- Cardiac
-- Respiratory
-- Pharmacology
-- Sports Rules
-- History
+A complete collection of study material.
 
 A Pack owns:
 
 - Questions
-- Sections
 - Metadata
+
+Sections remain optional.
 
 ---
 
@@ -66,11 +261,9 @@ Optional organization inside a Pack.
 
 Examples:
 
-Cardiac
-
-- Hypertension
-- Heart Failure
-- Dysrhythmias
+- Chapter
+- Topic
+- Body System
 
 Not all Packs require Sections.
 
@@ -82,13 +275,11 @@ A temporary study instance.
 
 Responsibilities:
 
-- Generate shuffled order
-- Create balanced Blocks
+- Shuffle questions
+- Build Blocks
 - Track scoring
 - Track mastery
 - Feed Review Queue
-
-Sessions are not permanently saved in Version 1.
 
 ---
 
@@ -99,61 +290,62 @@ A balanced subset of questions.
 Goals:
 
 - Approximately 15 questions
-- Even distribution across Sections
-- Locked once created
-- Presented sequentially
+- Sequential presentation
+- Locked after creation
 
 ---
 
 ## Review Queue
 
-Contains only questions missed on the first attempt.
+Contains only missed questions.
 
 Questions repeat until answered correctly.
 
 First-attempt score never changes.
 
-Mastery is tracked separately.
+Mastery is tracked independently.
 
 ---
 
-# Compiler Responsibilities
+# Compiler Data Flow
 
-The compiler is responsible for:
+PrepFlow recognizes three internal representations.
 
-- Reading source documents
-- Parsing questions
-- Validation
-- Assigning permanent IDs
-- Producing normalized JSON
+## Parsed Question
 
-The study engine never parses DOCX files directly.
+Raw parser output.
+
+May vary depending on source format.
 
 ---
 
-# Study Engine Responsibilities
+## Normalized Question
 
-The study engine is responsible for:
+Compiler input.
 
-- Loading compiled Packs
-- Running Sessions
-- Presenting questions
-- Recording answers
-- Calculating scores
-- Managing Blocks
-- Managing Review Queue
+Every supported source is converted into this representation before validation.
+
+---
+
+## Canonical Question
+
+Immutable domain object used throughout PrepFlow.
+
+Applications consume canonical objects rather than parser output.
 
 ---
 
 # Guiding Principles
 
-- Engine first.
-- Content second.
-- Permanent Question IDs.
-- Never generate questions.
-- Normalize everything once.
-- Reuse compiled data forever.
-- Simple architecture over clever architecture.
+- Library first.
+- Applications consume reusable compiler code.
+- One responsibility per compiler stage.
+- Never silently repair source data.
+- Prefer diagnostics over hidden fixes.
+- Normalize once.
+- Build once.
+- Reuse forever.
+- Stable Question IDs.
 - End users never require programming knowledge.
 
 ---
@@ -163,16 +355,22 @@ The study engine is responsible for:
 Architecture should support:
 
 - Multiple Packs
-- Multiple users
+- Multiple publishers
 - Saved Sessions
 - Statistics
-- GUI
+- Desktop GUI
+- Web API
 - Mobile interface
-- Additional import formats
 - Community-created Packs
+- Additional import formats
+- Additional export formats
 
 ---
 
-This document should change rarely.
+This document defines architecture only.
 
-Behavior changes belong in PROJECT_STATE.md or CHANGELOG.md.
+Project progress belongs in PROJECT_STATE.md.
+
+Historical changes belong in CHANGELOG.md.
+
+Session handoffs belong in RESTART_PACKET.md.

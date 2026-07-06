@@ -2,146 +2,205 @@
 
 Project: PrepFlow
 
-Version: 0.6.1
+Version: 0.7.0
 
 Status: Active Development
 
 Current Sprint:
-Sprint 6 — Pack Validation
+
+Sprint 7 — Canonical Compiler Architecture
 
 ---
 
 # Current Milestone
 
-✅ Pharmacy Production Importer Complete
+Sprint 7 is restructuring PrepFlow into a reusable, library-first compiler architecture.
 
-The Pharmacy test bank importer is now fully functional and validated.
+The production importers are complete.
 
----
-
-# Current Importers
-
-## Medical-Surgical
-Status:
-Complete
-
-Output:
-Validated production question pack.
+Current development is focused on separating importing, compilation, and study functionality into independent layers.
 
 ---
 
-## Pharmacy
+# Completed Milestones
 
-Importer:
-tools/import_pharm_bank.py
-
-Source:
-source_banks/pharm_test_bank.pdf
-
-Output:
-output/pharm_questions.json
+## Medical-Surgical Importer
 
 Status:
+
 Production Ready
 
-Validation Results:
+Output:
+
+- output/medsurg_questions.json
+
+Validated production question bank.
+
+---
+
+## Pharmacy Importer
+
+Status:
+
+Production Ready
+
+Output:
+
+- output/pharm_questions.json
+
+Validation:
 
 - Chapters: 24
 - Total Questions: 1076
 
-Question Types
+Question Types:
 
-- Multiple Choice: 963
-- SATA: 73
-- Completion: 39
-- Ordered: 1
+- Multiple Choice
+- SATA
+- Completion
+- Ordered Response
 
-Validation
-
-- Missing Answers: 0
-- Missing Rationales: 0
-- Duplicate IDs: 0
-- Invalid Questions: 0
+Importer development is considered complete.
 
 ---
 
-# Parser Improvements Completed
+# Canonical Compiler
 
 Implemented:
 
-- Pharmacy-specific importer
-- Chapter extraction
-- Section extraction
-- Question block parsing
-- MC parsing
-- SATA parsing
-- Completion parsing
-- Ordered-question detection
-- Improved question boundary detection
-- Validation reporting
+- Canonical domain model
+- Validator
+- Deduplicator
+- Builder
+- Compiler pipeline
+- Normalizer
+- CLI orchestration
 
-Resolved:
+Current compiler flow:
 
-- Duplicate completion question generation
-- Chapter 13 ordering-section parsing
-- Completion answer extraction
-- Completion rationale extraction
-- Ordered question classification
+Reader / Loader
+
+↓
+
+Tokenizer (DOCX)
+
+↓
+
+Parser (DOCX)
+
+↓
+
+Normalizer
+
+↓
+
+Validator
+
+↓
+
+Deduplicator
+
+↓
+
+Builder
+
+↓
+
+Canonical Pack
+
+↓
+
+Exporter (next)
 
 ---
 
-# Current Question Schema
+# Canonical Domain Model
 
-Each compiled question now uses:
+Implemented:
 
-- id
-- source
-- chapter
-- chapter_title
-- question_number
-- question_type
-- prompt
-- choices
-- correct_answer
-- rationale
-- objective
-- nclex_category
-- metadata
+- Pack
+- Question
+- Answer
+- Origin
+- Content
+- Classification
+- Metadata
 
-Canonical answer field:
+Rules:
 
-correct_answer
-
-(not "answer")
+- Pack owns Questions.
+- Question never owns Pack.
+- Stable Question IDs are publisher independent.
 
 ---
 
-# Next Sprint Goal
+# Current Compiler Status
 
-Begin Pack Standardization.
+Validation, deduplication, and canonical object creation now occur inside the reusable compiler pipeline.
 
-Objectives:
+Applications consume compiler functionality rather than implementing compiler logic directly.
 
-1. Remove publisher-specific assumptions.
-2. Create a unified internal pack format.
-3. Strip unnecessary raw source text from production packs.
-4. Standardize metadata across all importers.
-5. Build reusable importer architecture for future textbooks.
+The CLI has been refactored into a thin orchestration layer.
+
+---
+
+# Known Source Data Issues
+
+The remaining validation failures are confirmed source issues rather than compiler defects.
+
+Known issues include:
+
+- Duplicate question block (Questions 41–60)
+- Missing correct answer and rationale (Question 80)
+- Duplicate stems (Questions 117 and 156)
+
+---
+
+# Study Engine Status
+
+Current implementation target:
+
+Users can select questions by:
+
+- Source
+- Chapter
+- Multiple Chapters
+- Entire Source
+
+Deferred until later:
+
+- Topic filtering
+- Body system filtering
+- Mixed-topic generation
+- Additional publishers
+
+---
+
+# Next Milestone
+
+Implement the Exporter stage.
+
+Goals:
+
+- Export canonical Packs.
+- Establish the official PrepFlow Pack format.
+- Separate exported packs from parser output.
+- Allow future applications to consume canonical packs directly.
 
 ---
 
 # Repository Status
 
-Current branch:
+Branch:
+
 master
 
-Current state:
-Stable
+Status:
 
-Working importer:
-Pharmacy
+Clean
 
-Medical-Surgical:
-Complete
+Remote:
 
-Repository is ready for the next development session.
+Synchronized with GitHub
+
+Compiler architecture is now the primary focus of development.

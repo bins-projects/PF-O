@@ -29,59 +29,56 @@ Sprint 7 — Canonical Compiler Architecture
 
 Status:
 
-Sprint 7 is actively restructuring PrepFlow into a reusable, library-first architecture.
+Sprint 7 has established the reusable compiler pipeline.
 
-Production importers are complete.
+The compiler architecture is now library-first.
 
-Current work is focused on separating importing, compilation, and study functionality into independent layers.
+Current focus is completing the compiler by implementing the Exporter stage.
 
 ---
 
-# Architecture Overview
+# Current Compiler Architecture
 
-PrepFlow is organized into three major systems.
+PrepFlow now consists of three major systems.
 
 ## 1. Import Layer
 
-Purpose:
+Responsibilities:
 
-Convert source material into parsed question dictionaries.
+- Read supported source material
+- Tokenize DOCX
+- Parse source content
 
-Current supported inputs:
+Supported inputs:
 
 - DOCX
-- Existing JSON question banks
+- JSON
 
-Future inputs:
+Future:
 
 - PDF
 - CSV
 - AI-assisted imports
 
-Current production data includes:
-
-- output/medsurg_questions.json
-- output/pharm_questions.json
-- output/pharm_ch13_17_questions.json
-- output/pharm_ch15_20_questions.json
-
-Importers are considered production ready.
-
 ---
 
-## 2. Canonical Compiler Pipeline
+## 2. Canonical Compiler
 
 Current pipeline:
 
-Reader / JSON Loader
+Reader / Loader
 
 ↓
 
-Tokenizer (DOCX only)
+Tokenizer (DOCX)
 
 ↓
 
-Parser (DOCX only)
+Parser (DOCX)
+
+↓
+
+Normalizer
 
 ↓
 
@@ -103,29 +100,27 @@ Canonical Pack
 
 Exporter (next)
 
-Current philosophy:
-
 Each stage has exactly one responsibility.
 
 ---
 
 ## 3. Applications
 
-Applications consume the canonical compiler.
+Applications consume compiler functionality.
 
-Current applications:
+Current:
 
 - Compiler CLI
 - Study Engine
 
-Future applications:
+Future:
 
 - GUI
 - API
 - Automated testing
-- Additional export tools
+- Additional exporters
 
-Applications should never duplicate compiler logic.
+Applications never duplicate compiler logic.
 
 ---
 
@@ -133,219 +128,78 @@ Applications should never duplicate compiler logic.
 
 Implemented:
 
-compiler/models.py
-
-Canonical dataclasses:
-
+- Pack
+- Question
 - Answer
 - Origin
 - Content
 - Classification
 - Metadata
-- Question
-- Pack
 
-Design rules:
+Rules:
 
-Pack owns Questions.
-
-Question never owns Pack.
-
-Stable question IDs are publisher independent.
+- Pack owns Questions.
+- Question never owns Pack.
+- Stable Question IDs are publisher independent.
 
 ---
 
-# Compiler Components
+# Compiler Status
 
-## Validator
+Implemented:
 
-File:
+- Validator
+- Deduplicator
+- Builder
+- Pipeline
+- Normalizer
 
-compiler/validator.py
+The CLI has been refactored into a thin orchestration layer.
 
-Responsibilities:
-
-- detect duplicate question numbers
-- detect duplicate stems
-- detect missing stems
-- detect missing answer choices
-- detect missing correct answers
-- detect missing rationales
-- detect missing question type
-
-Validator reports problems only.
-
-Validator never repairs source data.
-
-Current duplicate diagnostics include:
-
-- duplicate question
-- original matching question
-- stem preview
+Validation, deduplication, and canonical object creation now occur exclusively inside the compiler pipeline.
 
 ---
 
-## Deduplicator
+# Compiler Data Flow
 
-File:
+PrepFlow recognizes three internal representations.
 
-compiler/deduplicator.py
+1. Parsed Question
 
-Added during this session.
+Raw parser output.
 
-Responsibilities:
+2. Normalized Question
 
-- keep first occurrence
-- remove duplicate question numbers
-- remove duplicate stems
-- report every removal
+Compiler input after schema normalization.
 
-Returns:
+3. Canonical Question
 
-DeduplicationResult
+Immutable domain object used throughout PrepFlow.
 
 ---
 
-## Builder
+# Known Source Data Issues
 
-File:
+Confirmed source-data issues:
 
-compiler/builder.py
+- Duplicate question block (Questions 41–60)
+- Missing correct answer and rationale (Question 80)
+- Duplicate stems (Questions 117 and 156)
 
-Responsibilities:
-
-Convert validated dictionaries into canonical objects.
-
-Current functions:
-
-- build_question()
-- build_questions()
-- build_pack()
-
----
-
-## Pipeline
-
-File:
-
-compiler/pipeline.py
-
-Added during this session.
-
-Introduced:
-
-CompilationResult dataclass
-
-compile_questions()
-
-Purpose:
-
-Reusable compiler pipeline independent of:
-
-- CLI
-- DOCX
-- JSON loading
-- printing
-- sys.exit()
-
-Current flow:
-
-questions
-
-↓
-
-validate_questions()
-
-↓
-
-deduplicate_questions()
-
-↓
-
-build_questions()
-
-↓
-
-build_pack()
-
-↓
-
-CompilationResult
-
----
-
-# CLI Status
-
-File:
-
-compiler/cli.py
-
-Current state:
-
-Supports:
-
-- DOCX input
-- JSON input
-
-Validation now occurs before canonical building.
-
-Deduplication stage exists.
-
-Current limitation:
-
-CLI still duplicates compiler pipeline logic.
+These are source issues, not compiler defects.
 
 ---
 
 # Immediate Next Task
 
-Refactor:
+Implement the Exporter stage.
 
-compiler/cli.py
+Goals:
 
-Goal:
-
-CLI should become an orchestrator only.
-
-Desired flow:
-
-DOCX
-
-↓
-
-Reader
-
-↓
-
-Tokenizer
-
-↓
-
-Parser
-
-↓
-
-compile_questions()
-
-↓
-
-Print results
-
-JSON
-
-↓
-
-Load JSON
-
-↓
-
-compile_questions()
-
-↓
-
-Print results
-
-Validation, deduplication, and building should only exist inside compiler/pipeline.py.
+- Export canonical Packs.
+- Establish the official PrepFlow Pack format.
+- Separate exported packs from parser output.
+- Allow future applications to consume canonical packs directly.
 
 ---
 
@@ -364,75 +218,44 @@ Selection:
 
 - Single chapter
 - Multiple chapters
-- All chapters
+- Entire source
 
 Deferred until later:
 
-- topic filtering
-- body system filtering
-- mixed-topic packs
-- additional publishers
+- Topic filtering
+- Body system filtering
+- Mixed-topic generation
+- Additional publishers
 
-No new source banks should be added until this workflow is complete.
-
----
-
-# Known Source Data Issues
-
-Question 80
-
-Missing:
-
-- correct answer
-- rationale
-
-Confirmed source issue.
-
-Not a parser or validator bug.
-
----
-
-Duplicate Block
-
-Questions:
-
-41–60
-
-Duplicate question numbers and duplicate stems.
-
-Investigate original source document before implementing aggressive deduplication.
-
----
-
-Duplicate Stems
-
-Questions:
-
-117
-
-156
-
-Require investigation.
+No additional source banks should be added until this workflow is complete.
 
 ---
 
 # Repository Status
 
-Current repository state has been committed and pushed.
+Branch:
 
-Current Git baseline:
+master
 
-Sprint 7: establish canonical compiler pipeline
+Remote:
 
-Repository is synchronized with GitHub.
+GitHub synchronized.
 
-Generated export JSON files remain intentionally untracked until exporter policy is finalized.
+Working tree:
+
+Clean.
+
+Latest commit:
+
+Sprint 7: add compiler normalization stage
 
 ---
 
 # Permanent Architecture Rules
 
 Parser parses.
+
+Normalizer normalizes.
 
 Validator validates.
 
@@ -472,8 +295,6 @@ Prefer replacing entire files during significant refactors.
 
 Avoid vague instructions.
 
-Use exact code landmarks.
-
 ---
 
 # VS Code Rule
@@ -488,68 +309,20 @@ into the New File dialog.
 
 Instead:
 
-1. Select the existing destination folder.
+1. Select the destination folder.
 2. Choose New File.
 3. Enter only:
 
 example.py
 
-This prevents accidental nested folders.
-
 ---
 
-# End-of-Session Workflow (Permanent)
-
-Every coding session ends in this order:
+# End-of-Session Workflow
 
 1. Compile modified Python files.
 2. Review git status.
 3. Commit.
 4. Push.
-5. Completely rewrite docs/RESTART_PACKET.md.
+5. Rewrite this restart packet completely.
 6. Verify repository state.
 7. End session.
-
-The restart packet is never appended to.
-
-It is rewritten completely every session.
-
-Its purpose is to allow a brand-new ChatGPT conversation to resume development immediately.
-
----
-
-# Documentation Responsibilities
-
-VISION.md
-
-Project purpose.
-
-Rarely changes.
-
-ARCHITECTURE_BIBLE.md
-
-System architecture.
-
-Changes occasionally.
-
-PROJECT_STATE.md
-
-Current milestone status.
-
-Updated at major milestones.
-
-CHANGELOG.md
-
-Historical log.
-
-Append only.
-
-Never rewritten.
-
-RESTART_PACKET.md
-
-Current engineering handoff.
-
-Completely rewritten every coding session.
-
-Primary bootstrap document for all future development sessions.
