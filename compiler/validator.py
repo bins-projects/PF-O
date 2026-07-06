@@ -1,40 +1,42 @@
 def validate_questions(questions: list[dict]) -> list[str]:
     """
-    Validate parsed questions and return a list of problems found.
+    Validate parsed legacy question dictionaries.
+
+    This validator checks the parser output before the compiler converts
+    questions into canonical PrepFlow Question objects.
     """
 
     problems = []
-    seen_stems = set ()
-    seen_numbers = {}
+    seen_stems = set()
+    seen_numbers = set()
+
     for question in questions:
-        number = question["question_number"]
-        stem = question["stem"].strip()
+        number = question.get("question_number", "Unknown")
+        stem = (question.get("stem") or "").strip()
+
         if number in seen_numbers:
-            original = seen_numbers[number]["question_number"]
-            problems.append(
-                f"Question {number}: duplicate question number (already used by Question {original})"
-            )
+            problems.append(f"Question {number}: duplicate question number")
         else:
-            seen_numbers[number] = question
-            
+            seen_numbers.add(number)
+
         if stem in seen_stems:
             problems.append(f"Question {number}: duplicate question text")
         else:
             seen_stems.add(stem)
-                                         
-        if not question["stem"]:
+
+        if not stem:
             problems.append(f"Question {number}: missing stem")
 
-        if not question["choices"]:
+        if not question.get("choices"):
             problems.append(f"Question {number}: no answer choices")
 
-        if not question["correct_answers"]:
+        if not question.get("correct_answers"):
             problems.append(f"Question {number}: missing correct answer")
 
-        if not question["rationale"]:
+        if not question.get("rationale"):
             problems.append(f"Question {number}: missing rationale")
 
-        if not question["question_type"]:
+        if not question.get("question_type"):
             problems.append(f"Question {number}: missing question type")
 
     return problems

@@ -36,30 +36,31 @@ def main():
     question_path = output_dir / "03_questions.json"
     questions = parse_questions(str(token_path), str(question_path))
     problems = validate_questions(questions)
+
     if problems:
         print()
         print("Validation failed.")
         print(f"Problems found: {len(problems)}")
         print()
 
-    grouped_problems = defaultdict(list)
+        grouped_problems = defaultdict(list)
 
-    for problem in problems:
-        if ": " in problem:
-            question_label, issue = problem.split(": ", 1)
-            grouped_problems[question_label].append(issue)
-        else:
-            grouped_problems["General"].append(problem)
+        for problem in problems:
+            if ": " in problem:
+                question_label, issue = problem.split(": ", 1)
+                grouped_problems[question_label].append(issue)
+            else:
+                grouped_problems["General"].append(problem)
 
-    for question_label, issues in grouped_problems.items():
-        print(question_label)
-        for issue in issues:
-            print(f"  - {issue}")
+        for question_label, issues in grouped_problems.items():
+            print(question_label)
+            for issue in issues:
+                print(f"  - {issue}")
+            print()
+
         print()
-
-    print()
-    print("Compilation aborted.")
-    sys.exit(1)
+        print("Compilation aborted.")
+        sys.exit(1)
 
     print("Loaded document.")
     print(f"Source: {raw_document['source_path']}")
