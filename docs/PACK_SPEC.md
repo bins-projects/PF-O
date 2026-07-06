@@ -1,99 +1,104 @@
-# PACK_SPEC
+# PrepFlow Pack Specification
+
+Version: 0.1  
+Project Version: 0.6.2  
+Sprint: 7 — Pack Standardization  
 
 ## Purpose
 
-A Pack is the unit of study distributed to PrepFlow.
+The Pack Specification defines the official internal data format for PrepFlow.
 
-Every Pack must compile into the same standardized format regardless of the original source material.
-
----
-
-# Pack Requirements
-
-Every Pack contains:
-
-- Metadata
-- Questions
-- Permanent Question IDs
-- Optional Sections
-
-The study engine never relies on the original source document after compilation.
+Every importer, compiler, validator, study engine, GUI, and future feature must treat this document as the contract for what a valid PrepFlow pack and question look like.
 
 ---
 
-# Metadata
+## Core Vocabulary
 
-Each Pack should define:
+### Question
 
-- Title
-- Subject
-- Version
-- Author (optional)
-- Description
-- Creation Date
+A single standardized assessment item.
 
----
+### Pack
 
-# Questions
+A collection of standardized Questions plus metadata.
 
-Each question must contain:
+### Importer
 
-- Permanent ID
-- Question Type
-- Prompt
-- Answer Choices (if applicable)
-- Correct Answer(s)
-- Rationale
-- Section (optional)
+Reads a source file and extracts raw content.
 
-Question IDs must never change after publication.
+### Parser
 
----
+Interprets imported content into structured question data.
 
-# Supported Question Types
+### Compiler
 
-Version 1 supports:
+Converts parsed data into canonical PrepFlow Question objects and assembles Packs.
 
-- Multiple Choice
-- Select All That Apply (SATA)
-- Ordered Response
+### Validator
 
-Future versions may include:
+Verifies that a Pack conforms to this specification.
 
-- Drag and Drop
-- Hot Spot
-- Case Study
-- Image-Based Questions
+### Study Engine
+
+Delivers Questions to learners and records results.
+
+### Pack Specification
+
+The formal contract defining Question and Pack structure.
 
 ---
 
-# Validation Rules
+## Design Principles
 
-Before a Pack is published:
-
-- No duplicate Question IDs
-- No duplicate questions
-- Every question has an answer
-- Every question has a rationale
-- Question type is recognized
-- Pack metadata is complete
+1. A question is not its textbook.
+2. PrepFlow owns the identity of every question.
+3. Source information is preserved as origin data.
+4. Production packs should not contain raw source text.
+5. The study engine should not care where a question came from.
+6. All packs must use the same internal structure.
 
 ---
 
-# Compiler Output
+## Question Object
 
-Every Pack compiles into normalized JSON.
+Every question must use this structure:
 
-The study engine only consumes compiled Packs.
-
----
-
-# Versioning
-
-Pack versions are independent of PrepFlow versions.
-
-Updating a Pack should not require changing the study engine.
-
----
-
-This specification defines the contract between Pack creators and the PrepFlow engine.
+```json
+{
+  "identity": {
+    "id": "PFQ-000000001",
+    "pack_id": "pharm_workman_ch15_20_v1",
+    "version": 1
+  },
+  "origin": {
+    "publisher": "",
+    "book": "",
+    "edition": "",
+    "chapter": "",
+    "section": "",
+    "page": null,
+    "source_id": ""
+  },
+  "content": {
+    "stem": "",
+    "choices": [],
+    "rationale": ""
+  },
+  "answer": {
+    "type": "",
+    "value": null
+  },
+  "classification": {
+    "concepts": [],
+    "tags": [],
+    "body_system": null,
+    "difficulty": null,
+    "bloom_level": null
+  },
+  "metadata": {
+    "created": "",
+    "compiler_version": "",
+    "validated": false,
+    "notes": []
+  }
+}
