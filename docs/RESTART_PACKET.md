@@ -29,25 +29,27 @@ Sprint 7 — Canonical Compiler Architecture
 
 Status:
 
-Sprint 7 has established the reusable compiler pipeline.
+The canonical compiler pipeline is operational.
 
-The compiler architecture is now library-first.
+The compiler has been successfully verified against a production DOCX source and produces Runtime Study Packs.
 
-Current focus is completing the compiler by implementing the Exporter stage.
+Current development is focused on completing the end-to-end workflow before adding new functionality.
+
+The long-term objective remains fully supporting the existing Medical-Surgical and Pharmacy sources before introducing additional publishers.
 
 ---
 
-# Current Compiler Architecture
+# Current Architecture
 
-PrepFlow now consists of three major systems.
+PrepFlow consists of three major systems.
 
 ## 1. Import Layer
 
 Responsibilities:
 
-- Read supported source material
-- Tokenize DOCX
-- Parse source content
+- Read supported source material.
+- Tokenize DOCX.
+- Parse source content.
 
 Supported inputs:
 
@@ -64,7 +66,7 @@ Future:
 
 ## 2. Canonical Compiler
 
-Current pipeline:
+Verified compiler pipeline:
 
 Reader / Loader
 
@@ -98,7 +100,11 @@ Canonical Pack
 
 ↓
 
-Exporter (next)
+Exporter
+
+↓
+
+Runtime Study Pack
 
 Each stage has exactly one responsibility.
 
@@ -111,14 +117,13 @@ Applications consume compiler functionality.
 Current:
 
 - Compiler CLI
-- Study Engine
+- Study Engine (next major integration)
 
 Future:
 
-- GUI
+- Desktop GUI
 - API
 - Automated testing
-- Additional exporters
 
 Applications never duplicate compiler logic.
 
@@ -142,27 +147,76 @@ Rules:
 - Question never owns Pack.
 - Stable Question IDs are publisher independent.
 
+The Canonical Pack is the internal source of truth.
+
+---
+
+# Runtime Study Pack
+
+Implemented.
+
+The Exporter converts Canonical Packs into lean Runtime Study Packs.
+
+Runtime Packs intentionally contain only the information required by the Study Engine.
+
+Current Runtime Question fields:
+
+- id
+- chapter
+- type
+- stem
+- choices
+- correct_answers
+- rationale
+
+The Runtime Pack intentionally excludes publisher artifacts, parser history, watermark text, importer metadata, and unnecessary compiler information.
+
 ---
 
 # Compiler Status
 
 Implemented:
 
+- Reader
+- Tokenizer
+- Parser
+- Normalizer
 - Validator
 - Deduplicator
 - Builder
-- Pipeline
-- Normalizer
+- Exporter
+- Compiler Pipeline
+- Typed Diagnostics
+- CLI orchestration
 
-The CLI has been refactored into a thin orchestration layer.
+Compilation Policy:
 
-Validation, deduplication, and canonical object creation now occur exclusively inside the compiler pipeline.
+Implemented.
+
+Diagnostic levels:
+
+- Fatal
+- Recoverable
+- Advisory
+
+Behavior:
+
+- Fatal diagnostics abort compilation.
+- Recoverable diagnostics skip affected questions.
+- Advisory diagnostics are reported without preventing export.
+
+Verified against a production source:
+
+- Parsed Questions: 220
+- Recoverable Questions Skipped: 1
+- Duplicate Questions Removed: 22
+- Runtime Questions Produced: 197
 
 ---
 
 # Compiler Data Flow
 
-PrepFlow recognizes three internal representations.
+PrepFlow uses three internal representations.
 
 1. Parsed Question
 
@@ -170,11 +224,13 @@ Raw parser output.
 
 2. Normalized Question
 
-Compiler input after schema normalization.
+Validated compiler input.
 
 3. Canonical Question
 
-Immutable domain object used throughout PrepFlow.
+Immutable PrepFlow domain object.
+
+Applications consume Runtime Study Packs rather than parser output.
 
 ---
 
@@ -186,20 +242,21 @@ Confirmed source-data issues:
 - Missing correct answer and rationale (Question 80)
 - Duplicate stems (Questions 117 and 156)
 
-These are source issues, not compiler defects.
+These are source defects rather than compiler defects.
 
 ---
 
 # Immediate Next Task
 
-Implement the Exporter stage.
+Implement the Pack Loader.
 
-Goals:
+Objectives:
 
-- Export canonical Packs.
-- Establish the official PrepFlow Pack format.
-- Separate exported packs from parser output.
-- Allow future applications to consume canonical packs directly.
+- Load Runtime Study Packs.
+- Update the Study Engine to consume Runtime Study Packs.
+- Complete the first fully functional end-to-end workflow.
+
+Do not begin adding new publishers until this workflow is complete.
 
 ---
 
@@ -216,18 +273,16 @@ Source:
 
 Selection:
 
-- Single chapter
-- Multiple chapters
-- Entire source
+- Single Chapter
+- Multiple Chapters
+- Entire Source
 
-Deferred until later:
+Deferred:
 
 - Topic filtering
 - Body system filtering
 - Mixed-topic generation
 - Additional publishers
-
-No additional source banks should be added until this workflow is complete.
 
 ---
 
@@ -237,17 +292,15 @@ Branch:
 
 master
 
+Status:
+
+One compiler milestone committed.
+
+Documentation update in progress.
+
 Remote:
 
-GitHub synchronized.
-
-Working tree:
-
-Clean.
-
-Latest commit:
-
-Sprint 7: add compiler normalization stage
+Local branch is ahead of origin.
 
 ---
 
@@ -269,31 +322,51 @@ Pack owns Questions.
 
 Question never owns Pack.
 
+Canonical Pack is the internal source of truth.
+
+Runtime Study Pack is the application format.
+
 Never silently repair source data.
 
 Prefer diagnostics over hidden fixes.
 
-Each compiler stage has one responsibility.
+Each compiler stage has exactly one responsibility.
 
 PrepFlow is library-first.
 
-Applications consume reusable compiler code.
+Applications consume reusable compiler functionality.
 
 ---
 
 # Permanent Development Workflow
 
-When modifying code:
+Primary objective:
 
-1. Locate the exact code.
-2. Replace the exact code.
-3. Save.
-4. Compile.
-5. Wait for confirmation before continuing.
+Build a reliable compiler that transforms supported source material into clean Runtime Study Packs.
 
-Prefer replacing entire files during significant refactors.
+Functionality takes priority over elegance.
 
-Avoid vague instructions.
+Complete the workflow before optimizing or redesigning.
+
+When implementing or debugging:
+
+1. Observe actual behavior.
+2. Inspect the relevant code.
+3. Make one focused change.
+4. Save.
+5. Compile.
+6. Test.
+7. Repeat.
+
+Avoid speculative redesign during debugging.
+
+Avoid multiple simultaneous fixes.
+
+Verify every milestone against real source documents before expanding the architecture.
+
+For documentation:
+
+Prefer replacing complete documentation files so they accurately reflect the current project state.
 
 ---
 
@@ -301,7 +374,7 @@ Avoid vague instructions.
 
 When creating new files:
 
-Never enter:
+Never type:
 
 compiler/example.py
 
@@ -320,9 +393,12 @@ example.py
 # End-of-Session Workflow
 
 1. Compile modified Python files.
-2. Review git status.
-3. Commit.
-4. Push.
-5. Rewrite this restart packet completely.
-6. Verify repository state.
-7. End session.
+2. Verify functionality.
+3. Review git status.
+4. Commit code.
+5. Update documentation.
+6. Commit documentation.
+7. Push.
+8. Verify repository state.
+9. Rewrite this restart packet completely.
+10. End session.

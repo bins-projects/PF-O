@@ -14,11 +14,11 @@ Sprint 7 — Canonical Compiler Architecture
 
 # Current Milestone
 
-Sprint 7 is restructuring PrepFlow into a reusable, library-first compiler architecture.
+Sprint 7 established the reusable compiler architecture and verified the complete compiler pipeline against a real production source.
 
-The production importers are complete.
+The compiler is now capable of transforming supported source material into canonical PrepFlow domain objects and exporting lean Runtime Study Packs.
 
-Current development is focused on separating importing, compilation, and study functionality into independent layers.
+Current development remains focused on completing the end-to-end workflow before expanding functionality.
 
 ---
 
@@ -68,15 +68,20 @@ Importer development is considered complete.
 
 Implemented:
 
-- Canonical domain model
+- Reader / Loader
+- DOCX Tokenizer
+- DOCX Parser
+- Normalizer
 - Validator
 - Deduplicator
 - Builder
-- Compiler pipeline
-- Normalizer
-- CLI orchestration
+- Canonical Domain Model
+- Compiler Pipeline
+- Typed Diagnostics
+- Runtime Pack Exporter
+- CLI Orchestration
 
-Current compiler flow:
+Verified compiler flow:
 
 Reader / Loader
 
@@ -110,7 +115,13 @@ Canonical Pack
 
 ↓
 
-Exporter (next)
+Exporter
+
+↓
+
+Runtime Study Pack
+
+The compiler pipeline has been verified by compiling a real production DOCX source into a Runtime Study Pack.
 
 ---
 
@@ -132,21 +143,50 @@ Rules:
 - Question never owns Pack.
 - Stable Question IDs are publisher independent.
 
+The Canonical Domain Model is the internal representation used throughout the compiler.
+
+---
+
+# Runtime Study Pack
+
+The Runtime Study Pack is the exported format consumed by applications.
+
+The exporter transforms Canonical Packs into lean Runtime Study Packs containing only the information required by the Study Engine.
+
+The canonical representation remains the long-term source of truth.
+
 ---
 
 # Current Compiler Status
 
-Validation, deduplication, and canonical object creation now occur inside the reusable compiler pipeline.
+Implemented:
 
-Applications consume compiler functionality rather than implementing compiler logic directly.
+- Typed compiler diagnostics
+- Fatal diagnostics
+- Recoverable diagnostics
+- Advisory diagnostics
+- Recoverable question skipping
+- Duplicate reporting
+- Canonical Question building
+- Canonical Pack building
+- Runtime Pack exporting
 
-The CLI has been refactored into a thin orchestration layer.
+The compiler has been verified against a 220-question production document.
+
+Results:
+
+- Parsed Questions: 220
+- Recoverable Questions Skipped: 1
+- Duplicate Questions Removed: 22
+- Runtime Questions Produced: 197
+
+The compiler successfully exports a Runtime Study Pack.
 
 ---
 
 # Known Source Data Issues
 
-The remaining validation failures are confirmed source issues rather than compiler defects.
+The remaining validation findings are confirmed source-data issues rather than compiler defects.
 
 Known issues include:
 
@@ -163,7 +203,7 @@ Current implementation target:
 Users can select questions by:
 
 - Source
-- Chapter
+- Single Chapter
 - Multiple Chapters
 - Entire Source
 
@@ -178,14 +218,20 @@ Deferred until later:
 
 # Next Milestone
 
-Implement the Exporter stage.
+Implement the Pack Loader.
 
-Goals:
+Objectives:
 
-- Export canonical Packs.
-- Establish the official PrepFlow Pack format.
-- Separate exported packs from parser output.
-- Allow future applications to consume canonical packs directly.
+- Load Runtime Study Packs.
+- Update the Study Engine to consume Runtime Study Packs.
+- Complete the first end-to-end workflow from supported source material through study delivery.
+
+Current development priorities:
+
+1. Finish the complete workflow.
+2. Maintain support for the validated Medical-Surgical and Pharmacy sources.
+3. Delay additional publishers until the complete workflow is operational.
+4. Prioritize proven functionality over architectural refinement.
 
 ---
 
@@ -197,10 +243,14 @@ master
 
 Status:
 
-Clean
+Compiler milestone committed.
+
+Documentation update in progress.
 
 Remote:
 
-Synchronized with GitHub
+Local branch is ahead of origin.
 
-Compiler architecture is now the primary focus of development.
+The compiler pipeline is operational for the currently supported sources.
+
+The current objective is completing the functional workflow before revisiting architecture or optimization.
