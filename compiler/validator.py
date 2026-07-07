@@ -1,4 +1,7 @@
-def validate_questions(questions: list[dict]) -> list[str]:
+from compiler.diagnostics import CompilerDiagnostic, DiagnosticSeverity
+
+
+def validate_questions(questions: list[dict]) -> list[CompilerDiagnostic]:
     """
     Validate normalized legacy question dictionaries.
 
@@ -6,7 +9,7 @@ def validate_questions(questions: list[dict]) -> list[str]:
     converts questions into canonical PrepFlow Question objects.
     """
 
-    problems = []
+    diagnostics = []
     seen_stems = {}
     seen_numbers = {}
 
@@ -20,9 +23,15 @@ def validate_questions(questions: list[dict]) -> list[str]:
 
         if number_key in seen_numbers:
             original_label = seen_numbers[number_key]
-            problems.append(
-                f"{label}: duplicate question number "
-                f"(original: {original_label})"
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.ADVISORY,
+                    label=label,
+                    message=(
+                        "duplicate question number "
+                        f"(original: {original_label})"
+                    ),
+                )
             )
         else:
             seen_numbers[number_key] = label
@@ -31,26 +40,62 @@ def validate_questions(questions: list[dict]) -> list[str]:
             if stem in seen_stems:
                 original_label = seen_stems[stem]
                 preview = stem[:120]
-                problems.append(
-                    f"{label}: duplicate question text "
-                    f"(original: {original_label}; stem: {preview!r})"
+                diagnostics.append(
+                    CompilerDiagnostic(
+                        severity=DiagnosticSeverity.ADVISORY,
+                        label=label,
+                        message=(
+                            "duplicate question text "
+                            f"(original: {original_label}; stem: {preview!r})"
+                        ),
+                    )
                 )
             else:
                 seen_stems[stem] = label
 
         if not stem:
-            problems.append(f"{label}: missing stem")
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.FATAL,
+                    label=label,
+                    message="missing stem",
+                )
+            )
 
         if not question.get("choices"):
-            problems.append(f"{label}: no answer choices")
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.FATAL,
+                    label=label,
+                    message="no answer choices",
+                )
+            )
 
         if not question.get("correct_answers"):
-            problems.append(f"{label}: missing correct answer")
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.RECOVERABLE,
+                    label=label,
+                    message="missing correct answer",
+                )
+            )
 
         if not question.get("rationale"):
-            problems.append(f"{label}: missing rationale")
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.RECOVERABLE,
+                    label=label,
+                    message="missing rationale",
+                )
+            )
 
         if not question.get("question_type"):
-            problems.append(f"{label}: missing question type")
+            diagnostics.append(
+                CompilerDiagnostic(
+                    severity=DiagnosticSeverity.FATAL,
+                    label=label,
+                    message="missing question type",
+                )
+            )
 
-    return problems
+    return diagnostics

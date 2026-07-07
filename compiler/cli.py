@@ -2,14 +2,17 @@ import json
 import sys
 from pathlib import Path
 from collections import defaultdict
-
+from compiler.diagnostics import CompilerDiagnostic
 from compiler.docx_reader import read_docx
 from compiler.tokenizer import tokenize
 from compiler.parser import parse_questions
 from compiler.pipeline import compile_questions
 
 
-def print_validation_failure(problems: list[str]) -> None:
+from compiler.diagnostics import CompilerDiagnostic
+
+
+def print_validation_failure(problems: list[CompilerDiagnostic]) -> None:
     print()
     print("Validation failed.")
     print(f"Problems found: {len(problems)}")
@@ -18,11 +21,9 @@ def print_validation_failure(problems: list[str]) -> None:
     grouped_problems = defaultdict(list)
 
     for problem in problems:
-        if ": " in problem:
-            question_label, issue = problem.split(": ", 1)
-            grouped_problems[question_label].append(issue)
-        else:
-            grouped_problems["General"].append(problem)
+        grouped_problems[problem.label].append(
+            f"[{problem.severity.value}] {problem.message}"
+        )
 
     for question_label, issues in grouped_problems.items():
         print(question_label)
@@ -32,7 +33,6 @@ def print_validation_failure(problems: list[str]) -> None:
 
     print()
     print("Compilation aborted.")
-
 
 def print_deduplication(removed: list[str]) -> None:
     if not removed:
@@ -50,6 +50,9 @@ def compile_docx(source_path: str) -> None:
     output_dir = Path("output")
     output_dir.mkdir(exist_ok=True)
 
+    packs_dir = Path("packs")
+    packs_dir.mkdir(exist_ok=True)
+
     raw_document = read_docx(source_path)
 
     raw_path = output_dir / "01_raw_document.json"
@@ -65,17 +68,28 @@ def compile_docx(source_path: str) -> None:
     question_path = output_dir / "03_questions.json"
     questions = parse_questions(str(token_path), str(question_path))
 
+    pack_id = Path(source_path).stem
+    export_path = packs_dir / f"{pack_id}.prepflow.json"
+
     result = compile_questions(
         questions,
-        pack_id="compiled_pack",
+        pack_id=pack_id,
         title=Path(source_path).stem,
+        export_path=export_path,
     )
+    
 
-    if result.problems:
-        print_validation_failure(result.problems)
+    fatal_problems = [
+        problem
+        for problem in result.problems
+        if problem.severity.value == "fatal"
+    ]
+    
+    if fatal_problems:
+        print_validation_failure(fatal_problems)
         sys.exit(1)
 
-    print_deduplication(result.removed)
+    print_deduplication(result.removed_duplicates)
 
     print("Loaded document.")
     print(f"Source: {raw_document['source_path']}")
@@ -90,28 +104,61 @@ def compile_docx(source_path: str) -> None:
     print(f"Question blocks: {len(questions)}")
     print(f"Question artifact: {question_path}")
     print()
-    print("Validation.")
-    print(f"Problems found: {len(result.problems)}")
+    fatal_count = sum(
+            1 for problem in result.problems
+            if problem.severity.value == "fatal"
+    )
+
+    recoverable_count = sum(
+        1 for problem in result.problems
+        if problem.severity.value == "recoverable"
+    )
+
+    advisory_count = sum(
+        1 for problem in result.problems
+        if problem.severity.value == "advisory"
+    )
+
+    print("Compilation Summary")
+    print("-------------------")
+    print(f"Fatal: {fatal_count}")
+    print(f"Recoverable: {recoverable_count}")
+    print(f"Advisory: {advisory_count}")
+    print(f"Skipped questions: {len(result.skipped_questions)}")
     print()
-    print(f"Canonical questions built: {len(result.questions)}")
+    print(f"Canonical questions built: {len(result.pack.questions)}")
     print(f"Pack built: {result.pack.id}")
+    print(f"Pack exported: {result.exported_path}")
 
 
 def compile_json(source_path: str) -> None:
+    packs_dir = Path("packs")
+    packs_dir.mkdir(exist_ok=True)
+
     with open(source_path, "r", encoding="utf-8") as file:
         questions = json.load(file)
 
+    pack_id = Path(source_path).stem
+    export_path = packs_dir / f"{pack_id}.prepflow.json"
+
     result = compile_questions(
         questions,
-        pack_id=Path(source_path).stem,
+        pack_id=pack_id,
         title=Path(source_path).stem,
+        export_path=export_path,
     )
 
-    if result.problems:
-        print_validation_failure(result.problems)
+    fatal_problems = [
+    problem
+    for problem in result.problems
+    if problem.severity.value == "fatal"
+]
+
+    if fatal_problems:
+        print_validation_failure(fatal_problems)
         sys.exit(1)
 
-    print_deduplication(result.removed)
+    print_deduplication(result.removed_duplicates)
 
     print("Loaded question JSON.")
     print(f"Source: {source_path}")
@@ -120,8 +167,9 @@ def compile_json(source_path: str) -> None:
     print("Validation.")
     print(f"Problems found: {len(result.problems)}")
     print()
-    print(f"Canonical questions built: {len(result.questions)}")
+    print(f"Canonical questions built: {len(result.pack.questions)}")
     print(f"Pack built: {result.pack.id}")
+    print(f"Pack exported: {result.exported_path}")
 
 
 def main():
