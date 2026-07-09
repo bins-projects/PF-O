@@ -1,404 +1,302 @@
-# PrepFlow Restart Packet
+This replaces the previous Restart Packet and reflects the current architectural baseline after today's milestone.
 
-## Read First (Repository Source of Truth)
+# 🔥 PREPFLOW RESTART PACKET v3 (COPY/PASTE ONLY)
 
-Read these project documents first, in this order:
+## PROJECT STATUS
 
-1. docs/PROJECT_STATE.md
-2. docs/CHANGELOG.md
-3. docs/VISION.md
-4. docs/ARCHITECTURE_BIBLE.md
-5. docs/DOMAIN_MODEL.md
-6. docs/PACK_SPEC.md
-7. docs/QUESTION_LIFECYCLE.md
-8. docs/RESTART_PACKET.md
+PrepFlow has completed the transition from a proof-of-concept architecture to a coordinated Source Module pipeline.
 
-The repository documentation is the source of truth.
+GitHub is the source of truth.
+
+Latest milestone has been committed and pushed.
 
 ---
 
-# Project Status
+# CURRENT ARCHITECTURE
 
-Project: PrepFlow
+```
+Original Source (PDF)
+        │
+        ▼
+Extract
+        │
+        ▼
+Clean / Normalize
+        │
+        ▼
+Parse
+        │
+        ▼
+Canonical Source Module
+        │
+        ▼
+Everything Else
+```
 
-Version: 0.7.0
+PrepFlow is a compiler.
 
-Current Sprint:
+It is **not** a quiz engine.
 
-Sprint 7 — Canonical Compiler Architecture
+Quiz generation is simply one consumer of the compiled source modules.
 
-Status:
-
-The canonical compiler pipeline is operational.
-
-The compiler has been successfully verified against a production DOCX source and produces Runtime Study Packs.
-
-Current development is focused on completing the end-to-end workflow before adding new functionality.
-
-The long-term objective remains fully supporting the existing Medical-Surgical and Pharmacy sources before introducing additional publishers.
+Do not redesign this architecture unless an actual conflict is discovered through implementation.
 
 ---
 
-# Current Architecture
+# CURRENT PIPELINE STATUS
 
-PrepFlow consists of three major systems.
+## Stage 1 — Extract
 
-## 1. Import Layer
+**Status:** ✅ COMPLETE
+
+Implemented:
+
+```
+tools/extract_text.py
+```
 
 Responsibilities:
 
-- Read supported source material.
-- Tokenize DOCX.
-- Parse source content.
+* Read the original PDF.
+* Preserve text faithfully.
+* Do not clean.
+* Do not interpret.
+* Do not parse.
 
-Supported inputs:
+Current output:
 
-- DOCX
-- JSON
+```
+scratch/pharm_raw.txt
+```
 
-Future:
-
-- PDF
-- CSV
-- AI-assisted imports
-
----
-
-## 2. Canonical Compiler
-
-Verified compiler pipeline:
-
-Reader / Loader
-
-↓
-
-Tokenizer (DOCX)
-
-↓
-
-Parser (DOCX)
-
-↓
-
-Normalizer
-
-↓
-
-Validator
-
-↓
-
-Deduplicator
-
-↓
-
-Builder
-
-↓
-
-Canonical Pack
-
-↓
-
-Exporter
-
-↓
-
-Runtime Study Pack
-
-Each stage has exactly one responsibility.
+Verified using the original Pharmacy PDF.
 
 ---
 
-## 3. Applications
+## Stage 2 — Clean / Normalize
 
-Applications consume compiler functionality.
-
-Current:
-
-- Compiler CLI
-- Study Engine (next major integration)
-
-Future:
-
-- Desktop GUI
-- API
-- Automated testing
-
-Applications never duplicate compiler logic.
-
----
-
-# Canonical Domain Model
+**Status:** ✅ WORKING
 
 Implemented:
 
-- Pack
-- Question
-- Answer
-- Origin
-- Content
-- Classification
-- Metadata
+```
+tools/clean_pharm_text.py
+```
 
-Rules:
+Responsibilities:
 
-- Pack owns Questions.
-- Question never owns Pack.
-- Stable Question IDs are publisher independent.
+* Remove publisher noise.
+* Remove advertisements.
+* Remove repeated headers/footers.
+* Remove page artifacts.
+* Normalize formatting.
+* Preserve all educational content.
 
-The Canonical Pack is the internal source of truth.
+Current output:
 
----
-
-# Runtime Study Pack
-
-Implemented.
-
-The Exporter converts Canonical Packs into lean Runtime Study Packs.
-
-Runtime Packs intentionally contain only the information required by the Study Engine.
-
-Current Runtime Question fields:
-
-- id
-- chapter
-- type
-- stem
-- choices
-- correct_answers
-- rationale
-
-The Runtime Pack intentionally excludes publisher artifacts, parser history, watermark text, importer metadata, and unnecessary compiler information.
+```
+scratch/pharm_clean.txt
+```
 
 ---
 
-# Compiler Status
+## Stage 3 — Parse
+
+**Status:** ✅ WORKING
 
 Implemented:
 
-- Reader
-- Tokenizer
-- Parser
-- Normalizer
-- Validator
-- Deduplicator
-- Builder
-- Exporter
-- Compiler Pipeline
-- Typed Diagnostics
-- CLI orchestration
+```
+tools/parse_pharm_module.py
+```
 
-Compilation Policy:
+Responsibilities:
 
-Implemented.
+* Detect questions.
+* Detect answers.
+* Detect rationales.
+* Build structured question objects.
 
-Diagnostic levels:
+Current verified output:
 
-- Fatal
-- Recoverable
-- Advisory
+```
+1085 Pharmacy questions
+```
 
-Behavior:
+Preview file:
 
-- Fatal diagnostics abort compilation.
-- Recoverable diagnostics skip affected questions.
-- Advisory diagnostics are reported without preventing export.
-
-Verified against a production source:
-
-- Parsed Questions: 220
-- Recoverable Questions Skipped: 1
-- Duplicate Questions Removed: 22
-- Runtime Questions Produced: 197
+```
+scratch/pharm_module_preview.json
+```
 
 ---
 
-# Compiler Data Flow
+## Stage 4 — Write Source Module
 
-PrepFlow uses three internal representations.
+**Status:** ⏳ PLACEHOLDER
 
-1. Parsed Question
+This is now the next implementation target.
 
-Raw parser output.
+Responsibilities:
 
-2. Normalized Question
-
-Validated compiler input.
-
-3. Canonical Question
-
-Immutable PrepFlow domain object.
-
-Applications consume Runtime Study Packs rather than parser output.
+* Take parsed question objects.
+* Write the canonical PrepFlow Source Module.
+* No parsing logic belongs here.
+* No extraction logic belongs here.
 
 ---
 
-# Known Source Data Issues
+# SOURCE MODULE BUILDER
 
-Confirmed source-data issues:
+Current orchestrator:
 
-- Duplicate question block (Questions 41–60)
-- Missing correct answer and rationale (Question 80)
-- Duplicate stems (Questions 117 and 156)
+```
+tools/build_source_module.py
+```
 
-These are source defects rather than compiler defects.
+Current execution flow:
 
----
+```
+Extract
+↓
+Clean
+↓
+Parse
+↓
+Write
+```
 
-# Immediate Next Task
+Extract, Clean, and Parse are now real stages.
 
-Implement the Pack Loader.
-
-Objectives:
-
-- Load Runtime Study Packs.
-- Update the Study Engine to consume Runtime Study Packs.
-- Complete the first fully functional end-to-end workflow.
-
-Do not begin adding new publishers until this workflow is complete.
-
----
-
-# Study Engine Scope
-
-Current functional goal:
-
-Support selecting questions by:
-
-Source:
-
-- Pharmacy
-- Medical-Surgical
-
-Selection:
-
-- Single Chapter
-- Multiple Chapters
-- Entire Source
-
-Deferred:
-
-- Topic filtering
-- Body system filtering
-- Mixed-topic generation
-- Additional publishers
+Write remains the only placeholder.
 
 ---
 
-# Repository Status
+# VERIFIED MILESTONE
 
-Branch:
+The original Pharmacy PDF now successfully runs through the new pipeline:
 
-master
+```
+Original Pharmacy PDF
+        ↓
+extract_text.py
+        ↓
+scratch/pharm_raw.txt
+        ↓
+clean_pharm_text.py
+        ↓
+scratch/pharm_clean.txt
+        ↓
+parse_pharm_module.py
+        ↓
+1085 parsed questions
+        ↓
+Preview JSON
+```
 
-Status:
+Artifacts verified:
 
-One compiler milestone committed.
+* `scratch/pharm_raw.txt`
+* `scratch/pharm_clean.txt`
+* `scratch/pharm_module_preview.json`
 
-Documentation update in progress.
-
-Remote:
-
-Local branch is ahead of origin.
-
----
-
-# Permanent Architecture Rules
-
-Parser parses.
-
-Normalizer normalizes.
-
-Validator validates.
-
-Deduplicator deduplicates.
-
-Builder builds.
-
-Exporter exports.
-
-Pack owns Questions.
-
-Question never owns Pack.
-
-Canonical Pack is the internal source of truth.
-
-Runtime Study Pack is the application format.
-
-Never silently repair source data.
-
-Prefer diagnostics over hidden fixes.
-
-Each compiler stage has exactly one responsibility.
-
-PrepFlow is library-first.
-
-Applications consume reusable compiler functionality.
+This end-to-end pipeline has been committed and pushed.
 
 ---
 
-# Permanent Development Workflow
+# MIGRATION STRATEGY (LOCKED)
 
-Primary objective:
-
-Build a reliable compiler that transforms supported source material into clean Runtime Study Packs.
-
-Functionality takes priority over elegance.
-
-Complete the workflow before optimizing or redesigning.
-
-When implementing or debugging:
-
-1. Observe actual behavior.
-2. Inspect the relevant code.
-3. Make one focused change.
-4. Save.
-5. Compile.
-6. Test.
-7. Repeat.
-
-Avoid speculative redesign during debugging.
-
-Avoid multiple simultaneous fixes.
-
-Verify every milestone against real source documents before expanding the architecture.
-
-For documentation:
-
-Prefer replacing complete documentation files so they accurately reflect the current project state.
-
----
-
-# VS Code Rule
-
-When creating new files:
-
-Never type:
-
-compiler/example.py
-
-into the New File dialog.
+Do **not** rewrite working prototypes.
 
 Instead:
 
-1. Select the destination folder.
-2. Choose New File.
-3. Enter only:
+1. Build reusable modules.
+2. Route the pipeline through them.
+3. Verify identical behavior.
+4. Commit.
+5. Push.
+6. Retire prototype code only after replacement is fully validated.
 
-example.py
+Risk reduction takes priority over elegance.
 
 ---
 
-# End-of-Session Workflow
+# DO NOT DO YET
 
-1. Compile modified Python files.
-2. Verify functionality.
-3. Review git status.
-4. Commit code.
-5. Update documentation.
-6. Commit documentation.
+Do not delete:
+
+* Existing importer scripts.
+* Existing compiler code.
+* Existing source representations.
+* Prototype implementations.
+
+Deletion is a validation milestone—not an implementation step.
+
+The old code remains the reference implementation until the new pipeline produces equivalent canonical output for both supported sources.
+
+---
+
+# DEVELOPMENT DISCIPLINE
+
+For every implementation step:
+
+1. Observe.
+2. Inspect existing code.
+3. Make one focused change.
+4. Run.
+5. Verify.
+6. Commit.
 7. Push.
-8. Verify repository state.
-9. Rewrite this restart packet completely.
-10. End session.
+8. Perform a top-down review.
+9. Continue.
+
+Avoid speculative redesigns.
+
+Avoid logic loops.
+
+Keep a separate ranked list of future ideas instead of interrupting implementation unless an idea prevents the current work.
+
+---
+
+# CURRENT PRIORITY
+
+Complete the remaining pipeline stage:
+
+```
+Write Source Module
+```
+
+After that:
+
+1. Verify the canonical Pharmacy Source Module.
+2. Run the identical pipeline on the original Medical-Surgical PDF.
+3. Modify downstream stages only if evidence requires source-specific handling.
+
+---
+
+# PROJECT FOCUS
+
+Current objective is **not** adding more sources.
+
+Current objective is **not** adding more features.
+
+Current objective is to finish one complete compiler pipeline capable of producing canonical source modules from the two validated source banks:
+
+* Pharmacy
+* Medical-Surgical
+
+Everything else builds on that foundation.
+
+---
+
+# FIRST TASK WHEN RESTARTING
+
+1. Read this packet.
+2. Perform a top-down review against the current GitHub repository.
+3. Confirm architecture matches this document.
+4. Continue implementing the Write Source Module stage.
+5. Validate output.
+6. Commit.
+7. Push.
+
+This version should serve as the new baseline until we complete the Write stage or encounter an architectural change significant enough to warrant a new restart packet.
