@@ -32,6 +32,10 @@ def parse_questions() -> None:
 
 def write_source_module() -> None:
     print("[4/4] Write source module")
+    subprocess.run(
+        [sys.executable, "tools/write_source_module.py"],
+        check=True,
+    )
 
 
 def main() -> None:
