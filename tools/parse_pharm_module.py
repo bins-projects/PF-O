@@ -3,11 +3,12 @@ import re
 from pathlib import Path
 
 CLEAN_PATH = Path("scratch/pharm_clean.txt")
-OUT_PATH = Path("scratch/pharm_module_preview.json")
+OUT_PATH = Path("scratch/pharm_module.json")
 
 chapter_re = re.compile(r"^Chapter\s+(\d+):\s+(.+)$")
-question_re = re.compile(r"^(\d+)\.\s+(.+)$")
+question_re = re.compile(r"^(\d+)\.\s+(?=[A-Z])(.+)$")
 choice_re = re.compile(r"^([a-f])\.\s+(.+)$", re.IGNORECASE)
+source_section_re = re.compile(r"^(MULTIPLE CHOICE|MULTIPLE RESPONSE|COMPLETION|ORDERING)$", re.IGNORECASE)
 
 def main():
     lines = CLEAN_PATH.read_text(encoding="utf-8").splitlines()
@@ -17,6 +18,8 @@ def main():
     questions = []
     current = None
     section = None
+    source_section = None
+    answer_pending = False
 
     for raw in lines:
         line = raw.strip()
@@ -27,6 +30,13 @@ def main():
         if m:
             chapter = int(m.group(1))
             chapter_title = m.group(2)
+            source_section = None
+            answer_pending = False
+            continue
+
+        m = source_section_re.match(line)
+        if m:
+            source_section = m.group(1).lower().replace(" ", "_")
             continue
 
         m = question_re.match(line)
@@ -39,7 +49,9 @@ def main():
                 "chapter": chapter,
                 "chapter_title": chapter_title,
                 "question_number": int(m.group(1)),
-                "type": "multiple_choice",
+                "section": source_section,
+                "source_question_number": int(m.group(1)),
+                "type": source_section or "unknown",
                 "stem": m.group(2),
                 "choices": {},
                 "answer": [],
@@ -59,9 +71,19 @@ def main():
             continue
 
         if line.startswith("ANS:"):
-            section = "rationale"
             ans = line.replace("ANS:", "").strip()
-            current["answer"] = [a.strip().lower() for a in ans.split(",") if a.strip()]
+            if ans:
+                current["answer"] = [a.strip().lower() for a in ans.split(",") if a.strip()]
+                section = "rationale"
+            else:
+                answer_pending = True
+                section = "answer"
+            continue
+
+        if answer_pending:
+            current["answer"] = [line.strip()]
+            answer_pending = False
+            section = "rationale"
             continue
 
         if line.startswith("DIF:"):
@@ -84,9 +106,9 @@ def main():
     if current:
         questions.append(current)
 
-    OUT_PATH.write_text(json.dumps(questions[:10], indent=2), encoding="utf-8")
+    OUT_PATH.write_text(json.dumps(questions, indent=2), encoding="utf-8")
     print(f"Parsed {len(questions)} questions")
-    print(f"Wrote preview: {OUT_PATH}")
+    print(f"Wrote parsed module data: {OUT_PATH}")
 
 if __name__ == "__main__":
     main()
