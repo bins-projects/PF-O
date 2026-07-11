@@ -90,6 +90,10 @@ def parse_source_questions(text: str) -> list[dict]:
             reading_rationale = False
             continue
 
+        if question["choices"] and not reading_rationale:
+            question["choices"][-1]["text"] += " " + line
+            continue
+
         if reading_rationale:
             if question["rationale"]:
                 question["rationale"] += " "

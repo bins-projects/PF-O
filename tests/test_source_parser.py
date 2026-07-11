@@ -65,3 +65,30 @@ DIF: Remembering
         "essential for students and professionals. Which organization added safety "
         "as a sixth competency?"
     )
+
+
+def test_parse_wrapped_answer_choice() -> None:
+    text = """Chapter 1: Nursing Theory
+
+MULTIPLE CHOICE
+
+2. Which definition of nursing is attributed to Florence Nightingale?
+a. The imbalance between the patient and the environment decreases the capacity for
+health.
+b. The nurse focuses on interpersonal processes.
+c. The nurse assists the patient toward independence.
+d. Human beings interact as energy fields.
+ANS: A
+Nightingale emphasized the relationship between health and environment.
+DIF: Remembering
+"""
+
+    questions = parse_source_questions(text)
+
+    assert questions[0]["choices"][0] == {
+        "label": "A",
+        "text": (
+            "The imbalance between the patient and the environment decreases "
+            "the capacity for health."
+        ),
+    }
