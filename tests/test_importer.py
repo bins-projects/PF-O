@@ -59,3 +59,40 @@ def test_extract_source_writes_raw_artifact(
     assert result.raw_artifact == (
         tmp_path / "imports" / "example-book" / "01_raw.txt"
     )
+
+
+def test_clean_extraction_writes_clean_artifact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from compiler.importer import clean_extraction
+
+    source = tmp_path / "book.pdf"
+    source.write_bytes(b"placeholder")
+
+    monkeypatch.setattr(
+        "compiler.importer.read_pdf",
+        lambda path: (
+            "Document shared on https://www.docsity.com/example\n"
+            "Chapter 01: Test Chapter\n"
+        ),
+    )
+
+    request = ImportRequest(
+        source_path=source,
+        pack_id="example-book",
+        title="Example Book",
+        workspace_root=tmp_path / "imports",
+    )
+
+    extraction = extract_source(request)
+    result = clean_extraction(extraction)
+
+    assert "docsity" not in result.cleaned_text.lower()
+    assert "Chapter 01: Test Chapter" in result.cleaned_text
+    assert result.cleaned_artifact == (
+        tmp_path / "imports" / "example-book" / "02_clean.txt"
+    )
+    assert result.cleaned_artifact.read_text(
+        encoding="utf-8"
+    ) == result.cleaned_text

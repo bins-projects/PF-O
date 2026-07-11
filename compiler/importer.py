@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
+from compiler.cleaner import clean_text
 from compiler.pdf_reader import read_pdf
 
 
@@ -22,6 +23,13 @@ class ExtractionResult:
     source_type: str
     raw_text: str
     raw_artifact: Path
+
+
+@dataclass(frozen=True)
+class CleaningResult:
+    extraction: ExtractionResult
+    cleaned_text: str
+    cleaned_artifact: Path
 
 
 def validate_request(request: ImportRequest) -> None:
@@ -75,4 +83,19 @@ def extract_source(request: ImportRequest) -> ExtractionResult:
         source_type=source_type,
         raw_text=raw_text,
         raw_artifact=raw_artifact,
+    )
+
+def clean_extraction(extraction: ExtractionResult) -> CleaningResult:
+    """Clean extracted source text and preserve an inspectable artifact."""
+    cleaned_text = clean_text(extraction.raw_text)
+
+    cleaned_artifact = (
+        extraction.raw_artifact.parent / "02_clean.txt"
+    )
+    cleaned_artifact.write_text(cleaned_text, encoding="utf-8")
+
+    return CleaningResult(
+        extraction=extraction,
+        cleaned_text=cleaned_text,
+        cleaned_artifact=cleaned_artifact,
     )
