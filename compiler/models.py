@@ -20,7 +20,8 @@ class Origin:
     publisher: str = ""
     book: str = ""
     edition: str = ""
-    chapter: str = ""
+    chapter: object = ""
+    chapter_title: str = ""
     section: str = ""
     page: Optional[int] = None
     source_id: str = ""

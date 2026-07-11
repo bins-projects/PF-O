@@ -12,6 +12,7 @@ def question_to_dict(question: Question) -> dict:
     return {
         "id": question.id,
         "chapter": question.origin.chapter,
+        "chapter_title": question.origin.chapter_title,
         "type": question.answer.type,
         "stem": question.content.stem,
         "choices": question.content.choices,

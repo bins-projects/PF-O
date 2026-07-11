@@ -1,3 +1,12 @@
+import re
+
+
+CHAPTER_HEADING_RE = re.compile(
+    r"^Chapter\s+(\d+)\s*:\s*(.+)$",
+    re.IGNORECASE,
+)
+
+
 def normalize_question(question: dict) -> dict:
     """
     Normalize supported legacy question dictionary formats into one
@@ -32,12 +41,25 @@ def normalize_question(question: dict) -> dict:
     else:
         correct_answers = [str(correct_answer)]
 
+    chapter = question.get("chapter")
+    chapter_title = question.get("chapter_title")
+
+    if isinstance(chapter, str):
+        chapter_match = CHAPTER_HEADING_RE.match(chapter.strip())
+        if chapter_match:
+            chapter = int(chapter_match.group(1))
+            chapter_title = chapter_match.group(2).strip()
+
+    question_number = question.get("question_number")
+    if question_number is None:
+        question_number = question.get("source_question_number")
+
     return {
         "id": question.get("id"),
         "source": question.get("source"),
-        "chapter": question.get("chapter"),
-        "chapter_title": question.get("chapter_title"),
-        "question_number": question.get("question_number"),
+        "chapter": chapter,
+        "chapter_title": chapter_title,
+        "question_number": question_number,
         "question_type": question.get("question_type"),
         "stem": question.get("stem") or question.get("prompt") or "",
         "choices": question.get("choices") or {},

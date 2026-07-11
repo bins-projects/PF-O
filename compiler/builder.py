@@ -14,7 +14,11 @@ def build_question(question: dict, index: int) -> Question:
     return Question(
         id=generate_question_id(index),
         version=1,
-        origin=Origin(source_id=str(question["question_number"])),
+        origin=Origin(
+            chapter=question["chapter"],
+            chapter_title=question.get("chapter_title") or "",
+            source_id=str(question["question_number"]),
+        ),
         content=Content(
             stem=question["stem"],
             choices=question["choices"],

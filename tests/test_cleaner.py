@@ -53,3 +53,22 @@ ANS: A
     assert "Chapter 02: Second" not in cleaned
     assert "Chapter 03: Third" not in cleaned
     assert "1. Example question" in cleaned
+
+
+def test_clean_text_removes_nursing_test_bank_branding() -> None:
+    text = """Fundamentals of Nursing 2nd Edition Yoost Test Bank
+NURSINGTB.COM
+Yoost & Crawford: Fundamentals of Nursing: Active Learning for Collaborative Practice,
+a. The patient agrees with the diagnosis. Fundamentals of Nursing 2nd Edition Yoost Test Bank NURSINGTB.COM U
+ANS: B NURSINGTB.COM
+The rationale remains educational content. NURSINGTB.COM
+"""
+
+    cleaned = clean_text(text)
+
+    assert "Fundamentals of Nursing 2nd Edition Yoost Test Bank" not in cleaned
+    assert "NURSINGTB.COM" not in cleaned
+    assert "Yoost & Crawford:" not in cleaned
+    assert "a. The patient agrees with the diagnosis." in cleaned
+    assert "ANS: B" in cleaned
+    assert "The rationale remains educational content." in cleaned

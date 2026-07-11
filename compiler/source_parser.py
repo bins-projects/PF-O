@@ -15,6 +15,15 @@ METADATA_RE = re.compile(
     r"^(DIF|OBJ|TOP|MSC|KEY|NCLEX|NOT|CONCEPTS):",
     re.IGNORECASE,
 )
+INLINE_METADATA_RE = re.compile(
+    r"\s+(?:(?:Remembering|Understanding|Applying|Analyzing|Evaluating|"
+    r"Creating)\s+)?(?:DIF|OBJ|TOP|MSC|KEY|NCLEX|NOT|CONCEPTS):.*$",
+    re.IGNORECASE,
+)
+
+
+def strip_inline_metadata(text: str) -> str:
+    return INLINE_METADATA_RE.sub("", text).rstrip()
 
 
 def parse_source_questions(text: str) -> list[dict]:
@@ -40,7 +49,7 @@ def parse_source_questions(text: str) -> list[dict]:
             continue
 
         question_match = QUESTION_RE.match(line)
-        if question_match and not reading_rationale:
+        if question_match and (not reading_rationale or metadata_started):
             if question is not None:
                 questions.append(question)
 
@@ -53,7 +62,9 @@ def parse_source_questions(text: str) -> list[dict]:
                     if section == "MULTIPLE RESPONSE"
                     else "multiple_choice"
                 ),
-                "stem": question_match.group(2).strip(),
+                "stem": strip_inline_metadata(
+                    question_match.group(2).strip()
+                ),
                 "choices": [],
                 "correct_answers": [],
                 "rationale": "",
@@ -75,8 +86,14 @@ def parse_source_questions(text: str) -> list[dict]:
             )
             continue
 
+        if METADATA_RE.match(line):
+            reading_rationale = False
+            metadata_started = True
+            continue
+
         if not question["choices"] and not reading_rationale:
-            question["stem"] += " " + line
+            question["stem"] += " " + strip_inline_metadata(line)
+            question["stem"] = question["stem"].rstrip()
             continue
 
         answer_match = ANSWER_RE.match(line)
@@ -88,13 +105,17 @@ def parse_source_questions(text: str) -> list[dict]:
             reading_rationale = True
             continue
 
-        if METADATA_RE.match(line):
-            reading_rationale = False
-            metadata_started = True
-            continue
-
         if metadata_started:
-            continue
+            # Ignore short standalone extraction artifacts such as
+            # "U S N T O", but allow educational rationale text that
+            # appears after source metadata.
+            if not re.search(r"[a-z]", line) and len(line) < 30:
+                continue
+
+            if question["correct_answers"]:
+                reading_rationale = True
+            else:
+                continue
 
         if question["choices"] and not reading_rationale:
             question["choices"][-1]["text"] += " " + line
@@ -103,7 +124,8 @@ def parse_source_questions(text: str) -> list[dict]:
         if reading_rationale:
             if question["rationale"]:
                 question["rationale"] += " "
-            question["rationale"] += line
+            question["rationale"] += strip_inline_metadata(line)
+            question["rationale"] = question["rationale"].rstrip()
 
     if question is not None:
         questions.append(question)

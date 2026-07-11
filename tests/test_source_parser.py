@@ -129,3 +129,69 @@ Concepts: Care Coordination
         "label": "D",
         "text": "Rosenstock",
     }
+
+
+def test_parse_rationale_that_appears_after_metadata() -> None:
+    text = """Chapter 15: Nursing Informatics
+
+MULTIPLE CHOICE
+
+11. Which informatics competency level describes this nurse?
+a. Beginner
+b. Experienced
+c. Specialist
+d. Innovator
+ANS: B
+NOT: Concepts: Technology and Informatics
+U S N T O
+Experienced nurses understand data relationships and identify trends.
+DIF: Analyzing OBJ: 15.4 TOP: Evaluation
+"""
+
+    questions = parse_source_questions(text)
+
+    assert questions[0]["rationale"] == (
+        "Experienced nurses understand data relationships and identify trends."
+    )
+
+
+def test_inline_metadata_does_not_append_to_stem() -> None:
+    text = """Chapter 26: Infection Prevention
+
+MULTIPLE CHOICE
+
+1. Which isolation precaution should the nurse implement for hepatitis A? DIF: Applying
+a. Airborne
+b. Droplet
+c. Contact
+d. Protective
+ANS: C
+Contact precautions are appropriate.
+"""
+
+    questions = parse_source_questions(text)
+
+    assert questions[0]["stem"] == (
+        "Which isolation precaution should the nurse implement for hepatitis A?"
+    )
+
+
+def test_inline_metadata_does_not_append_to_rationale() -> None:
+    text = """Chapter 6: Nursing Process
+
+MULTIPLE CHOICE
+
+1. Which patient should receive priority care?
+a. A patient with cold symptoms
+b. A patient with a twisted ankle
+c. A patient with an obstructed airway
+d. A patient requesting discharge teaching
+ANS: C
+An obstructed airway is an immediate threat. Analyzing OBJ: 6.3 TOP: Assessment
+"""
+
+    questions = parse_source_questions(text)
+
+    assert questions[0]["rationale"] == (
+        "An obstructed airway is an immediate threat."
+    )

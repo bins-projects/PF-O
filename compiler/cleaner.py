@@ -9,6 +9,9 @@ JUNK_PATTERNS = [
     r"(?i)^downloaded by:.*$",
     r"(?i)^distribution of this document is illegal.*$",
     r"(?i)^want to earn.*$",
+    r"(?i)^nursingtb\.com\s*$",
+    r"(?i)^fundamentals of nursing\s+\d+(?:st|nd|rd|th)\s+edition\s+yoost test bank\s*$",
+    r"(?i)^yoost\s*&\s*crawford:\s*fundamentals of nursing:.*$",
 ]
 
 
@@ -83,7 +86,22 @@ def clean_text(text: str) -> str:
             line,
         ).rstrip()
 
-        lines.append(line)
+        line = re.sub(
+            r"(?i)\s*fundamentals of nursing\s+\d+"
+            r"(?:st|nd|rd|th)\s+edition\s+yoost test bank"
+            r"(?:\s+nursingtb\.com)?(?:\s+u)?\s*$",
+            "",
+            line,
+        ).rstrip()
+
+        line = re.sub(
+            r"(?i)\s*nursingtb\.com(?:\s+u)?\s*$",
+            "",
+            line,
+        ).rstrip()
+
+        if line:
+            lines.append(line)
 
     lines = remove_leading_chapter_index(lines)
 

@@ -5,7 +5,6 @@ from compiler.diagnostics import CompilerDiagnostic, DiagnosticSeverity
 from compiler.models import Pack
 from compiler.normalizer import normalize_questions
 from compiler.validator import validate_questions
-from compiler.deduplicator import deduplicate_questions
 from compiler.builder import build_pack, build_questions
 from compiler.exporter import export_pack
 
@@ -75,9 +74,7 @@ def compile_questions(
         if question_label(question) not in recoverable_labels
     ]
 
-    result = deduplicate_questions(compilable_questions)
-
-    canonical_questions = build_questions(result.questions)
+    canonical_questions = build_questions(compilable_questions)
 
     pack = build_pack(
         canonical_questions,
@@ -93,7 +90,7 @@ def compile_questions(
     return CompilationResult(
         pack=pack,
         problems=diagnostics,
-        removed_duplicates=result.removed,
+        removed_duplicates=[],
         skipped_questions=skipped_questions,
         exported_path=exported_path,
     )
