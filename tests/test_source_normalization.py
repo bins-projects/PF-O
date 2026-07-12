@@ -30,3 +30,24 @@ def test_normalize_source_parser_question() -> None:
     assert normalized["choices"] == parsed["choices"]
     assert normalized["correct_answers"] == ["D"]
     assert normalized["rationale"] == parsed["rationale"]
+
+
+def test_normalizer_removes_source_title_fragments_from_chapter_title():
+    question = {
+        "chapter": "Chapter 16: Intravenous Therapy Linton: Medical-Surgical Nursing, 8th Edition",
+        "section": "MULTIPLE CHOICE",
+        "source_question_number": 1,
+        "question_type": "multiple_choice",
+        "stem": "What action should the nurse take?",
+        "choices": [
+            {"label": "A", "text": "Assess the patient."},
+            {"label": "B", "text": "Notify the provider."},
+        ],
+        "correct_answers": ["A"],
+        "rationale": "Assessment comes first.",
+    }
+
+    normalized = normalize_question(question)
+
+    assert normalized["chapter"] == 16
+    assert normalized["chapter_title"] == "Intravenous Therapy"

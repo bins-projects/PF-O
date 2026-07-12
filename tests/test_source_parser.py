@@ -384,3 +384,27 @@ DIF: Cognitive Level: Application
         "label": "G",
         "text": "Evaluate the plan over time.",
     }
+
+
+def test_parser_joins_wrapped_chapter_heading():
+    text = """
+Chapter 03: Medical-Surgical Patients: Individuals, Families, and
+Communities Linton: Medical-Surgical Nursing, 8th Edition
+MULTIPLE CHOICE
+1. What should the nurse include in the care plan?
+a. The patient’s preferences
+b. The nurse’s preferences
+c. Only hospital policy
+d. Only the family’s preferences
+ANS: A
+The patient’s preferences should be included.
+DIF: Cognitive Level: Application
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert questions[0]["chapter"] == (
+        "Chapter 03: Medical-Surgical Patients: Individuals, Families, "
+        "and Communities Linton: Medical-Surgical Nursing, 8th Edition"
+    )

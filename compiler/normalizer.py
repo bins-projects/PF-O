@@ -49,6 +49,12 @@ def normalize_question(question: dict) -> dict:
         if chapter_match:
             chapter = int(chapter_match.group(1))
             chapter_title = chapter_match.group(2).strip()
+            chapter_title = re.sub(
+                r"\s+Linton:(?:\s+Medical(?:-Surgical)?(?:\s+Nursing)?(?:,\s*\d+(?:st|nd|rd|th)\s+Edition)?-?)?\s*$",
+                "",
+                chapter_title,
+                flags=re.IGNORECASE,
+            ).strip()
 
     question_number = question.get("question_number")
     if question_number is None:

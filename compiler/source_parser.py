@@ -90,6 +90,37 @@ def normalize_split_choices(lines: list[str]) -> list[str]:
 def parse_source_questions(text: str) -> list[dict]:
     lines = normalize_split_choices([line.strip() for line in text.splitlines()])
 
+    # Join chapter headings that were wrapped across PDF-extracted lines.
+    joined_lines: list[str] = []
+    index = 0
+
+    while index < len(lines):
+        line = lines[index]
+
+        if (
+            CHAPTER_RE.match(line)
+            and re.search(r"(?:,|\band|\bor)\s*$", line, re.IGNORECASE)
+            and index + 1 < len(lines)
+        ):
+            continuation = lines[index + 1]
+
+            if (
+                continuation
+                and continuation.upper() not in SECTION_HEADERS
+                and not QUESTION_RE.match(continuation)
+                and not CHOICE_RE.match(continuation)
+                and not ANSWER_RE.match(continuation)
+                and not METADATA_RE.match(continuation)
+            ):
+                joined_lines.append(f"{line} {continuation}")
+                index += 2
+                continue
+
+        joined_lines.append(line)
+        index += 1
+
+    lines = joined_lines
+
     chapter = None
     section = None
     question = None
