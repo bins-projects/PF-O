@@ -106,3 +106,18 @@ b. Normal answer
 
     assert "Stuvia.com" not in cleaned
     assert "Normal answer" in cleaned
+
+
+def test_removes_inline_stuvia_branding_but_preserves_content() -> None:
+    source = (
+        "Where should the nurse assess the patient? "
+        "Stuvia.com - The Marketplace to Buy and Sell your Study Material\n"
+        "C. albicans infection appears most often in skinfolds.\n"
+    )
+
+    cleaned = clean_text(source)
+
+    assert "Where should the nurse assess the patient?" in cleaned
+    assert "C. albicans infection appears most often in skinfolds." in cleaned
+    assert "Stuvia" not in cleaned
+    assert "Marketplace to Buy and Sell" not in cleaned

@@ -111,6 +111,21 @@ def parse_source_questions(text: str) -> list[dict]:
             continue
 
         question_match = QUESTION_RE.match(line)
+
+        # Wrapped stems can begin with clock times such as "0700.".
+        # A leading-zero number inside an unfinished question is content,
+        # not a new source-question boundary.
+        if (
+            question_match
+            and question is not None
+            and not question["choices"]
+            and not question["correct_answers"]
+            and question_match.group(1).startswith("0")
+        ):
+            question["stem"] += " " + strip_inline_metadata(line)
+            question["stem"] = question["stem"].rstrip()
+            continue
+
         if question_match and (not reading_rationale or metadata_started):
             if question is not None:
                 questions.append(recover_missing_a_choice(question))
@@ -141,7 +156,7 @@ def parse_source_questions(text: str) -> list[dict]:
             continue
 
         choice_match = CHOICE_RE.match(line)
-        if choice_match:
+        if choice_match and not reading_rationale:
             question["choices"].append(
                 {
                     "label": choice_match.group(1).upper(),

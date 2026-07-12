@@ -86,6 +86,14 @@ def clean_text(text: str) -> str:
             line,
         ).rstrip()
 
+        # Remove Stuvia branding appended to legitimate educational text.
+        line = re.sub(
+            r"(?i)\s*stuvia\.com\s*-\s*"
+            r"the marketplace to buy and sell your study material.*$",
+            "",
+            line,
+        ).rstrip()
+
         # Remove source branding when it replaces an answer choice.
         # Example:
         # a. Stuvia.com - The Marketplace to Buy and Sell your Study Material

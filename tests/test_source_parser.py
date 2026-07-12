@@ -270,3 +270,66 @@ A seizure disorder is sometimes called epilepsy.
     assert questions[0]["stem"] == "What is another term for seizure disorder?"
     assert questions[0]["choices"][0]["label"] == "A"
     assert questions[0]["choices"][0]["text"] == "Epilepsy"
+
+
+def test_wrapped_stem_line_beginning_with_time_is_not_new_question():
+    text = """
+Chapter 50: Diabetes and Hypoglycemia
+MULTIPLE CHOICE
+16. A patient with type 1 diabetes has an insulin order for NPH insulin, 35 U, to be given at
+0700. The patient has also been instructed not to take anything by mouth.
+a. Give the insulin as ordered.
+b. Give the insulin with a small snack.
+c. Inform the charge nurse.
+d. Hold the insulin until after the blood draw.
+ANS: D
+Holding the insulin is appropriate.
+DIF: Cognitive Level: Application
+17. What should the nurse assess next?
+a. Temperature
+b. Blood pressure
+c. Blood glucose
+d. Respiratory rate
+ANS: C
+The blood glucose should be assessed.
+DIF: Cognitive Level: Application
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 2
+    assert questions[0]["source_question_number"] == 16
+    assert "0700. The patient" in questions[0]["stem"]
+    assert len(questions[0]["choices"]) == 4
+    assert questions[0]["correct_answers"] == ["D"]
+
+
+def test_rationale_beginning_with_choice_like_prefix_stays_rationale():
+    text = """
+Chapter 57: Skin Disorders
+MULTIPLE CHOICE
+7. Where should the nurse assess for Candida albicans?
+a. Scalp
+b. Abdominal skinfolds
+c. Shaft of the penis
+d. Sacrum
+ANS: B
+C. albicans infection appears most often in skinfolds.
+DIF: Cognitive Level: Comprehension
+8. What should the nurse assess next?
+a. Temperature
+b. Blood pressure
+c. Skin color
+d. Respirations
+ANS: C
+Skin color should be assessed.
+DIF: Cognitive Level: Comprehension
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 2
+    assert len(questions[0]["choices"]) == 4
+    assert questions[0]["rationale"] == (
+        "C. albicans infection appears most often in skinfolds."
+    )
