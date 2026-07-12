@@ -9,7 +9,7 @@ SECTION_HEADERS = {
     "ORDERING",
 }
 QUESTION_RE = re.compile(r"^(\d+)\.\s+(.+)")
-CHOICE_RE = re.compile(r"^([a-fA-F])\.\s+(.+)")
+CHOICE_RE = re.compile(r"^([a-gA-G])\.\s+(.+)")
 ANSWER_RE = re.compile(r"^ANS:\s*(.*)", re.IGNORECASE)
 METADATA_RE = re.compile(
     r"^(DIF|OBJ|TOP|MSC|KEY|NCLEX|NOT|CONCEPTS):",
@@ -72,7 +72,7 @@ def normalize_split_choices(lines: list[str]) -> list[str]:
     while index < len(lines):
         if (
             index + 2 < len(lines)
-            and re.fullmatch(r"[a-fA-F]", lines[index])
+            and re.fullmatch(r"[a-gA-G]", lines[index])
             and lines[index + 1] == "."
         ):
             normalized.append(
@@ -171,7 +171,14 @@ def parse_source_questions(text: str) -> list[dict]:
             continue
 
         if awaiting_completion_answer:
-            question["correct_answers"] = [line]
+            if question["question_type"] == "ordered_response":
+                question["correct_answers"] = re.findall(
+                    r"[A-G]",
+                    line.upper(),
+                )
+            else:
+                question["correct_answers"] = [line]
+
             awaiting_completion_answer = False
             reading_rationale = True
             continue
@@ -179,6 +186,36 @@ def parse_source_questions(text: str) -> list[dict]:
         answer_match = ANSWER_RE.match(line)
         if answer_match:
             answer_text = answer_match.group(1).strip()
+
+            sequence_language = any(
+                phrase in question["stem"].lower()
+                for phrase in (
+                    "appropriate sequence",
+                    "correct order",
+                    "prioritize the steps",
+                    "prioritize these",
+                    "place the events",
+                    "place the options",
+                )
+            )
+
+            if (
+                question["question_type"] == "completion"
+                and question["choices"]
+                and sequence_language
+            ):
+                question["question_type"] = "ordered_response"
+
+                if answer_text:
+                    question["correct_answers"] = re.findall(
+                        r"[A-G]",
+                        answer_text.upper(),
+                    )
+                    reading_rationale = True
+                else:
+                    awaiting_completion_answer = True
+
+                continue
 
             if question["question_type"] == "completion":
                 if answer_text:
@@ -189,7 +226,7 @@ def parse_source_questions(text: str) -> list[dict]:
                 continue
 
             question["correct_answers"] = re.findall(
-                r"[A-F]",
+                r"[A-G]",
                 answer_text.upper(),
             )
             reading_rationale = True

@@ -333,3 +333,54 @@ DIF: Cognitive Level: Comprehension
     assert questions[0]["rationale"] == (
         "C. albicans infection appears most often in skinfolds."
     )
+
+
+def test_completion_sequence_question_is_classified_as_ordered_response():
+    text = """
+Chapter 1: Nursing Practice
+COMPLETION
+9. Place the corresponding letter to each stage in the correct order. _________
+(Place the events in the appropriate sequence. Do not separate answers with punctuation.)
+a. Outcomes
+b. Conceptualization
+c. Frustration
+d. Action
+ANS:
+CBDA
+The correct sequence is frustration, conceptualization, action, and outcomes.
+DIF: Cognitive Level: Application
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert questions[0]["question_type"] == "ordered_response"
+    assert questions[0]["correct_answers"] == ["C", "B", "D", "A"]
+    assert len(questions[0]["choices"]) == 4
+
+
+def test_source_parser_accepts_choice_g():
+    text = """
+Chapter 1: Nursing Practice
+COMPLETION
+10. Place the steps in the appropriate sequence. _________
+a. Negotiate a plan.
+b. Clarify values.
+c. Ask if it is an ethical dilemma.
+d. Verbalize the problem.
+e. Gather information.
+f. Identify possible courses of action.
+g. Evaluate the plan over time.
+ANS: CEBDFAG
+The steps should be completed in the listed sequence.
+DIF: Cognitive Level: Application
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert len(questions[0]["choices"]) == 7
+    assert questions[0]["choices"][-1] == {
+        "label": "G",
+        "text": "Evaluate the plan over time.",
+    }
