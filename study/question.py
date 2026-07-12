@@ -54,6 +54,12 @@ def check_answer(user_answer, correct_answers, question_type=None):
     user_answer = normalize_answer(user_answer)
     normalized_correct = [normalize_answer(str(answer)) for answer in correct_answers]
 
+    if question_type == "completion":
+        return any(
+            user_answer == correct_answer
+            for correct_answer in normalized_correct
+        )
+
     if question_type == "ordered_response":
         return list(user_answer) == normalized_correct
 
