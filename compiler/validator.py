@@ -17,7 +17,11 @@ def validate_questions(questions: list[dict]) -> list[CompilerDiagnostic]:
         number = question.get("question_number", "Unknown")
         chapter = question.get("chapter", "Unknown")
         label = f"Chapter {chapter}, Question {number}"
-        number_key = (chapter, number)
+        number_key = (
+    chapter,
+    question.get("question_type"),
+    number,
+)
 
         stem = (question.get("stem") or "").strip()
 
@@ -62,7 +66,16 @@ def validate_questions(questions: list[dict]) -> list[CompilerDiagnostic]:
                 )
             )
 
-        if not question.get("choices"):
+        choice_required_types = {
+            "multiple_choice",
+            "multiple_response",
+            "ordered_response",
+        }
+
+        if (
+            question.get("question_type") in choice_required_types
+            and not question.get("choices")
+        ):
             diagnostics.append(
                 CompilerDiagnostic(
                     severity=DiagnosticSeverity.FATAL,

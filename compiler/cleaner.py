@@ -86,6 +86,21 @@ def clean_text(text: str) -> str:
             line,
         ).rstrip()
 
+        # Remove source branding when it replaces an answer choice.
+        # Example:
+        # a. Stuvia.com - The Marketplace to Buy and Sell your Study Material
+        line = re.sub(
+            r"(?i)^[a-f]\.\s*stuvia\.com.*$",
+            "",
+            line,
+        ).rstrip()
+
+                # Repair section headers contaminated by inline source branding.
+        line = re.sub(
+            r"(?i)^(MULTIPLE CHOICE|MULTIPLE RESPONSE|COMPLETION|ORDERING)\s+Stuvia\.com.*$",
+            r"\1",
+            line,
+        )
         line = re.sub(
             r"(?i)\s*fundamentals of nursing\s+\d+"
             r"(?:st|nd|rd|th)\s+edition\s+yoost test bank"
@@ -103,7 +118,29 @@ def clean_text(text: str) -> str:
         if line:
             lines.append(line)
 
-    lines = remove_leading_chapter_index(lines)
+    cleaned_lines = []
+    index = 0
+
+    while index < len(lines):
+        if (
+            index + 3 < len(lines)
+            and re.match(
+                r"(?i)^extra per year\?$",
+                lines[index],
+            )
+            and lines[index + 1] == "Med C"
+            and re.match(
+                r"(?i)^extra per year\?$",
+                lines[index + 2],
+            )
+        ):
+            index += 3
+            continue
+
+        cleaned_lines.append(lines[index])
+        index += 1
+
+    lines = remove_leading_chapter_index(cleaned_lines)
 
     cleaned = "\n".join(lines)
 

@@ -195,3 +195,78 @@ An obstructed airway is an immediate threat. Analyzing OBJ: 6.3 TOP: Assessment
     assert questions[0]["rationale"] == (
         "An obstructed airway is an immediate threat."
     )
+
+
+def test_parse_completion_with_answer_on_following_line() -> None:
+    text = """Chapter 1: Dosage Calculations
+
+COMPLETION
+
+1. What is the weight in pounds for an individual who weighs 70 kg? lb
+ANS:
+154
+One kilogram equals 2.2 pounds.
+DIF: Understanding
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert questions[0]["question_type"] == "completion"
+    assert questions[0]["choices"] == []
+    assert questions[0]["correct_answers"] == ["154"]
+    assert questions[0]["rationale"] == (
+        "One kilogram equals 2.2 pounds."
+    )
+
+
+def test_parse_split_choice_marker() -> None:
+    text = """Chapter 1: Test
+
+MULTIPLE CHOICE
+
+1. What is another term for seizure disorder?
+a
+.
+Epilepsy
+b
+.
+Enkephalin
+c
+.
+Narcolepsy
+d
+.
+Neuropathy
+ANS: A
+A seizure disorder is also called epilepsy.
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert len(questions[0]["choices"]) == 4
+    assert questions[0]["choices"][0]["label"] == "A"
+    assert questions[0]["choices"][0]["text"] == "Epilepsy"
+
+
+def test_recovers_missing_a_choice_when_answer_key_confirms_it() -> None:
+    text = """Chapter 25: Drug Therapy for Seizures
+
+MULTIPLE CHOICE
+
+2. What is another term for seizure disorder?
+Epilepsy
+b. Enkephalin
+c. Narcolepsy
+d. Neuropathy
+ANS: A
+A seizure disorder is sometimes called epilepsy.
+"""
+
+    questions = parse_source_questions(text)
+
+    assert len(questions) == 1
+    assert questions[0]["stem"] == "What is another term for seizure disorder?"
+    assert questions[0]["choices"][0]["label"] == "A"
+    assert questions[0]["choices"][0]["text"] == "Epilepsy"

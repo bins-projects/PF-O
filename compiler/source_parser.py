@@ -10,7 +10,7 @@ SECTION_HEADERS = {
 }
 QUESTION_RE = re.compile(r"^(\d+)\.\s+(.+)")
 CHOICE_RE = re.compile(r"^([a-fA-F])\.\s+(.+)")
-ANSWER_RE = re.compile(r"^ANS:\s*(.+)", re.IGNORECASE)
+ANSWER_RE = re.compile(r"^ANS:\s*(.*)", re.IGNORECASE)
 METADATA_RE = re.compile(
     r"^(DIF|OBJ|TOP|MSC|KEY|NCLEX|NOT|CONCEPTS):",
     re.IGNORECASE,
@@ -25,9 +25,70 @@ INLINE_METADATA_RE = re.compile(
 def strip_inline_metadata(text: str) -> str:
     return INLINE_METADATA_RE.sub("", text).rstrip()
 
+def recover_missing_a_choice(question: dict) -> dict:
+    """
+    Recover an A choice lost during PDF extraction.
+    """
+
+    if (
+        question.get("question_type") == "multiple_choice"
+        and question.get("correct_answers") == ["A"]
+        and question.get("choices")
+        and question["choices"][0]["label"] == "B"
+        and "?" in question.get("stem", "")
+    ):
+        stem = question["stem"].strip()
+
+        question_part, possible_answer = stem.rsplit("?", 1)
+
+        if possible_answer.strip():
+            question["stem"] = question_part.strip() + "?"
+            question["choices"].insert(
+                0,
+                {
+                    "label": "A",
+                    "text": possible_answer.strip(),
+                },
+            )
+
+    return question
+
+
+def normalize_split_choices(lines: list[str]) -> list[str]:
+    """
+    Repair PDF extraction where choice markers are split across lines.
+
+    Example:
+        a
+        .
+        Answer text
+
+    becomes:
+        a. Answer text
+    """
+    normalized = []
+    index = 0
+
+    while index < len(lines):
+        if (
+            index + 2 < len(lines)
+            and re.fullmatch(r"[a-fA-F]", lines[index])
+            and lines[index + 1] == "."
+        ):
+            normalized.append(
+                f"{lines[index]}. {lines[index + 2]}"
+            )
+            index += 3
+            continue
+
+        normalized.append(lines[index])
+        index += 1
+
+    return normalized
+
 
 def parse_source_questions(text: str) -> list[dict]:
-    lines = [line.strip() for line in text.splitlines()]
+    lines = normalize_split_choices([line.strip() for line in text.splitlines()])
 
     chapter = None
     section = None
@@ -35,6 +96,7 @@ def parse_source_questions(text: str) -> list[dict]:
     questions: list[dict] = []
     reading_rationale = False
     metadata_started = False
+    awaiting_completion_answer = False
 
     for line in lines:
         if not line:
@@ -51,17 +113,18 @@ def parse_source_questions(text: str) -> list[dict]:
         question_match = QUESTION_RE.match(line)
         if question_match and (not reading_rationale or metadata_started):
             if question is not None:
-                questions.append(question)
+                questions.append(recover_missing_a_choice(question))
 
             question = {
                 "chapter": chapter,
                 "section": section,
                 "source_question_number": int(question_match.group(1)),
-                "question_type": (
-                    "multiple_response"
-                    if section == "MULTIPLE RESPONSE"
-                    else "multiple_choice"
-                ),
+                "question_type": {
+                    "MULTIPLE CHOICE": "multiple_choice",
+                    "MULTIPLE RESPONSE": "multiple_response",
+                    "COMPLETION": "completion",
+                    "ORDERING": "ordered_response",
+                }.get(section, "multiple_choice"),
                 "stem": strip_inline_metadata(
                     question_match.group(2).strip()
                 ),
@@ -71,6 +134,7 @@ def parse_source_questions(text: str) -> list[dict]:
             }
             reading_rationale = False
             metadata_started = False
+            awaiting_completion_answer = False
             continue
 
         if question is None:
@@ -91,18 +155,34 @@ def parse_source_questions(text: str) -> list[dict]:
             metadata_started = True
             continue
 
-        if not question["choices"] and not reading_rationale:
-            question["stem"] += " " + strip_inline_metadata(line)
-            question["stem"] = question["stem"].rstrip()
+        if awaiting_completion_answer:
+            question["correct_answers"] = [line]
+            awaiting_completion_answer = False
+            reading_rationale = True
             continue
 
         answer_match = ANSWER_RE.match(line)
         if answer_match:
+            answer_text = answer_match.group(1).strip()
+
+            if question["question_type"] == "completion":
+                if answer_text:
+                    question["correct_answers"] = [answer_text]
+                    reading_rationale = True
+                else:
+                    awaiting_completion_answer = True
+                continue
+
             question["correct_answers"] = re.findall(
                 r"[A-F]",
-                answer_match.group(1).upper(),
+                answer_text.upper(),
             )
             reading_rationale = True
+            continue
+
+        if not question["choices"] and not reading_rationale:
+            question["stem"] += " " + strip_inline_metadata(line)
+            question["stem"] = question["stem"].rstrip()
             continue
 
         if metadata_started:
@@ -128,6 +208,6 @@ def parse_source_questions(text: str) -> list[dict]:
             question["rationale"] = question["rationale"].rstrip()
 
     if question is not None:
-        questions.append(question)
+        questions.append(recover_missing_a_choice(question))
 
     return questions

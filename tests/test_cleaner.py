@@ -72,3 +72,37 @@ The rationale remains educational content. NURSINGTB.COM
     assert "a. The patient agrees with the diagnosis." in cleaned
     assert "ANS: B" in cleaned
     assert "The rationale remains educational content." in cleaned
+
+
+def test_removes_stuvia_multiline_artifact_block() -> None:
+    from compiler.cleaner import clean_text
+
+    text = """Question content
+Stuvia.com - The Marketplace to Buy and Sell your Study Material
+extra per year?
+Med C
+extra per year?
+a. Answer one
+b. Answer two
+"""
+
+    cleaned = clean_text(text)
+
+    assert "Stuvia.com" not in cleaned
+    assert "extra per year?" not in cleaned
+    assert "Med C" not in cleaned
+    assert "a. Answer one" in cleaned
+
+
+def test_removes_stuvia_from_choice_line() -> None:
+    from compiler.cleaner import clean_text
+
+    text = """Question stem
+a. Stuvia.com - The Marketplace to Buy and Sell your Study Material
+b. Normal answer
+"""
+
+    cleaned = clean_text(text)
+
+    assert "Stuvia.com" not in cleaned
+    assert "Normal answer" in cleaned
