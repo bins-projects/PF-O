@@ -6,11 +6,14 @@ This document is ChatGPT’s operational bootloader for resuming PrepFlow develo
 
 It restores:
 
-- the current project state;
-- permanent working rules;
-- the latest verified milestones;
-- the active cold-import experiment;
-- the exact next implementation target.
+* the current verified repository state;
+* permanent architectural and privacy rules;
+* completed compiler and Pack milestones;
+* the three locked starting study categories;
+* established quiz behavior;
+* the next desktop-application milestone;
+* the later user-friendly PDF import goal;
+* the exact startup procedure for the next session.
 
 This is not the permanent architecture document.
 
@@ -22,9 +25,7 @@ docs/ARCHITECTURE_BIBLE.md
 
 The committed GitHub repository is the technical source of truth.
 
-Memory and this packet are secondary.
-
-If the packet conflicts with the committed repository:
+If this packet conflicts with the committed implementation:
 
 1. inspect the committed repository;
 2. trust the committed implementation;
@@ -34,7 +35,7 @@ If the packet conflicts with the committed repository:
 
 # Source of Truth
 
-Primary technical source:
+Primary repositories:
 
 ```text
 Private repository:
@@ -50,8 +51,6 @@ Expected branch:
 master
 ```
 
-Both remotes should normally point to the same commit.
-
 Before requesting terminal output, pasted code, local files, or helper scripts, first ask:
 
 > Can the committed GitHub repository answer this?
@@ -60,13 +59,44 @@ Use GitHub first whenever the required information is committed.
 
 Request local inspection only when:
 
-- work is uncommitted;
-- runtime behavior must be observed;
-- tests must run;
-- dependencies must be inspected;
-- private source material must be examined;
-- generated import artifacts are intentionally untracked;
-- GitHub genuinely cannot answer.
+* work is uncommitted;
+* runtime behavior must be observed;
+* tests must run;
+* dependencies must be inspected;
+* private source material must be examined;
+* generated import artifacts are intentionally untracked;
+* GitHub genuinely cannot answer.
+
+---
+
+# Latest Verified Repository State
+
+Latest confirmed committed milestone:
+
+```text
+30c41e8 Promote validated Medical-Surgical pack
+```
+
+Immediately preceding compiler milestone:
+
+```text
+87a0e81 Harden Med-Surg source cleanup and chapter boundaries
+```
+
+At the stopping point:
+
+* local `master` was clean;
+* private `origin/master` was pushed;
+* public `public/master` was pushed;
+* both remotes were synchronized;
+* there were no remaining untracked test Packs;
+* the working tree reported:
+
+```text
+nothing to commit, working tree clean
+```
+
+Before resuming, verify GitHub rather than assuming these commits are still current.
 
 ---
 
@@ -77,17 +107,21 @@ PrepFlow development follows:
 ```text
 Observe
    ↓
-Inspect
+Inspect committed code
    ↓
-One focused change
+Identify one real failure or next milestone
    ↓
-Save
+Add or update a regression test
    ↓
-Compile or Build
+Make one focused generic change
    ↓
-Run
+Run targeted tests
    ↓
-Verify
+Run the full test suite
+   ↓
+Rebuild the real source
+   ↓
+Validate output
    ↓
 Commit
    ↓
@@ -100,84 +134,106 @@ Repeat
 
 Do not:
 
-- make several speculative changes at once;
-- redesign working architecture during debugging;
-- create a separate importer for every book;
-- reopen architectural decisions without implementation evidence;
-- collect endless diagnostics instead of executing;
-- introduce a graphical interface before the underlying pipeline works;
-- allow ideas to interrupt the current Version 1 milestone.
+* make several speculative changes at once;
+* redesign working architecture during debugging;
+* create a separate importer for every book;
+* reopen settled architecture without implementation evidence;
+* collect endless diagnostics without making a decision;
+* rewrite the Study Engine while building the interface;
+* expose Pack filenames, Pack IDs, JSON, or compiler terminology to users;
+* allow later PDF-import ideas to interrupt the desktop-shell milestone.
 
 When Charlie says:
 
 > next
 
-perform or provide exactly the next executable step.
-
-Do not merely describe the next step.
+provide exactly the next executable step.
 
 ---
 
 # Focus and Loop Prevention
 
-If work becomes repetitive or confusing:
-
-1. stop;
-2. return to the current architectural boundary;
-3. identify the smallest executable action;
-4. execute it;
-5. verify before continuing.
-
 Warning signs of a logic loop include:
 
-- repeated `grep` commands without a new decision;
-- inspecting the same files repeatedly;
-- proposing multiple architectures;
-- expanding the plan instead of implementing the current stage;
-- repeatedly explaining why the project is important;
-- creating abstractions before testing a real source;
-- asking Charlie to paste information already available from GitHub.
+* repeatedly inspecting the same files without a new decision;
+* asking Charlie to paste code already available in GitHub;
+* proposing multiple competing interface frameworks before inspecting the existing Study Engine;
+* trying to make the compiler theoretically perfect instead of responding to real source evidence;
+* manually editing generated Packs instead of fixing the generic pipeline;
+* treating an older Pack as automatically correct when the new source-derived Pack differs;
+* expanding into PDF import before the desktop study interface works.
 
-The current work is evidence-driven.
+When work becomes repetitive:
 
-Real source material determines importer requirements.
+1. stop;
+2. return to the active milestone;
+3. inspect the committed implementation;
+4. identify the smallest executable action;
+5. test and verify before continuing.
 
 ---
 
 # Permanent Product Goal
 
-PrepFlow’s main purpose is:
+PrepFlow’s core purpose is:
 
 > Give PrepFlow educational source material and make it study-able.
 
-The user should eventually be able to choose a source and use a simple action such as:
+The product has two major user-facing workflows.
 
-> Import and Create Module
+## Study Workflow
 
-The intended user workflow is:
+```text
+Launch PrepFlow
+   ↓
+See PrepFlow branding
+   ↓
+Choose Fundamentals, Pharmacy, or Medical-Surgical
+   ↓
+Choose one or more chapters
+   ↓
+Begin studying
+   ↓
+Complete blocks
+   ↓
+Review missed questions
+   ↓
+Continue until mastery
+```
 
-1. choose a source file;
-2. enter or confirm the module title;
-3. enter or confirm the Pack ID;
-4. start import;
-5. allow PrepFlow to extract, clean, detect, parse, validate, and build;
-6. review an import report;
-7. receive a canonical PrepFlow Pack;
-8. see the new Pack on the home screen;
-9. select chapters;
-10. begin studying.
+## Future Import Workflow
 
-The user should not need to understand Python scripts or compiler internals.
+```text
+Import PDF
+   ↓
+Choose or drop source file
+   ↓
+Enter or confirm subject title
+   ↓
+PrepFlow extracts
+   ↓
+PrepFlow cleans
+   ↓
+PrepFlow detects structure
+   ↓
+PrepFlow parses
+   ↓
+PrepFlow normalizes
+   ↓
+PrepFlow validates
+   ↓
+PrepFlow reports warnings
+   ↓
+PrepFlow creates a study category
+```
 
-The interface must wrap a proven compiler pipeline.
-
-Do not build the button before the full pipeline works end-to-end.
+The import workflow is a core product requirement, but it is not the immediate next milestone.
 
 ---
 
 # Permanent Architecture
 
-PrepFlow’s stable architecture is:
+PrepFlow’s stable compiler architecture is:
 
 ```text
 Private Source Material
@@ -198,9 +254,7 @@ Validate
         ↓
 Recover usable questions
         ↓
-Deduplicate
-        ↓
-Assign stable IDs
+Assign canonical IDs
         ↓
 Build canonical Pack
         ↓
@@ -211,28 +265,20 @@ PrepFlow Study Engine
 
 The importer is:
 
-- format-aware;
-- subject-agnostic.
+* format-aware;
+* subject-agnostic.
 
-PrepFlow must not require separate permanent importers such as:
-
-```text
-import_pharmacy.py
-import_medsurg.py
-import_maternity.py
-import_pediatrics.py
-import_auto_repair.py
-```
-
-Pharmacy, Medical-Surgical, Fundamentals, Maternity, and other subjects are Pack content and metadata.
+Subjects such as Fundamentals, Pharmacy, Medical-Surgical, Maternity, Pediatrics, Mental Health, and non-nursing educational material are content.
 
 They are not separate application architectures.
+
+Do not create permanent book-specific importers.
 
 ---
 
 # Repository Boundaries
 
-Permanent product areas are:
+Permanent product areas include:
 
 ```text
 compiler/
@@ -244,988 +290,807 @@ README.md
 requirements.txt
 ```
 
-The repository must not contain:
+Private source files must remain outside the repository.
 
-- copyrighted private source PDFs;
-- private DOCX source files;
-- scratch extraction files;
-- recovered pre-anonymization repositories;
-- temporary importer snapshots;
-- personal identifying information;
-- personal email addresses;
-- personal machine paths embedded in project content;
-- PyInstaller build output;
-- executable artifacts;
-- obsolete one-time book-specific scripts.
-
-Private source files should remain outside the repository.
-
-Current source storage convention:
+Current source-storage convention:
 
 ```text
 ~/projects/prepflow-sources/
 ```
 
-Generated cold-import artifacts currently live under:
+Working import artifacts may exist under:
 
 ```text
 output/imports/<pack-id>/
 ```
 
-These are working artifacts and should not automatically be committed.
+These are generated diagnostic artifacts and should not automatically be committed.
+
+The repository must not contain:
+
+* copyrighted private source PDFs;
+* private source DOCX files;
+* scratch extraction text;
+* personal identifying information;
+* personal email addresses;
+* personal local machine paths embedded in project files;
+* PyInstaller build output;
+* executable artifacts;
+* obsolete temporary test Packs;
+* one-time subject-specific importer scripts.
+
+After a source has been successfully imported and validated into a canonical PrepFlow Pack, the original source material should not be retained inside the application or repository.
+
+PrepFlow should preserve only:
+
+* cleaned educational content needed for study;
+* canonical PrepFlow identifiers;
+* necessary subject, chapter, question, answer, rationale, and study metadata.
+
+Source-specific publisher metadata and temporary implementation artifacts should be discarded after validation unless temporarily required for diagnostics.
 
 ---
 
-# Git and Privacy State
+# Privacy State
 
-The repository history was rewritten before beta release.
+Repository history was previously rewritten to remove Charlie’s personal author and email information.
 
-All reachable commit author and committer metadata was replaced with:
+Reachable Git history uses:
 
 ```text
 PrepFlow <bins-projects@users.noreply.github.com>
 ```
 
-Historical personal identifiers were removed.
-
-Historical private or temporary paths removed from reachable Git history include:
-
-```text
-cardiac questions.docx
-scratch/medsurg_clean.txt
-scratch/medsurg_module_test.json
-scratch/medsurg_raw.txt
-scratch/pharm_clean.txt
-scratch/pharm_module.json
-scratch/pharm_module_preview.json
-scratch/pharm_raw.txt
-```
-
-Local, private, and public branch hashes were verified after the rewrite.
-
-The pre-anonymization recovery bundle is stored at:
+The private pre-anonymization recovery bundle remains outside the repository:
 
 ```text
 ~/projects/prepflow-before-anonymization.bundle
 ```
 
-This bundle contains:
-
-- the original commit history;
-- Charlie’s former author name;
-- Charlie’s personal email;
-- deleted historical scratch data;
-- deleted historical source files.
-
-It must remain private.
-
 It must never be:
 
-- uploaded to GitHub;
-- included in a release;
-- sent to classmates;
-- placed inside the repository;
-- packaged with PrepFlow.
+* uploaded;
+* shared;
+* included in a release;
+* placed inside the repository;
+* packaged with PrepFlow.
 
-It may be deleted later when Charlie is fully confident the sanitized history is no longer needed.
-
-The terminal prompt:
+The local terminal prompt:
 
 ```text
 charliekeila@penguin
 ```
 
-is only the local Linux username and Chromebook Linux hostname.
+is only the Linux username and host name.
 
-It is not Git commit identity and is not automatically published.
-
----
-
-# Current Repository State
-
-Latest confirmed committed importer milestone:
-
-```text
-9435a41 Add generic source cleaning and structure detection
-```
-
-At that milestone:
-
-- local `master` was clean;
-- private `origin/master` was pushed;
-- public `public/master` was pushed.
-
-Before resuming, verify GitHub rather than assuming this commit is still current.
+It is not the Git identity.
 
 ---
 
-# Completed Major Milestones
+# Three Locked Starting Packs
 
-## Canonical Compiler and Packs
-
-PrepFlow has canonical production Packs for:
+PrepFlow now has exactly three official starting study Packs:
 
 ```text
+packs/fundamentals.prepflow.json
 packs/pharmacy.prepflow.json
 packs/medical_surgical.prepflow.json
 ```
 
-Pharmacy pipeline was previously proven through:
+Verified user-facing categories and counts:
+
+```text
+Fundamentals of Nursing — 1,040 questions
+Pharmacy — 1,084 questions
+Medical-Surgical — 1,443 questions
+```
+
+These three categories form the starting PrepFlow library.
+
+The user-facing interface should display:
+
+```text
+Fundamentals
+Pharmacy
+Medical-Surgical
+```
+
+Where space is limited, `Med-Surg` is acceptable.
+
+Do not display:
+
+```text
+fundamentals.prepflow.json
+pharmacy.prepflow.json
+medical_surgical.prepflow.json
+pack_id
+JSON
+canonical Pack
+compiler pipeline
+```
+
+Those are implementation details.
+
+---
+
+# Fundamentals Milestone
+
+Fundamentals was the first unseen source used to prove the generic importer.
+
+The cold import began with the original PDF and successfully proved:
 
 ```text
 PDF
 → Extract
 → Clean
+→ Detect
 → Parse
-→ Write
-→ Canonical PrepFlow Pack
+→ Normalize
+→ Validate
+→ Build Pack
 ```
 
-Pharmacy Pack contains approximately:
+The final committed starting Pack contains:
+
+```text
+1,040 questions
+```
+
+Fundamentals established the first complete generic-import proof.
+
+---
+
+# Pharmacy Milestone
+
+The official Pharmacy Pack is:
+
+```text
+packs/pharmacy.prepflow.json
+```
+
+Verified count:
 
 ```text
 1,084 questions
 ```
 
-Medical-Surgical Pack contains:
+Verified types:
 
 ```text
-1,435 questions
+Multiple Choice: 963
+Multiple Response: 73
+Completion: 39
+Ordering: 9
 ```
 
-Supported question types include:
+The official Pharmacy Pack is the retained validated Pack.
 
-- Multiple Choice;
-- Multiple Response;
-- Completion;
-- Ordered Response.
+A later temporary file named:
 
-Known residual source branding was removed from the committed Packs.
+```text
+packs/pharmacy-test.prepflow.json
+```
 
-The Pharmacy Pack’s remaining TCPDF fragment was removed.
+was inspected and identified as a stale, dirty intermediate artifact.
 
-A subsequent branding scan returned no remaining known strings such as:
+It had:
 
-- Stuvia;
-- Downloaded by;
-- Powered by TCPDF;
-- Distribution of this document is illegal;
-- Want to earn;
-- Docsity notices.
+* only 1,073 questions;
+* 271 Stuvia remnants;
+* incomplete question-type support;
+* a test Pack ID and title.
+
+It was deleted and must not be restored or promoted.
+
+Do not assume a `-test` file is newer or better than the official Pack.
 
 ---
 
-## Medical-Surgical Chapter Cleanup
+# Medical-Surgical Milestone
 
-Medical-Surgical chapter display names originally contained source-title fragments such as:
+The original private source was:
 
 ```text
-Linton:
-Medical-
-Medical-Surgical
+~/projects/prepflow-sources/medsurg.pdf
 ```
 
-The committed Pack was cleaned.
+The source was rerun through the improved universal pipeline.
 
-Results:
+Final official Pack:
 
 ```text
-527 chapter-title occurrences corrected
-1,435 questions preserved
-0 malformed chapter display names remaining
-JSON remained valid
+packs/medical_surgical.prepflow.json
 ```
 
-Examples corrected include:
+Final verified results:
 
 ```text
-Acute Lower Respiratory Tract Disorders Linton:
-→ Acute Lower Respiratory Tract Disorders
-
-Cerebrovascular Accident Linton: Medical-
-→ Cerebrovascular Accident
-
-Medical-Surgical Patients: Individuals, Families, and
-→ Medical-Surgical Patients: Individuals, Families, and Communities
-
-Spinal Cord Injury Linton: Medical-Surgical
-→ Spinal Cord Injury
+Detected chapters: 63
+Parsed questions: 1,443
+Canonical questions: 1,443
+Skipped questions: 0
 ```
 
-Important lesson:
-
-Removing unwanted question or answer blocks is not enough.
-
-Branding and source-header cleanup require separate final-output validation.
-
----
-
-## Study Engine
-
-The Study Engine currently supports:
-
-- dynamic Pack discovery;
-- Pack selection;
-- chapter selection;
-- randomized question order;
-- block-based study sessions;
-- first-pass scoring;
-- missed-question review;
-- review until mastery;
-- Multiple Choice;
-- Multiple Response;
-- Completion;
-- Ordered Response.
-
-Any valid canonical Pack added to:
+Final question types:
 
 ```text
-packs/*.prepflow.json
+Multiple Choice: 1,187
+Multiple Response: 133
+Completion: 108
+Ordered Response: 15
 ```
 
-should appear dynamically in Pack selection.
-
-Adding a subject must not require Study Engine changes.
-
----
-
-## Standalone Packaging
-
-Linux standalone packaging was proven with PyInstaller using an on-directory build.
-
-The packaged runtime successfully:
-
-- launched;
-- located bundled Packs;
-- displayed Medical-Surgical;
-- displayed Pharmacy.
-
-The loader was corrected to support:
-
-- source execution from the repository;
-- packaged execution using PyInstaller’s runtime bundle location.
-
-Ignored packaging artifacts include:
+Final contamination scan:
 
 ```text
-build/
-dist/
-*.spec
+Stuvia remaining: 0
+Marketplace remaining: 0
+Linton remaining: 0
+Medical-Surgical Nursing source-title fragments remaining: 0
+Trailing standalone N/A artifacts remaining: 0
 ```
 
-A Windows executable has not yet been built.
-
-PyInstaller is not a cross-compiler, so Windows packaging requires a Windows environment.
-
-Do not begin beta distribution until all release checks are satisfied.
-
----
-
-# Recovered Importer History
-
-During cleanup, the original prototype PDF importer tools were removed from the active repository.
-
-This unintentionally removed an integral proven capability.
-
-The tools were not lost.
-
-They were recovered from:
+Final compiler diagnostics:
 
 ```text
-~/projects/prepflow-before-anonymization.bundle
+3 advisory duplicate-text warnings
+0 fatal diagnostics
+0 recoverable diagnostics
+0 skipped questions
 ```
 
-Recovery repository:
+The three advisory duplicates were:
+
+1. Chapter 3, Question 23 duplicated the text of Chapter 3, Question 2.
+2. Chapter 25, Question 31 duplicated the text of Chapter 25, Question 12.
+3. Chapter 42, Question 12 duplicated the text of Chapter 41, Question 9.
+
+These diagnostics are advisory and did not block the Pack.
+
+The new official Medical-Surgical Pack replaced the historical Pack and was committed in:
 
 ```text
-~/projects/prepflow-importer-recovery
-```
-
-Recovered snapshot:
-
-```text
-~/projects/prepflow-importer-snapshot
-```
-
-Recovered historical files included:
-
-```text
-tools/build_source_module.py
-tools/clean_pharm_text.py
-tools/extract_text.py
-tools/find_duplicates.py
-tools/import_medsurg_bank.py
-tools/import_pharm_bank.py
-tools/parse_pharm_module.py
-tools/schema_inspector.py
-tools/write_source_module.py
-```
-
-The last functional historical importer state inspected was:
-
-```text
-3334f04 Validate source pipeline on medical surgical bank
-```
-
-The recovered scripts proved:
-
-- PDF text extraction;
-- cleaning;
-- chapter splitting;
-- section detection;
-- numbered-question splitting;
-- choice parsing;
-- answer extraction;
-- rationale extraction;
-- metadata collection;
-- Pack writing.
-
-However, the recovered scripts were partially book-specific.
-
-They included hardcoded:
-
-- source paths;
-- output paths;
-- source names;
-- ID prefixes;
-- Pharmacy or Med-Surg assumptions.
-
-Decision:
-
-> Recover the proven behavior, but do not restore the book-specific architecture.
-
-The permanent importer is being rebuilt inside `compiler/` as generic, tested components.
-
----
-
-# Current Generic Importer Components
-
-## PDF Source Adapter
-
-Committed file:
-
-```text
-compiler/pdf_reader.py
-```
-
-Purpose:
-
-- accept a text-based PDF;
-- extract text faithfully;
-- reject missing sources;
-- reject non-PDF inputs;
-- report PDFs with no extractable text.
-
-Dependency:
-
-```text
-pypdf==6.14.2
-```
-
-Scanned-image PDFs are not yet supported.
-
-They may require a future OCR adapter.
-
-Do not add OCR until a real source proves it is needed.
-
----
-
-## Import Orchestrator
-
-Committed file:
-
-```text
-compiler/importer.py
-```
-
-Current responsibilities:
-
-- validate import request;
-- validate Pack ID;
-- detect source type;
-- call the correct source adapter;
-- create an import workspace;
-- preserve raw extraction;
-- run cleaning;
-- preserve cleaned text;
-- run structure detection;
-- preserve detection report.
-
-Current request model includes:
-
-```text
-source_path
-pack_id
-title
-workspace_root
-```
-
-Pack IDs currently allow lowercase letters, numbers, hyphens, and underscores.
-
----
-
-## Generic Cleaner
-
-Committed file:
-
-```text
-compiler/cleaner.py
-```
-
-Current proven generic behaviors include:
-
-- removing full-line Docsity notices;
-- removing inline Docsity notices while preserving legitimate metadata;
-- removing known Stuvia/TCPDF/download notice patterns;
-- collapsing excessive blank lines;
-- removing a leading table-of-contents-style chapter index when the real first chapter repeats later.
-
-The cleaner must remain conservative.
-
-It should remove extraction contamination without casually rewriting:
-
-- stems;
-- choices;
-- correct answers;
-- rationales;
-- educational metadata.
-
-Current cleaned artifact:
-
-```text
-output/imports/<pack-id>/02_clean.txt
+30c41e8 Promote validated Medical-Surgical pack
 ```
 
 ---
 
-## Structure Detector
+# Important Compiler Improvements Proven by Medical-Surgical
 
-Committed file:
+Medical-Surgical exposed several generic source patterns that were fixed in the universal pipeline.
+
+## Wrapped Stem Beginning With a Time
+
+A stem continuation such as:
 
 ```text
-compiler/detector.py
+0700. The patient...
 ```
 
-The detector currently reports:
+must not be mistaken for a new numbered question.
 
-- chapter-heading count;
-- question-like start count;
-- recognized section headers;
-- recognized answer markers;
-- recognized metadata markers.
+The parser now preserves it as part of the current stem.
 
-Recognized section headers currently include:
+## Rationale Beginning With a Choice-Like Prefix
+
+A rationale such as:
 
 ```text
-MULTIPLE CHOICE
-MULTIPLE RESPONSE
+C. albicans infection appears most often in skinfolds.
+```
+
+must not be mistaken for answer choice C.
+
+Once the parser is reading rationale text, choice-like prefixes remain rationale.
+
+## Inline Stuvia Branding
+
+Branding appended to legitimate text is removed while preserving the educational content.
+
+Example:
+
+```text
+Where should the nurse assess...? Stuvia.com - The Marketplace...
+```
+
+becomes:
+
+```text
+Where should the nurse assess...?
+```
+
+## Ordered-Response Recognition
+
+Some sequencing questions are stored by the source under:
+
+```text
 COMPLETION
-ORDERING
 ```
 
-Recognized answer marker:
+rather than an explicit `ORDERING` section.
+
+The parser now recognizes ordered-response items through generic structural evidence such as:
+
+* existing choices;
+* instructions containing `appropriate sequence`;
+* instructions containing `correct order`;
+* `prioritize the steps`;
+* `prioritize these`;
+* `place the events`;
+* `place the options`.
+
+Ordered answers may appear:
+
+```text
+ANS: CBDA
+```
+
+or:
 
 ```text
 ANS:
+CBDA
 ```
 
-Recognized metadata markers include:
+The parser converts the answer to an ordered list:
 
 ```text
-DIF:
-OBJ:
-TOP:
-MSC:
-KEY:
-NCLEX:
+C, B, D, A
 ```
 
-The detector does not parse questions.
+## Choice G Support
 
-It measures available structure.
-
-Current artifact:
+The parser and split-choice recovery now accept choices through:
 
 ```text
-output/imports/<pack-id>/03_detection.json
+G
 ```
+
+This fixed cases where:
+
+```text
+g. Evaluate the plan over time.
+```
+
+had previously merged into choice F.
+
+## Wrapped Chapter Headings
+
+Chapter headings split across PDF lines are joined when the first line clearly ends mid-title.
+
+Example:
+
+```text
+Chapter 03: Medical-Surgical Patients: Individuals, Families, and
+Communities Linton: Medical-Surgical Nursing, 8th Edition
+```
+
+becomes the clean chapter title:
+
+```text
+Medical-Surgical Patients: Individuals, Families, and Communities
+```
+
+## Hard Chapter Boundaries
+
+A new `Chapter...` line now finalizes the previous question immediately.
+
+This prevents publisher/source header lines from being appended to the prior question’s stem or rationale.
+
+## Wrapped Chapter Subtitle Preservation
+
+When a real chapter subtitle appears before publisher metadata, the legitimate prefix is preserved.
+
+Example:
+
+```text
+Chapter 33: Cardiovascular System
+Introduction Linton: Medical-Surgical Nursing,
+8th Edition
+```
+
+becomes:
+
+```text
+Cardiovascular System Introduction
+```
+
+Publisher text is discarded.
+
+## Source-Title Cleanup
+
+Trailing source-title fragments are removed from chapter titles and educational fields, including:
+
+```text
+Linton:
+Linton: Medical-
+Linton: Medical-Surgical
+Linton: Medical-Surgical Nursing, 8th Edition
+Medical-Surgical Nursing, 8th Edition
+Surgical Nursing, 8th Edition
+```
+
+## Standalone N/A Cleanup
+
+A line containing only:
+
+```text
+N/A
+```
+
+inside a metadata boundary is treated as an extraction artifact and removed.
+
+Legitimate educational uses of `N/A` inside normal text should not be removed casually.
 
 ---
 
-# Cold Import Experiment
+# Automated Test State
 
-The first completely unseen source selected for the new generic importer is a Fundamentals of Nursing test bank.
-
-Private source path:
+Latest verified full test run:
 
 ```text
-~/projects/prepflow-sources/docsity-test-bank-for-fundamentals-of-nursing-active-learning-for-collaborative-practice-3rd-edi-11.pdf
+49 passed
 ```
 
-This PDF must never be committed.
+The suite covers at least:
 
-Desired module:
+* Pack building;
+* chapter title export;
+* Docsity cleanup;
+* Stuvia cleanup;
+* inline branding cleanup;
+* source-title cleanup;
+* standalone N/A cleanup;
+* chapter-index removal;
+* PDF adapter validation;
+* importer request validation;
+* raw artifact writing;
+* clean artifact writing;
+* detection report writing;
+* question-type behavior;
+* completion behavior;
+* multiple-response answer handling;
+* ordered-response answer order;
+* source normalization;
+* wrapped stems;
+* wrapped choices;
+* split choices;
+* missing-A-choice recovery;
+* time-like numbered stem continuations;
+* rationale lines beginning with choice-like prefixes;
+* ordered-response recognition inside Completion sections;
+* multiline ordered answers;
+* choice G support;
+* wrapped chapter headings;
+* chapter-boundary finalization;
+* wrapped chapter subtitles;
+* validation behavior.
 
-```text
-Pack ID: fundamentals
-Title: Fundamentals of Nursing
-```
-
-The cold import must begin from the original PDF.
-
-Do not manually pre-clean or convert it before testing PrepFlow.
-
-The purpose is to determine whether PrepFlow can truly:
-
-> accept a source and make it study-able.
+At startup, trust the current test output over the historical number recorded here.
 
 ---
 
-# Cold Import Progress
+# Study Engine Rules
 
-The unseen Fundamentals PDF successfully completed:
+The desktop interface must preserve the established Study Engine behavior.
+
+## Source Fidelity
+
+* Preserve questions word-for-word from the canonical Pack.
+* Do not rewrite stems or choices.
+* Do not introduce “hard mode” wording unless explicitly requested.
+* Do not use publisher/source branding in user-facing content.
+
+## Question Display
+
+* One question at a time.
+* No bolding or highlighting inside stems or choices.
+* No hints before the learner answers.
+* Do not expose internal question IDs unless needed for diagnostics.
+
+## Feedback
+
+After each answer, show:
+
+* Correct or Incorrect;
+* the correct answer;
+* a concise rationale;
+* running counters.
+
+## Session Flow
+
+* Default study blocks contain 15 questions.
+* Shuffle once per session.
+* Keep the shuffled set stable during the session.
+* Avoid repeating questions across initial blocks.
+* After each block, review missed questions.
+* Continue missed-question review until mastered.
+* Preserve first-pass performance separately from eventual mastery.
+* Allow the established full-block redo option where already implemented.
+* End with final mastery status.
+
+## Supported Question Types
+
+* Multiple Choice;
+* Multiple Response;
+* Completion;
+* Ordered Response.
+
+The desktop shell should reuse this behavior rather than creating a separate quiz system.
+
+---
+
+# Next Major Milestone
+
+The next milestone is:
+
+> Build a user-friendly standalone desktop application shell around the existing Study Engine.
+
+The interface should launch like a normal application on Windows or macOS.
+
+The initial user experience should be:
 
 ```text
-PDF
+Launch PrepFlow
    ↓
-Extract
+PrepFlow banner/home screen
    ↓
-Clean
+Choose Fundamentals, Pharmacy, or Medical-Surgical
    ↓
-Detect
+Choose one or more chapters
+   ↓
+Start quiz
+   ↓
+Use the established quiz and mastery flow
 ```
 
-Raw extraction results:
+The user should not need:
 
-```text
-Characters extracted: 1,162,282
-Artifact: output/imports/fundamentals/01_raw.txt
-```
-
-The raw text included:
-
-- Docsity branding;
-- Docsity URLs;
-- a leading chapter table of contents;
-- repeated chapter headings;
-- real test-bank content;
-- answer markers;
-- metadata markers.
-
-The generic cleaner removed:
-
-- full-line Docsity notices;
-- inline Docsity share notices;
-- the leading duplicate chapter index;
-- excess blank lines.
-
-Verification:
-
-```text
-Docsity remaining after cleaning: 0
-```
-
-Clean artifact:
-
-```text
-output/imports/fundamentals/02_clean.txt
-```
+* a terminal;
+* Python;
+* command-line arguments;
+* knowledge of Pack files;
+* knowledge of JSON;
+* knowledge of compiler stages;
+* knowledge of repository folders.
 
 ---
 
-# Fundamentals Detection Results
+# Desktop Interface Requirements
 
-Initial detection incorrectly reported:
+## Home Screen
 
-```text
-85 chapter-like headings
-```
-
-Investigation proved:
-
-- chapters 1–42 appeared in a leading chapter index;
-- chapters 1–42 appeared again as real content;
-- the cover line `Chapter 1-42 Latest Version` was falsely counted.
-
-Generic fixes were implemented:
-
-1. remove a leading sequential chapter index when the first chapter repeats later;
-2. exclude chapter-range lines from chapter-heading counts.
-
-Final verified detection:
+Show:
 
 ```text
-chapter_count=42
-section_headers=('MULTIPLE CHOICE', 'MULTIPLE RESPONSE')
-answer_markers=('ANS:',)
-metadata_markers=('DIF:', 'OBJ:', 'TOP:', 'MSC:')
-question_count=1046
+PrepFlow
 ```
 
-The detector identified approximately:
+with a polished banner or branding element.
+
+Then display three clear subject choices:
 
 ```text
-1,046 question-like starts
+Fundamentals
+Pharmacy
+Medical-Surgical
 ```
 
-This count is evidence, not yet the final parsed-question total.
+The interface should feel like a real study application, not a developer utility.
 
-No Fundamentals-specific cleaner or importer was created.
+## Chapter Selection
 
-All changes were generic.
+After choosing a subject:
+
+* display clean chapter titles;
+* allow selecting one chapter;
+* allow selecting multiple chapters;
+* provide Select All and Clear All;
+* show the number of available questions when useful;
+* provide a clear Start Studying button.
+
+## Quiz Screen
+
+The quiz screen should provide:
+
+* one question at a time;
+* readable choices;
+* support for Multiple Choice;
+* support for Multiple Response;
+* a text field for Completion;
+* ordering controls for Ordered Response;
+* Submit Answer;
+* feedback;
+* rationale;
+* question position;
+* block progress;
+* first-pass score;
+* mastery-review status.
+
+## Navigation
+
+Provide clear controls for:
+
+* Home;
+* Back to subjects;
+* Back to chapters;
+* Exit session;
+* Continue;
+* Review missed questions.
+
+Avoid overwhelming the learner with settings during the first desktop milestone.
+
+## Visual Direction
+
+The first version should prioritize:
+
+* clear typography;
+* large readable controls;
+* straightforward navigation;
+* accessibility;
+* clean spacing;
+* minimal clutter;
+* consistent PrepFlow branding.
+
+Do not spend the first milestone on elaborate animation or cosmetic overengineering.
 
 ---
 
-# Automated Tests
+# Packaging Goal
 
-The latest reported test run after detector refinement was:
+PrepFlow should ultimately be distributed as a standalone desktop application.
+
+Desired experience:
 
 ```text
-17 passing
+Double-click PrepFlow
+→ application opens
+→ choose subject
+→ choose chapters
+→ study
 ```
 
-Tests now cover at least:
+The user should not install Python or open a terminal.
 
-- Multiple Response answer-order behavior;
-- Ordered Response order preservation;
-- PDF adapter missing-file rejection;
-- PDF adapter non-PDF rejection;
-- source-type detection;
-- invalid Pack ID rejection;
-- raw artifact writing;
-- clean artifact writing;
-- detection report writing;
-- Docsity line removal;
-- inline Docsity removal;
-- normal-content preservation;
-- leading chapter-index removal;
-- chapter-range exclusion;
-- extract-to-clean integration;
-- basic structure detection.
+Linux standalone packaging was previously proven with PyInstaller.
 
-At startup, rerun:
+Important:
 
-```bash
-python3 -m pytest -v
-```
+* PyInstaller is not a cross-compiler.
+* Windows builds should be produced and tested in a Windows environment.
+* macOS builds should be produced and tested in a macOS environment.
+* A Linux machine should not be expected to create fully trustworthy Windows and macOS release binaries directly.
 
-Trust the current output over the historical count in this packet.
+The desktop interface can be developed first in the current Linux environment, then packaged and tested separately on the target operating systems.
 
 ---
 
-# Exact Current Pipeline State
+# Desktop Implementation Strategy
 
-Completed:
-
-```text
-Source selection
-      ↓
-PDF source adapter
-      ↓
-Raw extraction
-      ↓
-Generic cleaning
-      ↓
-Generic structure detection
-```
-
-Not yet implemented for the new generic importer:
-
-```text
-Generic parsing
-      ↓
-Parser diagnostics/report
-      ↓
-Canonical normalization
-      ↓
-Validation
-      ↓
-Recovery/filtering
-      ↓
-Deduplication
-      ↓
-Stable ID assignment
-      ↓
-Pack build
-      ↓
-Deterministic rebuild comparison
-      ↓
-Study Engine verification
-```
-
----
-
-# Exact Next Milestone
-
-The next implementation milestone is:
-
-> Build the generic parser and continue the Fundamentals cold import.
-
-Do not perform another top-down architecture discussion unless the committed repository reveals a conflict.
-
-Do not build UI yet.
-
-Do not add another source adapter yet.
-
-Do not create a Fundamentals-specific parser.
-
-The parser must use real evidence from:
-
-```text
-output/imports/fundamentals/02_clean.txt
-```
-
-The next session should inspect representative real boundaries for:
-
-- chapter heading;
-- section heading;
-- numbered question start;
-- choices;
-- `ANS:`;
-- rationale;
-- metadata;
-- transition to the next question.
-
-Then implement the smallest useful generic parsing stage.
-
----
-
-# Parser Responsibilities
-
-The generic parser should produce structured source-derived question dictionaries.
-
-Expected fields include:
-
-```text
-chapter
-chapter_title
-section
-source_question_number
-question_type
-stem
-choices
-answer
-rationale
-metadata
-```
-
-Parsing and canonicalization are separate responsibilities.
-
-The parser should not:
-
-- assign final canonical IDs prematurely;
-- export the final Pack directly;
-- invent missing answers;
-- invent missing rationales;
-- silently discard unknown structures;
-- contain subject names in control flow.
-
-The parser should preserve enough raw context to diagnose failures.
-
----
-
-# Parser Strategy
-
-Proceed incrementally.
+Do not attempt the entire interface in one speculative rewrite.
 
 Recommended sequence:
 
-1. inspect one complete real Multiple Choice question block;
-2. inspect one real Multiple Response question block;
-3. identify chapter boundaries;
-4. identify section boundaries;
-5. split numbered question blocks;
-6. parse one supported block into a source-derived structure;
-7. write tests from the real observed grammar;
-8. run against the full cleaned source;
-9. produce counts and diagnostics;
-10. improve one observed failure at a time.
+1. inspect the committed Study Engine;
+2. identify reusable session and answer-checking functions;
+3. separate any remaining terminal-only input/output from study logic;
+4. create the smallest window that launches;
+5. add the PrepFlow banner;
+6. add the three subject cards;
+7. load the three official Packs dynamically;
+8. add chapter multi-selection;
+9. connect Start Studying to the existing session logic;
+10. add one working Multiple Choice screen;
+11. add feedback and rationale;
+12. preserve block and mastery behavior;
+13. add Multiple Response;
+14. add Completion;
+15. add Ordered Response;
+16. test a complete session;
+17. package a Linux proof build;
+18. prepare Windows packaging;
+19. prepare macOS packaging.
 
-Do not attempt the entire parser in one speculative change.
+The interface is a thin layer around the proven Study Engine.
+
+Do not rewrite the engine merely because the terminal display must be replaced.
 
 ---
 
-# Parser Report Requirement
+# Exact Next Top-Down Assessment
 
-The generic parser should eventually produce a report containing evidence such as:
+At the beginning of the next session, perform a focused top-down inspection of the committed repository.
+
+The assessment should answer:
+
+1. What files currently implement Pack discovery?
+2. What files implement subject selection?
+3. What files implement chapter selection?
+4. What functions implement question presentation?
+5. What functions check each answer type?
+6. What functions implement blocks, missed-question review, and mastery?
+7. Which parts are tightly coupled to terminal `input()` and `print()`?
+8. What is the smallest desktop UI layer that can reuse the current logic?
+9. What existing packaging configuration can be reused?
+10. What is the single best first desktop milestone?
+
+Do not perform another broad architecture debate.
+
+The intended first executable milestone is likely:
+
+> Open a PrepFlow desktop window that displays the PrepFlow banner and the three official subject categories loaded from the committed Packs.
+
+The top-down assessment must inspect the committed GitHub mirror before requesting local files or terminal output.
+
+---
+
+# Later PDF Import Interface
+
+The PDF import interface is a major future milestone, but it comes after the study desktop shell works.
+
+Future user flow:
 
 ```text
-chapters parsed
-question blocks detected
-questions parsed successfully
-Multiple Choice count
-Multiple Response count
-Completion count
-Ordered Response count
-unknown section count
-missing stem count
-missing choices count
-missing answer count
-missing rationale count
-metadata-marker count
-unparsed block count
+Import and Create Study Category
+   ↓
+Choose or drop a PDF
+   ↓
+Enter or confirm category title
+   ↓
+PrepFlow extracts text
+   ↓
+PrepFlow cleans source artifacts
+   ↓
+PrepFlow detects chapters and question structures
+   ↓
+PrepFlow parses questions
+   ↓
+PrepFlow normalizes and validates
+   ↓
+PrepFlow reports warnings and skipped items
+   ↓
+PrepFlow creates the category
+   ↓
+Category appears on the home screen
 ```
 
-The purpose is measurable trust.
-
-PrepFlow should expose uncertainty rather than silently generate a bad Pack.
-
----
-
-# Determinism Requirement
-
-After the Fundamentals Pack is successfully built:
-
-1. build it once;
-2. save the output hash;
-3. build it again from unchanged input;
-4. compare outputs;
-5. confirm stable IDs;
-6. confirm identical canonical content.
-
-An unchanged source must produce deterministic output.
-
----
-
-# Fundamentals Completion Criteria
-
-The cold Fundamentals import is complete only when:
-
-- the original PDF enters the generic pipeline;
-- branding and extraction noise are cleaned;
-- exactly 42 real chapters are represented;
-- question structures are parsed;
-- unsupported structures are explicitly reported;
-- answers and rationales are preserved;
-- validation results are acceptable;
-- IDs are stable;
-- two builds match;
-- `packs/fundamentals.prepflow.json` is produced;
-- the Pack appears in Study Engine selection;
-- chapter selection works;
-- sample questions can be completed correctly;
-- no private source material is committed.
-
-Only then should Fundamentals be considered a core Pack.
-
----
-
-# Core Pack Direction
-
-Pharmacy and Medical-Surgical were the first production sources.
-
-They are not a permanent two-Pack scope limit.
-
-Charlie has additional important books intended for the core library.
-
-Possible future subjects may include:
-
-- Fundamentals;
-- Maternity;
-- Pediatrics;
-- Mental Health;
-- other nursing subjects;
-- non-nursing educational material.
-
-Every new core source should pass the same standards:
-
-- generic import where possible;
-- explicit diagnostics;
-- preserved educational fidelity;
-- valid canonical Pack;
-- stable IDs;
-- runtime verification;
-- no private source leakage.
-
-The Study Engine should remain subject-neutral.
-
----
-
-# User-Facing Import Requirement
-
-After the underlying pipeline works end-to-end, create an easy import workflow.
-
-Possible interface wording:
+The interface should show friendly progress wording such as:
 
 ```text
-Import and Create Module
+Reading PDF
+Cleaning source
+Finding chapters
+Finding questions
+Checking answers and rationales
+Building study category
 ```
 
-The user should not need to:
-
-- manually create source folders;
-- run Python heredocs;
-- understand extraction stages;
-- execute separate cleaner scripts;
-- write Pack JSON;
-- know compiler module names.
-
-The user-facing workflow should collect:
+Do not expose:
 
 ```text
-Source file
-Module title
-Pack ID
+02_clean.txt
+03_detection.json
+04_questions.json
+pack_id
+canonical JSON
+compiler diagnostic enum
 ```
 
-Then display progress such as:
+The final import report may show:
 
-```text
-Extracting
-Cleaning
-Detecting structure
-Parsing
-Validating
-Building Pack
-```
+* chapters found;
+* questions created;
+* question types;
+* warnings;
+* skipped questions;
+* output category name;
+* option to begin studying.
 
-The final screen should provide:
-
-- import summary;
-- warnings;
-- error locations;
-- question counts;
-- chapter counts;
-- output Pack location;
-- option to study the Pack.
-
-This is a core usability requirement.
-
-It is not the next coding milestone.
+Do not build this workflow until the desktop study experience is stable.
 
 ---
 
-# Documentation State
-
-The Architecture Bible was replaced at this stopping point to reflect the permanent importer architecture.
-
-The Restart Packet is being replaced with this document.
-
-After saving both documents:
-
-1. run tests;
-2. run `git diff --check`;
-3. inspect the diff stat;
-4. commit both;
-5. push both remotes;
-6. confirm a clean working tree;
-7. stop.
-
-The README should not yet document a polished import command because the end-to-end command/interface does not exist.
-
-Update the README when users can actually run the supported import workflow.
-
----
-
-# Version 1 Checklist Philosophy
-
-`docs/V1_RELEASE_CHECKLIST.md` should contain only unfinished Version 1 work.
-
-Completed milestones belong in:
-
-```text
-docs/CHANGELOG.md
-```
+# Documentation Rules
 
 Permanent architecture belongs in:
 
@@ -1233,7 +1098,23 @@ Permanent architecture belongs in:
 docs/ARCHITECTURE_BIBLE.md
 ```
 
-Operational handoff belongs here.
+Operational handoff belongs in:
+
+```text
+docs/RESTART_PACKET.md
+```
+
+Completed milestones belong in:
+
+```text
+docs/CHANGELOG.md
+```
+
+Unfinished Version 1 work belongs in:
+
+```text
+docs/V1_RELEASE_CHECKLIST.md
+```
 
 Future ideas belong in:
 
@@ -1241,41 +1122,11 @@ Future ideas belong in:
 docs/IDEAS.md
 ```
 
-Do not allow documentation to duplicate itself.
+Avoid duplicating the same information across all documents.
 
----
+The README should describe only workflows users can actually perform.
 
-# Immediate Stopping Procedure
-
-After replacing the Architecture Bible and Restart Packet, run:
-
-```bash
-python3 -m pytest -v
-git diff --check
-git diff --stat
-```
-
-If tests pass and the documentation diff is valid:
-
-```bash
-git add docs/ARCHITECTURE_BIBLE.md docs/RESTART_PACKET.md
-
-git commit -m "Refresh architecture and importer handoff"
-
-git push origin master
-git push public master
-
-git status
-```
-
-Expected final state:
-
-```text
-On branch master
-nothing to commit, working tree clean
-```
-
-Do not continue into parser implementation during this stopping procedure.
+Do not advertise the future PDF import button until it works.
 
 ---
 
@@ -1283,120 +1134,36 @@ Do not continue into parser implementation during this stopping procedure.
 
 At the beginning of the next PrepFlow session:
 
-1. inspect the committed public GitHub mirror;
-2. verify the current branch and latest commit;
-3. compare the Architecture Bible to implementation;
-4. verify working-tree cleanliness;
-5. run the automated test suite;
-6. confirm the private Fundamentals PDF still exists outside the repository;
-7. confirm `02_clean.txt` is available or regenerate it;
-8. inspect representative parser boundaries;
-9. implement exactly one generic parser improvement;
-10. test, commit, and push.
+1. paste this Restart Packet into the fresh chat;
+2. inspect the public GitHub mirror;
+3. verify branch `master`;
+4. verify the latest commit;
+5. confirm the three official Packs exist;
+6. confirm there are no test Packs;
+7. confirm the working tree is expected to be clean;
+8. run the full test suite;
+9. perform the focused Study Engine top-down assessment;
+10. recommend exactly one first desktop-shell milestone;
+11. implement one focused change;
+12. test;
+13. commit;
+14. push both remotes.
 
-The first terminal inspection should focus on real cleaned Fundamentals text around:
+Do not begin with PDF import.
 
-```text
-Chapter
-MULTIPLE CHOICE
-1.
-a.
-b.
-ANS:
-DIF:
-OBJ:
-TOP:
-MSC:
-```
+Do not begin by rewriting quiz logic.
 
-The next implementation target is the generic parser.
+Do not begin by choosing several UI frameworks without inspecting the existing code.
 
 ---
 
-# Exact Resume Statement
+# Current Exact Resume Statement
 
 Resume PrepFlow from this statement:
 
-> The generic importer is committed through PDF extraction, generic cleaning, and generic structure detection. A completely unseen Fundamentals PDF successfully produced clean text with zero remaining Docsity notices and a correct 42-chapter detection report. Approximately 1,046 question-like starts were detected, with Multiple Choice and Multiple Response sections plus ANS, DIF, OBJ, TOP, and MSC markers. The next milestone is to inspect real cleaned question boundaries and implement the first small, generic parser stage without adding book-specific logic.
+> PrepFlow’s generic compiler has now been proven across three starting sources. The official library contains Fundamentals with 1,040 questions, Pharmacy with 1,084 questions, and Medical-Surgical with 1,443 questions. Medical-Surgical was rebuilt from the original private PDF through the improved universal pipeline with 63 chapters, 1,187 Multiple Choice questions, 133 Multiple Response questions, 108 Completion questions, 15 Ordered Response questions, zero skipped questions, zero source-branding remnants, and only three advisory duplicate-text diagnostics. The full automated suite passed 49 tests. The latest verified commit is `30c41e8`, both remotes were synchronized, and the working tree was clean. The next major milestone is a user-friendly standalone desktop PrepFlow application for Windows and macOS that launches with PrepFlow branding, displays Fundamentals, Pharmacy, and Medical-Surgical as normal study categories, allows one or more chapters to be selected, and runs the existing quiz, block, missed-question review, and mastery rules without exposing JSON, Pack IDs, filenames, terminal commands, or compiler internals. The later in-app PDF drop/import workflow remains required but must not begin until the desktop study shell is stable.
 
----# Current Milestone Update: Pharmacy Compiler Validation
-
-## Completed
-
-Commit:
-- b292d30 — compiler: improve source cleanup parsing and validation
-
-Verified:
-- Pharmacy source pipeline runs.
-- Parser recovers missing A choices caused by extraction.
-- Cleaner removes source contamination.
-- Validator duplicate identity includes question type.
-- 37 tests passing.
-
-## Current Discovery
-
-During Pharmacy validation, duplicate source blocks were detected.
-
-Important:
-This appears to be a missing pipeline stage, not a parser failure.
-
-Current intended flow:
-
-Extract
-↓
-Clean
-↓
-Parse
-↓
-Normalize
-↓
-Deduplicate
-↓
-Validate
-↓
-Build Pack
-
-## Next Focused Milestone
-
-Implement lightweight exact deduplication.
-
-Rules:
-- Remove exact duplicates only.
-- Preserve clinically different questions.
-- Do not solve duplicates by weakening validation.
-- Do not redesign the parser.
-
-Use top-down assessment before implementation.
-
-## Current State After Pharmacy Pipeline Validation
-
-Completed:
-- Restart Packet was restored after an accidental compression attempt and pushed successfully.
-- Pharmacy was successfully run through the expanded compiler pipeline.
-- Pharmacy is now the first confirmed source proving the universal pipeline works.
-
-Canonical Pharmacy output:
-- packs/pharmacy.prepflow.json
-- 1084 questions
-- multiple_choice: 963
-- multiple_response: 73
-- completion: 39
-- ordering: 9
-
-Important findings:
-- Existing packs are historical outputs and do not prove the new pipeline.
-- Generated IDs are not reliable for comparing packs because they change between builds.
-- Content-level comparison showed strong continuity between the previous Pharmacy output and the new pipeline output.
-- Differences were primarily due to cleanup, formatting normalization, and newly supported question types.
-
-Current local artifact:
-- packs/pharmacy-test.prepflow.json remains untracked.
-- It appears to be an intermediate Pharmacy build and should not be committed or deleted until intentionally classified.
-
-Next milestone:
-- Run Medical-Surgical source material through the same compiler pipeline.
-- Validate the resulting canonical pack.
-- After Pharmacy and Medical-Surgical validation, evaluate retiring older pack versions and moving toward standalone user workflow.
+---
 
 # Final Operating Reminder
 
@@ -1404,16 +1171,16 @@ One focused change at a time.
 
 Use GitHub first.
 
-Let real sources provide evidence.
+Reuse the existing Study Engine.
 
-Do not create subject-specific importers.
+Let real runtime evidence drive interface changes.
 
-Do not build the user-facing button before the pipeline works.
+Do not expose implementation details to users.
 
-Do not lose educational fidelity for convenience.
+Do not build PDF import yet.
 
 When Charlie says:
 
 > next
 
-perform the next executable step.
+provide the next executable step.
