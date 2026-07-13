@@ -1,6 +1,13 @@
+const SAVE_KEY = "prepflow.savedSession.v1";
+
 const hero = document.querySelector(".hero");
 const subjects = document.querySelector(".subjects");
 const status = document.querySelector("#status");
+
+const resumePanel = document.querySelector("#resume-panel");
+const resumeDescription = document.querySelector("#resume-description");
+const resumeSessionButton = document.querySelector("#resume-session");
+const discardSessionButton = document.querySelector("#discard-session");
 
 const chapterScreen = document.querySelector("#chapter-screen");
 const chapterTitle = document.querySelector("#chapter-title");
@@ -30,6 +37,7 @@ const summaryAction = document.querySelector("#summary-action");
 
 let currentSubject = null;
 let currentPack = null;
+let currentPackPath = null;
 
 let sessionQuestions = [];
 let sessionBlockSize = 15;
@@ -59,9 +67,70 @@ function shuffle(items) {
   return copy;
 }
 
+function readSavedSession() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function clearSavedSession() {
+  localStorage.removeItem(SAVE_KEY);
+  refreshResumePanel();
+}
+
+function saveSession(screen) {
+  if (!currentPackPath || sessionQuestions.length === 0) {
+    return;
+  }
+
+  const state = {
+    version: 1,
+    savedAt: new Date().toISOString(),
+    screen,
+    currentSubject,
+    currentPackPath,
+    sessionQuestions,
+    sessionBlockSize,
+    blockStart,
+    blockEnd,
+    questionIndex,
+    blockNumber,
+    firstPassCorrect,
+    firstPassMissed,
+    blockCorrect,
+    blockMissed,
+    reviewQueue,
+    reviewMode,
+    currentReviewQuestion,
+  };
+
+  localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  refreshResumePanel();
+}
+
+function refreshResumePanel() {
+  const saved = readSavedSession();
+
+  if (!saved) {
+    resumePanel.hidden = true;
+    return;
+  }
+
+  const mode = saved.reviewMode ? "reviewing missed questions" : "in progress";
+
+  resumeDescription.textContent =
+    `${saved.currentSubject} — Block ${saved.blockNumber}, ${mode}.`;
+
+  resumePanel.hidden = false;
+}
+
 function hideAllScreens() {
   hero.hidden = true;
   subjects.hidden = true;
+  resumePanel.hidden = true;
   chapterScreen.hidden = true;
   quizScreen.hidden = true;
   blockSummary.hidden = true;
@@ -86,19 +155,26 @@ function showSubjects() {
   subjects.hidden = false;
   status.hidden = false;
   status.textContent = "Select a category to continue.";
+
+  refreshResumePanel();
+}
+
+async function loadPack(packPath) {
+  const response = await fetch(packPath);
+
+  if (!response.ok) {
+    throw new Error(`Could not load study category: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 async function showChapters(button) {
   status.textContent = "Loading chapters…";
 
   try {
-    const response = await fetch(button.dataset.pack);
-
-    if (!response.ok) {
-      throw new Error(`Could not load study category: ${response.status}`);
-    }
-
-    currentPack = await response.json();
+    currentPackPath = button.dataset.pack;
+    currentPack = await loadPack(currentPackPath);
     currentSubject = button.dataset.subject;
 
     const chapters = new Map();
@@ -157,12 +233,12 @@ async function showChapters(button) {
   }
 }
 
-function currentQuestion() {
-  if (reviewMode) {
-    return currentReviewQuestion;
-  }
+function currentQuestionNumber() {
+  return reviewMode ? currentReviewQuestion : sessionQuestions[questionIndex];
+}
 
-  return sessionQuestions[questionIndex];
+function currentQuestion() {
+  return currentPack.questions[currentQuestionNumber()];
 }
 
 function showQuestion() {
@@ -176,9 +252,9 @@ function showQuestion() {
 
   if (reviewMode) {
     quizPosition.textContent =
-      `Block ${blockNumber} • Review • ${reviewQueue.length} remaining`;
+      `Block ${blockNumber} • Review • ${reviewQueue.length + 1} remaining`;
 
-    quizProgress.max = Math.max(reviewQueue.length, 1);
+    quizProgress.max = Math.max(reviewQueue.length + 1, 1);
     quizProgress.value = 1;
   } else {
     const questionInBlock = questionIndex - blockStart + 1;
@@ -220,6 +296,8 @@ function showQuestion() {
 
   quizScore.textContent =
     `First pass: ${firstPassCorrect} correct, ${firstPassMissed} missed`;
+
+  saveSession("question");
 }
 
 function beginBlock() {
@@ -273,6 +351,8 @@ function showBlockSummary(mastered = false) {
     summaryAction.textContent = "Finish Session";
     summaryAction.dataset.action = "finish";
   }
+
+  saveSession(mastered ? "mastered-summary" : "block-summary");
 }
 
 function startReview() {
@@ -288,14 +368,17 @@ function startQuiz() {
       .map((checkbox) => checkbox.value)
   );
 
-  sessionQuestions = shuffle(
-    currentPack.questions.filter((question) => {
+  const matchingIndexes = currentPack.questions
+    .map((question, index) => ({ question, index }))
+    .filter(({ question }) => {
       const key = `${question.chapter}|${question.chapter_title}`;
 
       return selectedChapters.has(key)
         && ["mc", "multiple_choice"].includes(question.type);
     })
-  );
+    .map(({ index }) => index);
+
+  sessionQuestions = shuffle(matchingIndexes);
 
   if (sessionQuestions.length === 0) {
     status.hidden = false;
@@ -312,6 +395,51 @@ function startQuiz() {
   firstPassMissed = 0;
 
   beginBlock();
+}
+
+async function resumeSavedSession() {
+  const saved = readSavedSession();
+
+  if (!saved) {
+    showSubjects();
+    return;
+  }
+
+  try {
+    currentPackPath = saved.currentPackPath;
+    currentPack = await loadPack(currentPackPath);
+    currentSubject = saved.currentSubject;
+
+    sessionQuestions = saved.sessionQuestions;
+    sessionBlockSize = saved.sessionBlockSize;
+
+    blockStart = saved.blockStart;
+    blockEnd = saved.blockEnd;
+    questionIndex = saved.questionIndex;
+    blockNumber = saved.blockNumber;
+
+    firstPassCorrect = saved.firstPassCorrect;
+    firstPassMissed = saved.firstPassMissed;
+    blockCorrect = saved.blockCorrect;
+    blockMissed = saved.blockMissed || [];
+
+    reviewQueue = saved.reviewQueue || [];
+    reviewMode = Boolean(saved.reviewMode);
+    currentReviewQuestion = saved.currentReviewQuestion;
+
+    if (
+      saved.screen === "block-summary"
+      || saved.screen === "mastered-summary"
+    ) {
+      showBlockSummary(saved.screen === "mastered-summary");
+    } else {
+      showQuestion();
+    }
+  } catch (error) {
+    clearSavedSession();
+    showSubjects();
+    status.textContent = `Saved session could not be restored: ${error.message}`;
+  }
 }
 
 submitAnswer.addEventListener("click", () => {
@@ -339,10 +467,10 @@ submitAnswer.addEventListener("click", () => {
       `Incorrect. Correct answer: ${correctAnswers.join(", ")}`;
 
     if (reviewMode) {
-      reviewQueue.push(question);
+      reviewQueue.push(currentReviewQuestion);
     } else {
       firstPassMissed += 1;
-      blockMissed.push(question);
+      blockMissed.push(sessionQuestions[questionIndex]);
     }
   }
 
@@ -399,6 +527,7 @@ summaryAction.addEventListener("click", () => {
     return;
   }
 
+  clearSavedSession();
   showSubjects();
 });
 
@@ -426,4 +555,13 @@ document.querySelector("#clear-all").addEventListener("click", () => {
   updateSelectionStatus();
 });
 
+resumeSessionButton.addEventListener("click", resumeSavedSession);
+
+discardSessionButton.addEventListener("click", () => {
+  clearSavedSession();
+  showSubjects();
+});
+
 startButton.addEventListener("click", startQuiz);
+
+showSubjects();

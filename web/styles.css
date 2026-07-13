@@ -393,3 +393,36 @@ button {
 .block-summary .secondary-button {
   margin-top: 12px;
 }
+
+.resume-panel {
+  width: min(700px, 100%);
+  margin: 26px auto 0;
+  padding: 22px;
+  border: 1px solid rgba(36, 59, 103, 0.14);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 36px rgba(36, 59, 103, 0.11);
+  text-align: center;
+}
+
+.resume-panel p {
+  margin: 8px 0 0;
+  color: #68758c;
+}
+
+.resume-panel .start-button {
+  width: auto;
+  margin: 18px 6px 0;
+}
+
+.resume-panel .secondary-button {
+  margin: 18px 6px 0;
+}
+
+@media (max-width: 640px) {
+  .resume-panel .start-button,
+  .resume-panel .secondary-button {
+    width: 100%;
+    margin: 10px 0 0;
+  }
+}
