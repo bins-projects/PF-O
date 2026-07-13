@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrepFlow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div class="logo" aria-label="PrepFlow">
+        <span class="prep">Prep</span><span class="flow">Flow</span>
+      </div>
+      <p>Choose a study category</p>
+    </header>
+
+    <section class="subjects" aria-label="Study categories">
+      <button class="subject-card" data-subject="Fundamentals" data-pack="../packs/fundamentals.prepflow.json">
+        <span class="subject-name">Fundamentals</span>
+        <span class="question-count">1,040 questions</span>
+      </button>
+
+      <button class="subject-card" data-subject="Pharmacy" data-pack="../packs/pharmacy.prepflow.json">
+        <span class="subject-name">Pharmacy</span>
+        <span class="question-count">1,084 questions</span>
+      </button>
+
+      <button class="subject-card" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json">
+        <span class="subject-name">Medical-Surgical</span>
+        <span class="question-count">1,443 questions</span>
+      </button>
+    </section>
+
+    <section id="chapter-screen" class="chapter-screen" hidden>
+      <div class="chapter-header">
+        <button id="back-button" class="secondary-button">← Subjects</button>
+        <div>
+          <h2 id="chapter-title"></h2>
+          <p>Choose one or more chapters</p>
+        </div>
+      </div>
+
+      <div class="chapter-actions">
+        <button id="select-all" class="secondary-button">Select All</button>
+        <button id="clear-all" class="secondary-button">Clear All</button>
+
+        <label class="block-size-control">
+          <span>
+            <strong>Questions per block</strong>
+            <small>Default is 15. Choose a smaller block for quicker study sessions.</small>
+          </span>
+
+          <select id="block-size">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15" selected>15</option>
+          </select>
+        </label>
+
+        <span id="selection-count">0 chapters selected</span>
+      </div>
+
+      <div id="chapter-list" class="chapter-list"></div>
+
+      <button id="start-button" class="start-button" disabled>
+        Start Studying
+      </button>
+    </section>
+
+    <section id="quiz-screen" class="quiz-screen" hidden>
+      <header class="quiz-header">
+        <button id="exit-quiz" class="secondary-button">← Exit Quiz</button>
+        <strong id="quiz-subject"></strong>
+        <span id="quiz-position"></span>
+      </header>
+
+      <progress id="quiz-progress" value="0" max="1"></progress>
+
+      <h2 id="question-stem"></h2>
+      <div id="answer-choices" class="answer-choices"></div>
+
+      <section id="feedback" class="feedback" hidden>
+        <h3 id="feedback-result"></h3>
+        <h4>Rationale</h4>
+        <p id="feedback-rationale"></p>
+      </section>
+
+      <footer class="quiz-footer">
+        <span id="quiz-score">First pass: 0 correct, 0 missed</span>
+        <button id="submit-answer" class="start-button" disabled>
+          Submit Answer
+        </button>
+        <button id="continue-button" class="start-button" hidden>
+          Continue
+        </button>
+      </footer>
+    </section>
+
+    <p id="status" class="status">Select a category to continue.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
