@@ -258,3 +258,48 @@ The rationale remains.
     assert "A. First answer" in cleaned
     assert "B. Second answer" in cleaned
     assert "The rationale remains." in cleaned
+
+def test_removes_only_chapter_2_duplicate_multiple_response_block() -> None:
+    from compiler.cleaner import clean_text
+
+    source = """Chapter 01: Introduction
+Multiple Response Advanced Concepts
+1. Earlier legitimate question
+A. First
+B. Second
+ANS: A
+Earlier rationale.
+Chapter 02: Safely Preparing And Giving Drugs
+Multiple Response
+Advanced Concepts
+1. Original chapter 2 question
+A. First
+B. Second
+ANS: A
+Original rationale.
+Multiple Response Advanced Concepts
+1. Original chapter 2 question
+A. First
+B. Second
+ANS: A
+Duplicate rationale.
+UNIT II; MATHEMATICS FOR PHARMACOLOGY AND DOSAGE
+CALCULATION
+Chapter 3: Mathematics Review and Introduction to Dosage Calculations
+"""
+
+    cleaned = clean_text(source)
+
+    assert "1. Earlier legitimate question" in cleaned
+    assert cleaned.count("1. Original chapter 2 question") == 1
+    assert "Original rationale." in cleaned
+    assert "Duplicate rationale." not in cleaned
+    assert (
+        "UNIT II; MATHEMATICS FOR PHARMACOLOGY AND DOSAGE"
+        in cleaned
+    )
+    assert (
+        "Chapter 3: Mathematics Review and Introduction "
+        "to Dosage Calculations"
+        in cleaned
+    )

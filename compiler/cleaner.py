@@ -97,6 +97,58 @@ def remove_obsolete_pharmacy_chapter_32(
     return cleaned
 
 
+def remove_duplicate_pharmacy_chapter_2_multiple_response(
+    lines: list[str],
+) -> list[str]:
+    """
+    Remove the repeated multiple-response subsection found only inside
+    Pharmacy Chapter 2.
+    """
+    chapter_heading = (
+        "chapter 02: safely preparing and giving drugs"
+    )
+    duplicate_heading = "multiple response advanced concepts"
+    next_unit_heading = (
+        "unit ii; mathematics for pharmacology and dosage"
+    )
+
+    cleaned: list[str] = []
+    inside_chapter_2 = False
+    skipping_duplicate = False
+
+    for line in lines:
+        normalized = line.strip().lower()
+
+        if normalized == chapter_heading:
+            inside_chapter_2 = True
+            skipping_duplicate = False
+            cleaned.append(line)
+            continue
+
+        if (
+            inside_chapter_2
+            and normalized == duplicate_heading
+        ):
+            skipping_duplicate = True
+            continue
+
+        if (
+            skipping_duplicate
+            and normalized == next_unit_heading
+        ):
+            skipping_duplicate = False
+            inside_chapter_2 = False
+            cleaned.append(line)
+            continue
+
+        if skipping_duplicate:
+            continue
+
+        cleaned.append(line)
+
+    return cleaned
+
+
 def trim_pharmacy_chapter_3_duplicate_summary(
     lines: list[str],
 ) -> list[str]:
@@ -263,6 +315,7 @@ def clean_text(text: str) -> str:
 
     lines = remove_leading_chapter_index(cleaned_lines)
     lines = remove_obsolete_pharmacy_chapter_32(lines)
+    lines = remove_duplicate_pharmacy_chapter_2_multiple_response(lines)
     lines = trim_pharmacy_chapter_3_duplicate_summary(lines)
 
     cleaned = "\n".join(lines)
