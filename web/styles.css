@@ -426,3 +426,7 @@ button {
     margin: 10px 0 0;
   }
 }
+
+[hidden] {
+  display: none !important;
+}

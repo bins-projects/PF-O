@@ -108,7 +108,6 @@ function saveSession(screen) {
   };
 
   localStorage.setItem(SAVE_KEY, JSON.stringify(state));
-  refreshResumePanel();
 }
 
 function refreshResumePanel() {

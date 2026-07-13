@@ -1,4 +1,4 @@
-const CACHE_NAME = "prepflow-pwa-v1";
+const CACHE_NAME = "prepflow-pwa-v2";
 
 const APP_FILES = [
   "./",
@@ -41,20 +41,18 @@ self.addEventListener("fetch", (event) => {
   }
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        return cached;
-      }
+    fetch(event.request)
+      .then((response) => {
+        if (response.ok) {
+          const copy = response.clone();
 
-      return fetch(event.request).then((response) => {
-        const copy = response.clone();
-
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, copy);
-        });
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, copy);
+          });
+        }
 
         return response;
-      });
-    })
+      })
+      .catch(() => caches.match(event.request))
   );
 });
