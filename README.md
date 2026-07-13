@@ -1,139 +1,219 @@
 # PrepFlow
 
-PrepFlow helps students study more effectively by transforming educational content into validated, interactive study experiences focused on mastery rather than memorization.
+PrepFlow is a desktop study application built around mastery-based review.
 
-PrepFlow is a terminal-based study platform that transforms educational source material into validated study packs and delivers those packs through an interactive study engine.
+It loads validated PrepFlow study categories, lets the learner choose one or more chapters, presents questions in shuffled study blocks, tracks first-pass performance, and repeats missed questions until they are mastered.
 
-The project is designed around a simple architectural boundary:
+PrepFlow currently includes:
+
+- Fundamentals
+- Pharmacy
+- Medical-Surgical
+
+---
+
+# Current Desktop Experience
+
+Launch PrepFlow and:
+
+1. Choose a study category.
+2. Select one or more chapters.
+3. Start studying.
+4. Complete questions in blocks of 15.
+5. Review missed questions until mastered.
+6. Resume an unfinished quiz later through automatic session saving.
+
+Selected chapters are combined and shuffled once at the beginning of each session.
+
+The final block is shortened automatically when fewer than 15 questions remain.
+
+---
+
+# Supported Question Types
+
+PrepFlow supports:
+
+- Multiple Choice
+- Multiple Response
+- Completion
+- Ordered Response
+
+Ordered Response questions use drag-and-drop controls.
+
+Long questions and rationales scroll while the navigation controls remain visible.
+
+---
+
+# Study Behavior
+
+During a study session, PrepFlow:
+
+- presents one question at a time;
+- gives immediate Correct or Incorrect feedback;
+- displays the correct answer;
+- displays the rationale;
+- tracks first-pass correct and missed answers;
+- places missed questions into a review queue;
+- repeats missed review questions until answered correctly;
+- shows final first-pass and mastery results.
+
+---
+
+# Automatic Save and Resume
+
+PrepFlow maintains one overwriteable local save slot.
+
+Whenever a new question opens, the current session state is saved automatically. The saved state includes:
+
+- subject and question set;
+- shuffled question order;
+- current position;
+- block progress;
+- first-pass score;
+- missed questions;
+- mastery-review queue.
+
+When a saved session exists, the home screen displays:
+
+```text
+Continue Saved Quiz
+```
+
+The save is removed automatically after the session is completed.
+
+---
+
+# Standalone Application
+
+A standalone Linux x86-64 build has been produced and tested with PyInstaller.
+
+The packaged application:
+
+- opens without requiring Python;
+- does not require terminal interaction during normal use;
+- bundles the three official starting study categories;
+- supports automatic save and resume.
+
+Separate builds must be created and tested on Windows and macOS.
+
+A normal macOS desktop build will not run on iPadOS. An iPad-compatible PrepFlow frontend is a later platform milestone.
+
+---
+
+# Architecture
+
+PrepFlow keeps source compilation separate from study delivery.
 
 ```text
 Private Source Material
         ↓
 Compiler
         ↓
-Canonical PrepFlow Packs
+Validated PrepFlow Packs
         ↓
-Study Engine
+Desktop Study Application
 ```
 
-The compiler produces canonical PrepFlow Packs.
-
-The Study Engine consumes only those Packs.
-
-Private source material intentionally remains outside the repository.
-
----
-
-# Features
-
-Current capabilities include:
-
-* Canonical compilation pipeline
-* Stable PrepFlow Pack format
-* Dynamic Pack discovery
-* Chapter selection
-* Interactive study sessions
-* Randomized question order
-* Block-based study
-* First-pass score tracking
-* Review queue until mastery
-* Support for multiple question types
+Private source material remains outside the repository.
 
 ---
 
 # Repository Layout
 
 ```text
-compiler/    Reusable compilation pipeline
+compiler/    Reusable source compilation pipeline
 
-study/       Interactive terminal Study Engine
+study/       Study logic, desktop interface, scoring, review, and save state
 
-packs/       Canonical PrepFlow study packs
+packs/       Validated PrepFlow study categories
 
-docs/        Project documentation
+tests/       Automated regression tests
 
-tests/       Automated tests
+docs/        Architecture, milestones, release planning, and handoff documents
+```
+
+Generated PyInstaller `build/` and `dist/` directories are not committed.
+
+---
+
+# Running From Source
+
+Create and activate a Python virtual environment, install the project requirements, and launch:
+
+```bash
+python3 -m study.gui
+```
+
+Tkinter must be available in the Python environment.
+
+On Debian-based Linux systems:
+
+```bash
+sudo apt install python3-tk
 ```
 
 ---
 
-# Quick Start
+# Building the Linux Desktop Application
 
-Create and activate a virtual environment.
+With PyInstaller installed, run:
 
-Install the project requirements.
+```bash
+python3 -m PyInstaller --clean --noconfirm PrepFlow.spec
+```
 
-Run the Study Engine.
+The application is created under:
 
-Select:
+```text
+dist/PrepFlow/
+```
 
-* a study pack
-* one or more chapters
-* begin studying
+Launch it with:
 
-The Study Engine automatically:
+```bash
+./dist/PrepFlow/PrepFlow
+```
 
-* loads the selected Pack
-* shuffles questions once
-* tracks first-pass performance
-* reviews missed questions until mastered
+PyInstaller is not a cross-compiler. Windows and macOS releases must be built and tested on their respective operating systems.
+
+---
+
+# Testing
+
+Run the full automated test suite with:
+
+```bash
+python3 -m pytest -q
+```
+
+The latest verified suite contains 53 passing tests.
 
 ---
 
 # Documentation
 
-The repository intentionally maintains a small set of authoritative documents.
+Authoritative project documents include:
 
-## README.md
-
-Project overview.
-
-## ARCHITECTURE_BIBLE.md
-
-Permanent technical architecture.
-
-## RESTART_PACKET.md
-
-Operational bootloader for ChatGPT development sessions.
-
-## V1_RELEASE_CHECKLIST.md
-
-Remaining work required before Version 1.
-
-## CHANGELOG.md
-
-Project milestone history.
-
-## IDEAS.md
-
-Future enhancements that should not interrupt Version 1.
-
----
-
-# Design Principles
-
-PrepFlow is built around several core principles:
-
-* Canonical data
-* Explicit validation
-* Stable question identity
-* Separation of concerns
-* Modular architecture
-* Reusable study content
-* Lean repository design
-
-The repository should become simpler over time as temporary development scaffolding is removed.
+- `docs/ARCHITECTURE_BIBLE.md` — permanent technical architecture
+- `docs/RESTART_PACKET.md` — operational development handoff
+- `docs/V1_RELEASE_CHECKLIST.md` — remaining Version 1 release work
+- `docs/CHANGELOG.md` — completed milestones
+- `docs/IDEAS.md` — future enhancements
 
 ---
 
 # Current Status
 
-PrepFlow is in active development toward Version 1.
+PrepFlow has reached a working Version 1 desktop application proof on Linux.
 
-The current focus is completing a clean, stable, standalone terminal application before expanding the feature set.
+Completed capabilities include:
 
-Version 1 emphasizes reliability, maintainability, and architectural stability over rapid feature growth.
+- three validated starting study categories;
+- desktop subject and chapter selection;
+- all supported question types;
+- block study and mastery review;
+- automatic save and resume;
+- standalone Linux packaging;
+- repository and release privacy validation.
 
----
-
-
+The remaining Version 1 work is focused on final release validation, documentation, archive testing, and tagging.
