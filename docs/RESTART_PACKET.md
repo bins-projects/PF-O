@@ -1149,3 +1149,35 @@ When Charlie says:
 > next
 
 provide the next executable step.
+
+<!-- HOSTED_PWA_STATE_START -->
+## Hosted Chromebook PWA — Verified Milestone
+
+PrepFlow is hosted at:
+
+`https://bins-projects.github.io/PF-O/web/`
+
+Verified behavior:
+
+- installs directly through Chrome;
+- launches from the Chromebook Launcher;
+- does not require Linux, Python, a terminal, or `localhost`;
+- loads Fundamentals, Pharmacy, and Medical-Surgical;
+- supports chapter multi-selection;
+- supports configurable block sizes, with 15 as the default;
+- presents Multiple Choice questions with feedback and rationales;
+- pauses at block boundaries;
+- reviews missed questions until mastered;
+- automatically saves unfinished sessions;
+- restores an unfinished session through Continue Session.
+
+The desktop application still supports Multiple Choice, Multiple Response,
+Completion, and Ordered Response questions.
+
+The next focused PWA milestone is adding Multiple Response questions while
+preserving the existing block, mastery-review, and autosave behavior.
+
+For routine command sequences, obvious transitions such as stopping a local
+server may be bundled with the following substantive command rather than
+requiring a separate `next` response.
+<!-- HOSTED_PWA_STATE_END -->

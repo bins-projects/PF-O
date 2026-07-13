@@ -217,3 +217,30 @@ Completed capabilities include:
 - repository and release privacy validation.
 
 The remaining Version 1 work is focused on final release validation, documentation, archive testing, and tagging.
+
+<!-- CHROMEBOOK_PWA_START -->
+## Chromebook App
+
+[Open PrepFlow for Chromebook](https://bins-projects.github.io/PF-O/web/)
+
+PrepFlow can be installed directly from Chrome and launched from the Chromebook
+Launcher. It does not require Linux, Python, a terminal, or `localhost`.
+
+### Install
+
+1. Open the PrepFlow link above in Chrome.
+2. Click **Install PrepFlow** in the address bar.
+3. Confirm the installation.
+4. Open PrepFlow from the Chromebook Launcher.
+
+### Chromebook Features
+
+- Fundamentals, Pharmacy, and Medical-Surgical
+- Multi-chapter selection
+- Configurable questions per block
+- Immediate feedback and rationales
+- End-of-block summaries
+- Review missed questions until mastered
+- Automatic session saving
+- Continue an unfinished session after reopening
+<!-- CHROMEBOOK_PWA_END -->
