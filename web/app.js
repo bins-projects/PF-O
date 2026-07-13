@@ -22,13 +22,31 @@ const quizScore = document.querySelector("#quiz-score");
 const submitAnswer = document.querySelector("#submit-answer");
 const continueButton = document.querySelector("#continue-button");
 
+const blockSummary = document.querySelector("#block-summary");
+const summaryTitle = document.querySelector("#summary-title");
+const summaryScore = document.querySelector("#summary-score");
+const summaryMessage = document.querySelector("#summary-message");
+const summaryAction = document.querySelector("#summary-action");
+
 let currentSubject = null;
 let currentPack = null;
+
 let sessionQuestions = [];
-let sessionIndex = 0;
-let correctCount = 0;
-let missedCount = 0;
 let sessionBlockSize = 15;
+
+let blockStart = 0;
+let blockEnd = 0;
+let questionIndex = 0;
+let blockNumber = 1;
+
+let firstPassCorrect = 0;
+let firstPassMissed = 0;
+let blockCorrect = 0;
+let blockMissed = [];
+
+let reviewQueue = [];
+let reviewMode = false;
+let currentReviewQuestion = null;
 
 function shuffle(items) {
   const copy = [...items];
@@ -39,6 +57,15 @@ function shuffle(items) {
   }
 
   return copy;
+}
+
+function hideAllScreens() {
+  hero.hidden = true;
+  subjects.hidden = true;
+  chapterScreen.hidden = true;
+  quizScreen.hidden = true;
+  blockSummary.hidden = true;
+  status.hidden = true;
 }
 
 function updateSelectionStatus() {
@@ -53,10 +80,10 @@ function updateSelectionStatus() {
 }
 
 function showSubjects() {
+  hideAllScreens();
+
   hero.hidden = false;
   subjects.hidden = false;
-  chapterScreen.hidden = true;
-  quizScreen.hidden = true;
   status.hidden = false;
   status.textContent = "Select a category to continue.";
 }
@@ -119,37 +146,49 @@ async function showChapters(button) {
       chapterList.append(label);
     });
 
+    hideAllScreens();
     chapterTitle.textContent = currentSubject;
-    hero.hidden = true;
-    subjects.hidden = true;
-    quizScreen.hidden = true;
-    status.hidden = true;
     chapterScreen.hidden = false;
 
     updateSelectionStatus();
   } catch (error) {
+    status.hidden = false;
     status.textContent = error.message;
   }
 }
 
+function currentQuestion() {
+  if (reviewMode) {
+    return currentReviewQuestion;
+  }
+
+  return sessionQuestions[questionIndex];
+}
+
 function showQuestion() {
-  const question = sessionQuestions[sessionIndex];
-  const blockStart =
-    Math.floor(sessionIndex / sessionBlockSize) * sessionBlockSize;
-  const blockSize = Math.min(
-    sessionBlockSize,
-    sessionQuestions.length - blockStart
-  );
-  const questionInBlock = (sessionIndex % sessionBlockSize) + 1;
-  const blockNumber =
-    Math.floor(sessionIndex / sessionBlockSize) + 1;
+  const question = currentQuestion();
+  const blockLength = blockEnd - blockStart;
+
+  hideAllScreens();
+  quizScreen.hidden = false;
 
   quizSubject.textContent = currentSubject;
-  quizPosition.textContent =
-    `Block ${blockNumber} • Question ${questionInBlock} of ${blockSize}`;
 
-  quizProgress.max = sessionQuestions.length;
-  quizProgress.value = sessionIndex + 1;
+  if (reviewMode) {
+    quizPosition.textContent =
+      `Block ${blockNumber} • Review • ${reviewQueue.length} remaining`;
+
+    quizProgress.max = Math.max(reviewQueue.length, 1);
+    quizProgress.value = 1;
+  } else {
+    const questionInBlock = questionIndex - blockStart + 1;
+
+    quizPosition.textContent =
+      `Block ${blockNumber} • Question ${questionInBlock} of ${blockLength}`;
+
+    quizProgress.max = blockLength;
+    quizProgress.value = questionInBlock;
+  }
 
   questionStem.textContent = question.stem;
   answerChoices.replaceChildren();
@@ -162,6 +201,7 @@ function showQuestion() {
     radio.type = "radio";
     radio.name = "answer";
     radio.value = choice.label;
+
     radio.addEventListener("change", () => {
       submitAnswer.disabled = false;
     });
@@ -179,7 +219,67 @@ function showQuestion() {
   continueButton.hidden = true;
 
   quizScore.textContent =
-    `First pass: ${correctCount} correct, ${missedCount} missed`;
+    `First pass: ${firstPassCorrect} correct, ${firstPassMissed} missed`;
+}
+
+function beginBlock() {
+  blockEnd = Math.min(
+    blockStart + sessionBlockSize,
+    sessionQuestions.length
+  );
+
+  questionIndex = blockStart;
+  blockCorrect = 0;
+  blockMissed = [];
+  reviewQueue = [];
+  reviewMode = false;
+  currentReviewQuestion = null;
+
+  showQuestion();
+}
+
+function showBlockSummary(mastered = false) {
+  hideAllScreens();
+  blockSummary.hidden = false;
+
+  const blockLength = blockEnd - blockStart;
+  const missedCount = blockMissed.length;
+
+  if (mastered) {
+    summaryTitle.textContent = `Block ${blockNumber} Mastered`;
+    summaryScore.textContent =
+      `First pass: ${blockCorrect} of ${blockLength} correct.`;
+
+    summaryMessage.textContent =
+      "All missed questions have now been answered correctly.";
+  } else {
+    summaryTitle.textContent = `Block ${blockNumber} Complete`;
+    summaryScore.textContent =
+      `First pass: ${blockCorrect} of ${blockLength} correct.`;
+
+    summaryMessage.textContent =
+      missedCount === 0
+        ? "No review is needed."
+        : `${missedCount} ${missedCount === 1 ? "question needs" : "questions need"} review.`;
+  }
+
+  if (!mastered && missedCount > 0) {
+    summaryAction.textContent = "Review Missed Questions";
+    summaryAction.dataset.action = "review";
+  } else if (blockEnd < sessionQuestions.length) {
+    summaryAction.textContent = "Start Next Block";
+    summaryAction.dataset.action = "next-block";
+  } else {
+    summaryAction.textContent = "Finish Session";
+    summaryAction.dataset.action = "finish";
+  }
+}
+
+function startReview() {
+  reviewMode = true;
+  reviewQueue = [...blockMissed];
+  currentReviewQuestion = reviewQueue.shift();
+  showQuestion();
 }
 
 function startQuiz() {
@@ -191,6 +291,7 @@ function startQuiz() {
   sessionQuestions = shuffle(
     currentPack.questions.filter((question) => {
       const key = `${question.chapter}|${question.chapter_title}`;
+
       return selectedChapters.has(key)
         && ["mc", "multiple_choice"].includes(question.type);
     })
@@ -203,18 +304,14 @@ function startQuiz() {
     return;
   }
 
-  sessionIndex = 0;
-  correctCount = 0;
-  missedCount = 0;
   sessionBlockSize = Number(blockSizeSelect.value) || 15;
 
-  hero.hidden = true;
-  subjects.hidden = true;
-  chapterScreen.hidden = true;
-  status.hidden = true;
-  quizScreen.hidden = false;
+  blockStart = 0;
+  blockNumber = 1;
+  firstPassCorrect = 0;
+  firstPassMissed = 0;
 
-  showQuestion();
+  beginBlock();
 }
 
 submitAnswer.addEventListener("click", () => {
@@ -226,17 +323,27 @@ submitAnswer.addEventListener("click", () => {
     return;
   }
 
-  const question = sessionQuestions[sessionIndex];
+  const question = currentQuestion();
   const correctAnswers = question.correct_answers.map(String);
   const isCorrect = correctAnswers.includes(selected.value);
 
   if (isCorrect) {
-    correctCount += 1;
     feedbackResult.textContent = "Correct!";
+
+    if (!reviewMode) {
+      firstPassCorrect += 1;
+      blockCorrect += 1;
+    }
   } else {
-    missedCount += 1;
     feedbackResult.textContent =
       `Incorrect. Correct answer: ${correctAnswers.join(", ")}`;
+
+    if (reviewMode) {
+      reviewQueue.push(question);
+    } else {
+      firstPassMissed += 1;
+      blockMissed.push(question);
+    }
   }
 
   feedbackRationale.textContent = question.rationale || "";
@@ -247,24 +354,52 @@ submitAnswer.addEventListener("click", () => {
   });
 
   quizScore.textContent =
-    `First pass: ${correctCount} correct, ${missedCount} missed`;
+    `First pass: ${firstPassCorrect} correct, ${firstPassMissed} missed`;
 
   submitAnswer.hidden = true;
   continueButton.hidden = false;
 });
 
 continueButton.addEventListener("click", () => {
-  sessionIndex += 1;
+  if (reviewMode) {
+    if (reviewQueue.length === 0) {
+      currentReviewQuestion = null;
+      reviewMode = false;
+      showBlockSummary(true);
+      return;
+    }
 
-  if (sessionIndex >= sessionQuestions.length) {
-    status.hidden = false;
-    status.textContent =
-      `Session complete: ${correctCount} correct, ${missedCount} missed.`;
-    showSubjects();
+    currentReviewQuestion = reviewQueue.shift();
+    showQuestion();
+    return;
+  }
+
+  questionIndex += 1;
+
+  if (questionIndex >= blockEnd) {
+    showBlockSummary(false);
     return;
   }
 
   showQuestion();
+});
+
+summaryAction.addEventListener("click", () => {
+  const action = summaryAction.dataset.action;
+
+  if (action === "review") {
+    startReview();
+    return;
+  }
+
+  if (action === "next-block") {
+    blockStart = blockEnd;
+    blockNumber += 1;
+    beginBlock();
+    return;
+  }
+
+  showSubjects();
 });
 
 document.querySelectorAll(".subject-card").forEach((button) => {
@@ -273,6 +408,7 @@ document.querySelectorAll(".subject-card").forEach((button) => {
 
 document.querySelector("#back-button").addEventListener("click", showSubjects);
 document.querySelector("#exit-quiz").addEventListener("click", showSubjects);
+document.querySelector("#summary-exit").addEventListener("click", showSubjects);
 
 document.querySelector("#select-all").addEventListener("click", () => {
   chapterList.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
