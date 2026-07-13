@@ -241,6 +241,10 @@ function currentQuestion() {
   return currentPack.questions[currentQuestionNumber()];
 }
 
+function totalBlockCount() {
+  return Math.max(1, Math.ceil(sessionQuestions.length / sessionBlockSize));
+}
+
 function showQuestion() {
   const question = currentQuestion();
   const blockLength = blockEnd - blockStart;
@@ -252,7 +256,7 @@ function showQuestion() {
 
   if (reviewMode) {
     quizPosition.textContent =
-      `Block ${blockNumber} • Review • ${reviewQueue.length + 1} remaining`;
+      `Block ${blockNumber} of ${totalBlockCount()} • Review • ${reviewQueue.length + 1} remaining`;
 
     quizProgress.max = Math.max(reviewQueue.length + 1, 1);
     quizProgress.value = 1;
@@ -260,7 +264,7 @@ function showQuestion() {
     const questionInBlock = questionIndex - blockStart + 1;
 
     quizPosition.textContent =
-      `Block ${blockNumber} • Question ${questionInBlock} of ${blockLength}`;
+      `Block ${blockNumber} of ${totalBlockCount()} • Question ${questionInBlock} of ${blockLength}`;
 
     quizProgress.max = blockLength;
     quizProgress.value = questionInBlock;
