@@ -240,3 +240,21 @@ Complete rationale.
     assert "Duplicate fifth question?" not in cleaned
     assert "Chapter 04: Medical Systems Of Weights And Measures" in cleaned
     assert "Complete Chapter 4 question" in cleaned
+
+def test_removes_standalone_extra_per_year_artifact() -> None:
+    from compiler.cleaner import clean_text
+
+    source = """Question stem
+A. First answer
+extra per year?
+B. Second answer
+ANS: B
+The rationale remains.
+"""
+
+    cleaned = clean_text(source)
+
+    assert "extra per year?" not in cleaned
+    assert "A. First answer" in cleaned
+    assert "B. Second answer" in cleaned
+    assert "The rationale remains." in cleaned

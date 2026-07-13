@@ -252,6 +252,15 @@ def clean_text(text: str) -> str:
         cleaned_lines.append(lines[index])
         index += 1
 
+    cleaned_lines = [
+        line
+        for line in cleaned_lines
+        if not re.fullmatch(
+            r"(?i)extra per year\?",
+            line.strip(),
+        )
+    ]
+
     lines = remove_leading_chapter_index(cleaned_lines)
     lines = remove_obsolete_pharmacy_chapter_32(lines)
     lines = trim_pharmacy_chapter_3_duplicate_summary(lines)
