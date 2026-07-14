@@ -270,6 +270,7 @@ function showQuestion() {
   }
 
   questionStem.textContent = question.stem;
+  answerChoices.hidden = false;
   answerChoices.replaceChildren();
 
   question.choices.forEach((choice) => {
@@ -478,6 +479,7 @@ submitAnswer.addEventListener("click", () => {
   }
 
   feedbackRationale.textContent = question.rationale || "";
+  answerChoices.hidden = true;
   feedback.hidden = false;
 
   answerChoices.querySelectorAll("input").forEach((input) => {
