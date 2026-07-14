@@ -592,6 +592,14 @@ document.querySelector("#clear-all").addEventListener("click", () => {
 resumeSessionButton.addEventListener("click", resumeSavedSession);
 
 discardSessionButton.addEventListener("click", () => {
+  const confirmed = window.confirm(
+    "Start over and permanently delete your saved quiz progress?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
   clearSavedSession();
   showSubjects();
 });
