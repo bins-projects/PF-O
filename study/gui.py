@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from collections import OrderedDict
 import random
+import threading
 import tkinter as tk
-from tkinter import ttk
+from tkinter import messagebox, ttk
+import webbrowser
 
 from study.loader import list_packs, load_pack
 from study.question import check_answer, get_correct_answers, get_prompt
@@ -18,17 +20,19 @@ from study.save_state import (
 )
 from study.scoring import ScoreTracker
 from study.session import SessionManager
+from study.update_checker import fetch_latest_version, is_newer_version
+from study.version import APP_VERSION, RELEASES_URL
 
 
 DISPLAY_NAMES = {
     "Fundamentals of Nursing": "Fundamentals",
-    "Pharmacy": "Pharmacy",
+    "Pharmacy": "Pharm",
     "Medical-Surgical": "Medical-Surgical",
 }
 
 DISPLAY_ORDER = {
     "Fundamentals": 0,
-    "Pharmacy": 1,
+    "Pharm": 1,
     "Medical-Surgical": 2,
 }
 
@@ -112,12 +116,21 @@ class PrepFlowApp(tk.Tk):
         ).pack(fill="x", pady=(10, 0))
 
         if has_saved_session():
+            saved_controls = ttk.Frame(container)
+            saved_controls.pack(pady=(0, 20))
+
             ttk.Button(
-                container,
+                saved_controls,
                 text="Resume Saved Session",
                 style="Primary.TButton",
                 command=self._resume_saved_session,
-            ).pack(pady=(0, 20))
+            ).pack(side="left", padx=(0, 8))
+
+            ttk.Button(
+                saved_controls,
+                text="Start Over",
+                command=self._discard_saved_session,
+            ).pack(side="left")
 
         subjects = []
         for pack_info in list_packs():
@@ -178,6 +191,105 @@ class PrepFlowApp(tk.Tk):
             text="Select a category to choose chapters and begin studying.",
             anchor="center",
         ).pack(fill="x", pady=(25, 5))
+
+        update_bar = ttk.Frame(container)
+        update_bar.pack(fill="x", pady=(8, 0))
+
+        ttk.Label(
+            update_bar,
+            text=f"Version {APP_VERSION}",
+        ).pack(side="left")
+
+        self.update_button = ttk.Button(
+            update_bar,
+            text="Check for Updates",
+            command=self._check_for_updates,
+        )
+        self.update_button.pack(side="right")
+
+    def _discard_saved_session(self) -> None:
+        confirmed = messagebox.askyesno(
+            "Start Over",
+            "Start over and permanently delete your saved quiz progress?",
+            parent=self,
+        )
+
+        if not confirmed:
+            return
+
+        delete_saved_session()
+        self.show_home_screen()
+
+    def _check_for_updates(self) -> None:
+        self.update_button.configure(
+            text="Checking...",
+            state="disabled",
+        )
+
+        def check() -> None:
+            try:
+                latest_version = fetch_latest_version()
+            except RuntimeError as error:
+                try:
+                    self.after(
+                        0,
+                        lambda: self._finish_update_check(error=error),
+                    )
+                except tk.TclError:
+                    pass
+                return
+
+            try:
+                self.after(
+                    0,
+                    lambda: self._finish_update_check(
+                        latest_version=latest_version,
+                    ),
+                )
+            except tk.TclError:
+                pass
+
+        threading.Thread(target=check, daemon=True).start()
+
+    def _finish_update_check(
+        self,
+        latest_version: str | None = None,
+        error: RuntimeError | None = None,
+    ) -> None:
+        self.update_button.configure(
+            text="Check for Updates",
+            state="normal",
+        )
+
+        if error is not None:
+            messagebox.showerror(
+                "Update Check Failed",
+                str(error),
+                parent=self,
+            )
+            return
+
+        if latest_version and is_newer_version(latest_version):
+            open_release = messagebox.askyesno(
+                "Update Available",
+                (
+                    f"PrepFlow {latest_version.removeprefix('v')} is "
+                    f"available.\n\n"
+                    f"You currently have version {APP_VERSION}.\n\n"
+                    "Open the download page?"
+                ),
+                parent=self,
+            )
+
+            if open_release:
+                webbrowser.open(RELEASES_URL)
+            return
+
+        messagebox.showinfo(
+            "PrepFlow Is Up to Date",
+            f"You are using the latest version: {APP_VERSION}.",
+            parent=self,
+        )
 
     def show_chapter_screen(self, subject: dict) -> None:
         container = self._replace_screen()
@@ -316,6 +428,23 @@ class PrepFlowApp(tk.Tk):
         bottom_bar = ttk.Frame(container)
         bottom_bar.pack(fill="x", pady=(18, 0))
 
+        block_size_frame = ttk.Frame(bottom_bar)
+        block_size_frame.pack(side="left")
+
+        ttk.Label(
+            block_size_frame,
+            text="Questions per block:",
+        ).pack(side="left", padx=(0, 8))
+
+        self.block_size_variable = tk.StringVar(value="15")
+        ttk.Combobox(
+            block_size_frame,
+            textvariable=self.block_size_variable,
+            values=("5", "10", "15", "20"),
+            state="readonly",
+            width=5,
+        ).pack(side="left")
+
         self.start_button = ttk.Button(
             bottom_bar,
             text="Start Studying",
@@ -398,7 +527,7 @@ class PrepFlowApp(tk.Tk):
         self.session_pack_path = str(subject["pack_info"]["path"])
         self.session = SessionManager(
             supported_questions,
-            block_size=15,
+            block_size=int(self.block_size_variable.get()),
         )
         self.score = ScoreTracker()
         self.review = ReviewQueue()
@@ -422,6 +551,12 @@ class PrepFlowApp(tk.Tk):
 
         return min(block_size, remaining)
 
+    def _total_block_count(self) -> int:
+        total_questions = self.session.total_questions()
+        block_size = self.session.block_size
+
+        return max(1, (total_questions + block_size - 1) // block_size)
+
     def _load_next_first_attempt_question(self) -> None:
         if not self.session.has_next_question():
             self._show_session_complete()
@@ -442,7 +577,7 @@ class PrepFlowApp(tk.Tk):
 
         ttk.Button(
             top_bar,
-            text="← Exit Session",
+            text="Save & Quit",
             command=self.show_home_screen,
         ).pack(side="left")
 
@@ -452,13 +587,17 @@ class PrepFlowApp(tk.Tk):
             style="Subtitle.TLabel",
         ).pack(side="left", expand=True)
 
+        block_number = self.session.current_block_number()
+        total_blocks = self._total_block_count()
+
         if self.review_mode:
             position_text = (
-                f"Mastery Review • {self.review.count() + 1} remaining"
+                f"Block {block_number} of {total_blocks} • "
+                f"Review • {self.review.count() + 1} remaining"
             )
         else:
             position_text = (
-                f"Block {self.session.current_block_number()} • "
+                f"Block {block_number} of {total_blocks} • "
                 f"Question {self.session.question_in_block()} "
                 f"of {self._current_block_size()}"
             )
@@ -557,8 +696,9 @@ class PrepFlowApp(tk.Tk):
 
         question_type = self._normalized_question_type(question)
 
-        choices_frame = ttk.Frame(content)
-        choices_frame.pack(fill="x")
+        self.choices_frame = ttk.Frame(content)
+        self.choices_frame.pack(fill="x")
+        choices_frame = self.choices_frame
 
         if question_type == "multiple_choice":
             self.selected_answer = tk.StringVar(value="")
@@ -817,6 +957,7 @@ class PrepFlowApp(tk.Tk):
 
         self.answer_submitted = True
         self.submit_button.configure(state="disabled")
+        self.choices_frame.destroy()
 
         if self.review_mode:
             self.score.record_review_answer(is_correct)
@@ -1105,7 +1246,7 @@ class PrepFlowApp(tk.Tk):
 
         ttk.Label(
             container,
-            text="Session Complete",
+            text="Quiz Complete",
             style="Title.TLabel",
             anchor="center",
         ).pack(fill="x", pady=(70, 18))
@@ -1113,11 +1254,8 @@ class PrepFlowApp(tk.Tk):
         ttk.Label(
             container,
             text=(
-                f"First-pass score: {correct} of {total} ({percentage}%)\n"
-                f"First-pass missed: {missed}\n"
-                f"Review answers corrected: "
-                f'{summary["review_corrected"]}\n\n'
-                "Mastery complete"
+                f"First-pass score: {percentage}%\n"
+                f"{correct} of {total} correct on the first attempt."
             ),
             style="Subtitle.TLabel",
             anchor="center",
