@@ -1,54 +1,87 @@
 <!-- PLATFORM_CHOOSER_START -->
 # PrepFlow
 
-## Choose Your Platform
+PrepFlow is a nursing study program that lets you choose chapters, answer questions one at a time, review rationales, and repeat missed questions until they are mastered.
+
+No account is required. PrepFlow does not collect personal information or upload your study progress. Saved sessions remain in the browser or application on the device you use.
+
+## Use PrepFlow Now
+
+[**Open PrepFlow in Your Browser**](https://bins-projects.github.io/PrepFlow/web/)
+
+You can begin studying immediately without installing anything.
+
+Your session saves locally in that browser on that device. A session saved in Safari on one Mac will not automatically appear in Chrome on another computer.
+
+Clearing browser or site data may remove locally saved PrepFlow sessions.
+
+## Save PrepFlow to Your Device
+
+The options below let PrepFlow open more like a normal application from your computer.
 
 ### Chromebook
 
-[**Open and Install PrepFlow for Chromebook**](https://bins-projects.github.io/PrepFlow/web/)
+[**Open PrepFlow for Chromebook**](https://bins-projects.github.io/PrepFlow/web/)
 
-Open the link in Chrome, then select **Install PrepFlow** in the address bar.
-PrepFlow will appear in the Chromebook Launcher and does not require Linux.
+1. Open the link in Chrome.
+2. Click the install icon in the address bar.
+3. Choose **Install**.
+4. Open PrepFlow from the Chromebook Launcher.
+
+### Mac
+
+[**Open PrepFlow for Mac**](https://bins-projects.github.io/PrepFlow/web/)
+
+1. Open the link in Safari.
+2. Click **File** in the menu bar at the very top of the screen.
+3. Click **Add to Dock**.
+4. Enter **PrepFlow** as the name and click **Add**.
+5. Open PrepFlow from the Dock, Applications folder, or Spotlight search.
+
+This saves the web-app version to the Mac so it opens in its own window like a normal application.
 
 ### Windows
 
 [**Download PrepFlow for Windows**](https://github.com/bins-projects/PrepFlow/releases/latest/download/PrepFlow-Windows-x86_64.zip)
 
-Download the ZIP, select **Extract All**, open the extracted `PrepFlow` folder,
-and double-click `PrepFlow.exe`.
+1. Download the ZIP file.
+2. Open the Downloads folder.
+3. Right-click the ZIP file and choose **Extract All**.
+4. Open the extracted `PrepFlow` folder.
+5. Double-click `PrepFlow.exe`.
 
-Windows may display a Microsoft Defender SmartScreen warning because PrepFlow
-is not yet code-signed.
+Windows may display a Microsoft Defender SmartScreen warning because PrepFlow is not yet code-signed.
+
+Choose **More info**, then **Run anyway**, only when the file was downloaded from the official PrepFlow GitHub page.
 
 ---
 <!-- PLATFORM_CHOOSER_END -->
 
-PrepFlow is a desktop study application built around mastery-based review.
+# How to Use PrepFlow
 
-It loads validated PrepFlow study categories, lets the learner choose one or more chapters, presents questions in shuffled study blocks, tracks first-pass performance, and repeats missed questions until they are mastered.
+1. Choose a subject.
+2. Select the chapters you want to study.
+3. Choose your block size.
+4. Begin the quiz.
+5. Select an answer and submit it.
+6. Read the correct answer and rationale.
+7. Continue through the block.
+8. Missed questions return for review until they are mastered.
+9. Your session saves automatically so you can leave and resume later.
+
+Selected chapters are combined and shuffled once at the beginning of each session.
+
+The final block is shortened automatically when fewer questions remain than the selected block size.
+
+---
+
+# Current Subjects
 
 PrepFlow currently includes:
 
 - Fundamentals
-- Pharmacy
+- Pharm
 - Medical-Surgical
-
----
-
-# Current Desktop Experience
-
-Launch PrepFlow and:
-
-1. Choose a study category.
-2. Select one or more chapters.
-3. Start studying.
-4. Complete questions in blocks of 15.
-5. Review missed questions until mastered.
-6. Resume an unfinished quiz later through automatic session saving.
-
-Selected chapters are combined and shuffled once at the beginning of each session.
-
-The final block is shortened automatically when fewer than 15 questions remain.
 
 ---
 
@@ -63,7 +96,7 @@ PrepFlow supports:
 
 Ordered Response questions use drag-and-drop controls.
 
-Long questions and rationales scroll while the navigation controls remain visible.
+Long questions and rationales scroll while navigation controls remain available.
 
 ---
 
@@ -78,7 +111,7 @@ During a study session, PrepFlow:
 - tracks first-pass correct and missed answers;
 - places missed questions into a review queue;
 - repeats missed review questions until answered correctly;
-- shows final first-pass and mastery results.
+- shows first-pass and mastery results.
 
 ---
 
@@ -86,7 +119,9 @@ During a study session, PrepFlow:
 
 PrepFlow maintains one overwriteable local save slot.
 
-Whenever a new question opens, the current session state is saved automatically. The saved state includes:
+Whenever a new question opens, the current session state is saved automatically.
+
+The saved state includes:
 
 - subject and question set;
 - shuffled question order;
@@ -100,170 +135,3 @@ When a saved session exists, the home screen displays:
 
 ```text
 Continue Saved Quiz
-```
-
-The save is removed automatically after the session is completed.
-
----
-
-# Standalone Application
-
-A standalone Linux x86-64 build has been produced and tested with PyInstaller.
-
-The packaged application:
-
-- opens without requiring Python;
-- does not require terminal interaction during normal use;
-- bundles the three official starting study categories;
-- supports automatic save and resume.
-
-Separate builds must be created and tested on Windows and macOS.
-
-A normal macOS desktop build will not run on iPadOS. An iPad-compatible PrepFlow frontend is a later platform milestone.
-
----
-
-# Architecture
-
-PrepFlow keeps source compilation separate from study delivery.
-
-```text
-Private Source Material
-        ↓
-Compiler
-        ↓
-Validated PrepFlow Packs
-        ↓
-Desktop Study Application
-```
-
-Private source material remains outside the repository.
-
----
-
-# Repository Layout
-
-```text
-compiler/    Reusable source compilation pipeline
-
-study/       Study logic, desktop interface, scoring, review, and save state
-
-packs/       Validated PrepFlow study categories
-
-tests/       Automated regression tests
-
-docs/        Architecture, milestones, release planning, and handoff documents
-```
-
-Generated PyInstaller `build/` and `dist/` directories are not committed.
-
----
-
-# Running From Source
-
-Create and activate a Python virtual environment, install the project requirements, and launch:
-
-```bash
-python3 -m study.gui
-```
-
-Tkinter must be available in the Python environment.
-
-On Debian-based Linux systems:
-
-```bash
-sudo apt install python3-tk
-```
-
----
-
-# Building the Linux Desktop Application
-
-With PyInstaller installed, run:
-
-```bash
-python3 -m PyInstaller --clean --noconfirm PrepFlow.spec
-```
-
-The application is created under:
-
-```text
-dist/PrepFlow/
-```
-
-Launch it with:
-
-```bash
-./dist/PrepFlow/PrepFlow
-```
-
-PyInstaller is not a cross-compiler. Windows and macOS releases must be built and tested on their respective operating systems.
-
----
-
-# Testing
-
-Run the full automated test suite with:
-
-```bash
-python3 -m pytest -q
-```
-
-The latest verified suite contains 53 passing tests.
-
----
-
-# Documentation
-
-Authoritative project documents include:
-
-- `docs/ARCHITECTURE_BIBLE.md` — permanent technical architecture
-- `docs/RESTART_PACKET.md` — operational development handoff
-- `docs/V1_RELEASE_CHECKLIST.md` — remaining Version 1 release work
-- `docs/CHANGELOG.md` — completed milestones
-- `docs/IDEAS.md` — future enhancements
-
----
-
-# Current Status
-
-PrepFlow has reached a working Version 1 desktop application proof on Linux.
-
-Completed capabilities include:
-
-- three validated starting study categories;
-- desktop subject and chapter selection;
-- all supported question types;
-- block study and mastery review;
-- automatic save and resume;
-- standalone Linux packaging;
-- repository and release privacy validation.
-
-The remaining Version 1 work is focused on final release validation, documentation, archive testing, and tagging.
-
-<!-- CHROMEBOOK_PWA_START -->
-## Chromebook App
-
-[Open PrepFlow for Chromebook](https://bins-projects.github.io/PrepFlow/web/)
-
-PrepFlow can be installed directly from Chrome and launched from the Chromebook
-Launcher. It does not require Linux, Python, a terminal, or `localhost`.
-
-### Install
-
-1. Open the PrepFlow link above in Chrome.
-2. Click **Install PrepFlow** in the address bar.
-3. Confirm the installation.
-4. Open PrepFlow from the Chromebook Launcher.
-
-### Chromebook Features
-
-- Fundamentals, Pharmacy, and Medical-Surgical
-- Multi-chapter selection
-- Configurable questions per block
-- Immediate feedback and rationales
-- End-of-block summaries
-- Review missed questions until mastered
-- Automatic session saving
-- Continue an unfinished session after reopening
-<!-- CHROMEBOOK_PWA_END -->
