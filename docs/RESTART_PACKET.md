@@ -80,13 +80,12 @@ Request local inspection only when:
 
 # Latest Verified Repository State
 
+
 Latest confirmed committed milestone:
 
-2bf54a5 — feat: add desktop multi-pack quiz builder
+c1e16fc — docs: refine restart packet wording
 
-Current active development branch: experiment/custom-quiz-builder
-
-Official release tag: v1.0.0
+Current active development branch: master
 
 Current verified state:
 
