@@ -98,9 +98,9 @@ Current verified state:
 * Missed questions and review-queue progress survive save and resume.
 * All 108 automated tests passed.
 * Manual mixed-Pack selection, scrolling, quiz start, save, resume, and review-queue checks passed.
-* Local experiment/custom-quiz-builder was clean.
-* Private origin/experiment/custom-quiz-builder matched commit 2bf54a545eeb15cfc4d59ad8a16458fec3df2235.
-* Private master and the public repository remained unchanged.
+* * The custom quiz builder milestone is merged into master.
+* Obsolete local and remote development branches were removed.
+* Local master, private origin/master, and public/master are synchronized.
 
 Before resuming, verify GitHub rather than assuming these values are still current.
 
