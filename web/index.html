@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PrepFlow</title>
-  <meta name="theme-color" content="#243b67">
+  <meta name="theme-color" content="#07091a">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/prepflow-192.png">
   <link rel="stylesheet" href="styles.css">
@@ -14,27 +14,13 @@
   <main class="app-shell">
     <header class="hero">
       <div class="arcade-poster">
-        <div class="arcade-copy">
-          <p class="arcade-kicker">Nursing knowledge system</p>
-          <div class="logo" aria-label="PrepFlow">
-            <span class="prep">Prep</span><span class="flow">Flow</span>
-          </div>
-          <p class="arcade-tagline">
-            Build your quiz. Challenge your recall. <span>Master the material.</span>
-          </p>
-          <div class="arcade-badges" aria-label="PrepFlow features">
-            <span class="arcade-badge">Custom Chapters</span>
-            <span class="arcade-badge">Mastery Review</span>
-            <span class="arcade-badge">Automatic Save</span>
-          </div>
-        </div>
-
-        <div class="arcade-orbit" aria-hidden="true"></div>
         <img
-          class="hero-art"
-          src="images/arcade-hero.svg"
-          alt="Stylized nursing student holding a glowing study tablet"
+          class="arcade-backdrop"
+          src="images/arcade-home-stage.webp"
+          alt=""
+          aria-hidden="true"
         >
+        <span class="prototype-badge">Browser prototype</span>
       </div>
       <p class="hero-instruction">Choose a study category to begin building your quiz.</p>
     </header>
@@ -51,7 +37,7 @@
         </span>
         <span class="subject-name">Fundamentals</span>
         <span class="question-count">1,040 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">→</span></span>
+        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
       </button>
 
       <button class="subject-card pharm" data-subject="Pharm" data-pack="../packs/pharmacy.prepflow.json">
@@ -64,7 +50,7 @@
         </span>
         <span class="subject-name">Pharm</span>
         <span class="question-count">1,238 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">→</span></span>
+        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
       </button>
 
       <button class="subject-card med-surg" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json">
@@ -77,7 +63,7 @@
         </span>
         <span class="subject-name">Medical-Surgical</span>
         <span class="question-count">1,443 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">→</span></span>
+        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
       </button>
     </section>
 
