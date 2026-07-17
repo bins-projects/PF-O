@@ -55,6 +55,7 @@ const quizPosition = document.querySelector("#quiz-position");
 const quizProgress = document.querySelector("#quiz-progress");
 const questionStem = document.querySelector("#question-stem");
 const answerChoices = document.querySelector("#answer-choices");
+const responsePageLabel = document.querySelector("#response-page-label");
 const feedback = document.querySelector("#feedback");
 const feedbackResult = document.querySelector("#feedback-result");
 const feedbackRationale = document.querySelector("#feedback-rationale");
@@ -387,6 +388,9 @@ function showQuestion() {
   }
 
   questionStem.textContent = question.stem;
+  responsePageLabel.textContent = isMultipleResponse
+    ? "Select All That Apply"
+    : "Choose Your Answer";
   answerChoices.hidden = false;
   answerChoices.replaceChildren();
 

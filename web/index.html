@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="arcade-home.css">
   <link rel="stylesheet" href="pixel-home.css">
+  <link rel="stylesheet" href="arcade-quiz.css">
 </head>
 <body>
   <main class="app-shell">
@@ -146,30 +147,49 @@
     <section id="quiz-screen" class="quiz-screen" hidden>
       <header class="quiz-header">
         <button id="exit-quiz" class="secondary-button">Save &amp; Quit</button>
-        <strong id="quiz-subject"></strong>
-        <span id="quiz-position"></span>
+        <progress id="quiz-progress" value="0" max="1" hidden></progress>
       </header>
 
-      <progress id="quiz-progress" value="0" max="1"></progress>
+      <div class="quiz-book">
+        <section class="quiz-page question-page">
+          <div class="quiz-page-meta">
+            <strong id="quiz-subject"></strong>
+            <span id="quiz-position"></span>
+          </div>
 
-      <h2 id="question-stem"></h2>
-      <div id="answer-choices" class="answer-choices"></div>
+          <div class="quiz-page-label">Question</div>
 
-      <section id="feedback" class="feedback" hidden>
-        <h3 id="feedback-result"></h3>
-        <h4>Rationale</h4>
-        <p id="feedback-rationale"></p>
-      </section>
+          <div class="quiz-page-scroll">
+            <h2 id="question-stem"></h2>
+          </div>
+        </section>
 
-      <footer class="quiz-footer">
-        <span id="quiz-score">First pass: 0 correct, 0 missed</span>
-        <button id="submit-answer" class="start-button" disabled>
-          Submit Answer
-        </button>
-        <button id="continue-button" class="start-button" hidden>
-          Continue
-        </button>
-      </footer>
+        <section class="quiz-page response-page">
+          <div id="response-page-label" class="quiz-page-label">Choose Your Answer</div>
+
+          <div class="quiz-response-scroll">
+            <div id="answer-choices" class="answer-choices"></div>
+
+            <section id="feedback" class="feedback" hidden>
+              <h3 id="feedback-result"></h3>
+              <h4>Rationale</h4>
+              <p id="feedback-rationale"></p>
+            </section>
+          </div>
+
+          <footer class="quiz-footer">
+            <span id="quiz-score" hidden></span>
+
+            <button id="submit-answer" class="start-button" disabled>
+              Submit Answer
+            </button>
+
+            <button id="continue-button" class="start-button" hidden>
+              Continue
+            </button>
+          </footer>
+        </section>
+      </div>
     </section>
 
     <section id="block-summary" class="block-summary" hidden>

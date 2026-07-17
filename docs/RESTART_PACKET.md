@@ -1515,55 +1515,186 @@ For now, the final results screen should prioritize the first-pass percentage wi
 
 A proper Windows installer and uninstaller remain deferred until the portable Version 1.1.0 build is confirmed stable.
 
-## Exact Resume Point
+---
 
-Resume from this statement:
+## Current Working Note — 2026-07-17
 
-PrepFlow’s existing PWA multi-category quiz behavior remains merged in master, with all 108 automated tests passing at the last verified run.
+This is the rolling disposable continuity note. Replace this section during the next major work session instead of stacking additional temporary handoffs beneath it.
 
-A major arcade-style PWA redesign is now safely committed and pushed only to the private feature branch:
+### Active branch and files
 
-Branch: feat/arcade-home-screen
-Commit: 8c6cf40
-Commit message: feat: add arcade book-based multi-pack quiz builder
+Active branch: feat/arcade-home-screen
 
-This feature branch is synchronized with origin/feat/arcade-home-screen. It has not been merged into master and has not been pushed to the public mirror.
+Starting commit for this session:
+72f5428 docs: update arcade redesign restart handoff
 
-Verified feature-branch behavior:
+Files intentionally changed:
+- docs/RESTART_PACKET.md
+- web/app.js
+- web/arcade-quiz.css
+- web/images/pixel-home-stage.webp
+- web/index.html
 
-- the home screen uses the approved 16-bit PrepFlow artwork;
-- Fundamentals, Pharm, and Med-Surg appear as reusable pixel-art textbook buttons;
-- all three books open into the same two-page chapter-selection overlay;
-- each entire chapter row is clickable;
-- chapter selections persist while switching among books;
-- selections from multiple books remain combined;
-- each closed book displays its own selected-chapter count;
-- the home screen displays the combined selection total;
-- Questions per Block is configured globally on the home screen;
-- Build Quiz enables only when chapters are selected;
-- saved-session Continue Session and Start Over controls remain functional;
-- the side control stacks remain visible in both full-screen and split-screen browser layouts;
-- all 108 automated tests passed after the redesign;
-- browser testing confirmed that all three books open and preserve selections.
+### Approved home artwork
 
-The feature stylesheet currently contains many layered CSS overrides accumulated during visual iteration. A cleanup branch was created for inspection, but no cleanup changes were made because removing overrides without full visual regression testing could damage the approved design. Do not begin by rewriting or consolidating the stylesheet.
+The approved home scene shows two nurses standing back-to-back against the sunset skyline.
 
-The next active milestone is redesigning the PWA quiz question, answer, feedback, and rationale experience to match the new arcade visual system. Preserve all established quiz logic, scoring, block behavior, mastery review, save/resume behavior, Multiple Choice behavior, and exact-set Multiple Response grading.
+Path:
+web/images/pixel-home-stage.webp
 
-Do not merge the arcade feature branch into master until the question-and-rationale redesign is complete and the complete PWA workflow has been manually tested.
+Verified local SHA-256:
+3ed57829e3ab3ea524e3bc363ddf7f69322d300b05030987c57daa4fa47912a8
 
-Before doing any work in the next session:
+Do not regenerate, crop, substitute, or replace this artwork. Do not restore the earlier single-nurse version.
 
-1. inspect the committed private GitHub branch feat/arcade-home-screen;
-2. verify that its tip is still commit 8c6cf40;
-3. inspect the current quiz-screen markup, styles, and behavior;
-4. propose one focused first step for the question-and-rationale redesign;
-5. do not alter the approved home screen unless a verified regression is found.
+Before future visual changes:
+1. verify the artwork hash;
+2. run the app unchanged;
+3. visually confirm the full-width two-nurse home;
+4. capture a baseline screenshot.
+
+### Open-book question experience
+
+The PWA question screen now uses a two-page pixel-art book.
+
+Current approved behavior:
+- question stem appears on the left page;
+- answer choices appear on the right page;
+- after submission, choices disappear and feedback plus rationale replace them;
+- Submit Answer and Continue stay at the bottom of the right page;
+- browser-page scrolling is minimized;
+- page-local overflow remains available for unusually long content;
+- body text remains clean and legible;
+- arcade styling is concentrated in borders, labels, controls, binding, page edges, and glow;
+- the live first-pass score was removed from the question page;
+- the shared progress bar was removed;
+- subject, block number, and question position appear on the left page;
+- Save & Quit is a plain rectangular cyan tab attached to the left cover;
+- page corners use cyan and purple bracket ornaments;
+- the book has cream pages, visible page stacks, center binding, dark cover edges, and arcade glow.
+
+This layout is considered good for now.
+
+Do not begin a future session by consolidating or rewriting the layered quiz CSS. It was created through visual iteration and requires full visual regression testing before cleanup.
+
+### Question-type instructions
+
+Multiple Choice displays:
+CHOOSE YOUR ANSWER
+
+Multiple Response or SATA displays:
+SELECT ALL THAT APPLY
+
+The implementation reuses the existing isMultipleResponse value inside showQuestion().
+
+### SATA grading verification
+
+Multiple Response continues to use exact-set grading.
+
+Manual verification completed:
+- selecting only part of the correct SATA set was graded incorrect;
+- no partial first-pass credit was awarded;
+- correcting the missed SATA during mastery review completed the session;
+- a deliberately missed one-question SATA session produced a final first-pass score of 0%.
+
+A temporary 300% result occurred because a browser-console shortcut reduced the session to one question without resetting existing score counters. It was not a normal scoring failure and did not mean SATA choices were counted separately.
+
+### Block and final summaries
+
+The block-complete and final-complete screens were restyled as dark, high-contrast arcade panels.
+
+Current styling includes:
+- dark navy background;
+- cyan and purple frame;
+- readable white and pale-blue text;
+- visible first-pass score;
+- clear primary action;
+- secondary Exit Session action when applicable.
+
+These screens are considered good enough for the current study-group test release.
+
+### Verification completed
+
+Local development server:
+python3 -m http.server 8004
+
+Local address:
+http://localhost:8004/web/
+
+Manual verification completed:
+- approved two-nurse home renders;
+- all three book buttons remain functional;
+- multi-book chapter selections remain functional;
+- Multiple Choice open-book screen works;
+- SATA open-book screen works;
+- SATA displays Select All That Apply;
+- answers are replaced by rationale after submission;
+- Save & Quit tab renders and works;
+- block summary is readable;
+- final Quiz Complete screen is readable;
+- SATA exact-set grading awards no partial credit.
+
+Automated verification:
+108 passed
+
+git diff --check completed without errors.
+
+### Confirmed follow-up bug: completed-session home state
+
+After a quiz is fully completed and the user returns home, the previous chapter selections and builder state remain active.
+
+Observed symptoms:
+- selected chapter counts remain visible;
+- Build Quiz may remain enabled;
+- the completed quiz can appear unfinished;
+- the user may feel required to press Start Over merely to clear stale state.
+
+Required future behavior should be one of:
+1. automatically clear completed-quiz selections and return to a clean home screen; or
+2. deliberately offer Take Same Quiz Again while also providing a clean reset.
+
+A completed quiz must not leave ambiguous stale selection state.
+
+This is the next focused product bug. It does not block publishing the current visual build for study-group testing.
+
+### Release sequence still required
+
+1. run git diff --check;
+2. run the complete automated test suite;
+3. commit the feature-branch changes;
+4. push feat/arcade-home-screen to private origin;
+5. verify local and private feature-branch hashes match;
+6. merge the feature branch into master;
+7. run the complete test suite on merged master;
+8. push master to private origin;
+9. push master to public mirror public;
+10. verify both remote master hashes match;
+11. verify GitHub Pages deployment;
+12. hard-refresh the hosted PWA;
+13. confirm the home, quiz book, SATA instruction, rationale replacement, and summary screens.
+
+Hosted PWA:
+https://bins-projects.github.io/PF-O/web/
+
+Because the PWA uses caching, a hard refresh or service-worker refresh may be required before the new version appears.
+
+### Startup procedure for the next session
+
+Before new visual work:
+1. inspect the committed repository and active branch;
+2. inspect local git status;
+3. run the app unchanged;
+4. visually confirm the approved home;
+5. visually confirm question and rationale states;
+6. verify the home-art hash;
+7. capture baseline screenshots;
+8. make one isolated change;
+9. refresh and confirm the home did not regress.
+
+GitHub top-down inspection is necessary but not sufficient for visual continuity. Local files, browser caching, the local Python server, and rendered screenshots must also be checked.
 
 ---
 
 ## Temporary New-Chat Handoff
 
-Paste this into the first message of the next chat:
-
-Read the repository’s current docs/RESTART_PACKET.md and inspect the private GitHub branch feat/arcade-home-screen before requesting local files or terminal output. The approved arcade home screen and reusable open-book multi-pack chapter selector are safely committed at 8c6cf40, with 108 tests passing. Do not merge yet. Continue with the next milestone: redesign the PWA question, answer, feedback, and rationale experience to match the arcade visual system while preserving all existing quiz behavior. Complete only the inspection-and-plan phase first, then give me one executable next step.
+Read the current docs/RESTART_PACKET.md and inspect the committed PrepFlow repository before requesting pasted source code. Verify both Git state and the locally rendered baseline before visual work. The approved home uses the two-nurse sunset artwork at web/images/pixel-home-stage.webp; do not regenerate or replace it. The PWA question experience is an open two-page pixel-art book: question on the left, answers replaced by rationale on the right, a plain Save & Quit tab on the left cover, no live first-pass counter, and no shared progress bar. Multiple Choice says Choose Your Answer; SATA says Select All That Apply and uses exact-set grading. Block and final summary panels are dark high-contrast arcade cards. The next confirmed product bug is stale chapter-selection state after a completed quiz; implement either a clean reset or an explicit Take Same Quiz Again flow. Run the app unchanged and capture baseline screenshots before editing.

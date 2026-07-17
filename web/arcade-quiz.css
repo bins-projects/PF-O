@@ -1,0 +1,1388 @@
+/* PrepFlow open-book quiz screen. All rules are quiz-scoped. */
+
+body:has(#quiz-screen:not([hidden])) {
+  overflow: hidden;
+}
+
+#quiz-screen {
+  --quiz-accent: var(--pixel-blue);
+
+  position: fixed;
+  z-index: 100;
+  inset: clamp(14px, 3vh, 34px) clamp(16px, 4vw, 64px);
+
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+
+  border: 4px solid #253159;
+  border-radius: 8px 18px 18px 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d8d7cc 0,
+      #f1f0e5 5%,
+      #faf9ed 48.7%,
+      #b8b7aa 49.4%,
+      #77786f 50%,
+      #b8b7aa 50.6%,
+      #faf9ed 51.3%,
+      #f3f1e5 95%,
+      #d5d4c9 100%
+    );
+
+  box-shadow:
+    0 0 0 5px #080b1d,
+    0 0 0 9px color-mix(in srgb, var(--quiz-accent) 54%, #202956),
+    0 28px 80px rgba(0, 0, 0, 0.72);
+
+  color: #10182c;
+  animation: quiz-book-open 260ms steps(7, end) both;
+}
+
+#quiz-screen::before {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.22),
+      rgba(255, 255, 255, 0.34) 38%,
+      rgba(0, 0, 0, 0.32) 62%,
+      rgba(255, 255, 255, 0.18)
+    );
+
+  box-shadow:
+    -7px 0 12px rgba(0, 0, 0, 0.12),
+    7px 0 12px rgba(0, 0, 0, 0.12);
+
+  pointer-events: none;
+}
+
+#quiz-screen::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(35, 45, 65, 0.022) 0,
+      rgba(35, 45, 65, 0.022) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+#quiz-screen .quiz-header {
+  position: relative;
+  z-index: 7;
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "quit heading"
+    "progress progress";
+  align-items: center;
+  gap: 9px 20px;
+
+  margin: 0;
+  padding: 14px 24px 11px;
+  border-bottom: 3px double
+    color-mix(in srgb, var(--quiz-accent) 70%, #596276);
+}
+
+#quiz-screen #exit-quiz {
+  grid-area: quit;
+  border-color: var(--quiz-accent);
+  background: #111a31;
+  color: var(--quiz-accent);
+}
+
+#quiz-screen .quiz-heading {
+  grid-area: heading;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+}
+
+#quiz-screen #quiz-subject {
+  overflow: hidden;
+  color: #111a31;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 900;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#quiz-screen #quiz-position {
+  color: #4f5870;
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.68rem, 1.25vw, 0.82rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#quiz-screen #quiz-progress {
+  grid-area: progress;
+  width: 100%;
+  height: 10px;
+  margin: 0;
+  accent-color: var(--quiz-accent);
+}
+
+#quiz-screen .quiz-book {
+  position: relative;
+  z-index: 6;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 0;
+}
+
+#quiz-screen .quiz-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+  padding: 20px 30px 24px;
+}
+
+#quiz-screen .question-page {
+  padding-right: 38px;
+}
+
+#quiz-screen .response-page {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding-left: 38px;
+}
+
+#quiz-screen .quiz-page-label {
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--quiz-accent);
+
+  color: var(--quiz-accent);
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.72rem, 1.3vw, 0.9rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#quiz-screen .quiz-page-scroll,
+#quiz-screen .quiz-response-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--quiz-accent) #d5d4c7;
+  scrollbar-width: thin;
+}
+
+#quiz-screen #question-stem {
+  margin: 0;
+  color: #11182b;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.42rem);
+  font-weight: 700;
+  line-height: 1.48;
+  text-transform: none;
+}
+
+#quiz-screen .answer-choices {
+  display: grid;
+  gap: 10px;
+}
+
+#quiz-screen .answer-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  margin: 0;
+  padding: 12px 14px;
+
+  border: 2px solid #979c9f;
+  border-left: 6px solid #697287;
+  border-radius: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.86),
+      rgba(242, 241, 227, 0.82)
+    );
+
+  color: #172038;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.92rem, 1.4vw, 1.04rem);
+  line-height: 1.35;
+  text-transform: none;
+  cursor: pointer;
+
+  transition:
+    transform 100ms steps(3, end),
+    border-color 100ms steps(3, end),
+    background 100ms steps(3, end);
+}
+
+#quiz-screen .answer-choice:hover,
+#quiz-screen .answer-choice:focus-within {
+  transform: translateX(3px);
+  border-color: var(--quiz-accent);
+  border-left-color: var(--quiz-accent);
+  background: #ffffff;
+}
+
+#quiz-screen .answer-choice:has(input:checked) {
+  border-color: var(--quiz-accent);
+  border-left-color: var(--quiz-accent);
+
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--quiz-accent) 18%, #ffffff),
+      #ffffff 76%
+    );
+
+  box-shadow:
+    inset 0 0 0 2px
+      color-mix(in srgb, var(--quiz-accent) 24%, transparent);
+}
+
+#quiz-screen .answer-choice input {
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  flex: 0 0 auto;
+  accent-color: var(--quiz-accent);
+}
+
+#quiz-screen .feedback {
+  margin: 0;
+  padding: 0 2px 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#quiz-screen #feedback-result {
+  margin: 0 0 15px;
+  padding: 11px 14px;
+
+  border: 3px solid var(--quiz-accent);
+  background: #111a31;
+  color: var(--quiz-accent);
+
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#quiz-screen .feedback h4 {
+  margin: 0 0 8px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid var(--quiz-accent);
+
+  color: #111a31;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+#quiz-screen #feedback-rationale {
+  margin: 0;
+  color: #172038;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.94rem, 1.45vw, 1.05rem);
+  line-height: 1.48;
+  text-transform: none;
+}
+
+#quiz-screen .quiz-footer {
+  display: block;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 2px solid rgba(52, 60, 78, 0.28);
+}
+
+#quiz-screen .quiz-footer .start-button {
+  width: 100%;
+  margin: 0;
+  padding: 13px 16px;
+
+  border: 3px solid var(--quiz-accent);
+  border-radius: 2px;
+
+  background: #101a33;
+  color: var(--quiz-accent);
+
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes quiz-book-open {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.72, 0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 760px) {
+  body:has(#quiz-screen:not([hidden])) {
+    overflow: auto;
+  }
+
+  #quiz-screen {
+    position: relative;
+    inset: auto;
+    width: calc(100% - 20px);
+    min-height: calc(100dvh - 20px);
+    margin: 10px;
+    background: #f5f3e7;
+  }
+
+  #quiz-screen::before {
+    display: none;
+  }
+
+  #quiz-screen .quiz-header {
+    padding: 11px 12px 9px;
+  }
+
+  #quiz-screen #exit-quiz {
+    padding: 9px 10px;
+    font-size: 0.68rem;
+  }
+
+  #quiz-screen .quiz-book {
+    grid-template-columns: 1fr;
+  }
+
+  #quiz-screen .quiz-page {
+    padding: 16px;
+  }
+
+  #quiz-screen .question-page {
+    max-height: 42dvh;
+    border-bottom: 5px double #a5a59b;
+  }
+
+  #quiz-screen .response-page {
+    min-height: 48dvh;
+  }
+
+  #quiz-screen .quiz-page-scroll,
+  #quiz-screen .quiz-response-scroll {
+    overflow-y: visible;
+  }
+
+  #quiz-screen #question-stem {
+    font-size: 1rem;
+  }
+}
+
+/* =========================================================
+   Arcade refinement pass
+   Keeps the readable open-book layout intact
+   ========================================================= */
+
+#quiz-screen {
+  box-shadow:
+    0 0 0 5px #080b1d,
+    0 0 0 9px rgba(28, 201, 255, 0.72),
+    0 0 0 13px rgba(193, 75, 255, 0.28),
+    0 28px 80px rgba(0, 0, 0, 0.74);
+}
+
+#quiz-screen .quiz-header {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(21, 31, 65, 0.05),
+      rgba(255, 255, 255, 0.24) 48%,
+      rgba(21, 31, 65, 0.05)
+    );
+}
+
+#quiz-screen .quiz-page {
+  position: relative;
+}
+
+#quiz-screen .quiz-page::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+#quiz-screen .question-page::after {
+  left: 18px;
+  bottom: 16px;
+  border-left: 3px solid var(--quiz-accent);
+  border-bottom: 3px solid var(--quiz-accent);
+}
+
+#quiz-screen .response-page::after {
+  right: 18px;
+  top: 18px;
+  border-top: 3px solid #b84cff;
+  border-right: 3px solid #b84cff;
+}
+
+#quiz-screen .quiz-page-label {
+  text-shadow:
+    0 0 7px color-mix(in srgb, var(--quiz-accent) 55%, transparent);
+}
+
+#quiz-screen #question-stem {
+  font-size: clamp(1rem, 1.75vw, 1.28rem);
+  line-height: 1.5;
+}
+
+#quiz-screen .answer-choice {
+  border: 3px solid #26324f;
+  border-left: 8px solid #66728d;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(240, 239, 224, 0.9)
+    );
+
+  box-shadow:
+    3px 3px 0 rgba(21, 29, 50, 0.18);
+
+  transition:
+    transform 90ms steps(2, end),
+    border-color 90ms steps(2, end),
+    background 90ms steps(2, end),
+    box-shadow 90ms steps(2, end);
+}
+
+#quiz-screen .answer-choice:hover,
+#quiz-screen .answer-choice:focus-within {
+  transform: translateX(4px);
+  border-color: var(--quiz-accent);
+  border-left-color: var(--quiz-accent);
+
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--quiz-accent) 8%, #ffffff),
+      #ffffff
+    );
+
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--quiz-accent) 28%, transparent);
+}
+
+#quiz-screen .answer-choice:has(input:checked) {
+  border-color: var(--quiz-accent);
+  border-left-color: var(--quiz-accent);
+
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--quiz-accent) 18%, #ffffff),
+      #ffffff 72%
+    );
+
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--quiz-accent) 38%, transparent),
+    inset 0 0 0 2px color-mix(in srgb, var(--quiz-accent) 25%, transparent);
+}
+
+#quiz-screen .answer-choice:has(input:checked)::after {
+  content: "SELECTED";
+  margin-left: auto;
+  align-self: center;
+
+  color: var(--quiz-accent);
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+#quiz-screen .answer-choice input {
+  accent-color: var(--quiz-accent);
+}
+
+#quiz-screen .quiz-footer {
+  border-top:
+    3px double color-mix(in srgb, var(--quiz-accent) 52%, #596276);
+}
+
+#quiz-screen .quiz-footer .start-button {
+  box-shadow:
+    4px 4px 0 rgba(10, 16, 36, 0.5),
+    0 0 14px color-mix(in srgb, var(--quiz-accent) 26%, transparent);
+}
+
+#quiz-screen .quiz-footer .start-button:not(:disabled):hover,
+#quiz-screen .quiz-footer .start-button:not(:disabled):focus-visible {
+  transform: translate(-2px, -2px);
+
+  background:
+    linear-gradient(
+      90deg,
+      #0f1932,
+      color-mix(in srgb, var(--quiz-accent) 18%, #0f1932)
+    );
+
+  box-shadow:
+    6px 6px 0 rgba(10, 16, 36, 0.58),
+    0 0 18px color-mix(in srgb, var(--quiz-accent) 42%, transparent);
+}
+
+#quiz-screen .quiz-footer .start-button:disabled {
+  opacity: 0.5;
+  filter: saturate(0.7);
+  box-shadow: none;
+}
+
+#quiz-screen #feedback-result {
+  box-shadow:
+    4px 4px 0 rgba(10, 16, 36, 0.4),
+    0 0 16px color-mix(in srgb, var(--quiz-accent) 26%, transparent);
+}
+
+#quiz-screen .feedback h4 {
+  color: #20294a;
+}
+
+#quiz-screen #feedback-rationale {
+  padding-right: 4px;
+}
+
+
+
+/* =========================================================
+   Physical pixel-book construction
+   Adds book identity without reducing text legibility
+   ========================================================= */
+
+/* Dark hardcover visible around the paper block */
+#quiz-screen {
+  border-width: 5px;
+  border-color: #111936;
+
+  box-shadow:
+    inset 10px 0 0 #152750,
+    inset -10px 0 0 #321b55,
+    inset 0 -9px 0 #111936,
+    inset 0 -13px 0 rgba(87, 103, 145, 0.42),
+    0 0 0 5px #050817,
+    0 0 0 9px rgba(28, 201, 255, 0.76),
+    0 0 0 13px rgba(193, 75, 255, 0.34),
+    0 28px 80px rgba(0, 0, 0, 0.76);
+}
+
+/* Keep content clear of the visible cover edges */
+#quiz-screen .quiz-header {
+  margin: 0 10px;
+}
+
+#quiz-screen .quiz-book {
+  margin: 0 10px 13px;
+  border-bottom: 4px solid #111936;
+
+  box-shadow:
+    0 4px 0 #747b91,
+    0 7px 0 #e2dfd0,
+    0 10px 0 #9a9b91;
+}
+
+/* Layered page edges along the bottom */
+#quiz-screen .quiz-book::before {
+  content: "";
+  position: absolute;
+  z-index: 8;
+  left: 18px;
+  right: 18px;
+  bottom: -10px;
+  height: 8px;
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #ece9dc 0,
+      #ece9dc 1px,
+      #aaa99f 1px,
+      #aaa99f 2px
+    );
+
+  border-left: 3px solid #152750;
+  border-right: 3px solid #321b55;
+}
+
+/* Tiny colored bookmark tabs */
+#quiz-screen .quiz-book::after {
+  content: "";
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  right: 42px;
+  width: 19px;
+  height: 35px;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8d2bd8 0 48%,
+      #d15cff 48% 100%
+    );
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
+
+  box-shadow:
+    -24px 5px 0 -2px #11bfe8;
+}
+
+/* Inner printed border on each cream page */
+#quiz-screen .quiz-page {
+  margin: 12px 8px 10px;
+
+  border:
+    2px solid color-mix(in srgb, var(--quiz-accent) 30%, #8d8f8a);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.18),
+      transparent 10% 90%,
+      rgba(33, 39, 58, 0.05)
+    );
+
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.32),
+    inset 0 0 18px rgba(39, 44, 59, 0.06);
+}
+
+#quiz-screen .question-page {
+  margin-right: 17px;
+  border-left-color: #18bff0;
+}
+
+#quiz-screen .response-page {
+  margin-left: 17px;
+  border-right-color: #b84cff;
+}
+
+/* More dimensional stitched center binding */
+#quiz-screen::before {
+  width: 18px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 18px,
+      rgba(9, 13, 29, 0.72) 18px,
+      rgba(9, 13, 29, 0.72) 23px,
+      transparent 23px,
+      transparent 35px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.36),
+      #d3d0c1 24%,
+      #777970 47%,
+      #f2efe2 67%,
+      rgba(0, 0, 0, 0.3)
+    );
+
+  border-left: 2px solid rgba(20, 29, 54, 0.44);
+  border-right: 2px solid rgba(20, 29, 54, 0.44);
+
+  box-shadow:
+    -10px 0 15px rgba(0, 0, 0, 0.18),
+    10px 0 15px rgba(0, 0, 0, 0.18);
+}
+
+/* Pixel ornaments near the page labels */
+#quiz-screen .quiz-page-label::before,
+#quiz-screen .quiz-page-label::after {
+  content: "◆";
+  display: inline-block;
+  margin: 0 11px;
+
+  color: color-mix(in srgb, var(--quiz-accent) 72%, #252f50);
+  font-size: 0.58rem;
+  vertical-align: 0.12em;
+}
+
+/* Header feels attached to the hardcover rather than floating */
+#quiz-screen .quiz-header {
+  border-left: 3px solid #18bff0;
+  border-right: 3px solid #b84cff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(23, 191, 239, 0.09),
+      rgba(255, 255, 255, 0.28) 43%,
+      rgba(255, 255, 255, 0.28) 57%,
+      rgba(184, 76, 255, 0.1)
+    );
+
+  box-shadow:
+    inset 0 -3px 0 rgba(20, 28, 50, 0.12);
+}
+
+/* Preserve room and readability on narrower layouts */
+@media (max-width: 760px) {
+  #quiz-screen {
+    box-shadow:
+      inset 6px 0 0 #152750,
+      inset -6px 0 0 #321b55,
+      inset 0 -7px 0 #111936,
+      0 0 0 4px #050817,
+      0 0 0 7px rgba(28, 201, 255, 0.68);
+  }
+
+  #quiz-screen .quiz-header,
+  #quiz-screen .quiz-book {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  #quiz-screen .quiz-page {
+    margin: 8px;
+  }
+
+  #quiz-screen .question-page,
+  #quiz-screen .response-page {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  #quiz-screen .quiz-book::after {
+    right: 24px;
+  }
+}
+
+
+/* =========================================================
+   Page-contained quiz information and corrected page stack
+   ========================================================= */
+
+/* Shared webpage-style header is removed from the paper area. */
+#quiz-screen {
+  grid-template-rows: minmax(0, 1fr);
+  overflow: visible;
+}
+
+#quiz-screen .quiz-header {
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+#quiz-screen #quiz-progress {
+  display: none !important;
+}
+
+/* Save & Quit becomes a tab attached to the outside cover. */
+#quiz-screen #exit-quiz {
+  position: absolute;
+  top: 20px;
+  left: -18px;
+  z-index: 22;
+
+  min-width: 132px;
+  padding: 11px 16px 11px 20px;
+
+  border: 3px solid #21c6f3;
+  border-left-width: 7px;
+  border-radius: 0 3px 3px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #081126,
+      #111c3c
+    );
+
+  color: #28d3ff;
+  box-shadow:
+    5px 5px 0 rgba(5, 9, 24, 0.62),
+    0 0 13px rgba(35, 202, 246, 0.28);
+
+  font-size: 0.78rem;
+  pointer-events: auto;
+}
+
+/* Book fills the available shell now that no shared header is present. */
+#quiz-screen .quiz-book {
+  height: 100%;
+  margin-top: 0;
+}
+
+/* Quiz identity and progress live entirely on the left page. */
+#quiz-screen .quiz-page-meta {
+  display: grid;
+  gap: 3px;
+
+  margin: 0 0 14px;
+  padding: 0 0 11px;
+
+  border-bottom: 3px double
+    color-mix(in srgb, var(--quiz-accent) 58%, #667084);
+
+  text-align: center;
+}
+
+#quiz-screen .quiz-page-meta #quiz-subject {
+  display: block;
+
+  color: #111a31;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.05rem, 1.8vw, 1.38rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+#quiz-screen .quiz-page-meta #quiz-position {
+  display: block;
+
+  color: #59637a;
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.66rem, 1.15vw, 0.79rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Left page has one additional row for its contained metadata. */
+#quiz-screen .question-page {
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+/* Remove the dark cavity beneath the open pages. */
+#quiz-screen {
+  box-shadow:
+    inset 10px 0 0 #152750,
+    inset -10px 0 0 #321b55,
+    inset 0 -5px 0 #111936,
+    0 0 0 5px #050817,
+    0 0 0 9px rgba(28, 201, 255, 0.76),
+    0 0 0 13px rgba(193, 75, 255, 0.34),
+    0 28px 80px rgba(0, 0, 0, 0.76);
+}
+
+#quiz-screen .quiz-book {
+  margin-bottom: 7px;
+  border-bottom: 0;
+
+  box-shadow:
+    0 2px 0 #8f918a,
+    0 4px 0 #e4e1d4,
+    0 6px 0 #aaa99f;
+}
+
+/* Thin page stack stays tucked directly beneath the paper. */
+#quiz-screen .quiz-book::before {
+  left: 24px;
+  right: 24px;
+  bottom: -5px;
+  height: 5px;
+
+  border-left-width: 2px;
+  border-right-width: 2px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #f0ede0 0,
+      #f0ede0 1px,
+      #aaa99f 1px,
+      #aaa99f 2px
+    );
+}
+
+/* Pull lower corners inward so pages no longer appear oversized. */
+#quiz-screen .quiz-page {
+  margin-bottom: 8px;
+}
+
+#quiz-screen .question-page {
+  border-bottom-left-radius: 0 5px;
+}
+
+#quiz-screen .response-page {
+  border-bottom-right-radius: 0 5px;
+}
+
+@media (max-width: 760px) {
+  #quiz-screen #exit-quiz {
+    top: 12px;
+    left: -8px;
+    min-width: 108px;
+    padding: 8px 10px 8px 13px;
+    font-size: 0.65rem;
+  }
+
+  #quiz-screen .quiz-page-meta {
+    padding-left: 90px;
+  }
+}
+
+/* =========================================================
+   Attached save tab and balanced page-corner ornaments
+   ========================================================= */
+
+/* Replace the floating button with an attached cover bookmark. */
+#quiz-screen #exit-quiz {
+  top: 18px;
+  left: -7px;
+
+  min-width: 122px;
+  padding: 10px 18px 10px 16px;
+
+  border: 3px solid #22c8f4;
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0b1530 0,
+      #111d42 72%,
+      #17305a 100%
+    );
+
+  box-shadow:
+    4px 4px 0 rgba(4, 8, 23, 0.62),
+    0 0 12px rgba(34, 200, 244, 0.3);
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      88% 100%,
+      81% 82%,
+      74% 100%,
+      0 100%
+    );
+}
+
+/* Remove the earlier single decorative corner. */
+#quiz-screen .quiz-page::after {
+  display: none;
+}
+
+/* Four deliberate pixel corner brackets on each page. */
+#quiz-screen .quiz-page {
+  --page-corner-color: var(--quiz-accent);
+}
+
+#quiz-screen .question-page {
+  --page-corner-color: #20c8f5;
+}
+
+#quiz-screen .response-page {
+  --page-corner-color: #bc4fff;
+}
+
+#quiz-screen .quiz-page::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 10px;
+  pointer-events: none;
+
+  background:
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      left top / 24px 3px no-repeat,
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      left top / 3px 24px no-repeat,
+
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      right top / 24px 3px no-repeat,
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      right top / 3px 24px no-repeat,
+
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      left bottom / 24px 3px no-repeat,
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      left bottom / 3px 24px no-repeat,
+
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      right bottom / 24px 3px no-repeat,
+    linear-gradient(var(--page-corner-color), var(--page-corner-color))
+      right bottom / 3px 24px no-repeat;
+
+  opacity: 0.72;
+}
+
+/* Keep content above the ornamental layer. */
+#quiz-screen .quiz-page > * {
+  position: relative;
+  z-index: 3;
+}
+
+@media (max-width: 760px) {
+  #quiz-screen #exit-quiz {
+    top: 10px;
+    left: -4px;
+    min-width: 102px;
+    padding: 8px 13px;
+  }
+
+  #quiz-screen .quiz-page::before {
+    inset: 7px;
+  }
+}
+
+/* =========================================================
+   Slim upper-left save bookmark
+   ========================================================= */
+
+#quiz-screen #exit-quiz {
+  top: 32px;
+  left: -30px;
+
+  min-width: 0;
+  width: 44px;
+  height: 128px;
+  padding: 14px 8px;
+
+  border: 3px solid #22c8f4;
+  border-right-width: 4px;
+  border-radius: 3px 0 0 3px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #13254e 0,
+      #0b1733 72%,
+      #091126 100%
+    );
+
+  box-shadow:
+    -4px 4px 0 rgba(4, 8, 23, 0.62),
+    0 0 12px rgba(34, 200, 244, 0.28);
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      100% 88%,
+      50% 100%,
+      0 88%
+    );
+
+  color: #34d9ff;
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+#quiz-screen #exit-quiz:hover,
+#quiz-screen #exit-quiz:focus-visible {
+  background:
+    linear-gradient(
+      180deg,
+      #173466 0,
+      #102044 72%,
+      #0b1530 100%
+    );
+
+  box-shadow:
+    -5px 5px 0 rgba(4, 8, 23, 0.68),
+    0 0 16px rgba(34, 200, 244, 0.4);
+}
+
+/* Make sure the title no longer needs to dodge the old tab. */
+#quiz-screen .quiz-page-meta {
+  padding-left: 0;
+}
+
+@media (max-width: 760px) {
+  #quiz-screen #exit-quiz {
+    top: 24px;
+    left: -18px;
+    width: 36px;
+    height: 104px;
+    padding: 10px 6px;
+    font-size: 0.58rem;
+  }
+}
+
+/* =========================================================
+   Final plain book tab
+   ========================================================= */
+
+#quiz-screen #exit-quiz {
+  top: 32px;
+  left: -28px;
+
+  width: 42px;
+  height: 122px;
+  min-width: 0;
+  padding: 12px 7px;
+
+  border: 3px solid #22c8f4;
+  border-right-width: 4px;
+  border-radius: 2px 0 0 2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #13254e 0,
+      #0b1733 72%,
+      #091126 100%
+    );
+
+  box-shadow:
+    -4px 4px 0 rgba(4, 8, 23, 0.58),
+    0 0 11px rgba(34, 200, 244, 0.25);
+
+  clip-path: none;
+
+  color: #34d9ff;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+#quiz-screen #exit-quiz:hover,
+#quiz-screen #exit-quiz:focus-visible {
+  background:
+    linear-gradient(
+      180deg,
+      #173466 0,
+      #102044 72%,
+      #0b1530 100%
+    );
+
+  box-shadow:
+    -5px 5px 0 rgba(4, 8, 23, 0.64),
+    0 0 15px rgba(34, 200, 244, 0.38);
+}
+
+@media (max-width: 760px) {
+  #quiz-screen #exit-quiz {
+    top: 24px;
+    left: -18px;
+    width: 35px;
+    height: 102px;
+    padding: 9px 5px;
+  }
+}
+
+/* =========================================================
+   Arcade block-summary screen
+   ========================================================= */
+
+#block-summary {
+  --summary-accent: #28cff7;
+  --summary-purple: #bb4fff;
+
+  position: relative;
+  width: min(680px, calc(100% - 32px));
+  margin: clamp(40px, 9vh, 90px) auto 0;
+  padding: clamp(28px, 5vw, 44px);
+
+  border: 4px solid #17234a;
+  border-radius: 4px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 31, 68, 0.98),
+      rgba(8, 15, 38, 0.99)
+    );
+
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.035),
+    0 0 0 5px #050817,
+    0 0 0 9px rgba(40, 207, 247, 0.72),
+    0 0 0 13px rgba(187, 79, 255, 0.30),
+    0 26px 70px rgba(0, 0, 0, 0.68);
+
+  color: #f7fbff;
+  text-align: center;
+}
+
+#block-summary::before,
+#block-summary::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+}
+
+#block-summary::before {
+  top: 14px;
+  left: 14px;
+  border-top: 3px solid var(--summary-accent);
+  border-left: 3px solid var(--summary-accent);
+}
+
+#block-summary::after {
+  right: 14px;
+  bottom: 14px;
+  border-right: 3px solid var(--summary-purple);
+  border-bottom: 3px solid var(--summary-purple);
+}
+
+#summary-title {
+  margin: 0 0 22px;
+
+  color: #ffffff;
+  font-family: "Courier New", monospace;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
+
+  text-shadow:
+    3px 3px 0 rgba(12, 19, 45, 0.9),
+    0 0 16px rgba(40, 207, 247, 0.32);
+}
+
+#summary-score {
+  width: min(480px, 100%);
+  margin: 0 auto 18px;
+  padding: 14px 18px;
+
+  border-top: 3px double rgba(40, 207, 247, 0.85);
+  border-bottom: 3px double rgba(187, 79, 255, 0.75);
+
+  color: #dff8ff;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+#summary-message {
+  width: min(520px, 100%);
+  margin: 0 auto 28px;
+
+  color: #c8d5ee;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  line-height: 1.5;
+}
+
+#block-summary .start-button,
+#block-summary .secondary-button {
+  min-width: 190px;
+  margin: 8px 6px 0;
+  padding: 14px 20px;
+
+  border-radius: 2px;
+
+  font-family: "Courier New", monospace;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#block-summary .start-button {
+  border: 3px solid var(--summary-accent);
+  background: #0c1734;
+  color: var(--summary-accent);
+
+  box-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(40, 207, 247, 0.25);
+}
+
+#block-summary .start-button:hover,
+#block-summary .start-button:focus-visible {
+  transform: translate(-2px, -2px);
+
+  background:
+    linear-gradient(
+      90deg,
+      #102044,
+      rgba(40, 207, 247, 0.16)
+    );
+
+  box-shadow:
+    6px 6px 0 rgba(0, 0, 0, 0.56),
+    0 0 18px rgba(40, 207, 247, 0.42);
+}
+
+#block-summary .secondary-button {
+  border: 3px solid #7181b0;
+  background: #111a36;
+  color: #cbd6ff;
+}
+
+#block-summary .secondary-button:hover,
+#block-summary .secondary-button:focus-visible {
+  border-color: var(--summary-purple);
+  color: #f3ddff;
+}
+
+@media (max-width: 620px) {
+  #block-summary {
+    margin-top: 24px;
+    padding: 26px 18px;
+  }
+
+  #block-summary .start-button,
+  #block-summary .secondary-button {
+    width: 100%;
+    min-width: 0;
+    margin: 10px 0 0;
+  }
+}
