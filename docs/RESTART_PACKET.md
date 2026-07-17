@@ -81,26 +81,25 @@ Request local inspection only when:
 # Latest Verified Repository State
 
 
-Latest confirmed committed milestone:
+Latest confirmed implementation milestone:
 
-c1e16fc — docs: refine restart packet wording
+eb78c29 — docs: finalize PWA multi-pack milestone
 
 Current active development branch: master
 
 Current verified state:
 
-* The desktop custom quiz builder supports selecting multiple chapters from Fundamentals, Pharm, and Medical-Surgical in one quiz.
-* Selections persist while switching categories.
-* The chapter checklist scrolls correctly.
-* The builder includes a block-size control.
-* New quizzes shuffle once.
-* Mixed-Pack sessions resume at the exact current question.
-* Missed questions and review-queue progress survive save and resume.
-* All 108 automated tests passed.
-* Manual mixed-Pack selection, scrolling, quiz start, save, resume, and review-queue checks passed.
-* * The custom quiz builder milestone is merged into master.
-* Obsolete local and remote development branches were removed.
-* Local master, private origin/master, and public/master are synchronized.
+* The desktop custom quiz builder supports selecting chapters from Fundamentals, Pharm, and Medical-Surgical in one quiz.
+* The hosted PWA supports persistent chapter selection across multiple study categories.
+* Mixed-Pack sessions preserve question order, the current question, missed questions, and review queues during save and resume.
+* Select All and Clear All affect only the currently displayed category.
+* Multiple Response questions use checkboxes and exact-set grading in the PWA.
+* Ordinary Multiple Choice behavior remains intact.
+* Block transitions and the final first-pass results screen were manually exercised without observed errors.
+* Save and resume during mastery review were manually verified.
+* All 108 automated tests passed on merged master.
+* The cross-category quiz-builder milestone was merged into master at eb78c29.
+* Private origin/master and public/master were verified identical at full commit eb78c29f842d7e9faec91e3b3ceb3adff91f856d.
 
 Before resuming, verify GitHub rather than assuming these values are still current.
 
@@ -640,7 +639,7 @@ A standalone `N/A` inside a metadata boundary is treated as an extraction artifa
 Latest verified full test run:
 
 ```text
-53 passed
+108 passed
 ```
 
 The suite covers at least:
@@ -1136,11 +1135,13 @@ Verified behavior:
 - automatically saves unfinished sessions;
 - restores an unfinished session through Continue Session.
 
-The desktop application still supports Multiple Choice, Multiple Response,
-Completion, and Ordered Response questions.
+The hosted PWA and desktop application support Multiple Choice and Multiple
+Response questions. Multiple Response questions in the PWA use checkboxes and
+require the exact correct answer set. The desktop application additionally
+supports Completion and Ordered Response questions.
 
-The next focused PWA milestone is adding Multiple Response questions while
-preserving the existing block, mastery-review, and autosave behavior.
+The next active platform work is confirming the Windows Version 1.1.0 release
+state and then beginning the macOS GitHub Actions packaging milestone.
 
 For routine command sequences, obvious transitions such as stopping a local
 server may be bundled with the following substantive command rather than
@@ -1281,7 +1282,7 @@ https://bins-projects.github.io/PF-O/web/
 Current PWA behavior includes:
 
 - Fundamentals, Pharm, and Medical-Surgical;
-- one or more chapters from one selected category;
+- chapters selected across one or more study categories;
 - configurable block size;
 - Block X of Y display;
 - one question at a time;
@@ -1518,4 +1519,4 @@ A proper Windows installer and uninstaller remain deferred until the portable Ve
 
 Resume from this statement:
 
-PrepFlow's PWA cross-category quiz builder is complete on code commit `a91f244` with 108 automated tests passing. Users can select chapters across Fundamentals, Pharm, and Medical-Surgical within one quiz. Mixed-Pack question references, block flow, missed-question review, and save/resume—including resume during review mode—were manually validated. Multiple Response questions now use checkboxes and exact-set grading; incomplete selections and selections containing extra answers are graded incorrect, while exact answer sets are graded correctly. Ordinary Multiple Choice behavior remains intact. Select All and Clear All affect only the currently displayed category while preserving selections from other categories. The feature branch is ready for its documentation commit and merge into `master`. After merging, rerun the complete test suite on `master`, synchronize the private and public repositories, verify their hashes, and update this resume point around the final merged state. Windows Version 1.1.0 release confirmation and the macOS GitHub Actions packaging milestone remain the next platform work.
+PrepFlow's PWA cross-category quiz builder is merged into `master`. The synchronized implementation milestone is `eb78c29`, and private `origin/master` and public `master` were verified identical at full commit `eb78c29f842d7e9faec91e3b3ceb3adff91f856d`. All 108 automated tests passed on merged `master`. Users can select chapters across Fundamentals, Pharm, and Medical-Surgical within one quiz. Mixed-Pack question references, block transitions, missed-question review, final first-pass results, and save/resume—including resume during review mode—were manually exercised without observed errors. Multiple Response questions use checkboxes and exact-set grading; incomplete selections and selections containing extra answers are graded incorrect, while exact answer sets are graded correctly. Ordinary Multiple Choice behavior remains intact. Select All and Clear All affect only the currently displayed category while preserving selections from other categories. On restart, inspect the current committed GitHub `master` before relying on this recorded SHA. The next active platform work is confirming the Windows Version 1.1.0 release state and then beginning the macOS GitHub Actions packaging milestone.
