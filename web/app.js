@@ -16,6 +16,39 @@ const selectionCount = document.querySelector("#selection-count");
 const startButton = document.querySelector("#start-button");
 const blockSizeSelect = document.querySelector("#block-size");
 
+const quizBuilder = document.querySelector("#quiz-builder");
+const builderSelectionCount = document.querySelector("#builder-selection-count");
+const builderBookCount = document.querySelector("#builder-book-count");
+const globalBlockSizeSelect = document.querySelector("#global-block-size");
+const clearSelectionsButton = document.querySelector("#clear-selections");
+const buildQuizButton = document.querySelector("#build-quiz");
+
+const pixelStage = document.querySelector(".pixel-stage");
+
+const leftHomeControls = document.createElement("div");
+leftHomeControls.className = "home-control-stack home-control-stack-left";
+
+const rightHomeControls = document.createElement("div");
+rightHomeControls.className = "home-control-stack home-control-stack-right";
+
+pixelStage.append(leftHomeControls, rightHomeControls);
+
+leftHomeControls.append(
+  document.querySelector(".builder-summary"),
+  clearSelectionsButton,
+  discardSessionButton
+);
+
+rightHomeControls.append(
+  document.querySelector(".builder-block-size"),
+  buildQuizButton,
+  resumeSessionButton
+);
+
+/* The original containers remain only as hidden structural shells. */
+quizBuilder.hidden = true;
+resumePanel.hidden = true;
+
 const quizScreen = document.querySelector("#quiz-screen");
 const quizSubject = document.querySelector("#quiz-subject");
 const quizPosition = document.querySelector("#quiz-position");
@@ -115,23 +148,29 @@ function saveSession(screen) {
 
 function refreshResumePanel() {
   const saved = readSavedSession();
+  const hasSavedSession = Boolean(saved);
+
+  resumeSessionButton.hidden = !hasSavedSession;
+  discardSessionButton.hidden = !hasSavedSession;
 
   if (!saved) {
-    resumePanel.hidden = true;
+    resumeDescription.textContent = "";
     return;
   }
 
   const mode = saved.reviewMode ? "reviewing missed questions" : "in progress";
-
-  resumeDescription.textContent =
+  const description =
     `${saved.currentSubject || "Custom Quiz"} — Block ${saved.blockNumber}, ${mode}.`;
 
-  resumePanel.hidden = false;
+  resumeDescription.textContent = description;
+  resumeSessionButton.title = description;
+  resumeSessionButton.setAttribute("aria-label", `Continue session: ${description}`);
 }
 
 function hideAllScreens() {
   hero.hidden = true;
   subjects.hidden = true;
+  quizBuilder.hidden = true;
   resumePanel.hidden = true;
   chapterScreen.hidden = true;
   quizScreen.hidden = true;
@@ -141,19 +180,55 @@ function hideAllScreens() {
 
 function updateSelectionStatus() {
   const selected = selectedChapters.size;
+  const selectedPackPaths = new Set(
+    [...selectedChapters.values()].map((selection) => selection.packPath)
+  );
+  const selectedBooks = selectedPackPaths.size;
 
   selectionCount.textContent =
     `${selected} ${selected === 1 ? "chapter" : "chapters"} selected`;
 
+  builderSelectionCount.textContent =
+    `${selected} ${selected === 1 ? "chapter" : "chapters"} selected`;
+
+  builderBookCount.textContent = selected
+    ? `From ${selectedBooks} ${selectedBooks === 1 ? "book" : "books"}`
+    : "Open a book to choose chapters";
+
   startButton.disabled = selected === 0;
+  buildQuizButton.disabled = selected === 0;
+  clearSelectionsButton.disabled = selected === 0;
+
+  document.querySelectorAll(".subject-card").forEach((book) => {
+    const packPath = book.dataset.pack;
+    const count = [...selectedChapters.values()].filter(
+      (selection) => selection.packPath === packPath
+    ).length;
+
+    let badge = book.querySelector(".book-selected-count");
+
+    if (!badge) {
+      badge = document.createElement("span");
+      badge.className = "book-selected-count";
+      book.append(badge);
+    }
+
+    badge.textContent = count
+      ? `${count} ${count === 1 ? "chapter" : "chapters"} selected`
+      : "Open book";
+
+    book.classList.toggle("has-selections", count > 0);
+  });
 }
 
 function showSubjects() {
+  document.body.classList.remove("book-open");
   hideAllScreens();
 
   hero.hidden = false;
   subjects.hidden = false;
-  status.hidden = false;
+  quizBuilder.hidden = false;
+  status.hidden = true;
 
   const selected = selectedChapters.size;
   status.textContent = selected
@@ -247,9 +322,16 @@ async function showChapters(button) {
       chapterList.append(label);
     });
 
-    hideAllScreens();
     chapterTitle.textContent = currentSubject;
+    chapterScreen.dataset.theme =
+      button.classList.contains("fundamentals") ? "fundamentals" :
+      button.classList.contains("pharm") ? "pharm" :
+      "med-surg";
+
     chapterScreen.hidden = false;
+    document.body.classList.add("book-open");
+    status.hidden = true;
+    chapterList.scrollTop = 0;
 
     updateSelectionStatus();
   } catch (error) {
@@ -463,7 +545,7 @@ async function startQuiz() {
   }
 
   currentSubject = "Custom Quiz";
-  sessionBlockSize = Number(blockSizeSelect.value) || 15;
+  sessionBlockSize = Number(globalBlockSizeSelect.value) || 15;
 
   blockStart = 0;
   blockNumber = 1;
@@ -689,8 +771,19 @@ discardSessionButton.addEventListener("click", () => {
 });
 
 startButton.addEventListener("click", startQuiz);
+buildQuizButton.addEventListener("click", startQuiz);
+
+globalBlockSizeSelect.addEventListener("change", () => {
+  blockSizeSelect.value = globalBlockSizeSelect.value;
+});
+
+clearSelectionsButton.addEventListener("click", () => {
+  selectedChapters.clear();
+  updateSelectionStatus();
+});
 
 showSubjects();
+updateSelectionStatus();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {

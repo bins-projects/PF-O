@@ -444,3 +444,1977 @@ body {
     width: calc(100% - 56px);
   }
 }
+
+/* Desktop composition scaling pass */
+@media (min-width: 981px) {
+  .app-shell {
+    width: min(1500px, 100%);
+    padding: 12px 20px 30px;
+  }
+
+  .pixel-stage {
+    min-height: 570px;
+    background-position: center 49%;
+  }
+
+  .pixel-logo {
+    top: 22px;
+    font-size: clamp(3.8rem, 6.5vw, 6.2rem);
+  }
+
+  .pixel-tagline {
+    top: 145px;
+    font-size: 1.12rem;
+  }
+
+  .pixel-callout {
+    top: 190px;
+    min-width: 220px;
+    padding: 13px 16px;
+    gap: 12px;
+    font-size: 0.78rem;
+  }
+
+  .achievement-callout {
+    left: 34px;
+  }
+
+  .progress-callout {
+    right: 34px;
+  }
+
+  .callout-icon {
+    font-size: 2.1rem;
+  }
+
+  .callout-bars {
+    width: 42px;
+    height: 38px;
+  }
+
+  .subjects {
+    margin-top: -100px;
+    padding: 0 90px;
+    gap: 22px;
+  }
+
+  .subject-card {
+    min-height: 176px;
+    padding: 17px 18px 15px;
+  }
+
+  .subject-card .subject-icon {
+    top: 18px;
+    left: 18px;
+    width: 54px;
+    height: 54px;
+    font-size: 2rem;
+  }
+
+  .subject-copy {
+    margin-left: 70px;
+  }
+
+  .subject-card .subject-name {
+    margin-top: 5px;
+    font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+  }
+
+  .subject-card .question-count {
+    margin-top: 8px;
+    font-size: 0.82rem;
+  }
+
+  .subject-card .card-action {
+    right: 14px;
+    bottom: 13px;
+    left: 14px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .resume-panel {
+    width: calc(100% - 180px);
+    margin-top: 22px;
+    padding: 13px 18px;
+  }
+}
+
+/* Give the question count clear space above the taller chapter button */
+@media (min-width: 981px) {
+  .subject-card {
+    min-height: 196px;
+  }
+
+  .subject-card .question-count {
+    margin-top: 8px;
+    margin-bottom: 52px;
+  }
+
+  .subject-card .card-action {
+    min-height: 42px;
+  }
+}
+
+/* Keep chapter actions on one line so they do not cover question counts */
+@media (min-width: 981px) {
+  .subject-card .card-action {
+    min-height: 0;
+    padding: 9px 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.045em;
+    white-space: nowrap;
+  }
+
+  .subject-card .question-count {
+    margin: 8px 0 0;
+  }
+}
+
+/* Subject-card spacing at all browser widths */
+.subject-card {
+  min-height: 196px;
+}
+
+.subject-card .question-count {
+  margin-top: 8px;
+  margin-bottom: 48px;
+}
+
+.subject-card .card-action {
+  min-height: 0;
+  padding: 9px 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.045em;
+  white-space: nowrap;
+}
+
+/* Reusable pixel-art book covers */
+.subject-card {
+  --book-spine-width: 18px;
+  isolation: isolate;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  clip-path: polygon(
+    0 8px,
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+/* Colored spine */
+.subject-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--book-spine-width);
+  border-right: 3px solid rgba(255, 255, 255, 0.2);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.18) 0 3px,
+      transparent 3px 8px
+    ),
+    color-mix(in srgb, var(--card-accent) 72%, #07102a);
+  box-shadow:
+    inset -5px 0 0 rgba(0, 0, 0, 0.32),
+    5px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Page block along the bottom and right edge */
+.subject-card::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  right: -8px;
+  bottom: -9px;
+  left: 11px;
+  height: 13px;
+  border: 2px solid #55627f;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #d9d6c7 0 2px,
+      #a6a8a0 2px 3px
+    );
+  box-shadow:
+    7px -5px 0 #05091a,
+    8px 1px 0 rgba(0, 0, 0, 0.38);
+}
+
+/* Keep the cover content clear of the spine */
+.subject-card .subject-icon {
+  left: 30px;
+}
+
+.subject-copy {
+  margin-left: 82px;
+}
+
+/* Book interaction */
+.subject-card:hover,
+.subject-card:focus-visible {
+  transform:
+    perspective(900px)
+    translateY(-7px)
+    rotateY(-3deg);
+}
+
+.subject-card:active {
+  transform:
+    perspective(900px)
+    translateY(1px)
+    rotateY(-7deg);
+}
+
+/* Small cover label for future selection counts */
+.subject-card .question-count {
+  position: relative;
+}
+
+.subject-card .question-count::after {
+  content: "BOOK";
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  vertical-align: 1px;
+  opacity: 0.72;
+}
+
+/* Modern pixel nursing textbook — closed state v1 */
+.subjects {
+  align-items: end;
+  gap: clamp(18px, 2.4vw, 34px);
+}
+
+.subject-card {
+  --book-spine-width: 30px;
+
+  position: relative;
+  min-height: 280px;
+  padding: 30px 20px 22px 48px;
+  overflow: visible;
+  isolation: isolate;
+
+  border: 3px solid var(--card-accent);
+  clip-path: none;
+  border-radius: 3px 10px 10px 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 14px,
+      rgba(255, 255, 255, 0.11) 14px 17px,
+      transparent 17px 100%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.028) 0 2px,
+      transparent 2px 5px
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--card-accent) 22%, #142650) 0%,
+      #101b43 48%,
+      #070d25 100%
+    );
+
+  box-shadow:
+    -8px 0 0 color-mix(in srgb, var(--card-accent) 55%, #07112c),
+    -11px 0 0 #030718,
+    9px 7px 0 #d8dfdf,
+    12px 10px 0 #7d8995,
+    16px 14px 0 rgba(0, 0, 0, 0.48);
+
+  transform-origin: left center;
+}
+
+/* Thick laminated textbook spine */
+.subject-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -3px;
+  bottom: -3px;
+  left: -3px;
+  width: 34px;
+
+  border: 3px solid var(--card-accent);
+  border-radius: 3px 0 0 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.17),
+      transparent 28%,
+      rgba(0,0,0,0.38) 82%
+    ),
+    color-mix(in srgb, var(--card-accent) 62%, #08122f);
+
+  box-shadow:
+    inset -5px 0 0 rgba(0,0,0,0.3),
+    inset 3px 0 0 rgba(255,255,255,0.08);
+}
+
+/* Visible clean page block */
+.subject-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 8px;
+  right: -12px;
+  bottom: -12px;
+  left: 22px;
+  height: auto;
+
+  border: 3px solid #8c99a6;
+  border-left: 0;
+  border-radius: 0 7px 7px 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #f0f1e9 0 3px,
+      #c9ced0 3px 4px
+    );
+
+  box-shadow:
+    5px 5px 0 #05091a;
+}
+
+/* Inner printed cover panel */
+.subject-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.subject-card .subject-icon {
+  position: relative;
+  top: auto;
+  left: auto;
+
+  width: 72px;
+  height: 72px;
+  margin: 2px auto 18px;
+
+  border: 3px solid var(--card-accent);
+  border-radius: 4px;
+
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), transparent 45%),
+    #07102a;
+
+  box-shadow:
+    4px 4px 0 rgba(0,0,0,0.38),
+    inset 0 0 0 3px rgba(255,255,255,0.025);
+}
+
+.subject-copy {
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+
+.subject-card .subject-name {
+  min-height: 2.15em;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.subject-card .question-count {
+  margin: 10px 0 58px;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+/* Remove the temporary BOOK badge */
+.subject-card .question-count::after {
+  content: none;
+}
+
+/* Printed action plate on the lower cover */
+.subject-card .card-action {
+  right: 18px;
+  bottom: 18px;
+  left: 46px;
+
+  min-height: 38px;
+  padding: 8px 10px;
+
+  border: 2px solid var(--card-accent);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    #07102a;
+
+  font-size: clamp(0.58rem, 0.9vw, 0.72rem);
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+
+/* Subtle textbook cover details */
+.subject-card .subject-name::before,
+.subject-card .subject-name::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: color-mix(in srgb, var(--card-accent) 70%, transparent);
+  opacity: 0.55;
+}
+
+.subject-card .subject-name::before {
+  top: -9px;
+}
+
+.subject-card .subject-name::after {
+  bottom: -8px;
+}
+
+/* Closed-book movement that can later become the opening animation */
+.subject-card:hover,
+.subject-card:focus-visible {
+  transform:
+    perspective(1000px)
+    translateY(-9px)
+    rotateY(-5deg);
+
+  box-shadow:
+    -8px 0 0 color-mix(in srgb, var(--card-accent) 62%, #07112c),
+    -11px 0 0 #030718,
+    11px 9px 0 #e1e5df,
+    15px 13px 0 #86919b,
+    20px 19px 0 rgba(0,0,0,0.48),
+    0 0 26px color-mix(in srgb, var(--card-accent) 28%, transparent);
+}
+
+.subject-card:active {
+  transform:
+    perspective(1000px)
+    translateY(0)
+    rotateY(-10deg);
+}
+
+/* Three-to-five book row behavior */
+.subjects {
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+}
+
+@media (max-width: 980px) {
+  .subject-card {
+    min-height: 250px;
+    padding: 24px 14px 18px 42px;
+  }
+
+  .subject-card .subject-icon {
+    width: 62px;
+    height: 62px;
+    margin-bottom: 15px;
+  }
+
+  .subject-card .card-action {
+    left: 40px;
+    right: 12px;
+    bottom: 14px;
+  }
+}
+
+/* Compact PrepFlow textbook covers */
+.subjects {
+  grid-template-columns: repeat(auto-fit, 182px);
+  justify-content: center;
+  align-items: end;
+  gap: clamp(22px, 4vw, 46px);
+  padding-inline: 28px;
+}
+
+.subject-card {
+  width: 182px;
+  min-width: 182px;
+  min-height: 0;
+  aspect-ratio: 3 / 4;
+
+  padding: 30px 15px 18px 40px;
+  border-radius: 3px 8px 8px 3px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 5px
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--card-accent) 25%, #182754),
+      #0c1738 56%,
+      #060c22
+    );
+
+  box-shadow:
+    -7px 0 0 color-mix(in srgb, var(--card-accent) 58%, #07112c),
+    -10px 0 0 #030718,
+    7px 6px 0 #e4e7df,
+    10px 9px 0 #84909a,
+    15px 14px 0 rgba(0,0,0,0.42);
+}
+
+/* Narrow modern textbook spine */
+.subject-card::before {
+  top: -3px;
+  bottom: -3px;
+  left: -3px;
+  width: 27px;
+
+  border-radius: 3px 0 0 3px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.18),
+      transparent 34%,
+      rgba(0,0,0,0.34)
+    ),
+    color-mix(in srgb, var(--card-accent) 62%, #08122f);
+}
+
+/* Clean page edges only—no large diagonal page block */
+.subject-card::after {
+  top: 7px;
+  right: -9px;
+  bottom: -9px;
+  left: 21px;
+
+  border: 2px solid #929da8;
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #f0f1e9 0 2px,
+      #c7ccce 2px 3px
+    );
+
+  box-shadow: 4px 4px 0 #040817;
+}
+
+/* Small publisher imprint */
+.subject-copy::before {
+  content: "PREPFLOW";
+  display: block;
+  margin-bottom: 14px;
+
+  color: var(--card-accent);
+  font-family: "Courier New", monospace;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-align: center;
+}
+
+/* Simple centered medical emblem */
+.subject-card .subject-icon {
+  position: relative;
+  top: auto;
+  left: auto;
+
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+
+  border: 2px solid var(--card-accent);
+  border-radius: 3px;
+  font-size: 1.9rem;
+
+  box-shadow:
+    3px 3px 0 rgba(0,0,0,0.4),
+    inset 0 0 0 2px rgba(255,255,255,0.025);
+}
+
+.subject-copy {
+  margin: 0;
+  text-align: center;
+}
+
+.subject-card .subject-name {
+  min-height: 2.2em;
+  margin: 0;
+
+  font-size: 1rem;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-align: center;
+}
+
+.subject-card .subject-name::before,
+.subject-card .subject-name::after {
+  width: 72%;
+  left: 14%;
+}
+
+.subject-card .question-count {
+  margin: 12px 0 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.045em;
+  text-align: center;
+}
+
+/* The whole book is the button; reveal the prompt only on hover */
+.subject-card .card-action {
+  right: 13px;
+  bottom: 13px;
+  left: 37px;
+
+  min-height: 31px;
+  padding: 6px 7px;
+
+  font-size: 0;
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 120ms steps(3, end),
+    transform 120ms steps(3, end);
+}
+
+.subject-card .card-action span {
+  display: none;
+}
+
+.subject-card .card-action::before {
+  content: "OPEN BOOK  ▶";
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.subject-card:hover .card-action,
+.subject-card:focus-visible .card-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subject-card:hover,
+.subject-card:focus-visible {
+  transform:
+    perspective(900px)
+    translateY(-8px)
+    rotateY(-6deg);
+}
+
+@media (max-width: 700px) {
+  .subjects {
+    grid-template-columns: repeat(auto-fit, 165px);
+    gap: 24px;
+  }
+
+  .subject-card {
+    width: 165px;
+    min-width: 165px;
+  }
+}
+
+/* Fit the complete home screen inside shorter desktop viewports */
+@media (min-width: 981px) and (max-height: 850px) {
+  .app-shell {
+    padding-top: 8px;
+    padding-bottom: 14px;
+  }
+
+  .pixel-stage {
+    min-height: 500px;
+    background-position: center 50%;
+  }
+
+  .pixel-logo {
+    top: 18px;
+    font-size: clamp(3.6rem, 6vw, 5.5rem);
+  }
+
+  .pixel-tagline {
+    top: 130px;
+  }
+
+  .pixel-callout {
+    top: 175px;
+  }
+
+  .subjects {
+    margin-top: -122px;
+    grid-template-columns: repeat(auto-fit, 165px);
+    gap: 34px;
+  }
+
+  .subject-card {
+    width: 165px;
+    min-width: 165px;
+  }
+
+  .resume-panel {
+    margin-top: 14px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+/* Closed books: keep the page block attached and subtle */
+.subject-card::after {
+  top: 8px;
+  right: -7px;
+  bottom: -7px;
+  left: 20px;
+  transform: none !important;
+  transform-origin: left center;
+}
+
+/* Prevent any inherited page-swing animation in the closed state */
+.subject-card:hover::after,
+.subject-card:focus-visible::after,
+.subject-card:active::after {
+  transform: none !important;
+}
+
+/* Closed-cover motion only */
+.subject-card:hover,
+.subject-card:focus-visible {
+  transform:
+    perspective(900px)
+    translateY(-7px)
+    rotateY(-4deg);
+}
+
+.subject-card:active {
+  transform:
+    perspective(900px)
+    translateY(0)
+    rotateY(-7deg);
+}
+
+/* Final closed-book interaction: no loose page animation */
+.subject-card::after {
+  display: none !important;
+}
+
+.subject-card {
+  overflow: hidden;
+  box-shadow:
+    -7px 0 0 color-mix(in srgb, var(--card-accent) 58%, #07112c),
+    -10px 0 0 #030718,
+    7px 7px 0 rgba(0, 0, 0, 0.42);
+  transition:
+    transform 140ms steps(4, end),
+    filter 140ms steps(4, end),
+    box-shadow 140ms steps(4, end);
+}
+
+.subject-card:hover,
+.subject-card:focus-visible {
+  transform: translateY(-6px);
+  filter: brightness(1.12);
+  box-shadow:
+    -7px 0 0 color-mix(in srgb, var(--card-accent) 70%, #07112c),
+    -10px 0 0 #030718,
+    10px 13px 0 rgba(0, 0, 0, 0.48),
+    0 0 22px color-mix(in srgb, var(--card-accent) 34%, transparent);
+}
+
+.subject-card:active {
+  transform: translateY(-1px) scale(0.985);
+}
+
+.subject-card .card-action {
+  opacity: 0;
+  transform: translateY(5px);
+}
+
+.subject-card:hover .card-action,
+.subject-card:focus-visible .card-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Keep the tagline clear of the character artwork */
+.pixel-tagline {
+  top: 138px;
+  color: #58dcff;
+  text-shadow:
+    2px 2px 0 #07102a,
+    0 0 10px rgba(40, 189, 242, 0.42);
+}
+
+@media (min-width: 981px) and (max-height: 850px) {
+  .pixel-tagline {
+    top: 128px;
+  }
+}
+
+/* Final tagline placement: directly beneath the logo */
+.pixel-tagline,
+@media (min-width: 981px) and (max-height: 850px) {
+}
+
+.pixel-tagline {
+  top: 112px !important;
+  color: #62e6ff;
+  font-size: 1rem;
+  text-shadow:
+    2px 2px 0 #05091d,
+    0 0 8px rgba(98, 230, 255, 0.55);
+}
+
+/* Final tagline placement: directly beneath the logo */
+.pixel-tagline,
+@media (min-width: 981px) and (max-height: 850px) {
+}
+
+.pixel-tagline {
+  top: 112px !important;
+  color: #62e6ff;
+  font-size: 1rem;
+  text-shadow:
+    2px 2px 0 #05091d,
+    0 0 8px rgba(98, 230, 255, 0.55);
+}
+
+/* Place tagline above the title, clear of the characters */
+.pixel-tagline {
+  top: 18px !important;
+  color: #62e6ff;
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+}
+
+.pixel-logo {
+  top: 48px !important;
+}
+
+/* Keep the approved composition consistent on wide screens */
+@media (min-width: 1200px) {
+  .app-shell {
+    width: min(1180px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+
+  .pixel-stage {
+    min-height: 610px;
+  }
+
+  .pixel-logo {
+    top: 48px !important;
+    font-size: 4.9rem;
+  }
+
+  .pixel-tagline {
+    top: 18px !important;
+    font-size: 0.86rem;
+  }
+
+  .pixel-callout {
+    min-width: 210px;
+    padding: 13px 15px;
+    font-size: 0.76rem;
+  }
+
+  .subjects {
+    margin-top: -118px;
+  }
+}
+
+
+/* =========================================================
+   Open textbook chapter selector — functional prototype v1
+   ========================================================= */
+
+body.book-open {
+  overflow: hidden;
+}
+
+/* Preserve the home screen behind the open book */
+body.book-open .hero,
+body.book-open .subjects {
+  filter: brightness(0.42) saturate(0.72);
+  pointer-events: none;
+}
+
+/* Full-screen overlay */
+.chapter-screen {
+  --book-accent: var(--pixel-blue);
+
+  position: fixed;
+  z-index: 100;
+  inset: clamp(18px, 4vh, 44px) clamp(20px, 6vw, 100px);
+
+  display: grid;
+  grid-template-columns: minmax(250px, 0.78fr) minmax(380px, 1.4fr);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "actions chapters"
+    "start chapters";
+
+  gap: 0;
+  min-height: 0;
+  overflow: hidden;
+
+  border: 4px solid #253159;
+  border-radius: 8px 18px 18px 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d8d7cc 0,
+      #f1f0e5 5%,
+      #faf9ed 48.7%,
+      #b8b7aa 49.4%,
+      #77786f 50%,
+      #b8b7aa 50.6%,
+      #faf9ed 51.3%,
+      #f3f1e5 95%,
+      #d5d4c9 100%
+    );
+
+  box-shadow:
+    0 0 0 5px #080b1d,
+    0 0 0 9px color-mix(in srgb, var(--book-accent) 54%, #202956),
+    0 28px 80px rgba(0, 0, 0, 0.72);
+
+  color: #10182c;
+  animation: open-textbook 260ms steps(7, end) both;
+}
+
+/* Theme follows the book that was clicked */
+.chapter-screen[data-theme="fundamentals"] {
+  --book-accent: var(--pixel-blue);
+}
+
+.chapter-screen[data-theme="pharm"] {
+  --book-accent: var(--pixel-green);
+}
+
+.chapter-screen[data-theme="med-surg"] {
+  --book-accent: var(--pixel-purple);
+}
+
+/* Central binding */
+.chapter-screen::before {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 12px;
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,0.22),
+      rgba(255,255,255,0.34) 38%,
+      rgba(0,0,0,0.32) 62%,
+      rgba(255,255,255,0.18)
+    );
+
+  box-shadow:
+    -7px 0 12px rgba(0,0,0,0.12),
+    7px 0 12px rgba(0,0,0,0.12);
+
+  pointer-events: none;
+}
+
+/* Pixel page texture */
+.chapter-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(35, 45, 65, 0.022) 0,
+      rgba(35, 45, 65, 0.022) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+/* Book heading */
+.chapter-header {
+  grid-area: header;
+  position: relative;
+  z-index: 7;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 22px;
+
+  padding: 20px 26px 17px;
+  border-bottom: 3px double color-mix(in srgb, var(--book-accent) 70%, #596276);
+}
+
+.chapter-header > div {
+  text-align: center;
+}
+
+.chapter-header h2 {
+  margin: 0;
+  color: #111a31;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.45rem, 3vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.chapter-header p {
+  margin: 5px 0 0;
+  color: #4f5870;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#back-button {
+  border-color: var(--book-accent);
+  background: #111a31;
+  color: var(--book-accent);
+}
+
+/* Left page controls */
+.chapter-actions {
+  grid-area: actions;
+  position: relative;
+  z-index: 6;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 13px;
+
+  padding: 26px 34px 18px 28px;
+  border-right: 1px solid rgba(38, 45, 58, 0.22);
+}
+
+.chapter-actions::before {
+  content: "PREPFLOW STUDY MANUAL";
+  display: block;
+  margin-bottom: 8px;
+
+  color: var(--book-accent);
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+
+.chapter-actions .secondary-button {
+  border-color: #303951;
+  background: rgba(255, 255, 255, 0.52);
+  color: #1b243b;
+}
+
+.chapter-actions .secondary-button:hover,
+.chapter-actions .secondary-button:focus-visible {
+  border-color: var(--book-accent);
+  color: #0c1428;
+}
+
+.block-size-control {
+  margin-top: 8px;
+  padding: 15px;
+
+  border: 2px solid #8890a0;
+  background: rgba(255,255,255,0.5);
+  color: #182139;
+}
+
+.block-size-control strong,
+.block-size-control small {
+  color: #182139;
+}
+
+#block-size {
+  border: 2px solid var(--book-accent);
+  background: #111a31;
+  color: #ffffff;
+}
+
+#selection-count {
+  display: block;
+  margin-top: auto;
+  padding: 13px 10px;
+
+  border-top: 2px solid var(--book-accent);
+  border-bottom: 2px solid var(--book-accent);
+
+  color: #172038;
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Right page chapter list */
+.chapter-list {
+  grid-area: chapters;
+  position: relative;
+  z-index: 6;
+
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px 30px 30px 34px;
+
+  scrollbar-color: var(--book-accent) #d5d4c7;
+  scrollbar-width: thin;
+}
+
+/* Entire chapter title is the clickable control */
+.chapter-option {
+  position: relative;
+  display: block;
+  margin: 0 0 9px;
+  padding: 13px 16px 13px 18px;
+
+  border: 2px solid #a3a6a3;
+  border-left: 6px solid #727a8c;
+  border-radius: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.8),
+      rgba(242,241,227,0.78)
+    );
+
+  color: #172038;
+  cursor: pointer;
+
+  transition:
+    transform 100ms steps(3, end),
+    border-color 100ms steps(3, end),
+    background 100ms steps(3, end);
+}
+
+.chapter-option:hover {
+  transform: translateX(4px);
+  border-color: var(--book-accent);
+  border-left-color: var(--book-accent);
+  background: #ffffff;
+}
+
+/* Keep real checkboxes for behavior/accessibility, but hide visually */
+.chapter-option input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chapter-option:has(input:checked) {
+  border-color: var(--book-accent);
+  border-left-color: var(--book-accent);
+
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--book-accent) 19%, #ffffff),
+      #ffffff 76%
+    );
+
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, var(--book-accent) 26%, transparent);
+}
+
+.chapter-option:has(input:checked)::after {
+  content: "SELECTED";
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  transform: translateY(-50%);
+
+  color: var(--book-accent);
+  font-family: "Courier New", monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.chapter-option-text {
+  display: block;
+  padding-right: 74px;
+}
+
+.chapter-name {
+  display: block;
+  color: #131c33;
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.chapter-count {
+  display: block;
+  margin-top: 5px;
+  color: #657086;
+  font-family: "Courier New", monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+/* Start control on lower left page */
+#start-button {
+  grid-area: start;
+  position: relative;
+  z-index: 7;
+
+  width: auto;
+  margin: 0 34px 27px 28px;
+  padding: 16px 18px;
+
+  border: 3px solid var(--book-accent);
+  background: #101a33;
+  color: var(--book-accent);
+
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#start-button:disabled {
+  opacity: 0.42;
+  filter: grayscale(0.5);
+}
+
+@keyframes open-textbook {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.72, 0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .chapter-screen {
+    inset: 16px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto minmax(260px, 1fr) auto;
+    grid-template-areas:
+      "header"
+      "actions"
+      "chapters"
+      "start";
+
+    background: #f5f3e7;
+  }
+
+  .chapter-screen::before {
+    display: none;
+  }
+
+  .chapter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 2px solid #a7a89e;
+  }
+
+  .chapter-actions::before,
+  .block-size-control,
+  #selection-count {
+    grid-column: 1 / -1;
+  }
+
+  .chapter-list {
+    padding: 16px;
+  }
+
+  #start-button {
+    margin: 12px 16px 18px;
+  }
+}
+
+
+/* =========================================================
+   Open textbook chapter selector — simplified two-page view
+   ========================================================= */
+
+.chapter-screen {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "header"
+    "chapters"
+    "selection";
+}
+
+/* The book is only for selecting chapters */
+.chapter-actions {
+  display: contents;
+}
+
+#select-all,
+#clear-all,
+.block-size-control,
+#start-button {
+  display: none !important;
+}
+
+/* Header remains simple and book-specific */
+.chapter-header {
+  grid-area: header;
+  grid-template-columns: auto 1fr auto;
+  padding: 16px 26px 14px;
+}
+
+.chapter-header::after {
+  content: "";
+  width: 150px;
+}
+
+.chapter-header h2 {
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+}
+
+.chapter-header p {
+  margin-top: 3px;
+  font-size: 0.8rem;
+}
+
+/* Chapters fill both open pages */
+.chapter-list {
+  grid-area: chapters;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+  align-content: start;
+  gap: 9px 42px;
+
+  padding: 22px 34px 18px;
+  overflow-y: auto;
+}
+
+/* Extra breathing room beside the center binding */
+.chapter-option:nth-child(odd) {
+  margin-right: 8px;
+}
+
+.chapter-option:nth-child(even) {
+  margin-left: 8px;
+}
+
+.chapter-option {
+  margin-bottom: 0;
+  padding: 11px 14px;
+  break-inside: avoid;
+}
+
+.chapter-option-text {
+  padding-right: 68px;
+}
+
+.chapter-name {
+  font-size: 0.9rem;
+  line-height: 1.18;
+}
+
+.chapter-count {
+  margin-top: 3px;
+  font-size: 0.68rem;
+}
+
+/* Only global feedback retained inside the book */
+#selection-count {
+  grid-area: selection;
+  position: relative;
+  z-index: 7;
+
+  width: min(440px, calc(100% - 48px));
+  margin: 5px auto 20px;
+  padding: 11px 16px;
+
+  border: 2px solid var(--book-accent);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 4px 4px 0 rgba(20, 27, 45, 0.15);
+
+  color: #172038;
+  font-size: 0.82rem;
+}
+
+/* Keep selections visually clear without checkbox graphics */
+.chapter-option:has(input:checked)::after {
+  content: "SELECTED";
+  right: 10px;
+  font-size: 0.57rem;
+}
+
+@media (max-width: 900px) {
+  .chapter-screen {
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "header"
+      "chapters"
+      "selection";
+  }
+
+  .chapter-header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .chapter-header::after {
+    display: none;
+  }
+
+  .chapter-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .chapter-option:nth-child(odd),
+  .chapter-option:nth-child(even) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+/* =========================================================
+   Global multi-book quiz builder
+   ========================================================= */
+
+.quiz-builder {
+  position: relative;
+  z-index: 5;
+
+  width: min(900px, calc(100% - 48px));
+  margin: 18px auto 0;
+  padding: 12px 16px;
+
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) auto auto auto;
+  align-items: center;
+  gap: 13px;
+
+  border: 3px solid #405597;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(180deg, #111a3c, #080d23);
+
+  box-shadow:
+    0 0 0 3px #05091a,
+    0 0 0 6px #202c65,
+    0 12px 28px rgba(0,0,0,0.38);
+
+  color: var(--pixel-white);
+}
+
+.builder-summary {
+  min-width: 0;
+  font-family: "Courier New", monospace;
+  text-transform: uppercase;
+}
+
+.builder-summary strong,
+.builder-summary span {
+  display: block;
+}
+
+.builder-summary strong {
+  color: var(--pixel-blue);
+  font-size: 0.92rem;
+  letter-spacing: 0.045em;
+}
+
+.builder-summary span {
+  margin-top: 3px;
+  color: #a8b6d6;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.builder-block-size {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #cbd4eb;
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#global-block-size {
+  min-width: 66px;
+  padding: 8px 9px;
+
+  border: 2px solid var(--pixel-green);
+  border-radius: 0;
+  background: #081329;
+  color: var(--pixel-white);
+
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+}
+
+.quiz-builder .secondary-button,
+.quiz-builder .start-button {
+  width: auto;
+  min-height: 40px;
+  margin: 0;
+  padding: 9px 13px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+#build-quiz {
+  border-color: var(--pixel-green);
+  color: var(--pixel-green);
+}
+
+#build-quiz:not(:disabled) {
+  box-shadow:
+    inset 0 -4px 0 rgba(0,0,0,0.3),
+    0 0 15px rgba(114,214,60,0.2);
+}
+
+/* Per-book chapter-selection state */
+.book-selected-count {
+  position: absolute;
+  z-index: 4;
+  right: 10px;
+  bottom: 10px;
+  left: 34px;
+
+  padding: 6px 4px;
+
+  border: 1px solid var(--card-accent);
+  background: rgba(4, 9, 27, 0.9);
+  color: var(--card-accent);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.045em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.subject-card.has-selections {
+  filter: brightness(1.08);
+  box-shadow:
+    -7px 0 0 color-mix(in srgb, var(--card-accent) 70%, #07112c),
+    -10px 0 0 #030718,
+    8px 10px 0 rgba(0,0,0,0.45),
+    0 0 18px color-mix(in srgb, var(--card-accent) 24%, transparent);
+}
+
+/* Remove leftover text from the old left-page controls */
+.chapter-actions::before {
+  content: none !important;
+}
+
+#selection-count {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Ensure the first chapter starts below the fixed book header */
+.chapter-list {
+  scroll-padding-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .quiz-builder {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .builder-summary {
+    grid-column: 1 / -1;
+  }
+
+  .builder-block-size {
+    justify-content: center;
+  }
+}
+
+
+/* =========================================================
+   Balanced in-stage quiz builder HUD
+   ========================================================= */
+
+.pixel-stage .quiz-builder {
+  position: absolute;
+  z-index: 8;
+  right: 32px;
+  bottom: 34px;
+  left: 32px;
+
+  width: auto;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 255px 1fr 255px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "summary empty block"
+    "clear   empty build";
+  gap: 9px 20px;
+
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+
+  pointer-events: none;
+}
+
+.pixel-stage .builder-summary {
+  grid-area: summary;
+  padding: 12px 14px;
+
+  border: 3px solid var(--pixel-blue);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    rgba(6, 12, 34, 0.94);
+
+  box-shadow:
+    0 0 0 3px #060a1d,
+    0 0 0 5px #244576;
+
+  pointer-events: auto;
+}
+
+.pixel-stage .builder-block-size {
+  grid-area: block;
+  justify-content: space-between;
+  padding: 12px 14px;
+
+  border: 3px solid var(--pixel-purple);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    rgba(6, 12, 34, 0.94);
+
+  box-shadow:
+    0 0 0 3px #060a1d,
+    0 0 0 5px #563179;
+
+  pointer-events: auto;
+}
+
+.pixel-stage #clear-selections {
+  grid-area: clear;
+}
+
+.pixel-stage #build-quiz {
+  grid-area: build;
+}
+
+.pixel-stage #clear-selections,
+.pixel-stage #build-quiz {
+  width: 100%;
+  min-height: 38px;
+  margin: 0;
+  pointer-events: auto;
+}
+
+.pixel-stage .builder-summary strong {
+  font-size: 0.78rem;
+}
+
+.pixel-stage .builder-summary span {
+  font-size: 0.61rem;
+}
+
+.pixel-stage .builder-block-size {
+  font-size: 0.62rem;
+}
+
+.pixel-stage #global-block-size {
+  min-width: 58px;
+  padding: 6px 7px;
+}
+
+/* The books no longer need to make room for a lower builder bar. */
+.subjects {
+  margin-bottom: 0;
+}
+
+@media (max-width: 980px) {
+  .pixel-stage .quiz-builder {
+    display: none;
+  }
+}
+
+/* Remove the old full-width saved-session footer from the arcade home screen */
+body:not(.book-open) .resume-panel {
+  display: none !important;
+}
+
+
+/* =========================================================
+   Symmetrical home-screen control stacks
+   ========================================================= */
+
+/* Raise the permanent quote panels slightly. */
+.achievement-callout,
+.progress-callout {
+  top: 178px !important;
+}
+
+/* Old full-width structural shells are no longer visual elements. */
+#quiz-builder,
+#resume-panel {
+  display: none !important;
+}
+
+.home-control-stack {
+  position: absolute;
+  z-index: 10;
+  top: 286px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 250px;
+}
+
+.home-control-stack-left {
+  left: 34px;
+}
+
+.home-control-stack-right {
+  right: 34px;
+}
+
+/* Reset earlier absolute positioning from the HUD experiments. */
+.home-control-stack > * {
+  position: static !important;
+  inset: auto !important;
+  width: 100% !important;
+  min-height: 42px;
+  margin: 0 !important;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* Selection summary under the left quote box. */
+.home-control-stack .builder-summary {
+  padding: 11px 13px;
+
+  border: 3px solid var(--pixel-blue);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    rgba(5,10,34,0.94);
+
+  box-shadow:
+    0 0 0 3px #080c25,
+    0 0 0 6px #20436f;
+
+  text-align: center;
+}
+
+.home-control-stack .builder-summary strong {
+  color: var(--pixel-blue);
+  font-size: 0.76rem;
+}
+
+.home-control-stack .builder-summary span {
+  display: none;
+}
+
+/* Block-size panel under the right quote box. */
+.home-control-stack .builder-block-size {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 13px;
+
+  border: 3px solid var(--pixel-purple);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    rgba(5,10,34,0.94);
+
+  box-shadow:
+    0 0 0 3px #080c25,
+    0 0 0 6px #58347b;
+
+  font-size: 0.62rem;
+}
+
+.home-control-stack #global-block-size {
+  min-width: 60px;
+  padding: 6px 7px;
+}
+
+/* Matching action-button pairs. */
+.home-control-stack .secondary-button,
+.home-control-stack .start-button {
+  padding: 9px 12px;
+  border-radius: 0;
+  font-size: 0.7rem;
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.home-control-stack #build-quiz {
+  border-color: var(--pixel-green);
+  color: var(--pixel-green);
+}
+
+.home-control-stack #resume-session {
+  border-color: var(--pixel-blue);
+  color: var(--pixel-blue);
+}
+
+.home-control-stack #discard-session {
+  border-color: #aebce0;
+  color: #aebce0;
+}
+
+/* The two saved-session actions appear as the lowest matching pair. */
+.home-control-stack [hidden] {
+  display: none !important;
+}
+
+.status {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .home-control-stack {
+    display: none;
+  }
+}
+
+/* Clear but intentional unavailable state for Build Quiz */
+.home-control-stack #build-quiz:disabled {
+  opacity: 0.52;
+  border-color: #52704a;
+  background: rgba(7, 17, 32, 0.9);
+  color: #6f9365;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.home-control-stack #build-quiz:not(:disabled) {
+  opacity: 1;
+  border-color: var(--pixel-green);
+  color: var(--pixel-green);
+  box-shadow:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.3),
+    0 0 16px rgba(114, 214, 60, 0.28);
+  cursor: pointer;
+}
+
+/* Keep disabled Build Quiz readable without making it look active */
+.home-control-stack #build-quiz:disabled {
+  opacity: 0.68 !important;
+  border-color: #496c43 !important;
+  color: #78a16e !important;
+  background: rgba(7, 17, 32, 0.94) !important;
+}
+
+/* Keep side controls visible in split-screen/tablet widths */
+@media (max-width: 980px) {
+  .home-control-stack {
+    display: flex !important;
+    top: 292px;
+    width: 230px;
+    gap: 8px;
+  }
+
+  .home-control-stack-left {
+    left: 28px;
+  }
+
+  .home-control-stack-right {
+    right: 28px;
+  }
+
+  .home-control-stack > * {
+    min-height: 38px;
+  }
+
+  .home-control-stack .builder-summary,
+  .home-control-stack .builder-block-size {
+    padding: 8px 10px;
+  }
+
+  .home-control-stack .builder-summary strong {
+    font-size: 0.68rem;
+  }
+
+  .home-control-stack .builder-block-size {
+    font-size: 0.56rem;
+  }
+
+  .home-control-stack .secondary-button,
+  .home-control-stack .start-button {
+    padding: 7px 9px;
+    font-size: 0.62rem;
+  }
+
+  .home-control-stack #global-block-size {
+    min-width: 54px;
+    padding: 5px 6px;
+  }
+}

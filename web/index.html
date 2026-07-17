@@ -39,7 +39,7 @@
           <span class="subject-name">Fundamentals</span>
           <span class="question-count">1,040 questions</span>
         </span>
-        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
+        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
       </button>
 
       <button class="subject-card pharm" data-subject="Pharm" data-pack="../packs/pharmacy.prepflow.json">
@@ -48,7 +48,7 @@
           <span class="subject-name">Pharm</span>
           <span class="question-count">1,238 questions</span>
         </span>
-        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
+        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
       </button>
 
       <button class="subject-card med-surg" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json">
@@ -57,7 +57,33 @@
           <span class="subject-name">Med-Surg</span>
           <span class="question-count">1,443 questions</span>
         </span>
-        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
+        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
+      </button>
+    </section>
+
+    <section id="quiz-builder" class="quiz-builder" aria-label="Quiz setup">
+      <div class="builder-summary">
+        <strong id="builder-selection-count">0 chapters selected</strong>
+        <span id="builder-book-count">Open a book to choose chapters</span>
+      </div>
+
+      <label class="builder-block-size">
+        <span>Questions per block</span>
+        <select id="global-block-size">
+          <option value="1">1</option>
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15" selected>15</option>
+        </select>
+      </label>
+
+      <button id="clear-selections" class="secondary-button" disabled>
+        Clear Selections
+      </button>
+
+      <button id="build-quiz" class="start-button" disabled>
+        Build Quiz ▶
       </button>
     </section>
 
@@ -81,7 +107,7 @@
 
     <section id="chapter-screen" class="chapter-screen" hidden>
       <div class="chapter-header">
-        <button id="back-button" class="secondary-button">← Subjects</button>
+        <button id="back-button" class="secondary-button">← Close Book</button>
         <div>
           <h2 id="chapter-title"></h2>
           <p>Choose one or more chapters</p>
