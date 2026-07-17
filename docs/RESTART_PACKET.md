@@ -1029,17 +1029,9 @@ Completed milestones belong in:
 docs/CHANGELOG.md
 ```
 
-Unfinished Version 1 work belongs in:
+Current unfinished work and active priorities belong in this Restart Packet.
 
-```text
-docs/V1_RELEASE_CHECKLIST.md
-```
-
-Future ideas belong in:
-
-```text
-docs/IDEAS.md
-```
+Deferred feature ideas that remain relevant belong in the Deferred Feature Backlog section of this Restart Packet.
 
 The README should describe only workflows users can actually perform.
 
