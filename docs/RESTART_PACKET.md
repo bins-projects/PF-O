@@ -1519,4 +1519,51 @@ A proper Windows installer and uninstaller remain deferred until the portable Ve
 
 Resume from this statement:
 
-PrepFlow's PWA cross-category quiz builder is merged into `master`. The synchronized implementation milestone is `eb78c29`, and private `origin/master` and public `master` were verified identical at full commit `eb78c29f842d7e9faec91e3b3ceb3adff91f856d`. All 108 automated tests passed on merged `master`. Users can select chapters across Fundamentals, Pharm, and Medical-Surgical within one quiz. Mixed-Pack question references, block transitions, missed-question review, final first-pass results, and save/resume—including resume during review mode—were manually exercised without observed errors. Multiple Response questions use checkboxes and exact-set grading; incomplete selections and selections containing extra answers are graded incorrect, while exact answer sets are graded correctly. Ordinary Multiple Choice behavior remains intact. Select All and Clear All affect only the currently displayed category while preserving selections from other categories. On restart, inspect the current committed GitHub `master` before relying on this recorded SHA. The next active platform work is confirming the Windows Version 1.1.0 release state and then beginning the macOS GitHub Actions packaging milestone.
+PrepFlow’s existing PWA multi-category quiz behavior remains merged in master, with all 108 automated tests passing at the last verified run.
+
+A major arcade-style PWA redesign is now safely committed and pushed only to the private feature branch:
+
+Branch: feat/arcade-home-screen
+Commit: 8c6cf40
+Commit message: feat: add arcade book-based multi-pack quiz builder
+
+This feature branch is synchronized with origin/feat/arcade-home-screen. It has not been merged into master and has not been pushed to the public mirror.
+
+Verified feature-branch behavior:
+
+- the home screen uses the approved 16-bit PrepFlow artwork;
+- Fundamentals, Pharm, and Med-Surg appear as reusable pixel-art textbook buttons;
+- all three books open into the same two-page chapter-selection overlay;
+- each entire chapter row is clickable;
+- chapter selections persist while switching among books;
+- selections from multiple books remain combined;
+- each closed book displays its own selected-chapter count;
+- the home screen displays the combined selection total;
+- Questions per Block is configured globally on the home screen;
+- Build Quiz enables only when chapters are selected;
+- saved-session Continue Session and Start Over controls remain functional;
+- the side control stacks remain visible in both full-screen and split-screen browser layouts;
+- all 108 automated tests passed after the redesign;
+- browser testing confirmed that all three books open and preserve selections.
+
+The feature stylesheet currently contains many layered CSS overrides accumulated during visual iteration. A cleanup branch was created for inspection, but no cleanup changes were made because removing overrides without full visual regression testing could damage the approved design. Do not begin by rewriting or consolidating the stylesheet.
+
+The next active milestone is redesigning the PWA quiz question, answer, feedback, and rationale experience to match the new arcade visual system. Preserve all established quiz logic, scoring, block behavior, mastery review, save/resume behavior, Multiple Choice behavior, and exact-set Multiple Response grading.
+
+Do not merge the arcade feature branch into master until the question-and-rationale redesign is complete and the complete PWA workflow has been manually tested.
+
+Before doing any work in the next session:
+
+1. inspect the committed private GitHub branch feat/arcade-home-screen;
+2. verify that its tip is still commit 8c6cf40;
+3. inspect the current quiz-screen markup, styles, and behavior;
+4. propose one focused first step for the question-and-rationale redesign;
+5. do not alter the approved home screen unless a verified regression is found.
+
+---
+
+## Temporary New-Chat Handoff
+
+Paste this into the first message of the next chat:
+
+Read the repository’s current docs/RESTART_PACKET.md and inspect the private GitHub branch feat/arcade-home-screen before requesting local files or terminal output. The approved arcade home screen and reusable open-book multi-pack chapter selector are safely committed at 8c6cf40, with 108 tests passing. Do not merge yet. Continue with the next milestone: redesign the PWA question, answer, feedback, and rationale experience to match the arcade visual system while preserving all existing quiz behavior. Complete only the inspection-and-plan phase first, then give me one executable next step.
