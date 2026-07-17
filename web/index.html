@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PrepFlow</title>
-  <meta name="theme-color" content="#07091a">
+  <meta name="theme-color" content="#090a2a">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/prepflow-192.png">
   <link rel="stylesheet" href="styles.css">
@@ -14,64 +14,60 @@
 <body>
   <main class="app-shell">
     <header class="hero">
-      <div class="arcade-poster">
-        <img
-          class="arcade-backdrop"
-          src="images/arcade-home-stage.webp"
-          alt=""
-          aria-hidden="true"
-        >
-        <span class="prototype-badge">Browser prototype</span>
-      </div>
-      <p class="hero-instruction">Choose a study category to begin building your quiz.</p>
+      <section class="pixel-stage" aria-label="PrepFlow home">
+        <div class="pixel-logo" aria-label="PrepFlow">
+          <span class="prep">Prep</span><span class="flow">Flow</span>
+        </div>
+        <p class="pixel-tagline">Study. Practice. Master.</p>
+
+        <aside class="pixel-callout achievement-callout" aria-label="Motivation">
+          <span class="callout-icon" aria-hidden="true">★</span>
+          <span>Keep building.<br>Keep winning.</span>
+        </aside>
+
+        <aside class="pixel-callout progress-callout" aria-label="Progress">
+          <span class="callout-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Track progress.<br>See results.</span>
+        </aside>
+      </section>
     </header>
 
     <section class="subjects" aria-label="Study categories">
       <button class="subject-card fundamentals" data-subject="Fundamentals" data-pack="../packs/fundamentals.prepflow.json">
-        <span class="module-label">Training Module 01</span>
-        <span class="subject-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M9 5h6M10 3h4a1 1 0 0 1 1 1v2H9V4a1 1 0 0 1 1-1Z"/>
-            <path d="M7 5H5a1 1 0 0 0-1 1v15h16V6a1 1 0 0 0-1-1h-2"/>
-            <path d="M8 11h8M8 15h5"/>
-          </svg>
+        <span class="subject-icon" aria-hidden="true">✚</span>
+        <span class="subject-copy">
+          <span class="subject-name">Fundamentals</span>
+          <span class="question-count">1,040 questions</span>
         </span>
-        <span class="subject-name">Fundamentals</span>
-        <span class="question-count">1,040 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
+        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
       </button>
 
       <button class="subject-card pharm" data-subject="Pharm" data-pack="../packs/pharmacy.prepflow.json">
-        <span class="module-label">Training Module 02</span>
-        <span class="subject-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M8.4 5.4 18.6 15.6a4.24 4.24 0 0 1-6 6L2.4 11.4a4.24 4.24 0 0 1 6-6Z"/>
-            <path d="m7.5 16.5 9-9"/>
-          </svg>
+        <span class="subject-icon heart-icon" aria-hidden="true">♥</span>
+        <span class="subject-copy">
+          <span class="subject-name">Pharm</span>
+          <span class="question-count">1,238 questions</span>
         </span>
-        <span class="subject-name">Pharm</span>
-        <span class="question-count">1,238 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
+        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
       </button>
 
       <button class="subject-card med-surg" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json">
-        <span class="module-label">Training Module 03</span>
-        <span class="subject-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"/>
-            <path d="M4.8 13h4l1.4-3 2.2 6 1.5-3H19"/>
-          </svg>
+        <span class="subject-icon" aria-hidden="true">⚕</span>
+        <span class="subject-copy">
+          <span class="subject-name">Med-Surg</span>
+          <span class="question-count">1,443 questions</span>
         </span>
-        <span class="subject-name">Med-Surg</span>
-        <span class="question-count">1,443 questions</span>
-        <span class="card-action">Choose chapters <span class="card-arrow">›</span></span>
+        <span class="card-action">Select <span aria-hidden="true">▶</span></span>
       </button>
     </section>
 
     <section id="resume-panel" class="resume-panel" hidden>
-      <div>
-        <strong>Continue your saved session</strong>
-        <p id="resume-description"></p>
+      <div class="resume-copy">
+        <span class="resume-star" aria-hidden="true">★</span>
+        <div>
+          <strong>Continue your saved session</strong>
+          <p id="resume-description"></p>
+        </div>
       </div>
 
       <button id="resume-session" class="start-button">
