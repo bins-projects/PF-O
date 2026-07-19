@@ -22,7 +22,10 @@
   });
 
   pixelStage.append(quizBuilder);
-  quizBuilder.hidden = false;
+  quizBuilder.removeAttribute("hidden");
+  quizBuilder.style.setProperty("display", "grid", "important");
+  quizBuilder.style.setProperty("visibility", "visible", "important");
+  quizBuilder.style.setProperty("opacity", "1", "important");
 
   document.querySelectorAll(".home-control-stack").forEach((stack) => stack.remove());
 })();
