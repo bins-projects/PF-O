@@ -8,27 +8,35 @@
       return originalFetch(input, init);
     }
 
-    const [baseResponse, batchOneResponse, batchOneBResponse, batchOneCResponse, batchTwoAResponse, batchTwoBResponse, registryResponse] = await Promise.all([
+    const [baseResponse, batchOneResponse, batchOneBResponse, batchOneCResponse, batchTwoAResponse, batchTwoBResponse, batchTwoCResponse, batchTwoDResponse, batchTwoEResponse, batchTwoFResponse, registryResponse] = await Promise.all([
       originalFetch(input, init),
       originalFetch("./data/drug-reference-cards-batch-01.json?v=20260719-batch-01", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-01b.json?v=20260719-batch-01b", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-01c.json?v=20260719-batch-01c", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-02a.json?v=20260719-batch-02a", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-02b.json?v=20260719-batch-02b", { cache: "no-store" }),
-      originalFetch("./data/drug-reference.json?v=20260719-batch-02b", { cache: "no-store" }),
+      originalFetch("./data/drug-reference-cards-batch-02c.json?v=20260719-batch-02c", { cache: "no-store" }),
+      originalFetch("./data/drug-reference-cards-batch-02d.json?v=20260719-batch-02d", { cache: "no-store" }),
+      originalFetch("./data/drug-reference-cards-batch-02e.json?v=20260719-batch-02e", { cache: "no-store" }),
+      originalFetch("./data/drug-reference-cards-batch-02f.json?v=20260719-batch-02f", { cache: "no-store" }),
+      originalFetch("./data/drug-reference.json?v=20260719-batch-02f", { cache: "no-store" }),
     ]);
 
-    if (!baseResponse.ok || !batchOneResponse.ok || !batchOneBResponse.ok || !batchOneCResponse.ok || !batchTwoAResponse.ok || !batchTwoBResponse.ok || !registryResponse.ok) {
+    if (!baseResponse.ok || !batchOneResponse.ok || !batchOneBResponse.ok || !batchOneCResponse.ok || !batchTwoAResponse.ok || !batchTwoBResponse.ok || !batchTwoCResponse.ok || !batchTwoDResponse.ok || !batchTwoEResponse.ok || !batchTwoFResponse.ok || !registryResponse.ok) {
       return baseResponse;
     }
 
-    const [basePayload, batchOnePayload, batchOneBPayload, batchOneCPayload, batchTwoAPayload, batchTwoBPayload, registryPayload] = await Promise.all([
+    const [basePayload, batchOnePayload, batchOneBPayload, batchOneCPayload, batchTwoAPayload, batchTwoBPayload, batchTwoCPayload, batchTwoDPayload, batchTwoEPayload, batchTwoFPayload, registryPayload] = await Promise.all([
       baseResponse.json(),
       batchOneResponse.json(),
       batchOneBResponse.json(),
       batchOneCResponse.json(),
       batchTwoAResponse.json(),
       batchTwoBResponse.json(),
+      batchTwoCResponse.json(),
+      batchTwoDResponse.json(),
+      batchTwoEResponse.json(),
+      batchTwoFResponse.json(),
       registryResponse.json(),
     ]);
 
@@ -46,6 +54,10 @@
       ...(batchOneCPayload.cards || []),
       ...(batchTwoAPayload.cards || []),
       ...(batchTwoBPayload.cards || []),
+      ...(batchTwoCPayload.cards || []),
+      ...(batchTwoDPayload.cards || []),
+      ...(batchTwoEPayload.cards || []),
+      ...(batchTwoFPayload.cards || []),
     ];
 
     const seenNames = new Set();
