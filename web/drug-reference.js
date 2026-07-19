@@ -65,11 +65,8 @@
 
     const values = new Set();
     entries.forEach((entry) => valuesForTab(entry).forEach((value) => value && values.add(value)));
-
     filter.replaceChildren(new Option(label, ""));
-    [...values].sort((a, b) => a.localeCompare(b)).forEach((value) => {
-      filter.append(new Option(value, value));
-    });
+    [...values].sort((a, b) => a.localeCompare(b)).forEach((value) => filter.append(new Option(value, value)));
     filter.hidden = activeTab === "search";
   }
 
@@ -114,51 +111,86 @@
     });
   }
 
-  function section(title, value) {
-    const text = value || "Pending verified drug-card extraction.";
-    return `<section><h4>${title}</h4><p>${text}</p></section>`;
+  function valueOrPending(value) {
+    return value || "Pending verified drug-card content.";
+  }
+
+  function compactSection(title, value, className = "") {
+    return `<section class="quick-card-section ${className}"><h4>${title}</h4><p>${valueOrPending(value)}</p></section>`;
+  }
+
+  function detailSection(title, value) {
+    return `<details class="drug-card-detail"><summary>${title}</summary><p>${valueOrPending(value)}</p></details>`;
   }
 
   function renderDetail(entry) {
     const card = entry.card || {};
-    const routes = (entry.routes || []).map((route) => `<span>${route}</span>`).join("");
-    const forms = (entry.dosageForms || []).map((form) => `<span>${form}</span>`).join("");
+    const brands = (entry.brandNames || []).join(", ") || "No common trade name listed";
+    const primaryRoute = (entry.routes || [])[0] || "Route pending";
+    const primaryForm = (entry.dosageForms || [])[0] || "Form pending";
+    const classes = (entry.drugClasses || []).join(" • ") || "Class pending";
+    const systems = (entry.bodySystems || []).join(" • ") || "System pending";
 
     detail.innerHTML = `
-      <header class="drug-card-heading">
-        <div>
-          <p class="drug-card-kicker">${entry.id}</p>
-          <h3>${entry.genericName}</h3>
-          <p>${(entry.brandNames || []).join(", ") || "No brand name recorded in the Pharm Pack"}</p>
+      <article class="nursing-drug-card">
+        <header class="nursing-drug-header">
+          <div>
+            <h3>${entry.genericName}</h3>
+            <p class="trade-names">Trade names: ${brands}</p>
+          </div>
+          <span class="drug-card-status">${entry.cardStatus}</span>
+        </header>
+
+        <div class="drug-identity-strip">
+          <span><strong>Class</strong>${classes}</span>
+          <span><strong>Body system</strong>${systems}</span>
         </div>
-        <span class="drug-card-status">${entry.cardStatus}</span>
-      </header>
 
-      <div class="drug-card-tags">
-        ${routes || "<span>Route review needed</span>"}
-        ${forms}
-      </div>
+        <section class="drug-use-panel">
+          <h4>What it is used for</h4>
+          <p>${valueOrPending(card.indications)}</p>
+        </section>
 
-      <section class="drug-card-overview">
-        <div><strong>Drug class</strong><span>${(entry.drugClasses || []).join(", ") || "Pending"}</span></div>
-        <div><strong>Body system</strong><span>${(entry.bodySystems || []).join(", ") || "Pending"}</span></div>
-        <div><strong>Pharm appearances</strong><span>${entry.questionCount || 0} questions</span></div>
-      </section>
+        <section class="usual-dose-panel">
+          <div>
+            <span class="panel-label">Usual route</span>
+            <strong>${primaryRoute}</strong>
+            <small>${primaryForm}</small>
+          </div>
+          <div>
+            <span class="panel-label">Typical dosing</span>
+            <p>${valueOrPending(card.dosing)}</p>
+          </div>
+        </section>
 
-      <div class="drug-card-sections">
-        ${section("Indications", card.indications)}
-        ${section("Mechanism of action", card.mechanism)}
-        ${section("Typical dosing", card.dosing)}
-        ${section("Route-specific administration", card.routeAdministration)}
-        ${section("Contraindications", card.contraindications)}
-        ${section("Major warnings", card.warnings)}
-        ${section("Common side effects", card.commonAdverseEffects)}
-        ${section("Serious adverse effects", card.seriousAdverseEffects)}
-        ${section("Interactions", card.interactions)}
-        ${section("Labs and monitoring", card.monitoring)}
-        ${section("Patient teaching", card.patientTeaching)}
-        ${section("Nutrition and food considerations", card.nutrition)}
-      </div>
+        <section class="safety-alert-panel">
+          <h4>Major warning</h4>
+          <p>${valueOrPending(card.warnings)}</p>
+        </section>
+
+        <section class="do-not-give-panel">
+          <h4>Do not give if</h4>
+          <p>${valueOrPending(card.contraindications)}</p>
+        </section>
+
+        <div class="side-effect-grid">
+          ${compactSection("Common side effects", card.commonAdverseEffects, "common-effects")}
+          ${compactSection("Serious side effects", card.seriousAdverseEffects, "serious-effects")}
+        </div>
+
+        <div class="nursing-priority-grid">
+          ${compactSection("Key nursing checks", card.monitoring, "nursing-checks")}
+          ${compactSection("Patient teaching", card.patientTeaching, "patient-teaching")}
+          ${compactSection("Food and nutrition", card.nutrition, "food-notes")}
+        </div>
+
+        <section class="more-drug-details">
+          <h4>More details</h4>
+          ${detailSection("How it works", card.mechanism)}
+          ${detailSection("Full dosing and administration", `${valueOrPending(card.dosing)} ${valueOrPending(card.routeAdministration)}`)}
+          ${detailSection("Drug interactions", card.interactions)}
+        </section>
+      </article>
     `;
   }
 
@@ -170,9 +202,7 @@
       fetch("./data/drug-reference-cards.json"),
     ]);
 
-    if (!registryResponse.ok) {
-      throw new Error(`Could not load drug reference: ${registryResponse.status}`);
-    }
+    if (!registryResponse.ok) throw new Error(`Could not load drug reference: ${registryResponse.status}`);
 
     const payload = await registryResponse.json();
     const cardPayload = cardsResponse.ok ? await cardsResponse.json() : { cards: {} };
@@ -184,10 +214,7 @@
       return {
         ...entry,
         ...override,
-        card: {
-          ...(entry.card || {}),
-          ...(override.card || {}),
-        },
+        card: { ...(entry.card || {}), ...(override.card || {}) },
       };
     });
   }
