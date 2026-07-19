@@ -34,7 +34,7 @@
       </section>
     </header>
 
-    <section class="subjects" aria-label="Study categories">
+    <section class="subjects" aria-label="Study categories and reference">
       <button class="subject-card fundamentals" data-subject="Fundamentals" data-pack="../packs/fundamentals.prepflow.json">
         <span class="subject-icon" aria-hidden="true">✚</span>
         <span class="subject-copy">
@@ -61,16 +61,14 @@
         </span>
         <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
       </button>
-    </section>
 
-    <section class="reference-launch" aria-label="Medication reference">
-      <button id="open-drug-reference" class="reference-card">
-        <span class="reference-icon" aria-hidden="true">Rx</span>
-        <span>
-          <strong>Drug Reference</strong>
-          <small>237 Pharm medications • Search by name, class, system, or route</small>
+      <button id="open-drug-reference" class="reference-book">
+        <span class="reference-book-icon" aria-hidden="true">Rx</span>
+        <span class="reference-book-copy">
+          <span class="reference-book-name">Drug Reference</span>
+          <span class="reference-book-count">237 medications</span>
         </span>
-        <span aria-hidden="true">▶</span>
+        <span class="reference-book-action">Open Reference <span aria-hidden="true">▶</span></span>
       </button>
     </section>
 
@@ -91,13 +89,8 @@
         </select>
       </label>
 
-      <button id="clear-selections" class="secondary-button" disabled>
-        Clear Selections
-      </button>
-
-      <button id="build-quiz" class="start-button" disabled>
-        Build Quiz ▶
-      </button>
+      <button id="clear-selections" class="secondary-button" disabled>Clear Selections</button>
+      <button id="build-quiz" class="start-button" disabled>Build Quiz ▶</button>
     </section>
 
     <section id="resume-panel" class="resume-panel" hidden>
@@ -108,61 +101,35 @@
           <p id="resume-description"></p>
         </div>
       </div>
-
-      <button id="resume-session" class="start-button">
-        Continue Session
-      </button>
-
-      <button id="discard-session" class="secondary-button">
-        Start Over
-      </button>
+      <button id="resume-session" class="start-button">Continue Session</button>
+      <button id="discard-session" class="secondary-button">Start Over</button>
     </section>
 
     <section id="chapter-screen" class="chapter-screen" hidden>
       <div class="chapter-header">
         <button id="back-button" class="secondary-button">← Close Book</button>
-        <div>
-          <h2 id="chapter-title"></h2>
-          <p>Choose one or more chapters</p>
-        </div>
+        <div><h2 id="chapter-title"></h2><p>Choose one or more chapters</p></div>
       </div>
 
       <div class="chapter-actions">
         <button id="select-all" class="secondary-button">Select All</button>
         <button id="clear-all" class="secondary-button">Clear All</button>
-
         <label class="block-size-control">
-          <span>
-            <strong>Questions per block</strong>
-            <small>Default is 15. Choose a smaller block for quicker study sessions.</small>
-          </span>
-
+          <span><strong>Questions per block</strong><small>Default is 15. Choose a smaller block for quicker study sessions.</small></span>
           <select id="block-size">
-            <option value="1">1</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15" selected>15</option>
+            <option value="1">1</option><option value="3">3</option><option value="5">5</option><option value="10">10</option><option value="15" selected>15</option>
           </select>
         </label>
-
         <span id="selection-count">0 chapters selected</span>
       </div>
-
       <div id="chapter-list" class="chapter-list"></div>
-
-      <button id="start-button" class="start-button" disabled>
-        Start Studying
-      </button>
+      <button id="start-button" class="start-button" disabled>Start Studying</button>
     </section>
 
     <section id="drug-reference-screen" class="drug-reference-screen" hidden>
       <header class="drug-reference-header">
         <button id="close-drug-reference" class="secondary-button">← Home</button>
-        <div>
-          <h2>Drug Reference</h2>
-          <p>One master entry per medication, with routes and dosage forms grouped together.</p>
-        </div>
+        <div><h2>Drug Reference</h2><p>One master entry per medication, with routes and dosage forms grouped together.</p></div>
       </header>
 
       <nav class="drug-reference-tabs" aria-label="Drug reference views">
@@ -174,82 +141,46 @@
       </nav>
 
       <div class="drug-reference-tools">
-        <label>
-          <span class="sr-only">Search medications</span>
-          <input id="drug-reference-search" type="search" placeholder="Search drug, brand, IV, cream, pill, inhaler…">
-        </label>
-        <select id="drug-reference-filter" aria-label="Filter medication reference">
-          <option value="">All medications</option>
-        </select>
+        <label><span class="sr-only">Search medications</span><input id="drug-reference-search" type="search" placeholder="Search drug, brand, IV, cream, pill, inhaler…"></label>
+        <select id="drug-reference-filter" aria-label="Filter medication reference"><option value="">All medications</option></select>
       </div>
 
       <div class="drug-reference-layout">
         <aside id="drug-reference-results" class="drug-reference-results" aria-label="Medication results"></aside>
-        <article id="drug-reference-detail" class="drug-reference-detail">
-          <p class="drug-reference-empty">Choose a medication to open its master drug card.</p>
-        </article>
+        <article id="drug-reference-detail" class="drug-reference-detail"><p class="drug-reference-empty">Choose a medication to open its master drug card.</p></article>
       </div>
     </section>
 
     <section id="quiz-screen" class="quiz-screen" hidden>
-      <header class="quiz-header">
-        <button id="exit-quiz" class="secondary-button">Save &amp; Quit</button>
-        <progress id="quiz-progress" value="0" max="1" hidden></progress>
-      </header>
-
+      <header class="quiz-header"><button id="exit-quiz" class="secondary-button">Save &amp; Quit</button><progress id="quiz-progress" value="0" max="1" hidden></progress></header>
       <div class="quiz-book">
         <section class="quiz-page question-page">
-          <div class="quiz-page-meta">
-            <strong id="quiz-subject"></strong>
-            <span id="quiz-position"></span>
-          </div>
-
+          <div class="quiz-page-meta"><strong id="quiz-subject"></strong><span id="quiz-position"></span></div>
           <div class="quiz-page-label">Question</div>
-
-          <div class="quiz-page-scroll">
-            <h2 id="question-stem"></h2>
-          </div>
+          <div class="quiz-page-scroll"><h2 id="question-stem"></h2></div>
         </section>
-
         <section class="quiz-page response-page">
           <div id="response-page-label" class="quiz-page-label">Choose Your Answer</div>
-
           <div class="quiz-response-scroll">
             <div id="answer-choices" class="answer-choices"></div>
-
-            <section id="feedback" class="feedback" hidden>
-              <h3 id="feedback-result"></h3>
-              <h4>Rationale</h4>
-              <p id="feedback-rationale"></p>
-            </section>
+            <section id="feedback" class="feedback" hidden><h3 id="feedback-result"></h3><h4>Rationale</h4><p id="feedback-rationale"></p></section>
           </div>
-
           <footer class="quiz-footer">
             <span id="quiz-score" hidden></span>
-
-            <button id="submit-answer" class="start-button" disabled>
-              Submit Answer
-            </button>
-
-            <button id="continue-button" class="start-button" hidden>
-              Continue
-            </button>
+            <button id="submit-answer" class="start-button" disabled>Submit Answer</button>
+            <button id="continue-button" class="start-button" hidden>Continue</button>
           </footer>
         </section>
       </div>
     </section>
 
     <section id="block-summary" class="block-summary" hidden>
-      <h2 id="summary-title">Block Complete</h2>
-      <p id="summary-score"></p>
-      <p id="summary-message"></p>
-      <button id="summary-action" class="start-button"></button>
-      <button id="summary-exit" class="secondary-button">Exit Session</button>
+      <h2 id="summary-title">Block Complete</h2><p id="summary-score"></p><p id="summary-message"></p>
+      <button id="summary-action" class="start-button"></button><button id="summary-exit" class="secondary-button">Exit Session</button>
     </section>
 
     <p id="status" class="status">Select a category to continue.</p>
   </main>
-
   <script src="app.js"></script>
   <script src="drug-reference.js"></script>
 </body>
