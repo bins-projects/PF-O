@@ -8,25 +8,27 @@
       return originalFetch(input, init);
     }
 
-    const [baseResponse, batchOneResponse, batchOneBResponse, batchOneCResponse, batchTwoAResponse, registryResponse] = await Promise.all([
+    const [baseResponse, batchOneResponse, batchOneBResponse, batchOneCResponse, batchTwoAResponse, batchTwoBResponse, registryResponse] = await Promise.all([
       originalFetch(input, init),
       originalFetch("./data/drug-reference-cards-batch-01.json?v=20260719-batch-01", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-01b.json?v=20260719-batch-01b", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-01c.json?v=20260719-batch-01c", { cache: "no-store" }),
       originalFetch("./data/drug-reference-cards-batch-02a.json?v=20260719-batch-02a", { cache: "no-store" }),
-      originalFetch("./data/drug-reference.json?v=20260719-batch-02a", { cache: "no-store" }),
+      originalFetch("./data/drug-reference-cards-batch-02b.json?v=20260719-batch-02b", { cache: "no-store" }),
+      originalFetch("./data/drug-reference.json?v=20260719-batch-02b", { cache: "no-store" }),
     ]);
 
-    if (!baseResponse.ok || !batchOneResponse.ok || !batchOneBResponse.ok || !batchOneCResponse.ok || !batchTwoAResponse.ok || !registryResponse.ok) {
+    if (!baseResponse.ok || !batchOneResponse.ok || !batchOneBResponse.ok || !batchOneCResponse.ok || !batchTwoAResponse.ok || !batchTwoBResponse.ok || !registryResponse.ok) {
       return baseResponse;
     }
 
-    const [basePayload, batchOnePayload, batchOneBPayload, batchOneCPayload, batchTwoAPayload, registryPayload] = await Promise.all([
+    const [basePayload, batchOnePayload, batchOneBPayload, batchOneCPayload, batchTwoAPayload, batchTwoBPayload, registryPayload] = await Promise.all([
       baseResponse.json(),
       batchOneResponse.json(),
       batchOneBResponse.json(),
       batchOneCResponse.json(),
       batchTwoAResponse.json(),
+      batchTwoBResponse.json(),
       registryResponse.json(),
     ]);
 
@@ -43,6 +45,7 @@
       ...(batchOneBPayload.cards || []),
       ...(batchOneCPayload.cards || []),
       ...(batchTwoAPayload.cards || []),
+      ...(batchTwoBPayload.cards || []),
     ];
 
     const seenNames = new Set();
