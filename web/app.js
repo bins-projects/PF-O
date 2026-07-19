@@ -360,10 +360,35 @@ function totalBlockCount() {
   return Math.max(1, Math.ceil(sessionQuestions.length / sessionBlockSize));
 }
 
+function normalizedCorrectAnswers(question) {
+  const rawAnswers =
+    question.correct_answers ?? question.correct_answer ?? [];
+
+  return (
+    Array.isArray(rawAnswers)
+      ? rawAnswers
+      : [rawAnswers]
+  )
+    .filter((answer) => answer !== null && answer !== undefined)
+    .map((answer) => String(answer).trim().toUpperCase())
+    .filter(Boolean);
+}
+
+function isMultipleResponseQuestion(question) {
+  const questionType = question.type || question.question_type;
+  const correctAnswers = normalizedCorrectAnswers(question);
+  const stem = String(question.stem || "");
+
+  return (
+    questionType === "multiple_response"
+    || correctAnswers.length > 1
+    || /select all that apply/i.test(stem)
+  );
+}
+
 function showQuestion() {
   const question = currentQuestion();
-  const questionType = question.type || question.question_type;
-  const isMultipleResponse = questionType === "multiple_response";
+  const isMultipleResponse = isMultipleResponseQuestion(question);
   const blockLength = blockEnd - blockStart;
 
   hideAllScreens();
@@ -621,16 +646,7 @@ submitAnswer.addEventListener("click", () => {
   }
 
   const question = currentQuestion();
-  const rawCorrectAnswers =
-    question.correct_answers ?? question.correct_answer ?? [];
-
-  const correctAnswers = (
-    Array.isArray(rawCorrectAnswers)
-      ? rawCorrectAnswers
-      : [rawCorrectAnswers]
-  )
-    .filter((answer) => answer !== null && answer !== undefined)
-    .map((answer) => String(answer).trim().toUpperCase());
+  const correctAnswers = normalizedCorrectAnswers(question);
 
   const selectedAnswers = Array.from(
     selected,
