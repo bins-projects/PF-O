@@ -148,6 +148,8 @@
       <div class="drug-card-sections">
         ${section("Indications", card.indications)}
         ${section("Mechanism of action", card.mechanism)}
+        ${section("Typical dosing", card.dosing)}
+        ${section("Route-specific administration", card.routeAdministration)}
         ${section("Contraindications", card.contraindications)}
         ${section("Major warnings", card.warnings)}
         ${section("Common side effects", card.commonAdverseEffects)}
@@ -156,16 +158,39 @@
         ${section("Labs and monitoring", card.monitoring)}
         ${section("Patient teaching", card.patientTeaching)}
         ${section("Nutrition and food considerations", card.nutrition)}
+        ${section("Source", card.source)}
       </div>
     `;
   }
 
   async function loadReference() {
     if (entries.length) return;
-    const response = await fetch("./data/drug-reference.json");
-    if (!response.ok) throw new Error(`Could not load drug reference: ${response.status}`);
-    const payload = await response.json();
-    entries = payload.entries || [];
+
+    const [registryResponse, cardsResponse] = await Promise.all([
+      fetch("./data/drug-reference.json"),
+      fetch("./data/drug-reference-cards.json"),
+    ]);
+
+    if (!registryResponse.ok) {
+      throw new Error(`Could not load drug reference: ${registryResponse.status}`);
+    }
+
+    const payload = await registryResponse.json();
+    const cardPayload = cardsResponse.ok ? await cardsResponse.json() : { cards: {} };
+    const cards = cardPayload.cards || {};
+
+    entries = (payload.entries || []).map((entry) => {
+      const override = cards[entry.id];
+      if (!override) return entry;
+      return {
+        ...entry,
+        ...override,
+        card: {
+          ...(entry.card || {}),
+          ...(override.card || {}),
+        },
+      };
+    });
   }
 
   function hideHomeReferenceLaunch() {
