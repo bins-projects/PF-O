@@ -36,11 +36,11 @@
       batchTwoAResponse.json(),
       batchTwoBResponse.json(),
       batchTwoCResponse.json(),
-      batchTwoDPayload = batchTwoDResponse.json(),
-      batchTwoEPayload = batchTwoEResponse.json(),
-      batchTwoFPayload = batchTwoFResponse.json(),
-      batchTwoGPayload = batchTwoGResponse.json(),
-      batchTwoHPayload = batchTwoHResponse.json(),
+      batchTwoDResponse.json(),
+      batchTwoEResponse.json(),
+      batchTwoFResponse.json(),
+      batchTwoGResponse.json(),
+      batchTwoHResponse.json(),
       registryResponse.json(),
     ]);
 
