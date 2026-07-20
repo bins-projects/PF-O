@@ -6,58 +6,45 @@
 
 ## Purpose
 
-This document is the operational handoff for resuming PrepFlow development.
+This is the operational handoff for resuming PrepFlow development.
 
-It must answer:
-
-1. What is PrepFlow?
-2. What currently exists?
-3. What architecture has been approved?
-4. What is being kept, replaced, or removed?
-5. What is the migration order?
-6. What has already been completed?
-7. What is the next safe step?
-8. How is each step verified?
-9. What is deferred?
-10. How can work stop safely and resume later?
-
-Permanent architectural truth belongs in:
+Permanent architecture belongs in:
 
 ```text
 docs/ARCHITECTURE_BIBLE.md
 ```
 
-The full forensic findings, file classifications, and migration reasoning belong in:
+Detailed forensic findings and migration reasoning belong in:
 
 ```text
-docs/CONTINUITY_REBUILD_DECISION_MAP.md
+docs/CONTINUITY_REBUILD_PLAN.md
 ```
 
-This packet should remain current and operational. It must not grow into another chronological diary of every completed session.
+This packet must stay current and practical. It is not a chronological diary.
 
 ---
 
 # 1. Source of Truth
 
-## Repositories
+Private development repository:
 
 ```text
-Private development repository:
 bins-projects/prepflow-dev
+```
 
 Public repository:
+
+```text
 bins-projects/PrepFlow
 ```
 
-The private repository is the working source of truth during the continuity rebuild.
-
-## Current development branch
+Current development branch:
 
 ```text
 docs/continuity-rebuild
 ```
 
-The branch was created from:
+Branch starting point:
 
 ```text
 8987fdf
@@ -69,38 +56,45 @@ Frozen pre-rebuild reference:
 before-continuity-rebuild-2026-07-20
 ```
 
-That tag preserves the complete repository state before the continuity documentation rewrite.
+The frozen tag preserves the complete repository state before the continuity rebuild.
 
-## Documentation commits completed on this branch
+## Current verified branch state
+
+Latest verified implementation cleanup commit:
 
 ```text
-97b5fbb  docs: add continuity rebuild decision map
-a49ea78  docs: rebuild architecture bible
+3839243  refactor: remove legacy desktop application
 ```
 
-The commit that replaces this Restart Packet follows those commits.
+Immediately before the next documentation update:
+
+- local `docs/continuity-rebuild` matched `origin/docs/continuity-rebuild`;
+- working tree was clean;
+- remaining Python suite passed 70 tests;
+- the browser smoke test had passed;
+- obsolete DOCX and desktop code had been removed as separate reversible commits.
 
 ## GitHub-first rule
 
 Before asking Charlie to paste committed code, repository trees, documentation, branches, or file contents, inspect GitHub first.
 
-Request local terminal output only when it is needed for:
+Use local terminal output only for:
 
 - uncommitted work;
 - runtime behavior;
-- local test execution;
-- ignored/generated artifacts;
+- local tests;
+- ignored or generated artifacts;
 - private source material;
 - environment-specific behavior;
-- exact local and remote synchronization checks.
+- exact local/remote synchronization checks.
 
 ---
 
-# 2. Current Product Definition
+# 2. Product Definition
 
 PrepFlow takes deliberately selected educational material, cleans and structures it, turns it into an authoritative independent Pack, and provides study tools that use that Pack.
 
-The core flow is:
+Core flow:
 
 ```text
 Chosen source material
@@ -120,26 +114,24 @@ Independent authoritative Pack
 Browser study application
 ```
 
-The browser quiz, open-book interface, medication reference, characters, animations, and future coaching are ways of using the library. They are not separate educational architectures.
+The quiz, open-book interface, medication reference, characters, animations, and future coaching features are ways of using the library. They are not separate educational architectures.
 
 ---
 
 # 3. Authority and Content Rules
 
-## Pack authority
-
 A deliberately selected source becomes authoritative study material inside its own Pack after cleaning, structural validation, and review.
 
-PrepFlow does not independently fact-check an entire nursing curriculum before content enters a Pack.
+PrepFlow does not independently fact-check an entire nursing curriculum before allowing content into a Pack.
 
 Each Pack is an independent authority boundary:
 
-- sources are not silently reconciled into one universal truth database;
+- sources are not silently blended into one universal truth database;
 - one Pack can be removed or rebuilt without changing another;
 - the original source is temporary import material;
 - the finished Pack is the durable study product.
 
-## Required Pack structure
+Required hierarchy:
 
 ```text
 Pack
@@ -162,16 +154,16 @@ Publisher, edition, page, Bloom level, difficulty, and detailed source-provenanc
 
 Optional future tags may support concepts, medications, body systems, relationships, or coaching. They must not block ordinary imports.
 
-## Source fidelity
+Source fidelity rules:
 
-- Preserve admitted educational content faithfully.
-- Do not casually rewrite stems, choices, answers, or rationales.
-- Remove contamination, branding, headers, footers, and extraction artifacts through the cleaner.
-- Do not expose internal Pack filenames, IDs, JSON, compiler terms, or repository terminology in the user interface.
+- preserve admitted educational content faithfully;
+- do not casually rewrite stems, choices, answers, or rationales;
+- remove contamination and extraction artifacts through the cleaner;
+- do not expose Pack filenames, IDs, JSON, compiler terms, or repository terminology in the user interface.
 
 ---
 
-# 4. Approved Responsibility Map
+# 4. Responsibility Map
 
 ## Source adapters
 
@@ -188,7 +180,7 @@ Future adapters:
 - possible HTML;
 - OCR only as a separate later project.
 
-All adapters must feed the same shared pipeline. Do not build separate question-processing systems for each file type.
+All adapters must feed the same shared pipeline.
 
 ## Extraction
 
@@ -212,13 +204,7 @@ Converts parser output into one consistent compiler input shape.
 
 ## Validator
 
-Classifies problems as:
-
-- fatal;
-- recoverable;
-- advisory.
-
-The validator checks structural safety. It does not certify medical truth.
+Classifies problems as fatal, recoverable, or advisory. It checks structural safety, not medical truth.
 
 ## Deduplication
 
@@ -258,13 +244,13 @@ Defines the actual offline promise and caches the files required to satisfy it.
 
 ## Future downloadable clients
 
-Future Windows or macOS downloads should most likely package the cleaned browser-centered application. There is no requirement to preserve unreleased Tkinter compatibility.
+Future Windows or macOS downloads should package the browser-centered application. There is no requirement to preserve the removed Tkinter implementation.
 
 ---
 
-# 5. Confirmed Current Implementation
+# 5. Confirmed Active Implementation
 
-## Active compiler pipeline
+## Compiler pipeline
 
 Core files include:
 
@@ -284,7 +270,7 @@ compiler/ids.py
 compiler/diagnostics.py
 ```
 
-Current authoritative flow:
+Authoritative flow:
 
 ```text
 PDF
@@ -299,7 +285,7 @@ PDF
 → Pack JSON
 ```
 
-## Active browser product
+## Browser product
 
 The active user-facing product is under:
 
@@ -307,7 +293,7 @@ The active user-facing product is under:
 web/
 ```
 
-Confirmed browser capabilities include:
+Confirmed browser capabilities:
 
 - Pack loading;
 - chapter selection across Packs;
@@ -325,19 +311,15 @@ Confirmed browser capabilities include:
 - layered arcade/open-book presentation;
 - medication reference features.
 
-Confirmed browser gaps from the audit:
+Confirmed gaps from the audit:
 
-- Completion and Ordered Response are not reliably part of the active browser quiz path inspected during the audit;
+- Completion and Ordered Response need active-path verification and repair where necessary;
 - shuffle cannot be disabled;
 - quiz rules and DOM manipulation are mixed in `web/app.js`;
 - strong browser-level automated coverage is missing;
 - complete first-install offline support is not clearly guaranteed.
 
-When later code or runtime evidence conflicts with this section, inspect the current implementation and update this packet rather than guessing.
-
 ## Official starting Packs
-
-The permanent tracked library contains:
 
 ```text
 packs/fundamentals.prepflow.json
@@ -353,7 +335,7 @@ Pharm
 Medical-Surgical
 ```
 
-Read exact current counts directly from the Pack files. Do not copy counts from historical documentation without verification.
+Read exact counts directly from the Pack files. Do not rely on historical documentation.
 
 ## Medication reference
 
@@ -369,7 +351,7 @@ This is deferred unless a current defect makes it urgent.
 
 ## Visual identity
 
-Preserve the established visual language:
+Preserve:
 
 - dark navy foundation;
 - bright blue, green, purple, pink, and gold accents;
@@ -385,7 +367,7 @@ Do not freeze creativity. New work should fit the established product and reuse 
 
 # 6. Permanent Question Identity
 
-Current sequential IDs are formatted consistently but depend on export position. They are not stable enough for the long-term library.
+Current sequential IDs depend on export position and are not stable enough for the long-term library.
 
 Approved requirement:
 
@@ -395,24 +377,28 @@ The design must support:
 
 - assigning an identity once;
 - recognizing the same question during a rebuild;
-- preserving an identity through minor corrections;
+- preserving identity through minor corrections;
 - assigning a new identity only to genuinely new content;
 - avoiding array-position dependence;
 - detecting identity conflicts.
 
-The exact algorithm remains an implementation decision and should be designed before changing Pack IDs.
+The exact algorithm remains an implementation decision.
 
 Do not silently regenerate all IDs without a migration and verification plan.
 
 ---
 
-# 7. Verified Legacy and Removal Candidates
+# 7. Completed Legacy Removal
 
-Git history and the frozen tag preserve removed work.
+## Obsolete DOCX prototype
 
-## Old DOCX prototype route
+Removed at:
 
-Verified candidates:
+```text
+0ed062f  refactor: remove obsolete docx prototype
+```
+
+Removed:
 
 ```text
 compiler/docx_reader.py
@@ -423,43 +409,40 @@ tests/test_parser.py
 tests/test_ids.py
 ```
 
-Reason:
-
-- rigid source assumptions;
-- separate obsolete path;
-- little useful behavior not easily recreated;
-- no proper shared cleaner/detector path;
-- future DOCX should be an adapter feeding the authoritative pipeline.
-
-## Old Python desktop and terminal study stack
-
-Verified candidates after active browser behavior is protected:
+Unused dependencies removed:
 
 ```text
-study/cli.py
-study/gui.py
-study/loader.py
-study/question.py
-study/review.py
-study/save_state.py
-study/scoring.py
-study/selection.py
-study/session.py
-study/update_checker.py
-study/version.py
-PrepFlow.spec
-.github/workflows/build-windows.yml
+python-docx
+lxml
+typing_extensions
 ```
 
-Related desktop-only tests may be removed only after retained behavior has equivalent active-product coverage or has been explicitly recorded as no longer required.
+The JSON compiler route remains. Future DOCX support should be rebuilt as a proper extraction adapter feeding the authoritative pipeline.
+
+## Python desktop and terminal stack
+
+Removed at:
+
+```text
+3839243  refactor: remove legacy desktop application
+```
+
+Removed:
+
+```text
+study/
+PrepFlow.spec
+.github/workflows/build-windows.yml
+desktop-only tests
+```
 
 Reason:
 
 - the browser is the active compatibility target;
-- the browser does not consume this Python study stack;
-- no released legacy installation requires preservation;
-- future desktop packaging can wrap the browser product;
-- preserving capabilities matters more than preserving obsolete implementations.
+- the browser did not consume the Python study stack;
+- no released legacy installation requires compatibility;
+- future desktop downloads can package the browser-centered application;
+- useful capabilities are preserved as product requirements rather than obsolete implementations.
 
 ## Old visual experiment branch
 
@@ -467,154 +450,148 @@ Reason:
 origin/feat/home-quiz-panel-clean
 ```
 
-This branch contains old cover/stethoscope experiments and should not be merged wholesale. Git history preserves it as reference.
+Do not merge this branch wholesale. Git history preserves its visual experiments for reference.
 
-No other unmerged remote branch was found to contain hidden compiler, quiz-engine, medication, or architecture work.
+No other unmerged remote branch contained hidden compiler, quiz-engine, medication, or architectural work.
 
 ---
 
 # 8. Test and Verification State
 
-The forensic inventory found:
+Before cleanup, the repository contained 108 Python tests, including desktop-only tests and two empty test files.
 
-- 18 test files;
-- 108 standard function-style tests;
-- strong compiler/import coverage;
-- useful desktop behavior tests;
-- empty `tests/test_ids.py`;
-- empty `tests/test_parser.py`;
-- no strong visible browser automation suite.
-
-Historical test counts in old documents are not authoritative. Run the current suite and record the result whenever work resumes.
-
-## Important warning
-
-Deleting old tests can reduce the test count while still producing a green result.
-
-Example:
+After deliberate legacy removal:
 
 ```text
-108 passed before deletion
-65 passed after deletion
+70 passed
 ```
 
-That does not prove the product is equally protected. It may mean safeguards disappeared.
+This reduction is expected because removed tests exercised implementations that are no longer active.
 
-Before removing a legacy implementation and its tests:
+Verified after cleanup:
 
-1. identify the behavior worth retaining;
-2. protect it in the active browser or compiler layer where practical;
-3. run targeted tests;
-4. run the full suite;
-5. perform the real browser smoke check;
-6. inspect remaining references and imports.
+- remaining Python suite passed;
+- `git diff --check` passed;
+- no live imports or references remained outside intentional documentation history;
+- working tree was clean;
+- browser smoke test passed before cleanup;
+- compiler and browser source were not changed by desktop removal.
+
+## Current protection gap
+
+The active browser still lacks a strong automated behavior suite.
+
+Do not rebuild old Tkinter tests one-for-one. Add browser-centered tests when the browser behavior layer is separated and changed.
 
 ## Planned CI direction
 
-Replace the old manual Windows-build workflow with automatic verification on pushes and pull requests.
+Add automatic verification on pushes and pull requests.
 
 Initial CI should:
 
 - install the supported Python environment;
-- run the existing compiler tests;
+- run the remaining compiler tests;
 - validate Pack files;
-- fail on real structural regressions.
+- fail on structural regressions.
 
-Later add browser checks as the browser behavior layer becomes testable.
+Add browser checks as browser behavior becomes independently testable.
 
 ---
 
 # 9. Approved Migration Sequence
 
-This is the default sequence. Change it only when implementation evidence shows a safer order.
-
 ## Phase A — Documentation foundation
 
-Status: **Active and nearly complete**
+Status: **Complete**
 
-1. Complete forensic audit. — Done.
-2. Record decision map. — Done at `97b5fbb`.
-3. Rebuild Architecture Bible. — Done at `a49ea78`.
-4. Rebuild Restart Packet. — This commit.
-5. Align README with real browser product.
-6. Decide whether `QUESTION_LIFECYCLE.md` has any unique material; absorb useful content and remove the redundant file if appropriate.
-7. Review the documentation diff as a unit.
+Completed:
 
-No implementation deletion occurs during Phase A.
+- forensic audit;
+- remote branch audit;
+- continuity rebuild plan;
+- rebuilt Architecture Bible;
+- rebuilt Restart Packet;
+- browser-centered README;
+- redundant Question Lifecycle document removed;
+- local test and browser smoke verification.
 
-## Phase B — Verification foundation
+## Phase B — Initial cleanup
 
-1. Run the full existing test suite and record the current result.
-2. Inspect Packs programmatically for schema validity, counts, IDs, types, and duplicate identities.
-3. Add automatic push/PR verification using the existing tests.
-4. Add the smallest practical browser behavior checks before deleting desktop behavior tests.
-5. Write a repeatable browser smoke checklist.
+Status: **Complete**
+
+Completed:
+
+- obsolete DOCX prototype removed;
+- unused DOCX dependencies removed;
+- legacy Python desktop/terminal application removed;
+- PyInstaller specification removed;
+- old Windows build workflow removed;
+- desktop-only tests retired;
+- remaining suite verified at 70 passing tests;
+- dangling-reference search completed;
+- cleanup commits pushed to the private branch.
 
 ## Phase C — Permanent identity design
 
-1. Inventory current question IDs and references.
-2. Choose the permanent identity strategy.
-3. Define rebuild matching and conflict behavior.
-4. Add tests before migration.
-5. Migrate Packs in a controlled commit.
-6. Verify save/resume and any reference mappings affected by IDs.
+Status: **Next active phase**
+
+1. inventory current question IDs across all official Packs;
+2. inventory every code and data reference that depends on question IDs;
+3. identify duplicate IDs or identity collisions;
+4. choose the permanent identity strategy;
+5. define rebuild matching and conflict behavior;
+6. add focused identity tests;
+7. migrate Packs only after the design is approved;
+8. verify save/resume and medication/reference mappings affected by IDs.
+
+Do not regenerate Pack IDs casually.
 
 ## Phase D — Browser behavior boundary
 
-1. Identify pure quiz/session rules inside `web/app.js`.
-2. Extract small testable behavior units without redesigning the GUI.
-3. Preserve current working flow after each change.
-4. Add the Shuffle versus Keep Source Order option.
-5. Preserve source order when shuffle is disabled.
+1. identify pure quiz/session rules inside `web/app.js`;
+2. extract small testable behavior units without redesigning the GUI;
+3. preserve the current browser flow after each change;
+4. add Shuffle versus Keep Source Order;
+5. preserve source order when shuffle is disabled.
 
-The shuffle setting is the first approved user-facing tweak after stable ground is established.
+## Phase E — Browser question-type verification and parity
 
-## Phase E — Browser question-type parity
+1. verify active behavior for all Pack question types;
+2. repair Completion support where needed;
+3. repair Ordered Response support where needed;
+4. preserve first-pass scoring, review, save/resume, and source fidelity;
+5. add browser-centered tests.
 
-1. Add Completion grading and controls to the active browser path.
-2. Add Ordered Response grading and controls.
-3. Preserve first-pass scoring, review behavior, save/resume, and source fidelity.
-4. Add browser tests for all supported types.
+## Phase F — Automatic verification
 
-## Phase F — Legacy removal
-
-After browser behavior protections are adequate:
-
-1. remove the unused Python study/desktop stack;
-2. remove `PrepFlow.spec`;
-3. remove the old Windows-build workflow;
-4. remove obsolete desktop-only tests after retained rules are protected elsewhere;
-5. run all tests and browser smoke checks;
-6. search for dangling imports and references;
-7. commit removal as a focused reversible milestone.
-
-Then remove the rigid DOCX prototype path and its empty tests in a separate focused milestone.
+1. create a push/PR workflow for the remaining Python suite;
+2. validate official Pack schemas and IDs;
+3. add browser checks as the behavior boundary becomes testable.
 
 ## Phase G — Unified source adapters
 
-1. preserve PDF as the first authoritative adapter;
-2. rebuild DOCX as a real extraction adapter;
+1. preserve PDF as the authoritative current adapter;
+2. rebuild DOCX as a proper extraction adapter;
 3. add TXT through the same boundary;
-4. route all supported formats through the shared cleaner/detector/parser/compiler;
-5. do not create book-specific permanent import architectures.
+4. route every format through the shared cleaner, detector, parser, normalizer, validator, and Pack compiler.
 
 ## Phase H — Offline and visual consolidation
 
 1. define the offline promise;
-2. inventory every required shell, Pack, visual, medication, and data asset;
-3. update service-worker behavior and tests;
+2. inventory required shell, Pack, medication, visual, and data assets;
+3. update service-worker coverage;
 4. consolidate CSS only in visually safe increments;
-5. preserve the approved visual identity and reusable art.
+5. preserve the approved identity and reusable artwork.
 
 ## Phase I — Deferred enrichment
 
-Only after the foundation is stable:
+After the foundation is stable:
 
 - independent medication master library;
-- optional topic/system/medication relationship tags;
+- optional topic and relationship tags;
 - analytics and coaching;
 - character animation and cut scenes;
-- future Windows/macOS browser wrappers;
+- Windows/macOS browser wrappers;
 - user-facing import interface.
 
 ---
@@ -628,9 +605,9 @@ Every implementation milestone must answer:
 3. Which tests protect it?
 4. What manual browser check is required?
 5. What commit is the rollback point?
-6. Are private and public remotes synchronized when the milestone is complete?
+6. Are intended remotes synchronized when the milestone is complete?
 
-## Standard work loop
+Standard loop:
 
 ```text
 Observe
@@ -649,34 +626,25 @@ Observe
 → Repeat
 ```
 
-## Safe stopping rule
+Safe stopping point:
 
-Do not stop in the middle of a destructive multi-file transition when practical.
-
-A safe stopping point has:
-
-- a coherent commit;
-- passing applicable tests;
-- known browser status;
-- updated Restart Packet current-focus section when the active plan changed;
+- coherent commit;
+- applicable tests passing;
+- browser status known;
+- Restart Packet current focus updated when needed;
 - no unexplained uncommitted files;
 - exact next action recorded.
 
-## Rollback references
-
-Pre-documentation baseline:
+Rollback references:
 
 ```text
 before-continuity-rebuild-2026-07-20
-```
-
-Documentation branch start:
-
-```text
 8987fdf
+0ed062f
+3839243
 ```
 
-Never force-reset or rewrite shared history casually. Prefer a normal revert or a new corrective commit unless history rewriting is deliberately required.
+Prefer a normal revert or corrective commit over casual history rewriting.
 
 ---
 
@@ -686,9 +654,9 @@ When Charlie says:
 
 > next
 
-provide the next executable step, not a menu of unrelated possibilities.
+provide the next executable step, not a menu.
 
-Other permanent working rules:
+Permanent rules:
 
 - one focused change at a time;
 - inspect committed code before speculating;
@@ -696,19 +664,17 @@ Other permanent working rules:
 - do not manually repair generated Packs when the generic pipeline should be fixed;
 - quarantine a small number of malformed questions rather than broadening the parser recklessly;
 - do not preserve ghost code merely because it once worked;
-- do not delete working protections before replacing or consciously retiring them;
+- do not rebuild intentionally retired tests unless active behavior needs protection;
 - use evidence from real imports and runtime behavior;
 - protect privacy before public release or sharing;
-- keep both intended Git remotes synchronized at completed milestones;
-- do not claim a push, test, merge, or runtime result that has not been verified.
+- keep intended Git remotes synchronized at completed milestones;
+- never claim a push, test, merge, or runtime result that was not verified.
 
-## Loop-prevention rule
-
-When work becomes repetitive:
+Loop prevention:
 
 1. stop;
 2. return to the active phase;
-3. identify what decision is actually missing;
+3. identify the missing decision;
 4. inspect the smallest relevant files;
 5. choose one executable action;
 6. test before expanding scope.
@@ -717,7 +683,7 @@ When work becomes repetitive:
 
 # 12. Deferred Ideas
 
-These are preserved but are not active commitments:
+Preserved but not active commitments:
 
 - optional detailed topic tags;
 - coaching based on missed concept clusters;
@@ -727,95 +693,96 @@ These are preserved but are not active commitments:
 - Windows and macOS packaged browser wrappers;
 - user-facing PDF/DOCX/TXT import interface;
 - OCR ingestion;
-- additional Packs beyond the starting library;
+- additional Packs;
 - deeper analytics and adaptive recommendations.
 
-Deferred does not mean rejected. It means do not interrupt the active architectural cleanup unless Charlie deliberately reprioritizes it.
+Deferred means do not interrupt the active architectural cleanup unless Charlie deliberately reprioritizes it.
 
 ---
 
 # 13. Rejected or Superseded Directions
 
-The following are not active requirements:
+Not active requirements:
 
 - preserving the Tkinter application for compatibility;
 - rebuilding desktop parity before improving the browser;
 - maintaining separate study engines for each platform;
-- keeping the rigid old DOCX parser because it already exists;
+- keeping the rigid old DOCX parser because it once existed;
 - treating publisher/page provenance as required finished-Pack data;
 - automatically deleting near-duplicate questions;
-- making every optional future tag mandatory for import;
-- keeping stale files in active directories merely as historical reference;
+- making optional future tags mandatory for import;
+- keeping stale files in active directories as historical reference;
 - merging `feat/home-quiz-panel-clean` wholesale;
-- using test count alone as proof that protections were preserved.
+- using test count alone as proof of protection.
 
 ---
 
-# 14. Current Documentation Status
+# 14. Current Rebuild Status
 
 Completed on `docs/continuity-rebuild`:
 
-- forensic audit;
+- forensic architecture audit;
 - remote branch audit;
-- approved responsibility map;
-- approved browser-centered direction;
-- approved Pack authority model;
-- approved permanent question identity requirement;
-- `docs/CONTINUITY_REBUILD_DECISION_MAP.md`;
-- rebuilt `docs/ARCHITECTURE_BIBLE.md`;
-- rebuilt `docs/RESTART_PACKET.md`.
+- approved target architecture;
+- continuity rebuild plan;
+- rebuilt Architecture Bible;
+- rebuilt Restart Packet;
+- browser-centered README;
+- redundant Question Lifecycle document removed;
+- obsolete DOCX prototype removed;
+- unused dependencies removed;
+- legacy desktop/Tkinter/terminal stack removed;
+- PyInstaller and old Windows workflow removed;
+- remaining Python suite verified at 70 passing tests;
+- browser smoke test passed;
+- cleanup commits pushed to the private branch.
 
-Still required before implementation cleanup:
-
-1. rewrite `README.md` so it describes the actual browser-centered product without obsolete Windows-release instructions;
-2. review `docs/QUESTION_LIFECYCLE.md`, absorb any unique durable rule, and likely remove it as redundant;
-3. compare the documentation set for contradictions;
-4. inspect the branch diff;
-5. run local tests after Charlie pulls the documentation commits;
-6. commit any final documentation corrections;
-7. merge the continuity documentation only after review.
-
-No implementation files have been intentionally deleted or refactored during the documentation pass.
+The active architectural work now moves to permanent question identity.
 
 ---
 
 # 15. Exact Next Step
 
-The next documentation action is:
+The next task is a read-only identity inventory.
 
-> Rewrite `README.md` as a concise user-facing description of the browser application that only promises workflows currently supported and does not preserve obsolete desktop-download instructions.
+Inspect:
 
-After the README, review `QUESTION_LIFECYCLE.md` for absorption/removal.
+- current ID format and generator;
+- ID uniqueness across all official Packs;
+- repeated IDs within and between Packs;
+- code and data files that refer to question IDs;
+- whether medication/reference mappings depend on those IDs;
+- how a Pack rebuild currently changes IDs.
 
-Do not begin legacy-code deletion before the documentation set is reviewed and the verification foundation is started.
+Do not change or regenerate IDs during the inventory.
+
+The inventory must produce enough evidence to choose a permanent identity strategy before migration begins.
 
 ---
 
 # 16. Startup Procedure for a New Session
 
-At the start of the next PrepFlow session:
-
 1. inspect `docs/RESTART_PACKET.md` in the private GitHub repository;
 2. inspect the current branch and latest commit;
-3. inspect `docs/ARCHITECTURE_BIBLE.md` and `docs/CONTINUITY_REBUILD_DECISION_MAP.md` only as needed;
-4. verify whether the working branch is still `docs/continuity-rebuild` or whether the docs were merged;
-5. inspect `git status` before giving commands that modify local files;
+3. inspect `docs/ARCHITECTURE_BIBLE.md` and `docs/CONTINUITY_REBUILD_PLAN.md` only as needed;
+4. verify whether work remains on `docs/continuity-rebuild`;
+5. inspect `git status` before giving modifying commands;
 6. compare local, origin, and public hashes when relevant;
-7. run the current test suite before destructive cleanup begins;
-8. resume from the Exact Next Step or the newest explicitly recorded active milestone;
+7. run the current test suite before destructive changes;
+8. resume from the Exact Next Step;
 9. make one focused change;
 10. test and commit before expanding scope.
 
-If the current documents appear incomplete or a decision seems inexplicable, consult:
+For historical reasoning, consult:
 
 ```text
 before-continuity-rebuild-2026-07-20
 ```
 
-Use that baseline for historical reasoning, not as permission to restore superseded behavior.
+Use that baseline for context, not as permission to restore superseded behavior.
 
 ---
 
 # 17. Current Resume Statement
 
-> PrepFlow's July 2026 forensic audit is complete. The browser is the only active compatibility target. The authoritative core is the shared ingestion/compiler pipeline, independent Pack library, and browser study application. Packs are separate study-authority boundaries. Permanent question identity is a core requirement and must not depend on array order. The old Tkinter/terminal/PyInstaller stack and rigid DOCX prototype are verified removal candidates after active behavior is protected. The continuity rebuild is occurring on `docs/continuity-rebuild`, created from `8987fdf`, with the full pre-rebuild state preserved by tag `before-continuity-rebuild-2026-07-20`. The detailed decision map and Architecture Bible have been rebuilt. This Restart Packet now replaces the layered legacy handoff. No application code has been removed. The next action is to rewrite the README for the real browser-centered product, then absorb and likely remove the redundant Question Lifecycle document before reviewing the complete documentation diff.
+> PrepFlow's July 2026 forensic audit and documentation rebuild are complete. The browser is the only active compatibility target. The authoritative core is the shared ingestion/compiler pipeline, independent Pack library, and browser study application. The obsolete DOCX prototype was removed at `0ed062f`. The legacy Python desktop, terminal, PyInstaller, and Windows-build stack was removed at `3839243`. The remaining Python suite passes 70 tests, the browser smoke test passed, and the cleanup branch was synchronized with the private origin. The complete pre-rebuild state remains preserved by tag `before-continuity-rebuild-2026-07-20`. The next active phase is permanent question identity. Begin with a read-only inventory of existing IDs, collisions, references, and rebuild behavior. Do not regenerate IDs until the identity design and migration plan are approved.
