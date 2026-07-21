@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PrepFlow Display Rules Tests</title>
+</head>
+<body>
+  <h1>PrepFlow Display Rules Tests</h1>
+  <pre id="results"></pre>
+  <script src="display-rules.js"></script>
+  <script>
+    const results = document.getElementById("results");
+    let failures = 0;
+
+    function test(name, actual, expected) {
+      const passed = actual === expected;
+      results.textContent += `${passed ? "PASS" : "FAIL"} ${name}\n`;
+      if (!passed) {
+        failures += 1;
+        results.textContent += `  expected: ${expected}\n  actual:   ${actual}\n`;
+      }
+    }
+
+    const rules = window.PrepFlowDisplayRules;
+
+    test(
+      "normal quiz position",
+      rules.quizPositionText({
+        blockNumber: 2,
+        totalBlocks: 4,
+        reviewMode: false,
+        reviewRemaining: 0,
+        questionInBlock: 3,
+        blockLength: 15,
+      }),
+      "Block 2 of 4 • Question 3 of 15"
+    );
+
+    test(
+      "review quiz position",
+      rules.quizPositionText({
+        blockNumber: 2,
+        totalBlocks: 4,
+        reviewMode: true,
+        reviewRemaining: 3,
+        questionInBlock: 0,
+        blockLength: 15,
+      }),
+      "Block 2 of 4 • Review • 3 remaining"
+    );
+
+    test("running score", rules.runningScoreText(11, 4), "First pass: 11 correct, 4 missed");
+    test("block score", rules.firstPassBlockScoreText(12, 15), "First pass: 12 of 15 correct.");
+    test("final score", rules.finalScoreText(87), "First-pass score: 87%");
+    test("final message", rules.finalMessage(13, 15), "13 of 15 correct on the first attempt.");
+    test("complete block title", rules.blockTitle(3, false), "Block 3 Complete");
+    test("mastered block title", rules.blockTitle(3, true), "Block 3 Mastered");
+    test("mastered message", rules.blockMessage(2, true), "All missed questions have now been answered correctly.");
+    test("no review message", rules.blockMessage(0, false), "No review is needed.");
+    test("singular review message", rules.blockMessage(1, false), "1 question needs review.");
+    test("plural review message", rules.blockMessage(4, false), "4 questions need review.");
+
+    results.textContent += failures === 0 ? "\nAll tests passed.\n" : `\n${failures} test(s) failed.\n`;
+  </script>
+</body>
+</html>
