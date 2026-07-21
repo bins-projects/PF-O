@@ -106,20 +106,14 @@ function shuffle(items) {
 }
 
 function readSavedSession() {
-  try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    const saved = raw ? JSON.parse(raw) : null;
+  const raw = localStorage.getItem(SAVE_KEY);
+  const result = PrepFlowSavedSessionRules.parseSavedSession(raw, 3);
 
-    if (saved && saved.version !== 3) {
-      localStorage.removeItem(SAVE_KEY);
-      return null;
-    }
-
-    return saved;
-  } catch {
+  if (result.shouldClear) {
     localStorage.removeItem(SAVE_KEY);
-    return null;
   }
+
+  return result.saved;
 }
 
 function clearSavedSession() {
