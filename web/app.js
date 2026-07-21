@@ -108,8 +108,16 @@ function shuffle(items) {
 function readSavedSession() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    const saved = raw ? JSON.parse(raw) : null;
+
+    if (saved && saved.version !== 3) {
+      localStorage.removeItem(SAVE_KEY);
+      return null;
+    }
+
+    return saved;
   } catch {
+    localStorage.removeItem(SAVE_KEY);
     return null;
   }
 }
@@ -125,7 +133,7 @@ function saveSession(screen) {
   }
 
   const state = {
-    version: 2,
+    version: 3,
     savedAt: new Date().toISOString(),
     screen,
     currentSubject,
@@ -353,7 +361,17 @@ function currentQuestion() {
     throw new Error(`Study category is not loaded: ${reference.packPath}`);
   }
 
-  return pack.questions[reference.questionIndex];
+  const question = pack.questions.find(
+    (candidate) => candidate.id === reference.questionId
+  );
+
+  if (!question) {
+    throw new Error(
+      `Question is not available: ${reference.questionId}`
+    );
+  }
+
+  return question;
 }
 
 function totalBlockCount() {
@@ -540,7 +558,7 @@ async function startQuiz() {
     for (const selection of selectedChapters.values()) {
       const pack = await loadPack(selection.packPath);
 
-      pack.questions.forEach((question, index) => {
+      pack.questions.forEach((question) => {
         const key = `${question.chapter}|${question.chapter_title}`;
 
         if (
@@ -553,7 +571,7 @@ async function startQuiz() {
         ) {
           selectedQuestions.push({
             packPath: selection.packPath,
-            questionIndex: index,
+            questionId: question.id,
           });
         }
       });
