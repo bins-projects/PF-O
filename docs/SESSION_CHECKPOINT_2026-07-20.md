@@ -120,3 +120,29 @@ The pre-rebuild repository remains preserved by tag:
 ```text
 before-continuity-rebuild-2026-07-20
 ```
+
+## Update — 2026-07-21
+
+### Browser permanent-reference migration completed
+
+Completed at:
+
+```text
+e2ec845  refactor: use permanent question IDs in browser sessions
+```
+
+The browser now uses `packPath + questionId` references, resolves questions by permanent ID, saves version 3 sessions, and clears incompatible older saves.
+
+Verification completed:
+
+- `git diff --check` passed;
+- all 72 Python tests passed;
+- all 3,721 official Pack IDs are present and unique;
+- real browser smoke test passed for quiz start, incorrect answer, review, save/quit, and resume;
+- commit was pushed to and verified on `origin/docs/continuity-rebuild`.
+
+### Exact next milestone
+
+Begin Phase D with a read-only inventory of `web/app.js`.
+
+Identify the smallest pure quiz/session behavior unit that can be extracted and tested without changing the visible browser flow. Do not begin a broad rewrite.
