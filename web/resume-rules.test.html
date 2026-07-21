@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PrepFlow Resume Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Resume Rules Test</h1>
+  <pre id="results"></pre>
+
+  <script src="resume-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const lines = [];
+
+    function check(name, actual, expected) {
+      if (actual !== expected) {
+        throw new Error(`${name}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+      }
+      lines.push(`PASS: ${name}`);
+    }
+
+    try {
+      check(
+        "formats an in-progress named quiz",
+        PrepFlowResumeRules.resumeDescription({
+          currentSubject: "Pharm",
+          blockNumber: 2,
+          reviewMode: false,
+        }),
+        "Pharm — Block 2, in progress."
+      );
+
+      check(
+        "formats a review session",
+        PrepFlowResumeRules.resumeDescription({
+          currentSubject: "Medical-Surgical",
+          blockNumber: 4,
+          reviewMode: true,
+        }),
+        "Medical-Surgical — Block 4, reviewing missed questions."
+      );
+
+      check(
+        "uses the custom quiz fallback",
+        PrepFlowResumeRules.resumeDescription({
+          currentSubject: "",
+          blockNumber: 1,
+          reviewMode: false,
+        }),
+        "Custom Quiz — Block 1, in progress."
+      );
+
+      check(
+        "formats the resume accessibility label",
+        PrepFlowResumeRules.resumeAriaLabel("Pharm — Block 2, in progress."),
+        "Continue session: Pharm — Block 2, in progress."
+      );
+
+      lines.push("", "All tests passed.");
+    } catch (error) {
+      lines.push(`FAIL: ${error.message}`);
+    }
+
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>
