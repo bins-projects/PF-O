@@ -696,9 +696,13 @@ continueButton.addEventListener("click", () => {
     return;
   }
 
-  questionIndex += 1;
+  const nextStep = PrepFlowNavigationRules.nextQuestionStep(
+    questionIndex,
+    blockEnd
+  );
+  questionIndex = nextStep.questionIndex;
 
-  if (questionIndex >= blockEnd) {
+  if (nextStep.blockComplete) {
     showBlockSummary(false);
     return;
   }
