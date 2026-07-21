@@ -45,6 +45,42 @@
     );
 
     check(
+      "classifies explicit multiple-response type",
+      rules.isMultipleResponseQuestion({
+        type: "multiple_response",
+        correct_answer: "A",
+        stem: "Choose the best answer.",
+      })
+    );
+
+    check(
+      "classifies multiple correct answers as SATA",
+      rules.isMultipleResponseQuestion({
+        type: "mc",
+        correct_answers: ["A", "C"],
+        stem: "Which findings apply?",
+      })
+    );
+
+    check(
+      "classifies Select All That Apply wording",
+      rules.isMultipleResponseQuestion({
+        type: "multiple_choice",
+        correct_answer: "A",
+        stem: "Select all that apply.",
+      })
+    );
+
+    check(
+      "keeps ordinary single-answer questions as multiple choice",
+      !rules.isMultipleResponseQuestion({
+        type: "multiple_choice",
+        correct_answer: "B",
+        stem: "Which response is correct?",
+      })
+    );
+
+    check(
       "grades a correct multiple-choice answer",
       rules.evaluateAnswer({ correct_answer: "B" }, ["b"]).isCorrect
     );
