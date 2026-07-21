@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PrepFlow Review Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Review Rules Test</h1>
+  <pre id="results"></pre>
+  <script src="review-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const lines = [];
+
+    function test(name, condition) {
+      if (!condition) {
+        lines.push(`FAIL: ${name}`);
+        return;
+      }
+
+      lines.push(`PASS: ${name}`);
+    }
+
+    const first = { questionId: "PFQ-test-000000001" };
+    const second = { questionId: "PFQ-test-000000002" };
+
+    const correctQueue = PrepFlowReviewRules.queueAfterAnswer(
+      [second],
+      first,
+      true
+    );
+    test(
+      "correct review answer does not repeat the question",
+      correctQueue.length === 1 && correctQueue[0] === second
+    );
+
+    const missedQueue = PrepFlowReviewRules.queueAfterAnswer(
+      [second],
+      first,
+      false
+    );
+    test(
+      "missed review answer moves to the back of the queue",
+      missedQueue.length === 2
+        && missedQueue[0] === second
+        && missedQueue[1] === first
+    );
+
+    const next = PrepFlowReviewRules.nextReviewStep([first, second]);
+    test(
+      "advances to the next review question",
+      !next.finished
+        && next.currentQuestion === first
+        && next.reviewQueue.length === 1
+        && next.reviewQueue[0] === second
+    );
+
+    const finished = PrepFlowReviewRules.nextReviewStep([]);
+    test(
+      "finishes review when the queue is empty",
+      finished.finished
+        && finished.currentQuestion === null
+        && finished.reviewQueue.length === 0
+    );
+
+    const allPassed = lines.every((line) => line.startsWith("PASS:"));
+    lines.push("");
+    lines.push(allPassed ? "All tests passed." : "One or more tests failed.");
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>
