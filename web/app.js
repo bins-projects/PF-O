@@ -381,21 +381,9 @@ function totalBlockCount() {
   );
 }
 
-function isMultipleResponseQuestion(question) {
-  const questionType = question.type || question.question_type;
-  const correctAnswers = PrepFlowQuizRules.correctAnswersFor(question);
-  const stem = String(question.stem || "");
-
-  return (
-    questionType === "multiple_response"
-    || correctAnswers.length > 1
-    || /select all that apply/i.test(stem)
-  );
-}
-
 function showQuestion() {
   const question = currentQuestion();
-  const isMultipleResponse = isMultipleResponseQuestion(question);
+  const isMultipleResponse = PrepFlowQuizRules.isMultipleResponseQuestion(question);
   const blockLength = blockEnd - blockStart;
 
   hideAllScreens();
