@@ -251,10 +251,34 @@ Verification completed:
 - local, private, and public branch heads all matched `934e32cea2e43f0dad4b0a8107e4b7e310177f33`;
 - working tree was clean.
 
+### Fifth Phase D extraction completed
+
+Completed at:
+
+```text
+4b47943  refactor: extract browser saved session rules
+```
+
+Implemented:
+
+- added `web/saved-session-rules.js` with pure saved-session parsing and version validation;
+- added `web/saved-session-rules.test.html` covering empty storage, valid version-3 data, outdated saves, malformed JSON, and JSON `null`;
+- loaded the saved-session rules before `web/app.js`;
+- updated the live resume path to use the tested parser and clear invalid or outdated saves;
+- removed the temporary integration helper after use.
+
+Verification completed:
+
+- all five saved-session browser tests passed;
+- all 72 Python tests passed;
+- `git diff --check` passed;
+- local, private, and public branch heads all matched `4b479433066dd7744925f751eca78d331d346ff1`;
+- working tree was clean.
+
 ### Backlog addition
 
 Add a small, unobtrusive visible question reference to the quiz or rationale view so screenshots can identify the exact permanent question ID. Keep it visually secondary and do not expose internal filenames or developer terminology.
 
 ### Exact next milestone
 
-Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer saved-session validation or a narrowly scoped review/session transition helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
+Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer a narrowly scoped review-queue or session-transition helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
