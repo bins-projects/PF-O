@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PrepFlow Navigation Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Navigation Rules Test</h1>
+  <pre id="results"></pre>
+  <script src="navigation-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const lines = [];
+
+    function test(name, callback) {
+      try {
+        callback();
+        lines.push(`PASS: ${name}`);
+      } catch (error) {
+        lines.push(`FAIL: ${name} — ${error.message}`);
+      }
+    }
+
+    function assertEqual(actual, expected) {
+      if (actual !== expected) {
+        throw new Error(`expected ${expected}, received ${actual}`);
+      }
+    }
+
+    test("advances to the next question", () => {
+      const step = PrepFlowNavigationRules.nextQuestionStep(2, 5);
+      assertEqual(step.questionIndex, 3);
+      assertEqual(step.blockComplete, false);
+    });
+
+    test("completes the block after the final question", () => {
+      const step = PrepFlowNavigationRules.nextQuestionStep(4, 5);
+      assertEqual(step.questionIndex, 5);
+      assertEqual(step.blockComplete, true);
+    });
+
+    test("handles a one-question block", () => {
+      const step = PrepFlowNavigationRules.nextQuestionStep(0, 1);
+      assertEqual(step.questionIndex, 1);
+      assertEqual(step.blockComplete, true);
+    });
+
+    const failed = lines.some((line) => line.startsWith("FAIL:"));
+    lines.push("");
+    lines.push(failed ? "Tests failed." : "All tests passed.");
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>
