@@ -227,10 +227,34 @@ Verification completed:
 - local, private, and public branch heads all matched `02f3bb4fcf0553c83aa158ea41d29b48a5a0e16e`;
 - working tree was clean.
 
+### Fourth Phase D extraction completed
+
+Completed at:
+
+```text
+934e32c  refactor: extract browser response type rules
+```
+
+Implemented:
+
+- added pure multiple-response classification to `web/quiz-rules.js`;
+- classified questions by explicit type, multiple correct answers, or “Select All That Apply” wording;
+- expanded `web/quiz-rules.test.html` with four response-type cases;
+- updated the live quiz to use the tested response-type helper;
+- removed the temporary integration helper after use.
+
+Verification completed:
+
+- all quiz-rule browser tests passed, including response classification and grading;
+- all 72 Python tests passed;
+- `git diff --check` passed;
+- local, private, and public branch heads all matched `934e32cea2e43f0dad4b0a8107e4b7e310177f33`;
+- working tree was clean.
+
 ### Backlog addition
 
 Add a small, unobtrusive visible question reference to the quiz or rationale view so screenshots can identify the exact permanent question ID. Keep it visually secondary and do not expose internal filenames or developer terminology.
 
 ### Exact next milestone
 
-Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer a narrowly scoped review-queue transition, saved-session validation, or display-state helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
+Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer saved-session validation or a narrowly scoped review/session transition helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
