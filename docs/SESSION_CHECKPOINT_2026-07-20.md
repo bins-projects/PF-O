@@ -324,10 +324,35 @@ Verification completed:
 - local, private, and public branch heads all matched `8c245b9413e1f771d8bd6e89c59bb76f1c93661c`;
 - working tree was clean.
 
+### Eighth Phase D extraction completed
+
+Completed at:
+
+```text
+87e631e  refactor: extract browser selection rules
+```
+
+Implemented:
+
+- added `web/selection-rules.js` with pure chapter-count, book-count, per-book badge, and home-status text formatting;
+- added `web/selection-rules.test.html` with nine singular, plural, empty, and populated display cases;
+- loaded the selection rules before `web/app.js`;
+- updated the live selection UI to use the tested text helpers;
+- removed the temporary integration helper after use.
+
+Verification completed:
+
+- all nine selection-rule browser tests passed;
+- all 72 Python tests passed;
+- `git diff --check` passed;
+- a live selection click-through was not performed for this extraction;
+- local, private, and public branch heads all matched commit `87e631e`;
+- working tree was clean.
+
 ### Backlog addition
 
 Add a small, unobtrusive visible question reference to the quiz or rationale view so screenshots can identify the exact permanent question ID. Keep it visually secondary and do not expose internal filenames or developer terminology.
 
 ### Exact next milestone
 
-Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer a narrowly scoped selection-status or display-text helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
+Continue Phase D with another read-only inspection of `web/app.js`. Extract only the next smallest pure behavior unit that can be tested without changing visible browser flow. Prefer a narrowly scoped resume-description, score-text, or other display helper. Do not begin a broad rewrite. The visible question-reference item remains a separate small UI backlog change.
