@@ -20,6 +20,7 @@ const quizBuilder = document.querySelector("#quiz-builder");
 const builderSelectionCount = document.querySelector("#builder-selection-count");
 const builderBookCount = document.querySelector("#builder-book-count");
 const globalBlockSizeSelect = document.querySelector("#global-block-size");
+const shuffleQuestionsToggle = document.querySelector("#shuffle-questions");
 const clearSelectionsButton = document.querySelector("#clear-selections");
 const buildQuizButton = document.querySelector("#build-quiz");
 
@@ -41,6 +42,7 @@ leftHomeControls.append(
 
 rightHomeControls.append(
   document.querySelector(".builder-block-size"),
+  document.querySelector(".order-mode-toggle"),
   buildQuizButton,
   resumeSessionButton
 );
@@ -79,6 +81,7 @@ const selectedChapters = new Map();
 
 let sessionQuestions = [];
 let sessionBlockSize = 15;
+let sessionShuffleQuestions = true;
 
 let blockStart = 0;
 let blockEnd = 0;
@@ -93,17 +96,6 @@ let blockMissed = [];
 let reviewQueue = [];
 let reviewMode = false;
 let currentReviewQuestion = null;
-
-function shuffle(items) {
-  const copy = [...items];
-
-  for (let index = copy.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
-  }
-
-  return copy;
-}
 
 function readSavedSession() {
   const raw = localStorage.getItem(SAVE_KEY);
@@ -133,6 +125,7 @@ function saveSession(screen) {
     currentSubject,
     sessionQuestions,
     sessionBlockSize,
+    sessionShuffleQuestions,
     blockStart,
     blockEnd,
     questionIndex,
@@ -564,7 +557,11 @@ async function startQuiz() {
     return;
   }
 
-  sessionQuestions = shuffle(selectedQuestions);
+  sessionShuffleQuestions = shuffleQuestionsToggle.checked;
+  sessionQuestions = PrepFlowOrderRules.orderQuestions(
+    selectedQuestions,
+    sessionShuffleQuestions
+  );
 
   if (sessionQuestions.length === 0) {
     status.hidden = false;
@@ -595,6 +592,8 @@ async function resumeSavedSession() {
   try {
     currentSubject = saved.currentSubject || "Custom Quiz";
     sessionQuestions = saved.sessionQuestions || [];
+    sessionShuffleQuestions = saved.sessionShuffleQuestions !== false;
+    shuffleQuestionsToggle.checked = sessionShuffleQuestions;
 
     const packPaths = new Set(
       sessionQuestions

@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>PrepFlow order rules tests</title>
+<pre id="results"></pre>
+<script src="order-rules.js"></script>
+<script>
+  const results = document.querySelector("#results");
+  let passed = 0;
+
+  function test(name, run) {
+    try {
+      run();
+      passed += 1;
+      results.textContent += `PASS ${name}\n`;
+    } catch (error) {
+      results.textContent += `FAIL ${name}: ${error.message}\n`;
+    }
+  }
+
+  function equal(actual, expected) {
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      throw new Error(`${JSON.stringify(actual)} !== ${JSON.stringify(expected)}`);
+    }
+  }
+
+  const source = ["a", "b", "c", "d"];
+
+  test("source order stays unchanged when shuffle is off", () => {
+    equal(PrepFlowOrderRules.orderQuestions(source, false), source);
+  });
+
+  test("ordering never mutates the selected pool", () => {
+    const original = [...source];
+    PrepFlowOrderRules.orderQuestions(source, true, () => 0);
+    equal(source, original);
+  });
+
+  test("shuffle preserves every selected question", () => {
+    const ordered = PrepFlowOrderRules.orderQuestions(source, true, () => 0);
+    equal([...ordered].sort(), [...source].sort());
+  });
+
+  test("shuffle uses a stable copied session order", () => {
+    const ordered = PrepFlowOrderRules.orderQuestions(source, true, () => 0);
+    equal(ordered, ["b", "c", "d", "a"]);
+  });
+
+  results.textContent += `\n${passed}/4 tests passed.\n`;
+</script>

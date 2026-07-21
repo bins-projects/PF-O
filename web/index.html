@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="drug-reference.css">
   <link rel="stylesheet" href="drug-card-pilot.css">
   <link rel="stylesheet" href="reference-home.css">
+  <link rel="stylesheet" href="order-mode.css?v=20260721-1">
 </head>
 <body>
   <main class="app-shell">
@@ -84,6 +85,13 @@
           <option value="10">10</option>
           <option value="15" selected>15</option>
         </select>
+      </label>
+
+      <label class="order-mode-toggle" for="shuffle-questions">
+        <span>Keep Source Order</span>
+        <input id="shuffle-questions" type="checkbox" checked>
+        <span class="order-mode-track" aria-hidden="true"><span></span></span>
+        <span>Shuffle Questions</span>
       </label>
 
       <button id="clear-selections" class="secondary-button" disabled>Clear Selections</button>
@@ -187,6 +195,7 @@
   <script src="selection-rules.js?v=20260721-1"></script>
   <script src="resume-rules.js?v=20260721-1"></script>
   <script src="display-rules.js?v=20260721-1"></script>
+  <script src="order-rules.js?v=20260721-1"></script>
   <script src="app.js?v=20260721-phase-d-1"></script>
   <script src="drug-reference-batch-loader.js?v=20260719-batch-01"></script>
   <script src="drug-reference.js?v=20260719-warfarin-1"></script>
