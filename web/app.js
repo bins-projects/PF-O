@@ -654,7 +654,11 @@ submitAnswer.addEventListener("click", () => {
       `Incorrect. Correct answer: ${correctAnswers.join(", ")}`;
 
     if (reviewMode) {
-      reviewQueue.push(currentReviewQuestion);
+      reviewQueue = PrepFlowReviewRules.queueAfterAnswer(
+        reviewQueue,
+        currentReviewQuestion,
+        false
+      );
     } else {
       firstPassMissed += 1;
       blockMissed.push(sessionQuestions[questionIndex]);
@@ -678,14 +682,16 @@ submitAnswer.addEventListener("click", () => {
 
 continueButton.addEventListener("click", () => {
   if (reviewMode) {
-    if (reviewQueue.length === 0) {
-      currentReviewQuestion = null;
+    const nextStep = PrepFlowReviewRules.nextReviewStep(reviewQueue);
+    reviewQueue = nextStep.reviewQueue;
+    currentReviewQuestion = nextStep.currentQuestion;
+
+    if (nextStep.finished) {
       reviewMode = false;
       showBlockSummary(true);
       return;
     }
 
-    currentReviewQuestion = reviewQueue.shift();
     showQuestion();
     return;
   }
