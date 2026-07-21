@@ -17,7 +17,11 @@ def test_chapter_title_survives_build_and_export() -> None:
         "rationale": "Example rationale.",
     }
 
-    built = build_question(question, index=1)
+    built = build_question(
+        question,
+        index=1,
+        pack_id="test-pack",
+    )
     exported = question_to_dict(built)
 
     assert exported["chapter"] == 1
