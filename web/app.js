@@ -161,13 +161,14 @@ function refreshResumePanel() {
     return;
   }
 
-  const mode = saved.reviewMode ? "reviewing missed questions" : "in progress";
-  const description =
-    `${saved.currentSubject || "Custom Quiz"} — Block ${saved.blockNumber}, ${mode}.`;
+  const description = PrepFlowResumeRules.resumeDescription(saved);
 
   resumeDescription.textContent = description;
   resumeSessionButton.title = description;
-  resumeSessionButton.setAttribute("aria-label", `Continue session: ${description}`);
+  resumeSessionButton.setAttribute(
+    "aria-label",
+    PrepFlowResumeRules.resumeAriaLabel(description)
+  );
 }
 
 function hideAllScreens() {
