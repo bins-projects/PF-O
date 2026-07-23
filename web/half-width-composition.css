@@ -1,0 +1,108 @@
+/* Final authority for the reduced-width desktop home composition.
+   Layout only: do not redesign book artwork or live text here. */
+@media (min-width: 760px) and (max-width: 980px) {
+  .pixel-stage {
+    min-height: 100svh !important;
+  }
+
+  .pixel-logo {
+    top: 18px !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(.62) !important;
+    transform-origin: top center !important;
+  }
+
+  .pixel-tagline {
+    top: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) scale(.72) !important;
+  }
+
+  #home-launcher {
+    position: absolute !important;
+    top: 112px !important;
+    left: 20px !important;
+    width: 300px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .reference-library-callout {
+    top: 112px !important;
+    right: 20px !important;
+    width: 250px !important;
+    transform: none !important;
+  }
+
+  .subjects {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 24px !important;
+    width: 680px !important;
+    margin: 0 !important;
+    grid-template-columns: repeat(3, 170px) !important;
+    gap: 38px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .subject-card,
+  .subject-card:hover,
+  .subject-card:focus-visible {
+    width: 170px !important;
+    min-width: 170px !important;
+    min-height: 244px !important;
+    scale: 1 !important;
+  }
+}
+
+/* Keep live book titles readable at reduced widths.
+   Do not scale or bake this text into the sprite artwork. */
+@media (min-width: 760px) and (max-width: 980px) {
+  .subject-card .subject-name {
+    position: absolute !important;
+    top: 44px !important;
+    bottom: 50px !important;
+    left: 34px !important;
+    width: 18px !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    writing-mode: vertical-rl !important;
+    transform: rotate(180deg) !important;
+    transform-origin: center !important;
+    white-space: normal !important;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 980px) {
+  .subject-card .subject-name {
+    z-index: 5 !important;
+    left: 26px !important;
+  }
+
+  .subject-card.fundamentals .subject-name {
+    font-size: .68rem !important;
+    letter-spacing: .015em !important;
+  }
+
+  .subject-card.pharm .subject-name {
+    font-size: .9rem !important;
+    letter-spacing: .08em !important;
+  }
+
+  .subject-card.med-surg .subject-name {
+    font-size: .82rem !important;
+    letter-spacing: .04em !important;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 980px) {
+  .pixel-tagline {
+    top: 14px !important;
+  }
+
+  .pixel-logo {
+    top: 42px !important;
+  }
+}
