@@ -452,3 +452,10 @@ Do not restart the book design, restore the older CSS-drawn books, rebuild the s
 Use this exact instruction:
 
 > Continue PrepFlow from my local repository at `~/projects/prepflow` on branch `docs/continuity-rebuild`. Read the current local `docs/RESTART_PACKET.md` first, then read `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md` in full. Treat local uncommitted work as newer than GitHub, inspect `git status` before giving me any command, and follow the exact resume state in the packet.
+
+## Final restart authority
+
+Read `docs/FINAL_HANDOFF_2026-07-23.md` before starting another PrepFlow session.
+The authoritative development branch is `docs/continuity-rebuild`.
+Production `master` remains intentionally unchanged at `8987fdf`.
+
