@@ -1,54 +1,84 @@
 # PREPFLOW RESTART PACKET
 
-> **Continuity note:** This Restart Packet was rebuilt after the July 2026 forensic architecture review. Earlier versions are preserved in Git history and in the frozen tag `before-continuity-rebuild-2026-07-20`. If a decision or omitted pathway seems unclear, inspect that preserved baseline before assuming information was accidentally lost. Historical documents explain how PrepFlow arrived here; this packet records the approved operating state from this point forward.
->
-> Do not restore legacy behavior merely because it appears in an older document. The current Architecture Bible and this Restart Packet are the active authorities unless Charlie deliberately changes a decision.
-
 ## Purpose
 
-This is the operational handoff for resuming PrepFlow development.
+This file is the single primary handoff for every new PrepFlow development session.
 
-Permanent architecture belongs in:
+A new chat must begin here. Supporting documents may contain detailed architecture, history, or visual decisions, but they do not replace this packet. This packet must identify which supporting documents apply to the current milestone and what authority each one has.
 
-```text
-docs/ARCHITECTURE_BIBLE.md
-```
-
-Detailed forensic findings and migration reasoning belong in:
-
-```text
-docs/CONTINUITY_REBUILD_PLAN.md
-```
-
-This packet must stay current and practical. It is not a chronological diary.
+The committed private repository is the technical source of truth. Local Git state and the rendered application must also be checked whenever work may be uncommitted, environment-specific, or visual.
 
 ---
 
-# 1. Source of Truth
+# 1. Continuity Authority Hierarchy
 
-Private development repository:
+Use this order:
 
-```text
-bins-projects/prepflow-dev
-```
+1. `docs/RESTART_PACKET.md` — primary session handoff and authority index.
+2. Current private-repository branch and latest commit — committed implementation truth.
+3. Local branch, working-tree status, and local-only files — required when work may be uncommitted.
+4. Supporting documents named by this packet for the active milestone.
+5. The real rendered application and baseline screenshots for visual work.
+6. Charlie's explicit approval or correction of design intent.
+7. Historical documents and tags for context only.
 
-Public repository:
+When sources conflict:
+
+1. stop before modifying anything;
+2. identify which source is newer and relevant to the active area;
+3. compare the implementation and rendered result;
+4. ask Charlie when approval history remains ambiguous;
+5. update this packet so the same ambiguity cannot recur.
+
+Do not reinterpret, remove, or restore work merely because an older document differs.
+
+---
+
+# 2. Repository and Work Locations
+
+## Stable public version
+
+Repository:
 
 ```text
 bins-projects/PrepFlow
 ```
 
-Current development branch:
+Branch:
+
+```text
+master
+```
+
+Latest verified public commit when this packet was updated:
+
+```text
+8987fdf  feat: load the 15 missing Pharm drug cards
+```
+
+The public version is the stable fallback. Do not modify or publish it during unfinished redesign work unless Charlie explicitly approves a release or merge.
+
+## Active private development work
+
+Repository:
+
+```text
+bins-projects/prepflow-dev
+```
+
+Branch:
 
 ```text
 docs/continuity-rebuild
 ```
 
-Branch starting point:
+Protected redesign-canvas checkpoint:
 
 ```text
-8987fdf
+f393626  wip: checkpoint responsive home and sprite redesign
 ```
+
+The current private branch also contains the dedicated visual continuity document added after that checkpoint.
 
 Frozen pre-rebuild reference:
 
@@ -56,270 +86,83 @@ Frozen pre-rebuild reference:
 before-continuity-rebuild-2026-07-20
 ```
 
-The frozen tag preserves the complete repository state before the continuity rebuild.
-
-## Current verified branch state
-
-Latest verified implementation cleanup commit:
-
-```text
-3839243  refactor: remove legacy desktop application
-```
-
-Immediately before the next documentation update:
-
-- local `docs/continuity-rebuild` matched `origin/docs/continuity-rebuild`;
-- working tree was clean;
-- remaining Python suite passed 70 tests;
-- the browser smoke test had passed;
-- obsolete DOCX and desktop code had been removed as separate reversible commits.
-
-## GitHub-first rule
-
-Before asking Charlie to paste committed code, repository trees, documentation, branches, or file contents, inspect GitHub first.
-
-Use local terminal output only for:
-
-- uncommitted work;
-- runtime behavior;
-- local tests;
-- ignored or generated artifacts;
-- private source material;
-- environment-specific behavior;
-- exact local/remote synchronization checks.
+Use the frozen tag for historical context, not as permission to restore superseded behavior.
 
 ---
 
-# 2. Product Definition
+# 3. Supporting Documents and Their Roles
 
-PrepFlow takes deliberately selected educational material, cleans and structures it, turns it into an authoritative independent Pack, and provides study tools that use that Pack.
-
-Core flow:
+## Permanent architecture
 
 ```text
-Chosen source material
-        ↓
-Source adapter / extraction
-        ↓
-Cleaning and sanitization
-        ↓
-Structure detection and parsing
-        ↓
-Normalization and validation
-        ↓
-Permanent PrepFlow question identity
-        ↓
-Independent authoritative Pack
-        ↓
-Browser study application
+docs/ARCHITECTURE_BIBLE.md
 ```
 
-The quiz, open-book interface, medication reference, characters, animations, and future coaching features are ways of using the library. They are not separate educational architectures.
+Contains durable technical architecture and system boundaries.
+
+## Continuity rebuild plan
+
+```text
+docs/CONTINUITY_REBUILD_PLAN.md
+```
+
+Contains the phased reconstruction plan and forensic reasoning. It is not the current session handoff.
+
+## Historical detailed checkpoint
+
+```text
+docs/SESSION_CHECKPOINT_2026-07-20.md
+```
+
+Contains detailed completed work through the browser behavior extractions and later local notes. Treat it as a historical work log. Do not use an older “Exact next milestone” from that document when this packet names a newer active milestone.
+
+## Current visual redesign authority
+
+```text
+docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md
+```
+
+Must be read in full before any visual, responsive, sprite, home-screen, book, button, background, or nurse-character work.
+
+It records:
+
+- the unfinished home terminal/launcher canvas;
+- responsive scaling and dead-space work still in progress;
+- the pixel-art background direction;
+- the Pharm-first reusable book-sprite plan;
+- reusable pixel-art button direction;
+- the current combined nurse/background reference asset;
+- the future separation of background and reusable nurse sprites;
+- change-control rules for overlapping visual CSS.
 
 ---
 
-# 3. Authority and Content Rules
+# 4. Current Product and Architecture State
 
-A deliberately selected source becomes authoritative study material inside its own Pack after cleaning, structural validation, and review.
+PrepFlow converts deliberately selected educational material into independent validated Packs and provides a browser-centered study application that uses those Packs.
 
-PrepFlow does not independently fact-check an entire nursing curriculum before allowing content into a Pack.
-
-Each Pack is an independent authority boundary:
-
-- sources are not silently blended into one universal truth database;
-- one Pack can be removed or rebuilt without changing another;
-- the original source is temporary import material;
-- the finished Pack is the durable study product.
-
-Required hierarchy:
+Authoritative product flow:
 
 ```text
-Pack
-└── Chapter
-    └── Question
-```
-
-Required question content:
-
-- permanent PrepFlow question ID;
-- chapter;
-- chapter title when useful;
-- question type;
-- stem;
-- choices when applicable;
-- correct answer or ordered answers;
-- rationale.
-
-Publisher, edition, page, Bloom level, difficulty, and detailed source-provenance fields are not required merely because older models supported them.
-
-Optional future tags may support concepts, medications, body systems, relationships, or coaching. They must not block ordinary imports.
-
-Source fidelity rules:
-
-- preserve admitted educational content faithfully;
-- do not casually rewrite stems, choices, answers, or rationales;
-- remove contamination and extraction artifacts through the cleaner;
-- do not expose Pack filenames, IDs, JSON, compiler terms, or repository terminology in the user interface.
-
----
-
-# 4. Responsibility Map
-
-## Source adapters
-
-Open supported file formats and return usable text or a neutral extraction structure.
-
-Current authoritative adapter:
-
-- text-based PDF.
-
-Future adapters:
-
-- DOCX;
-- TXT;
-- possible HTML;
-- OCR only as a separate later project.
-
-All adapters must feed the same shared pipeline.
-
-## Extraction
-
-Retrieves source content while preserving enough structure for later stages. It does not decide what is a question, answer, rationale, or contamination.
-
-## Cleaner
-
-Removes source noise and extraction artifacts while preserving educational meaning.
-
-## Detector
-
-Measures source structure and exposes uncertainty before parsing.
-
-## Parser
-
-Converts cleaned text into candidate question records and handles structures proven through real imports.
-
-## Normalizer
-
-Converts parser output into one consistent compiler input shape.
-
-## Validator
-
-Classifies problems as fatal, recoverable, or advisory. It checks structural safety, not medical truth.
-
-## Deduplication
-
-Automatically remove only genuine exact duplicates. Keep near-duplicates because they may test different judgments or provide useful context-specific repetition.
-
-## Pack compiler
-
-Preserves or assigns permanent question identities, builds the Pack, and exports only intentionally retained fields.
-
-## Pack library
-
-Stores approved study content and is the permanent output of ingestion.
-
-## Browser quiz behavior layer
-
-Owns:
-
-- selected question pool;
-- cross-Pack chapter selection;
-- Shuffle or Keep Source Order;
-- stable session order;
-- block size;
-- grading;
-- first-pass tracking;
-- missed-question review until mastered;
-- block transitions;
-- final first-pass result;
-- save/resume state meaning.
-
-## Browser GUI
-
-Owns display, controls, layout, animation, responsive behavior, and accessibility presentation. It must not independently invent scoring or session rules.
-
-## Offline layer
-
-Defines the actual offline promise and caches the files required to satisfy it.
-
-## Future downloadable clients
-
-Future Windows or macOS downloads should package the browser-centered application. There is no requirement to preserve the removed Tkinter implementation.
-
----
-
-# 5. Confirmed Active Implementation
-
-## Compiler pipeline
-
-Core files include:
-
-```text
-compiler/importer.py
-compiler/pdf_reader.py
-compiler/cleaner.py
-compiler/detector.py
-compiler/source_parser.py
-compiler/normalizer.py
-compiler/validator.py
-compiler/builder.py
-compiler/exporter.py
-compiler/pipeline.py
-compiler/models.py
-compiler/ids.py
-compiler/diagnostics.py
-```
-
-Authoritative flow:
-
-```text
-PDF
-→ extraction
+Chosen educational source
+→ extraction adapter
 → cleaner
 → detector
-→ source parser
+→ parser
 → normalizer
 → validator
-→ builder
-→ exporter
-→ Pack JSON
+→ permanent question identity
+→ authoritative Pack
+→ browser study application
 ```
 
-## Browser product
-
-The active user-facing product is under:
+Active browser product:
 
 ```text
 web/
 ```
 
-Confirmed browser capabilities:
-
-- Pack loading;
-- chapter selection across Packs;
-- full selected question pool;
-- one-time shuffle;
-- configurable blocks;
-- one question at a time;
-- Multiple Choice grading;
-- Multiple Response exact-set grading;
-- first-pass score tracking;
-- missed-question review until mastered;
-- final first-pass result;
-- local save/resume;
-- hosted/PWA use;
-- layered arcade/open-book presentation;
-- medication reference features.
-
-Confirmed gaps from the audit:
-
-- Completion and Ordered Response need active-path verification and repair where necessary;
-- shuffle cannot be disabled;
-- quiz rules and DOM manipulation are mixed in `web/app.js`;
-- strong browser-level automated coverage is missing;
-- complete first-install offline support is not clearly guaranteed.
-
-## Official starting Packs
+Official starting Packs:
 
 ```text
 packs/fundamentals.prepflow.json
@@ -335,568 +178,215 @@ Pharm
 Medical-Surgical
 ```
 
-Read exact counts directly from the Pack files. Do not rely on historical documentation.
+Read exact question counts from the Pack files rather than relying on old documentation.
 
-## Medication reference
+The legacy Tkinter desktop stack, PyInstaller configuration, old Windows workflow, and obsolete DOCX prototype were intentionally removed during the continuity rebuild. Do not restore them merely because they appear in history.
 
-The current medication registry is derived primarily from Pharm appearances and gatekeeps which card records load.
-
-Approved later direction:
-
-- independent master medication records;
-- source mappings to Pharm, Med-Surg, Fundamentals, and future Packs;
-- a valid medication must not require presence in the Pharm Pack.
-
-This is deferred unless a current defect makes it urgent.
-
-## Visual identity
-
-Preserve:
-
-- dark navy foundation;
-- bright blue, green, purple, pink, and gold accents;
-- 16-bit/pixel styling;
-- layered book presentation;
-- category accents;
-- reusable committed artwork;
-- deliberate open-book quiz presentation.
-
-Do not freeze creativity. New work should fit the established product and reuse approved assets where practical.
+The browser behavior boundary work and permanent browser question-reference migration were completed on the private branch. The current active work is visual redesign, not another broad behavior extraction.
 
 ---
 
-# 6. Permanent Question Identity
+# 5. Current Visual Redesign State
 
-Current sequential IDs depend on export position and are not stable enough for the long-term library.
+The current home screen is an unfinished visual-development canvas. It is not a completed design and not technical debt to remove casually.
 
-Approved requirement:
+Protected canvas commit:
 
-> A question's PrepFlow ID must not change merely because questions before it are deleted, inserted, or reordered.
+```text
+f393626
+```
 
-The design must support:
+Current approved direction:
 
-- assigning an identity once;
-- recognizing the same question during a rebuild;
-- preserving identity through minor corrections;
-- assigning a new identity only to genuinely new content;
-- avoiding array-position dependence;
-- detecting identity conflicts.
+- preserve the pixel-art sunset-city background style;
+- extend the environment to the bottom of normal viewports to eliminate dead space;
+- finish responsive scaling without distorting live text;
+- use the home terminal/launcher as the working canvas;
+- rebuild books and buttons into a coherent reusable pixel-art sprite system;
+- use Pharm as the first book-sprite prototype;
+- apply the approved pattern to Fundamentals and Med-Surg only after Pharm is approved;
+- keep changing titles, counts, selection status, and button labels as live HTML where practical;
+- preserve the current combined two-nurse sunset asset as the approved visual reference;
+- later separate the environment and nurses into reusable assets;
+- create consistent nurse pose variants for different screens only after the home composition and asset system are stable.
 
-The exact algorithm remains an implementation decision.
+Current approved reference asset:
 
-Do not silently regenerate all IDs without a migration and verification plan.
+```text
+web/images/pixel-home-stage.webp
+```
+
+The background and two nurses are presently baked into that one static image. Do not crop, regenerate, substitute, or replace it casually.
+
+The current layered CSS files are unfinished visual iterations. Do not disable, delete, consolidate, or reinterpret a layer solely because rules overlap. First determine which visual decision it represents and compare the real rendered page.
 
 ---
 
-# 7. Completed Legacy Removal
+# 6. Required Startup Procedure
 
-## Obsolete DOCX prototype
+Before giving Charlie any modifying command in a new PrepFlow session:
 
-Removed at:
+1. Read this entire `docs/RESTART_PACKET.md` from the private repository.
+2. Identify the stable public repository and the active private repository named here.
+3. Inspect the active private branch and latest commit.
+4. Inspect local `git status --short --branch` before assuming the local branch matches GitHub.
+5. Determine whether local commits or uncommitted files exist.
+6. Read every supporting document this packet names for the current milestone.
+7. For visual work, run the actual local application unchanged and inspect a fresh baseline screenshot.
+8. Compare the packet, current Git state, supporting documents, rendered result, and Charlie's recalled approvals.
+9. State clearly before changing anything:
+   - where the stable version lives;
+   - where active work lives;
+   - the current branch;
+   - the protected rollback/checkpoint commit;
+   - what is approved;
+   - what is unfinished;
+   - the single next focused action.
+10. Resolve contradictions before recommending a modifying command.
 
-```text
-0ed062f  refactor: remove obsolete docx prototype
-```
+GitHub-first rule:
 
-Removed:
+Before asking Charlie to paste committed files, inspect the connected private repository. Request terminal output only for local state, runtime behavior, tests, ignored/generated artifacts, environment-specific behavior, or exact synchronization checks.
 
-```text
-compiler/docx_reader.py
-compiler/tokenizer.py
-compiler/parser.py
-DOCX-specific route inside compiler/cli.py
-tests/test_parser.py
-tests/test_ids.py
-```
-
-Unused dependencies removed:
-
-```text
-python-docx
-lxml
-typing_extensions
-```
-
-The JSON compiler route remains. Future DOCX support should be rebuilt as a proper extraction adapter feeding the authoritative pipeline.
-
-## Python desktop and terminal stack
-
-Removed at:
-
-```text
-3839243  refactor: remove legacy desktop application
-```
-
-Removed:
-
-```text
-study/
-PrepFlow.spec
-.github/workflows/build-windows.yml
-desktop-only tests
-```
-
-Reason:
-
-- the browser is the active compatibility target;
-- the browser did not consume the Python study stack;
-- no released legacy installation requires compatibility;
-- future desktop downloads can package the browser-centered application;
-- useful capabilities are preserved as product requirements rather than obsolete implementations.
-
-## Old visual experiment branch
-
-```text
-origin/feat/home-quiz-panel-clean
-```
-
-Do not merge this branch wholesale. Git history preserves its visual experiments for reference.
-
-No other unmerged remote branch contained hidden compiler, quiz-engine, medication, or architectural work.
+For visual work, GitHub inspection is necessary but not sufficient. The real browser rendering and baseline screenshot are part of the source of truth.
 
 ---
 
-# 8. Test and Verification State
-
-Before cleanup, the repository contained 108 Python tests, including desktop-only tests and two empty test files.
-
-After deliberate legacy removal:
-
-```text
-70 passed
-```
-
-This reduction is expected because removed tests exercised implementations that are no longer active.
-
-Verified after cleanup:
-
-- remaining Python suite passed;
-- `git diff --check` passed;
-- no live imports or references remained outside intentional documentation history;
-- working tree was clean;
-- browser smoke test passed before cleanup;
-- compiler and browser source were not changed by desktop removal.
-
-## Current protection gap
-
-The active browser still lacks a strong automated behavior suite.
-
-Do not rebuild old Tkinter tests one-for-one. Add browser-centered tests when the browser behavior layer is separated and changed.
-
-## Planned CI direction
-
-Add automatic verification on pushes and pull requests.
-
-Initial CI should:
-
-- install the supported Python environment;
-- run the remaining compiler tests;
-- validate Pack files;
-- fail on structural regressions.
-
-Add browser checks as browser behavior becomes independently testable.
-
----
-
-# 9. Approved Migration Sequence
-
-## Phase A — Documentation foundation
-
-Status: **Complete**
-
-Completed:
-
-- forensic audit;
-- remote branch audit;
-- continuity rebuild plan;
-- rebuilt Architecture Bible;
-- rebuilt Restart Packet;
-- browser-centered README;
-- redundant Question Lifecycle document removed;
-- local test and browser smoke verification.
-
-## Phase B — Initial cleanup
-
-Status: **Complete**
-
-Completed:
-
-- obsolete DOCX prototype removed;
-- unused DOCX dependencies removed;
-- legacy Python desktop/terminal application removed;
-- PyInstaller specification removed;
-- old Windows build workflow removed;
-- desktop-only tests retired;
-- remaining suite verified at 70 passing tests;
-- dangling-reference search completed;
-- cleanup commits pushed to the private branch.
-
-## Phase C — Permanent identity design
-
-Status: **Next active phase**
-
-1. inventory current question IDs across all official Packs;
-2. inventory every code and data reference that depends on question IDs;
-3. identify duplicate IDs or identity collisions;
-4. choose the permanent identity strategy;
-5. define rebuild matching and conflict behavior;
-6. add focused identity tests;
-7. migrate Packs only after the design is approved;
-8. verify save/resume and medication/reference mappings affected by IDs.
-
-Do not regenerate Pack IDs casually.
-
-## Phase D — Browser behavior boundary
-
-1. identify pure quiz/session rules inside `web/app.js`;
-2. extract small testable behavior units without redesigning the GUI;
-3. preserve the current browser flow after each change;
-4. add Shuffle versus Keep Source Order;
-5. preserve source order when shuffle is disabled.
-
-## Phase E — Browser question-type verification and parity
-
-1. verify active behavior for all Pack question types;
-2. repair Completion support where needed;
-3. repair Ordered Response support where needed;
-4. preserve first-pass scoring, review, save/resume, and source fidelity;
-5. add browser-centered tests.
-
-## Phase F — Automatic verification
-
-1. create a push/PR workflow for the remaining Python suite;
-2. validate official Pack schemas and IDs;
-3. add browser checks as the behavior boundary becomes testable.
-
-## Phase G — Unified source adapters
-
-1. preserve PDF as the authoritative current adapter;
-2. rebuild DOCX as a proper extraction adapter;
-3. add TXT through the same boundary;
-4. route every format through the shared cleaner, detector, parser, normalizer, validator, and Pack compiler.
-
-## Phase H — Offline and visual consolidation
-
-1. define the offline promise;
-2. inventory required shell, Pack, medication, visual, and data assets;
-3. update service-worker coverage;
-4. consolidate CSS only in visually safe increments;
-5. preserve the approved identity and reusable artwork.
-
-## Phase I — Deferred enrichment
-
-After the foundation is stable:
-
-- independent medication master library;
-- optional topic and relationship tags;
-- analytics and coaching;
-- character animation and cut scenes;
-- Windows/macOS browser wrappers;
-- user-facing import interface.
-
----
-
-# 10. Verification and Rollback Rules
-
-Every implementation milestone must answer:
-
-1. What exact behavior is changing?
-2. What must remain unchanged?
-3. Which tests protect it?
-4. What manual browser check is required?
-5. What commit is the rollback point?
-6. Are intended remotes synchronized when the milestone is complete?
+# 7. Required Working Discipline
 
 Standard loop:
 
 ```text
 Observe
-→ Inspect GitHub
-→ Define one focused change
-→ Add or update tests when appropriate
-→ Implement
-→ Run targeted tests
-→ Run full tests
-→ Run the real browser product
-→ Inspect output
-→ Commit
-→ Push private remote
-→ Push public remote when appropriate
-→ Verify remote hashes
-→ Repeat
+→ inspect committed code
+→ inspect local status
+→ run the real product unchanged when relevant
+→ identify one focused change
+→ preserve or add tests where appropriate
+→ implement
+→ run targeted verification
+→ run full applicable verification
+→ inspect the real output
+→ commit
+→ push the intended private branch
+→ verify hashes
+→ update continuity documents
+→ repeat
 ```
-
-Safe stopping point:
-
-- coherent commit;
-- applicable tests passing;
-- browser status known;
-- Restart Packet current focus updated when needed;
-- no unexplained uncommitted files;
-- exact next action recorded.
-
-Rollback references:
-
-```text
-before-continuity-rebuild-2026-07-20
-8987fdf
-0ed062f
-3839243
-```
-
-Prefer a normal revert or corrective commit over casual history rewriting.
-
----
-
-# 11. Working Discipline
-
-When Charlie says:
-
-> next
-
-provide the next executable step, not a menu.
 
 Permanent rules:
 
 - one focused change at a time;
-- inspect committed code before speculating;
 - do not ask for code already available through GitHub;
+- do not make broad cleanup changes during visual iteration;
 - do not manually repair generated Packs when the generic pipeline should be fixed;
-- quarantine a small number of malformed questions rather than broadening the parser recklessly;
-- do not preserve ghost code merely because it once worked;
-- do not rebuild intentionally retired tests unless active behavior needs protection;
-- use evidence from real imports and runtime behavior;
+- quarantine a small number of malformed source questions rather than broadening parser behavior recklessly;
+- never claim a test, push, merge, runtime result, or visual approval that was not verified;
 - protect privacy before public release or sharing;
-- keep intended Git remotes synchronized at completed milestones;
-- never claim a push, test, merge, or runtime result that was not verified.
+- when Charlie says `next`, provide the next executable step rather than a menu;
+- for ordinary Bash commands, say only “paste this”; identify the terminal only when the command must run in the Python-server terminal.
 
-Loop prevention:
+When work becomes repetitive, uncertain, or context-heavy:
 
-1. stop;
-2. return to the active phase;
-3. identify the missing decision;
-4. inspect the smallest relevant files;
-5. choose one executable action;
-6. test before expanding scope.
-
----
-
-# 12. Deferred Ideas
-
-Preserved but not active commitments:
-
-- optional detailed topic tags;
-- coaching based on missed concept clusters;
-- independent medication master library and Pack mappings;
-- animated character guidance;
-- book-opening sequences and cut scenes;
-- Windows and macOS packaged browser wrappers;
-- user-facing PDF/DOCX/TXT import interface;
-- OCR ingestion;
-- additional Packs;
-- deeper analytics and adaptive recommendations.
-
-Deferred means do not interrupt the active architectural cleanup unless Charlie deliberately reprioritizes it.
+1. stop changing files;
+2. return to this packet and the active supporting document;
+3. identify the unresolved decision;
+4. inspect the smallest relevant evidence;
+5. update continuity before starting a new chat.
 
 ---
 
-# 13. Rejected or Superseded Directions
+# 8. Required End-of-Session Procedure
 
-Not active requirements:
+Before ending a substantial PrepFlow work session:
 
-- preserving the Tkinter application for compatibility;
-- rebuilding desktop parity before improving the browser;
-- maintaining separate study engines for each platform;
-- keeping the rigid old DOCX parser because it once existed;
-- treating publisher/page provenance as required finished-Pack data;
-- automatically deleting near-duplicate questions;
-- making optional future tags mandatory for import;
-- keeping stale files in active directories as historical reference;
-- merging `feat/home-quiz-panel-clean` wholesale;
-- using test count alone as proof of protection.
+1. Inspect `git status` and identify every changed or untracked file.
+2. Ensure intended work is committed, or explicitly document why it remains uncommitted.
+3. Run applicable tests and real-browser checks.
+4. Push the active private branch when the milestone or checkpoint should be backed up.
+5. Verify local and private remote hashes match.
+6. Update the detailed supporting document for the active milestone.
+7. Update this Restart Packet with:
+   - current branch;
+   - latest verified commit or protected checkpoint;
+   - stable-versus-active work locations;
+   - completed work;
+   - unfinished work;
+   - exact next step;
+   - supporting documents the next chat must read.
+8. Replace stale current-state wording rather than stacking contradictory temporary handoffs.
+9. Confirm that a fresh chat can orient itself from this packet without relying on conversational memory.
+10. Push the documentation update and verify the private remote hash.
 
----
-
-# 14. Current Rebuild Status
-
-Completed on `docs/continuity-rebuild`:
-
-- forensic architecture audit;
-- remote branch audit;
-- approved target architecture;
-- continuity rebuild plan;
-- rebuilt Architecture Bible;
-- rebuilt Restart Packet;
-- browser-centered README;
-- redundant Question Lifecycle document removed;
-- obsolete DOCX prototype removed;
-- unused dependencies removed;
-- legacy desktop/Tkinter/terminal stack removed;
-- PyInstaller and old Windows workflow removed;
-- remaining Python suite verified at 70 passing tests;
-- browser smoke test passed;
-- cleanup commits pushed to the private branch.
-
-The active architectural work now moves to permanent question identity.
+A temporary checkpoint is allowed only when work is unfinished and detailed context will not fit cleanly here. This packet must point to it and explain its authority. A checkpoint never silently becomes an alternate primary handoff.
 
 ---
 
-# 15. Exact Next Step
+# 9. Verification and Rollback Rules
 
-The next task is a read-only identity inventory.
+Every milestone must answer:
 
-Inspect:
+1. What exact behavior or visual element is changing?
+2. What must remain unchanged?
+3. Which automated or manual checks protect it?
+4. What real-browser check is required?
+5. What commit is the rollback point?
+6. Which remotes should be synchronized when complete?
 
-- current ID format and generator;
-- ID uniqueness across all official Packs;
-- repeated IDs within and between Packs;
-- code and data files that refer to question IDs;
-- whether medication/reference mappings depend on those IDs;
-- how a Pack rebuild currently changes IDs.
+Prefer normal corrective or revert commits over casual history rewriting.
 
-Do not change or regenerate IDs during the inventory.
-
-The inventory must produce enough evidence to choose a permanent identity strategy before migration begins.
-
----
-
-# 16. Startup Procedure for a New Session
-
-1. inspect `docs/RESTART_PACKET.md` in the private GitHub repository;
-2. inspect the current branch and latest commit;
-3. inspect `docs/ARCHITECTURE_BIBLE.md` and `docs/CONTINUITY_REBUILD_PLAN.md` only as needed;
-4. verify whether work remains on `docs/continuity-rebuild`;
-5. inspect `git status` before giving modifying commands;
-6. compare local, origin, and public hashes when relevant;
-7. run the current test suite before destructive changes;
-8. resume from the Exact Next Step;
-9. make one focused change;
-10. test and commit before expanding scope.
-
-For historical reasoning, consult:
+Important rollback references:
 
 ```text
 before-continuity-rebuild-2026-07-20
+8987fdf
+f393626
 ```
 
-Use that baseline for context, not as permission to restore superseded behavior.
-
 ---
 
----
+# 10. Current Exact Resume State
 
-# 17. Temporary Session Handoff — Pharm Book Sprite
+Stable public work remains on:
 
-> **Disposable continuity note:** This section exists only to preserve unfinished work between chat instances. Replace it whenever a newer handoff is created. Delete it once the unfinished work below is completed and the Restart Packet has been updated with the next current state.
+```text
+bins-projects/PrepFlow
+master
+```
 
-## Mandatory startup instruction
-
-Read this entire handoff before taking any action.
-
-Do not rely on conversational memory alone. Inspect the private GitHub repository, the current branch, the latest commit, and the local working-tree status before giving Charlie any modifying command.
-
-When a PrepFlow session becomes context-heavy, repetitive, error-prone, or visibly unreliable, stop making changes and replace this temporary handoff before beginning a fresh chat. This continuity process is mandatory.
-
-## Current task
-
-Replace the temporary CSS-built Pharm book with the approved real pixel-art sprite inside the actual PrepFlow browser application.
-
-The approved Pharm sprite is a transparent PNG depicting:
-
-- a dark green modern pharmacology textbook;
-- a three-quarter pixel-art view;
-- visible page block, binding, tabs, highlights, and restrained wear;
-- the word `PHARM` on the cover;
-- a green-and-white capsule emblem.
-
-The sprite was approved as a strong starting asset.
-
-## Critical workflow rule
-
-Never generate a picture or mockup of the PrepFlow interface.
-
-All interface previews must come from:
-
-1. changing the real repository code;
-2. loading the real browser application at `http://localhost:8000/web/`;
-3. reviewing screenshots of that actual running page.
-
-Image generation is allowed only for standalone reusable assets such as sprites, icons, characters, or environment artwork. It must never be used to imitate or recreate the application screen.
-
-## Current asset state
-
-The approved Pharm PNG is not yet committed to the repository and is not yet loaded by the application.
-
-A later generated picture of the entire application was a mistake, was cancelled, and must not be used.
-
-A proposed downloadable installer was also the wrong workflow and must not be used.
-
-The previous direct GitHub image-upload attempt was blocked. Do not claim that the sprite was installed.
-
-If the approved PNG is unavailable in the new chat, ask Charlie to reattach that exact sprite image before proceeding. Do not regenerate it unless Charlie explicitly requests a revision.
-
-## Current repository and branch
-
-Private repository:
+Active redesign work remains on:
 
 ```text
 bins-projects/prepflow-dev
-```
-
-Working branch:
-
-```text
 docs/continuity-rebuild
 ```
 
-The most recent remote helper commit created during the launcher-only correction was:
+Protected working-canvas checkpoint:
 
 ```text
-dea443b7453f2df145a2e5f206d80838e25f184b
+f393626  wip: checkpoint responsive home and sprite redesign
 ```
 
-Do not assume the local tree is clean. Inspect `git status` first.
-
-## Launcher and responsive-layout state
-
-The launcher box was reduced and repositioned in a launcher-only correction.
-
-Do not resume broad responsive tuning yet.
-
-The temporary CSS books distort or mangle live text when scaled. Stop scaling those temporary cards as complete objects.
-
-The intended long-term structure is:
-
-- reusable book sprite artwork;
-- live chapter-selection status kept as real HTML text;
-- no transforms that distort live lettering;
-- responsive scaling applied to the sprite image, not to an entire text-filled card.
-
-## Exact next step
-
-1. Inspect the current GitHub branch and relevant home-page HTML/CSS.
-2. Inspect local `git status`.
-3. Confirm access to the approved transparent Pharm PNG.
-4. Add the PNG as a real asset under an appropriate path such as `web/assets/books/pharm-book.png`.
-5. Replace only the Pharm card's temporary book artwork with an actual `<img>` using that asset.
-6. Preserve the Pharm button's existing functionality and data attributes.
-7. Keep the question count and chapter-selection status as separate live HTML text.
-8. Do not modify Fundamentals or Med-Surg during this preview.
-9. Do not generate any picture of the page.
-10. Have Charlie open the real browser page and judge the sprite in context before further design work.
-
-## Working discipline
+Required supporting document:
 
 ```text
-Observe
-→ inspect GitHub
-→ inspect local status
-→ one focused change
-→ run the real browser
-→ visually review
-→ test
-→ commit
-→ push
+docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md
 ```
 
-Charlie pastes commands rather than typing them. Give one short executable command at a time. Never ask Charlie to repeat terminal output or screenshot information that is already visible.
+Current unfinished milestone:
+
+> Establish the real home terminal as a dependable visual canvas, finish the reduced-window scaling and bottom dead-space investigation without redesigning unrelated elements, then establish the background-extension strategy before finalizing Pharm as the first reusable book sprite.
+
+Do not begin by removing layered CSS, disabling the emblem preview, redesigning all three books at once, regenerating the approved home scene, or merging the unfinished redesign into public `master`.
+
+---
+
+# 11. Exact Next Step
+
+1. Synchronize the local `docs/continuity-rebuild` branch with the latest private remote documentation commits.
+2. Verify local and remote hashes and confirm the working tree is clean.
+3. Read this packet and `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md` locally.
+4. Run the current home page unchanged.
+5. Capture and inspect a baseline at full width and reduced width/height.
+6. Identify one scaling or dead-space failure without changing the book design.
+7. Make one isolated responsive-composition change and verify both baselines before continuing.
