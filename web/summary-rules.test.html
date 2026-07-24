@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrepFlow Summary Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Summary Rules Test</h1>
+  <pre id="results"></pre>
+  <script src="summary-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const lines = [];
+
+    function check(name, condition) {
+      const line = `${condition ? "PASS" : "FAIL"}: ${name}`;
+      lines.push(line);
+      if (!condition) {
+        throw new Error(line);
+      }
+    }
+
+    const review = PrepFlowSummaryRules.blockSummaryAction({
+      mastered: false,
+      missedCount: 2,
+      blockEnd: 10,
+      totalQuestions: 30,
+    });
+    check("chooses review when misses remain", review.action === "review");
+    check("uses the review label", review.label === "Review Missed Questions");
+
+    const nextBlock = PrepFlowSummaryRules.blockSummaryAction({
+      mastered: false,
+      missedCount: 0,
+      blockEnd: 10,
+      totalQuestions: 30,
+    });
+    check("chooses next block when more questions remain", nextBlock.action === "next-block");
+    check("uses the next-block label", nextBlock.label === "Start Next Block");
+
+    const masteredNextBlock = PrepFlowSummaryRules.blockSummaryAction({
+      mastered: true,
+      missedCount: 3,
+      blockEnd: 10,
+      totalQuestions: 30,
+    });
+    check("skips review after mastery", masteredNextBlock.action === "next-block");
+
+    const finish = PrepFlowSummaryRules.blockSummaryAction({
+      mastered: false,
+      missedCount: 0,
+      blockEnd: 30,
+      totalQuestions: 30,
+    });
+    check("finishes at the end of the session", finish.action === "finish");
+    check("uses the finish label", finish.label === "Finish Session");
+
+    const masteredFinish = PrepFlowSummaryRules.blockSummaryAction({
+      mastered: true,
+      missedCount: 1,
+      blockEnd: 30,
+      totalQuestions: 30,
+    });
+    check("finishes after final-block mastery", masteredFinish.action === "finish");
+
+    lines.push("", "All tests passed.");
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>

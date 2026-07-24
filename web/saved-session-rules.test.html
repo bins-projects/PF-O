@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrepFlow Saved Session Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Saved Session Rules Test</h1>
+  <pre id="results">Running…</pre>
+
+  <script src="saved-session-rules.js"></script>
+  <script>
+    const results = [];
+
+    function check(name, condition) {
+      results.push(`${condition ? "PASS" : "FAIL"}: ${name}`);
+      if (!condition) {
+        throw new Error(name);
+      }
+    }
+
+    const rules = window.PrepFlowSavedSessionRules;
+
+    const empty = rules.parseSavedSession(null, 3);
+    check("accepts an empty save slot", empty.saved === null && !empty.shouldClear);
+
+    const valid = rules.parseSavedSession('{"version":3,"screen":"question"}', 3);
+    check("parses a current saved session", valid.saved.screen === "question" && !valid.shouldClear);
+
+    const outdated = rules.parseSavedSession('{"version":2}', 3);
+    check("rejects an outdated saved session", outdated.saved === null && outdated.shouldClear);
+
+    const malformed = rules.parseSavedSession('{bad json', 3);
+    check("rejects malformed saved data", malformed.saved === null && malformed.shouldClear);
+
+    const jsonNull = rules.parseSavedSession('null', 3);
+    check("rejects JSON null", jsonNull.saved === null && jsonNull.shouldClear);
+
+    document.querySelector("#results").textContent = `${results.join("\n")}\n\nAll tests passed.`;
+  </script>
+</body>
+</html>

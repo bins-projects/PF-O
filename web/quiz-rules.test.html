@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrepFlow Quiz Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Quiz Rules Test</h1>
+  <pre id="results">Running…</pre>
+
+  <script src="quiz-rules.js"></script>
+  <script>
+    const results = [];
+
+    function check(name, condition) {
+      results.push(`${condition ? "PASS" : "FAIL"}: ${name}`);
+      if (!condition) {
+        throw new Error(name);
+      }
+    }
+
+    const rules = window.PrepFlowQuizRules;
+
+    check(
+      "normalizes a single answer",
+      JSON.stringify(rules.normalizeAnswers(" a ")) === JSON.stringify(["A"])
+    );
+
+    check(
+      "normalizes an answer array",
+      JSON.stringify(rules.normalizeAnswers(["a", " b "])) === JSON.stringify(["A", "B"])
+    );
+
+    check(
+      "reads correct_answers",
+      JSON.stringify(rules.correctAnswersFor({ correct_answers: ["A", "C"] }))
+        === JSON.stringify(["A", "C"])
+    );
+
+    check(
+      "reads legacy correct_answer",
+      JSON.stringify(rules.correctAnswersFor({ correct_answer: "b" }))
+        === JSON.stringify(["B"])
+    );
+
+    check(
+      "classifies explicit multiple-response type",
+      rules.isMultipleResponseQuestion({
+        type: "multiple_response",
+        correct_answer: "A",
+        stem: "Choose the best answer.",
+      })
+    );
+
+    check(
+      "classifies multiple correct answers as SATA",
+      rules.isMultipleResponseQuestion({
+        type: "mc",
+        correct_answers: ["A", "C"],
+        stem: "Which findings apply?",
+      })
+    );
+
+    check(
+      "classifies Select All That Apply wording",
+      rules.isMultipleResponseQuestion({
+        type: "multiple_choice",
+        correct_answer: "A",
+        stem: "Select all that apply.",
+      })
+    );
+
+    check(
+      "keeps ordinary single-answer questions as multiple choice",
+      !rules.isMultipleResponseQuestion({
+        type: "multiple_choice",
+        correct_answer: "B",
+        stem: "Which response is correct?",
+      })
+    );
+
+    check(
+      "grades a correct multiple-choice answer",
+      rules.evaluateAnswer({ correct_answer: "B" }, ["b"]).isCorrect
+    );
+
+    check(
+      "rejects an incorrect multiple-choice answer",
+      !rules.evaluateAnswer({ correct_answer: "B" }, ["A"]).isCorrect
+    );
+
+    check(
+      "grades SATA answers independent of order",
+      rules.evaluateAnswer(
+        { correct_answers: ["A", "C"] },
+        ["c", "a"]
+      ).isCorrect
+    );
+
+    check(
+      "rejects an incomplete SATA answer",
+      !rules.evaluateAnswer(
+        { correct_answers: ["A", "C"] },
+        ["A"]
+      ).isCorrect
+    );
+
+    check(
+      "rejects an extra SATA answer",
+      !rules.evaluateAnswer(
+        { correct_answers: ["A", "C"] },
+        ["A", "B", "C"]
+      ).isCorrect
+    );
+
+    document.querySelector("#results").textContent = results.join("\n");
+  </script>
+</body>
+</html>

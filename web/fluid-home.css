@@ -1,0 +1,155 @@
+/* Fluid PrepFlow home composition: scales continuously through realistic desktop widths. */
+:root {
+  --home-scale: clamp(.68, calc(100vw / 1180), 1);
+}
+
+html, body {
+  min-width: 760px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.app-shell {
+  min-height: 100svh;
+}
+
+.pixel-stage {
+  min-height: clamp(560px, calc(100svh - 22px), 900px) !important;
+  overflow: visible !important;
+}
+
+.pixel-logo {
+  top: clamp(28px, 4.5vw, 72px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(clamp(.68, calc(100vw / 1450), 1)) !important;
+  transform-origin: top center !important;
+  white-space: nowrap;
+}
+
+.pixel-tagline {
+  top: clamp(20px, 3.2vw, 54px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(clamp(.72, calc(100vw / 1450), 1)) !important;
+  transform-origin: top center !important;
+  white-space: nowrap;
+}
+
+#home-launcher {
+  left: clamp(20px, 4.4vw, 72px) !important;
+  top: clamp(116px, 15vh, 214px) !important;
+  width: clamp(315px, 31vw, 468px) !important;
+  transform: none !important;
+}
+
+#home-launcher .launcher-view {
+  padding: clamp(14px, 1.5vw, 24px) !important;
+  gap: clamp(9px, 1vw, 15px) !important;
+}
+
+#home-launcher h2 {
+  font-size: clamp(17px, 1.55vw, 25px) !important;
+}
+
+#home-launcher p,
+#home-launcher label,
+#home-launcher button,
+#home-launcher select {
+  font-size: clamp(10px, .86vw, 14px) !important;
+}
+
+.reference-library-callout {
+  top: clamp(126px, 17vh, 222px) !important;
+  right: clamp(20px, 4vw, 68px) !important;
+  width: clamp(276px, 27vw, 402px) !important;
+  transform: none !important;
+}
+
+.subjects {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: clamp(16px, 2.2vh, 34px) !important;
+  width: min(92vw, 980px) !important;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+  grid-template-columns: repeat(3, clamp(132px, 14vw, 188px)) !important;
+  gap: clamp(26px, 6vw, 108px) !important;
+  justify-content: center !important;
+  align-items: end !important;
+}
+
+.subject-card {
+  width: clamp(132px, 14vw, 188px) !important;
+  min-width: 0 !important;
+  min-height: clamp(194px, 22vw, 252px) !important;
+  transform-origin: bottom center !important;
+}
+
+@media (max-width: 1040px) {
+  .pixel-stage {
+    min-height: calc(100svh - 12px) !important;
+  }
+
+  .pixel-logo {
+    left: 61% !important;
+    top: 34px !important;
+  }
+
+  .pixel-tagline {
+    left: 61% !important;
+    top: 22px !important;
+  }
+
+  #home-launcher {
+    left: 18px !important;
+    top: 26px !important;
+    width: clamp(300px, 43vw, 390px) !important;
+  }
+
+  .reference-library-callout {
+    top: 178px !important;
+    right: 18px !important;
+    width: clamp(248px, 36vw, 344px) !important;
+  }
+
+  .subjects {
+    bottom: 12px !important;
+    width: 94vw !important;
+    grid-template-columns: repeat(3, clamp(126px, 18vw, 164px)) !important;
+    gap: clamp(20px, 5vw, 58px) !important;
+  }
+
+  .subject-card {
+    width: clamp(126px, 18vw, 164px) !important;
+    min-height: clamp(184px, 26vw, 228px) !important;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 760px) {
+  .pixel-stage {
+    min-height: 100svh !important;
+  }
+
+  #home-launcher {
+    top: 18px !important;
+  }
+
+  .reference-library-callout {
+    top: 118px !important;
+  }
+
+  .subjects {
+    bottom: 8px !important;
+  }
+
+  .subject-card {
+    transform: scale(.9) !important;
+  }
+}
+
+@media (max-width: 759px) {
+  html, body {
+    min-width: 0;
+  }
+}

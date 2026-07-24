@@ -9,11 +9,22 @@
   <link rel="icon" href="icons/prepflow-192.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="arcade-home.css">
-  <link rel="stylesheet" href="pixel-home.css">
+  <link rel="stylesheet" href="pixel-home.css?v=20260724-3">
   <link rel="stylesheet" href="arcade-quiz.css">
   <link rel="stylesheet" href="drug-reference.css">
   <link rel="stylesheet" href="drug-card-pilot.css">
   <link rel="stylesheet" href="reference-home.css">
+  <link rel="stylesheet" href="order-mode.css?v=20260721-1">
+  <link rel="stylesheet" href="half-screen-fine-tune.css?v=20260721-1">
+  <link rel="stylesheet" href="home-launcher.css?v=20260721-1">
+  <link rel="stylesheet" href="book-shelf.css?v=20260721-1">
+  <link rel="stylesheet" href="home-responsive.css?v=20260722-1">
+  <link rel="stylesheet" href="book-emblem-preview.css?v=20260721-1">
+  <link rel="stylesheet" href="responsive-home.css?v=20260721-2">
+  <link rel="stylesheet" href="fluid-home.css?v=20260721-1">
+  <link rel="stylesheet" href="launcher-box-fix.css?v=20260721-1">
+  <link rel="stylesheet" href="half-width-composition.css?v=20260723-1">
+  <link rel="stylesheet" href="approved-book-buttons.css?v=20260724-books-1">
 </head>
 <body>
   <main class="app-shell">
@@ -23,6 +34,52 @@
           <span class="prep">Prep</span><span class="flow">Flow</span>
         </div>
         <p class="pixel-tagline">Study. Practice. Master.</p>
+
+        <section id="home-launcher" class="home-launcher" aria-label="Quiz controls">
+          <section id="quiz-builder" class="launcher-view launcher-setup" aria-label="Quiz setup">
+            <div class="home-quiz-copy">
+              <strong>Build Your Quiz</strong>
+              <span>Select chapters from the books below, then start your quiz.</span>
+              <small id="builder-selection-count">0 chapters selected</small>
+              <span id="builder-book-count" class="sr-only">Open a book to choose chapters</span>
+            </div>
+
+            <label class="builder-block-size home-block-size">
+              <span>Questions per block</span>
+              <select id="global-block-size">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15" selected>15</option>
+              </select>
+            </label>
+
+            <label class="order-mode-toggle" for="shuffle-questions">
+              <span>Source Order</span>
+              <input id="shuffle-questions" type="checkbox" checked>
+              <span class="order-mode-track" aria-hidden="true"><span></span></span>
+              <span>Shuffle</span>
+            </label>
+
+            <div class="launcher-actions">
+              <button id="clear-selections" class="home-clear-selections" disabled>Clear Selection</button>
+              <button id="build-quiz" class="home-start-quiz" disabled>Start Quiz <span aria-hidden="true">▶</span></button>
+            </div>
+          </section>
+
+          <section id="resume-panel" class="launcher-view launcher-resume" aria-label="Saved quiz" hidden>
+            <div class="resume-copy">
+              <span class="resume-star" aria-hidden="true">★</span>
+              <div>
+                <strong>Quiz in Progress</strong>
+                <p id="resume-description"></p>
+              </div>
+            </div>
+            <button id="resume-session" class="home-start-quiz">Continue Quiz <span aria-hidden="true">▶</span></button>
+            <button id="discard-session" class="home-clear-selections">Start Over</button>
+          </section>
+        </section>
 
         <aside class="pixel-callout achievement-callout" aria-label="Motivation">
           <span class="callout-icon" aria-hidden="true">★</span>
@@ -41,65 +98,20 @@
     </header>
 
     <section class="subjects" aria-label="Quiz library">
-      <button class="subject-card fundamentals" data-subject="Fundamentals" data-pack="../packs/fundamentals.prepflow.json">
-        <span class="subject-icon" aria-hidden="true">✚</span>
-        <span class="subject-copy">
-          <span class="subject-name">Fundamentals</span>
-          <span class="question-count">1,040 questions</span>
-        </span>
-        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
+      <button class="subject-card fundamentals" data-subject="Fundamentals" data-pack="../packs/fundamentals.prepflow.json" aria-label="Open Fundamentals — 1,040 questions">
+        <img class="approved-book-art" src="images/book-sprite-preview/prepflow-fundamentals-book.png" alt="" aria-hidden="true">
+        <span class="sr-only">Fundamentals — 1,040 questions. Choose chapters.</span>
       </button>
 
-      <button class="subject-card pharm" data-subject="Pharm" data-pack="../packs/pharmacy.prepflow.json">
-        <span class="subject-icon heart-icon" aria-hidden="true">♥</span>
-        <span class="subject-copy">
-          <span class="subject-name">Pharm</span>
-          <span class="question-count">1,238 questions</span>
-        </span>
-        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
+      <button class="subject-card pharm" data-subject="Pharm" data-pack="../packs/pharmacy.prepflow.json" aria-label="Open Pharm — 1,238 questions">
+        <img class="approved-book-art" src="images/book-sprite-preview/prepflow-pharm-book.png" alt="" aria-hidden="true">
+        <span class="sr-only">Pharm — 1,238 questions. Choose chapters.</span>
       </button>
 
-      <button class="subject-card med-surg" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json">
-        <span class="subject-icon" aria-hidden="true">⚕</span>
-        <span class="subject-copy">
-          <span class="subject-name">Med-Surg</span>
-          <span class="question-count">1,443 questions</span>
-        </span>
-        <span class="card-action">Choose Chapters <span aria-hidden="true">▶</span></span>
+      <button class="subject-card med-surg" data-subject="Medical-Surgical" data-pack="../packs/medical_surgical.prepflow.json" aria-label="Open Med-Surg — 1,443 questions">
+        <img class="approved-book-art" src="images/book-sprite-preview/prepflow-medsurg-book.png" alt="" aria-hidden="true">
+        <span class="sr-only">Med-Surg — 1,443 questions. Choose chapters.</span>
       </button>
-    </section>
-
-    <section id="quiz-builder" class="quiz-builder" aria-label="Quiz setup">
-      <div class="builder-summary">
-        <strong id="builder-selection-count">0 chapters selected</strong>
-        <span id="builder-book-count">Open a book to choose chapters</span>
-      </div>
-
-      <label class="builder-block-size">
-        <span>Questions per block</span>
-        <select id="global-block-size">
-          <option value="1">1</option>
-          <option value="3">3</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15" selected>15</option>
-        </select>
-      </label>
-
-      <button id="clear-selections" class="secondary-button" disabled>Clear Selections</button>
-      <button id="build-quiz" class="start-button" disabled>Build Quiz ▶</button>
-    </section>
-
-    <section id="resume-panel" class="resume-panel" hidden>
-      <div class="resume-copy">
-        <span class="resume-star" aria-hidden="true">★</span>
-        <div>
-          <strong>Continue your saved session</strong>
-          <p id="resume-description"></p>
-        </div>
-      </div>
-      <button id="resume-session" class="start-button">Continue Session</button>
-      <button id="discard-session" class="secondary-button">Start Over</button>
     </section>
 
     <section id="chapter-screen" class="chapter-screen" hidden>
@@ -178,7 +190,17 @@
 
     <p id="status" class="status">Select a category to continue.</p>
   </main>
-  <script src="app.js?v=20260719-sata-1"></script>
+  <script src="quiz-rules.js?v=20260721-1"></script>
+  <script src="session-rules.js?v=20260721-1"></script>
+  <script src="summary-rules.js?v=20260721-1"></script>
+  <script src="saved-session-rules.js?v=20260721-1"></script>
+  <script src="review-rules.js?v=20260721-1"></script>
+  <script src="navigation-rules.js?v=20260721-1"></script>
+  <script src="selection-rules.js?v=20260721-1"></script>
+  <script src="resume-rules.js?v=20260721-1"></script>
+  <script src="display-rules.js?v=20260721-1"></script>
+  <script src="order-rules.js?v=20260721-1"></script>
+  <script src="app.js?v=20260724-books-1"></script>
   <script src="drug-reference-batch-loader.js?v=20260719-batch-01"></script>
   <script src="drug-reference.js?v=20260719-warfarin-1"></script>
 </body>

@@ -1,0 +1,219 @@
+.home-launcher {
+  position: absolute;
+  z-index: 5;
+  top: 188px;
+  left: 34px;
+  width: min(430px, calc(50% - 58px));
+  color: #f7fbff;
+  font-family: "Courier New", monospace;
+}
+
+.launcher-view {
+  display: grid;
+  gap: 13px;
+  padding: 18px;
+  border: 3px solid #28bdf2;
+  background: linear-gradient(rgba(255,255,255,.024) 50%, transparent 50%) 0 0/100% 4px, rgba(5,10,34,.96);
+  box-shadow: 0 0 0 3px #080c25, 0 0 0 6px rgba(40,189,242,.35), 0 10px 0 rgba(0,0,0,.22);
+  text-align: left;
+}
+
+.home-quiz-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.home-quiz-copy strong,
+.launcher-resume .resume-copy strong {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #10183f;
+}
+
+.home-quiz-copy > span:not(.sr-only),
+.launcher-resume p {
+  margin: 0;
+  color: #c8dcff;
+  font-size: .76rem;
+  line-height: 1.4;
+}
+
+.home-quiz-copy small {
+  color: #28bdf2;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.home-block-size {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid #4d6eb8;
+  background: #080d22;
+  color: #dbe9ff;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.home-block-size select {
+  width: 66px;
+  padding: 8px;
+  border: 2px solid #72d63c;
+  background: #080d22;
+  color: #fff;
+  font: inherit;
+}
+
+.launcher-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.home-start-quiz {
+  min-width: 0;
+  padding: 12px;
+  border: 3px solid #72d63c;
+  background: linear-gradient(180deg,#174f38,#0c2e25);
+  color: #eaffdf;
+  font: 900 .93rem "Courier New", monospace;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 3px #07151a, 0 0 16px rgba(114,214,60,.28);
+  cursor: pointer;
+}
+
+.home-start-quiz:disabled {
+  filter: grayscale(.7);
+  opacity: .48;
+  cursor: not-allowed;
+}
+
+.home-clear-selections {
+  justify-self: start;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #9cb2d7;
+  font: 900 .7rem "Courier New", monospace;
+  text-decoration: underline;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.home-clear-selections:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.launcher-resume .resume-copy {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.launcher-resume .resume-star {
+  color: #ffd45c;
+  font-size: 1.6rem;
+}
+
+.launcher-resume .home-start-quiz,
+.launcher-resume .home-clear-selections {
+  width: 100%;
+  justify-self: stretch;
+}
+
+.subjects.saved-session-active .subject-card {
+  opacity: .42;
+  filter: grayscale(.65);
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .home-launcher {
+    top: 182px;
+    left: 20px;
+    width: calc(55% - 30px);
+  }
+
+  .launcher-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Override retired home-control rules. */
+#home-launcher > .launcher-view {
+  display: grid !important;
+}
+
+#home-launcher > .launcher-view[hidden] {
+  display: none !important;
+}
+
+.pixel-stage:has(#home-launcher:not([hidden])) .achievement-callout {
+  display: none !important;
+}
+
+/* Isolate the rebuilt launcher from retired builder HUD styles. */
+#home-launcher .launcher-view {
+  position: static !important;
+  width: 100% !important;
+  margin: 0 !important;
+  grid-template-columns: 1fr !important;
+  grid-template-areas: none !important;
+  pointer-events: auto !important;
+}
+
+#home-launcher .home-quiz-copy,
+#home-launcher .builder-block-size,
+#home-launcher .order-mode-toggle,
+#home-launcher .launcher-actions,
+#home-launcher .resume-copy {
+  position: static !important;
+  inset: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  grid-area: auto !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+#home-launcher .builder-block-size {
+  display: flex !important;
+}
+
+#home-launcher .order-mode-toggle {
+  display: grid !important;
+  grid-template-columns: auto auto 1fr !important;
+}
+
+#home-launcher .launcher-actions {
+  display: grid !important;
+  grid-template-columns: 1fr 150px !important;
+  gap: 12px !important;
+}
+
+#home-launcher #clear-selections,
+#home-launcher #build-quiz,
+#home-launcher #resume-session,
+#home-launcher #discard-session {
+  position: static !important;
+  inset: auto !important;
+  grid-area: auto !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  transform: none !important;
+}

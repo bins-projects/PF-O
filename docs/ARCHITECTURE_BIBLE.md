@@ -1,397 +1,573 @@
 # PREPFLOW ARCHITECTURE BIBLE
 
+> **Continuity note:** This document was rebuilt after the July 2026 forensic review of PrepFlow. Earlier versions are preserved in Git history and in the frozen tag `before-continuity-rebuild-2026-07-20`. If a removed pathway or decision seems unclear, inspect that baseline for historical context. Older documents explain how PrepFlow arrived here; this document is the active architectural authority.
+
 ## Purpose
 
-This document defines PrepFlow's permanent technical architecture.
+This document defines PrepFlow's durable technical architecture.
 
-It contains only long-term architectural truth.
+It contains:
 
-It does **not** contain:
+- what PrepFlow is;
+- the permanent responsibility of each major part;
+- the boundaries between ingestion, Packs, quiz behavior, and presentation;
+- architectural rules that should survive individual milestones.
 
-- temporary milestones
-- sprint notes
-- bugs
-- handoff information
-- current priorities
-
-Those belong in the Restart Packet.
+It does not contain current tasks, temporary milestones, session notes, or implementation status. Those belong in `docs/RESTART_PACKET.md`.
 
 ---
 
-# Mission
+# 1. Product Definition
 
-PrepFlow converts educational source material into validated, canonical PrepFlow Packs that can be studied through a common Study Engine.
+PrepFlow is primarily a document-ingestion, sanitization, structuring, and study-library system.
 
-The long-term user experience is simple:
+Its defining purpose is:
 
-> Select a source file, choose a Pack name, and let PrepFlow make it study-able.
+> Take deliberately chosen educational material, clean and organize it, turn it into an authoritative independent PrepFlow Pack, and provide study tools that use that Pack.
 
----
+The visible quiz, open-book interface, characters, medication reference, and future coaching features are ways of using the structured library. They are important experiences, but they are not the underlying core.
 
-# Core Architecture
+The permanent flow is:
 
-```
-Private Source
-      │
-      ▼
-Source Adapter
-      │
-      ▼
-Extract
-      │
-      ▼
-Clean
-      │
-      ▼
-Detect
-      │
-      ▼
-Parse
-      │
-      ▼
-Normalize
-      │
-      ▼
-Validate
-      │
-      ▼
-Deduplicate
-      │
-      ▼
-Canonical Pack Builder
-      │
-      ▼
-PrepFlow Pack
-      │
-      ▼
-Study Engine
+```text
+Chosen educational source
+        ↓
+Source extraction
+        ↓
+Cleaning and sanitization
+        ↓
+Structure detection and parsing
+        ↓
+Normalization and validation
+        ↓
+Permanent PrepFlow question identity
+        ↓
+Independent authoritative Pack
+        ↓
+Browser study application
 ```
 
-Each stage has exactly one responsibility.
+---
 
-No stage should perform the work of another.
+# 2. Authority Model
+
+PrepFlow does not independently fact-check an entire nursing curriculum before admitting content.
+
+The authority rule is:
+
+> Material deliberately selected for import becomes authoritative study material inside its own Pack after it passes PrepFlow's cleaning, structural validation, and review process.
+
+Each Pack remains a separate authority boundary.
+
+This means:
+
+- sources are not silently blended into one universal truth database;
+- chapter organization may follow the selected source because it matches the intended course structure;
+- a contaminated, poisoned, obsolete, or unwanted Pack can be deleted or rebuilt as a unit;
+- one Pack does not depend on detailed publisher or page-level provenance stored inside every question.
+
+The finished Pack is the study authority. The original source is temporary import material.
 
 ---
 
-# Source Material
+# 3. Core Data Model
 
-PrepFlow is designed to support multiple source formats.
+## 3.1 Pack
+
+A finished Pack requires:
+
+- permanent Pack ID;
+- user-facing title;
+- format/schema version as needed for compatibility;
+- questions.
+
+## 3.2 Question
+
+A finished question requires:
+
+- permanent PrepFlow question ID;
+- chapter;
+- chapter title when useful for display;
+- question type;
+- stem;
+- choices where applicable;
+- correct answer or ordered answers;
+- rationale.
+
+Optional future enrichment may include concepts, medication classes, body systems, clinical relationships, or study tags. These fields are optional unless a future product decision makes them necessary.
+
+Publisher, edition, page, Bloom level, difficulty, and detailed source provenance are not required in the finished study record.
+
+---
+
+# 4. Permanent Question Identity
+
+Question identity must not depend on array position, display order, or neighboring questions.
+
+Approved rule:
+
+> A question receives a permanent PrepFlow identity that does not change merely because its position, chapter order, or surrounding questions change.
+
+The source question number and chapter are organizational fields, not the true identity.
+
+Permanent identity must support:
+
+- Pack rebuilds;
+- saved sessions;
+- corrections;
+- duplicate detection;
+- future analytics;
+- medication or concept relationships;
+- stable references across versions.
+
+The exact ID algorithm may evolve, but it must preserve existing identity whenever the same question is rebuilt and create a new identity only for genuinely new content.
+
+---
+
+# 5. Ingestion Architecture
+
+## 5.1 Source Adapters
+
+A source adapter opens one file format and returns usable text or a simple neutral extraction structure.
 
 Examples include:
 
-- PDF
-- DOCX
-- TXT
-- JSON
-- future OCR sources
+- PDF;
+- future DOCX;
+- future TXT;
+- possible future HTML;
+- OCR only as a separate later project.
 
-Private source material always remains outside the repository.
+Adapters may understand file-format structure such as pages, paragraphs, headings, or tables. They must not contain a separate question-processing architecture for each format.
 
-Generated canonical Packs are the permanent product.
+Approved rule:
 
----
+> Different source formats feed one shared cleaning, detection, parsing, normalization, validation, and Pack-building pipeline.
 
-# Source Adapters
+## 5.2 Extraction
 
-A source adapter knows how to read a particular file format.
+Extraction retrieves source content while preserving enough structure for later processing.
 
-Current implementation:
+It does not decide whether text is a question, answer, rationale, or contamination.
 
-- Text-based PDF
+## 5.3 Cleaning
 
-Future adapters may include:
+Cleaning removes non-educational noise while preserving the selected educational material.
 
-- DOCX
-- Plain text
-- OCR
-- Structured JSON
+Typical responsibilities include:
 
-Adapters only extract data.
+- download-site contamination;
+- branding and repeated source fragments;
+- page headers and footers;
+- broken extraction artifacts;
+- repeated indexes or proven duplicated source blocks;
+- narrowly evidenced source-specific contamination rules.
 
-They never parse questions.
+Cleaning must not casually rewrite stems, choices, answers, or rationales.
 
----
+## 5.4 Detection
 
-# Extraction
+Detection measures and reports source structure before parsing.
 
-Extraction converts a supported source into raw text.
+It identifies evidence such as:
 
-Current artifact:
+- chapters;
+- section headings;
+- answer markers;
+- question-like blocks;
+- unknown or unsupported patterns.
 
-```
-output/imports/<pack-id>/01_raw.txt
-```
+Detection exposes uncertainty rather than hiding it.
 
-Extraction intentionally preserves source noise.
+## 5.5 Parsing
 
-Cleaning is responsible for removing it.
+The parser turns cleaned source text into candidate question records.
 
----
+It owns recognition and recovery of:
 
-# Cleaning
+- chapter and chapter title;
+- source question number;
+- question type;
+- wrapped stems;
+- split or wrapped choices;
+- inline and multiline answers;
+- rationales;
+- Multiple Choice;
+- Multiple Response;
+- Completion;
+- Ordered Response;
+- source structures proven through real imports.
 
-Cleaning removes extraction artifacts while preserving educational meaning.
+The parser does not create final permanent identity and does not decide user-interface behavior.
 
-Cleaning may remove:
+## 5.6 Normalization
 
-- branding
-- download notices
-- watermark fragments
-- repeated page headers
-- repeated page footers
-- duplicate chapter indexes
-- formatting artifacts
-- repeated URLs
+Normalization converts supported parser output into one consistent compiler input shape.
 
-Cleaning must never intentionally rewrite:
+It may resolve compatible field names and safe structural differences. It must not become a second parser or silently invent educational content.
 
-- question stems
-- answer choices
-- correct answers
-- rationales
+## 5.7 Validation
 
-Current artifact:
+Validation decides whether candidate records are structurally safe to admit.
 
-```
-output/imports/<pack-id>/02_clean.txt
-```
+Severity model:
 
----
+- **Fatal:** the Pack cannot safely be built.
+- **Recoverable:** the affected question is quarantined or skipped while valid questions may proceed.
+- **Advisory:** a concern is recorded but the question remains eligible.
 
-# Detection
+Validation may check:
 
-Detection observes the cleaned document before parsing.
+- missing stem;
+- missing answer;
+- missing rationale;
+- required choices missing;
+- answer references missing choice;
+- unsupported type;
+- remaining contamination;
+- genuine exact duplicates;
+- identity conflicts.
 
-Its job is to measure—not interpret.
+Validation does not independently certify medical truth.
 
-Examples include:
+## 5.8 Deduplication
 
-- chapter count
-- section headers
-- answer markers
-- metadata markers
-- question-like blocks
-- unknown structures
+Only genuine exact duplicates should be removed automatically.
 
-Detection generates an import report.
+Near-duplicates remain because similar questions may test different judgments, appear in different chapters, or provide valuable repetition in different contexts.
 
-Current artifact:
+Safe duplicate decisions should consider more than the stem, including choices, answer, rationale, and Pack/chapter context.
 
-```
-output/imports/<pack-id>/03_detection.json
-```
+Every automatic removal should be explainable and reportable.
 
-Detection should expose uncertainty rather than hide it.
+## 5.9 Pack Compilation
 
----
+The compiler:
 
-# Parsing
+- receives normalized validated candidate records;
+- preserves or assigns permanent PrepFlow IDs;
+- builds the finished Pack;
+- exports only fields PrepFlow intentionally needs.
 
-The parser converts cleaned text into structured source-derived question records.
-
-The parser identifies:
-
-- chapter
-- chapter title
-- section
-- source question number
-- question type
-- stem
-- choices
-- answer
-- rationale
-- metadata
-
-The parser does **not** create canonical PrepFlow Questions.
+The permanent output of ingestion is the Pack, not the original source or temporary extraction artifacts.
 
 ---
 
-# Canonical Compiler
+# 6. Pack Library
 
-The compiler converts parsed source questions into canonical PrepFlow Questions.
+The library hierarchy is:
 
-Its permanent stages are:
-
-```
-Normalize
-    ↓
-Validate
-    ↓
-Recover invalid questions
-    ↓
-Deduplicate
-    ↓
-Assign stable IDs
-    ↓
-Build canonical Pack
-    ↓
-Export
+```text
+Pack
+└── Chapter
+    └── Question
 ```
 
----
+Each Pack is independently removable and rebuildable.
 
-# Normalization
+The browser consumes finished Packs only. It does not parse private source files or repair malformed Pack content during a quiz.
 
-Normalization converts supported parser output into one internal schema.
-
-All later compiler stages consume the normalized representation.
+Original source material, temporary extraction output, diagnostics, and publisher-specific clutter remain outside the finished library unless temporarily needed during import review.
 
 ---
 
-# Validation
+# 7. Browser Study Architecture
 
-Validation reports:
+The browser is the only active client that currently matters for compatibility decisions.
 
-- missing stems
-- missing answers
-- missing rationales
-- unsupported question types
-- malformed structures
-- duplicate IDs
-- parser failures
-- remaining source contamination
+The browser application should contain two distinct responsibilities.
 
-Validation reports problems.
+## 7.1 Quiz Behavior Layer
 
-It never invents educational content.
+The quiz behavior layer owns rules that must remain stable regardless of visual redesign:
+
+- collect the full selected question pool;
+- support selected chapters across Packs;
+- allow **Shuffle Questions** or **Keep Source Order**;
+- keep order stable after a session begins;
+- configurable block size;
+- one question at a time;
+- grading by question type;
+- first-pass correct and missed tracking;
+- missed-question review until mastered;
+- block transitions;
+- final first-pass result;
+- save/resume state meaning.
+
+Quiz behavior should be testable without depending on the screen layout or DOM structure.
+
+## 7.2 Browser GUI
+
+The GUI displays state and collects user input.
+
+It owns:
+
+- home screen;
+- book interface;
+- buttons;
+- chapter controls;
+- answer controls;
+- progress display;
+- rationale presentation;
+- results screens;
+- visual themes;
+- characters and animation;
+- responsive layout;
+- accessibility presentation.
+
+The GUI should not independently invent scoring, review, or session rules.
+
+## 7.3 Question-Type Rule
+
+The active browser study system is intended to support:
+
+- Multiple Choice;
+- Multiple Response;
+- Completion;
+- Ordered Response.
+
+A question type present in an approved Pack should not require a separate legacy desktop client merely to remain usable.
+
+## 7.4 Save and Resume
+
+Saved state belongs to the active browser study system.
+
+It should preserve the meaning of:
+
+- selected question set;
+- established question order;
+- current position;
+- block state;
+- first-pass score;
+- missed questions;
+- review queue;
+- active screen/state.
+
+The storage mechanism may evolve, but the behavioral meaning should remain stable.
 
 ---
 
-# Deduplication
+# 8. Offline Architecture
 
-Deduplication removes only true duplicates.
+The service worker defines the browser application's offline promise.
 
-Questions testing different clinical judgment must remain.
+The offline contract must be explicit:
 
-Every removal should be explainable.
+- either the complete installed product is available on first offline use;
+- or a narrower promise is documented and tested.
 
----
-
-# Stable IDs
-
-Question IDs must be:
-
-- deterministic
-- repeatable
-- unique
-- independent of file location
-- independent of display order
-
-Repeated compilation of unchanged source should produce identical IDs.
+Shell, Packs, visual assets, medication-reference assets, scripts, and styles should not be assumed available offline merely because some were loaded previously.
 
 ---
 
-# Export
+# 9. Medication Reference
 
-Canonical Packs are exported as:
+Medication reference content is a separate library feature that may use Pack relationships but should not be permanently gated by the Pharm Pack.
 
+Long-term direction:
+
+- stable independent medication records;
+- source mappings to Pharm, Med-Surg, Fundamentals, and future Packs;
+- optional relationships used for study and coaching;
+- no requirement that a valid medication exist in Pharm before it can exist in the reference library.
+
+Medication architecture is secondary to the core ingestion, Pack, identity, and browser-study boundaries.
+
+---
+
+# 10. Visual System
+
+PrepFlow's visual identity is intentional and must remain structurally separate from changing application state.
+
+The detailed authority for artwork, rendering, formats, asset folders, and approved visual decisions is:
+
+```text
+docs/ART_SYSTEM.md
 ```
-*.prepflow.json
-```
 
-Canonical Packs form the permanent interface between the compiler and the Study Engine.
+## 10.1 Visual ownership boundaries
+
+The home experience is composed from separate layers with separate owners.
+
+### Background plate
+
+The background plate owns static scene artwork such as:
+
+- environment;
+- skyline;
+- sunset;
+- architecture;
+- environmental lighting;
+- noninteractive scenery.
+
+It must not permanently own characters, books, controls, counts, progress, or changing application data.
+
+### Nurse sprites
+
+Nurses are reusable transparent raster assets.
+
+They own character appearance, clothing, pose, expression, and character-specific rendering.
+
+They must remain separate from the rebuilt background plate so the same characters can support additional screens and poses.
+
+### Book assets
+
+The three subject books are separate transparent clickable assets.
+
+They own permanent subject identity, cover artwork, icons, pages, spine, tabs, and permanent PrepFlow branding.
+
+They must not contain changing totals, selected-chapter state, accessibility text, Pack paths, or interaction behavior.
+
+### HTML and JavaScript
+
+HTML and JavaScript own:
+
+- subject-button structure;
+- Pack paths;
+- accessibility labels;
+- chapter-selection counts and state;
+- saved-session state;
+- click behavior;
+- enabled and disabled behavior;
+- quiz and progress data.
+
+### CSS
+
+CSS owns:
+
+- placement;
+- display size;
+- equal spacing;
+- responsive composition;
+- hover, pressed, disabled, and focus presentation;
+- glow and drop-shadow treatment;
+- live badge placement.
+
+CSS must not redraw the principal final books, nurses, or background artwork.
+
+## 10.2 Permanent artwork versus live data
+
+Permanent identity may be baked into approved artwork.
+
+Changing application information must remain live HTML and JavaScript.
+
+Do not bake question totals, selection counts, progress, or status into closed-book artwork or static scene files.
+
+## 10.3 Asset reuse
+
+Approved committed artwork must be reused rather than recreated unnecessarily.
+
+Visual consolidation must be staged, visually conservative, and verified in the real browser application before commitment.
 
 ---
 
-# Study Engine
+# 11. Testing and Verification
 
-The Study Engine consumes canonical Packs only.
+Tests protect active PrepFlow behavior, not obsolete implementations.
 
-Responsibilities include:
+Required direction:
 
-- Pack discovery
-- chapter selection
-- randomized sessions
-- answer checking
-- scoring
-- review queue
-- mastery tracking
+- keep strong ingestion/compiler tests;
+- add browser-centered tests for quiz behavior;
+- validate Pack structure and identity rules;
+- verify the hosted browser experience manually where automation is not yet practical;
+- replace the old desktop-build workflow with automatic verification on pushes and pull requests.
 
-The Study Engine never reads private source material.
-
-It never parses PDFs.
-
-It never repairs invalid Packs.
+Deleting old tests is safe only after equivalent active-product behavior is protected or deliberately rejected.
 
 ---
 
-# Dynamic Packs
+# 12. Legacy Code Policy
 
-Every valid Pack placed inside:
+Unreleased desktop and terminal compatibility has no architectural authority.
 
-```
-packs/
-```
+Approved rule:
 
-must automatically appear in the Pack selection screen.
+> Preserve valuable capabilities and behavior, not obsolete implementations.
 
-Adding a new subject must not require Study Engine code changes.
+A legacy pathway may be removed when:
 
----
+- the active browser does not use it;
+- it contains no unique ingestion or library capability;
+- any still-wanted behavior is already implemented or protected elsewhere;
+- Git history and the frozen baseline preserve recovery options.
 
-# User Import Workflow
+The old Tkinter desktop application, terminal client, PyInstaller packaging, desktop update system, and rigid DOCX prototype are not strategic assets merely because they exist.
 
-The long-term workflow should become:
-
-> Import and Create Module
-
-The user should:
-
-1. choose a source file;
-2. choose a Pack name;
-3. begin import;
-4. review the import report;
-5. receive a validated PrepFlow Pack.
-
-The interface is a wrapper around the compiler pipeline.
-
-It must not replace compiler stages.
+Proper future DOCX support should be a source adapter feeding the main ingestion pipeline.
 
 ---
 
-# Repository Structure
+# 13. Future Downloadable Applications
 
-Permanent repository areas include:
+There is no obligation to preserve unreleased desktop compatibility.
 
-```
-compiler/
-study/
-packs/
-docs/
-tests/
-```
+A future Windows or macOS application should most likely package the cleaned browser-centered product rather than revive the Tkinter client by default.
+
+Platform packaging may differ, but the following must not be redefined separately for each platform:
+
+- Pack meaning;
+- question identity;
+- quiz rules;
+- grading;
+- scoring;
+- review behavior;
+- save-state meaning.
+
+---
+
+# 14. Repository Boundaries
+
+Permanent product areas include:
+
+- active compiler/ingestion code;
+- finished Packs;
+- browser application code and assets;
+- tests protecting active behavior;
+- durable documentation.
 
 The repository must not contain:
 
-- private source books
-- scratch extraction files
-- recovery repositories
-- obsolete import scripts
-- personal identifying information
-- generated build artifacts
+- private source books;
+- personal identifying information;
+- scratch extraction files;
+- generated build output;
+- release archives;
+- obsolete temporary Packs;
+- one-time source-specific scripts that should have been absorbed into the shared pipeline.
+
+Generated artifacts may exist locally under ignored working directories.
 
 ---
 
-# Architectural Principles
+# 15. Architectural Principles
 
-1. Private source remains private.
-2. Source adapters are format-aware, not subject-aware.
-3. The importer is generic.
-4. The compiler is generic.
-5. Canonical Packs are the only Study Engine input.
-6. Study Engine behavior is Pack-driven.
-7. IDs remain deterministic.
-8. Validation reports uncertainty.
-9. Cleaning preserves educational meaning.
-10. Architecture follows evidence from real imports.
-11. One focused change → test → commit → repeat.
+1. PrepFlow is a cleaning, structuring, and Pack-building system first.
+2. Packs are independent study-authority boundaries.
+3. The finished Pack, not the original source, is the permanent study product.
+4. Question identity remains stable across reorder, deletion, and rebuild.
+5. Source formats share one ingestion pipeline after extraction.
+6. Cleaning preserves educational meaning.
+7. Detection exposes uncertainty.
+8. Parsing recovers source structure but does not control the GUI.
+9. Validation protects structural usability, not universal medical truth.
+10. Only genuine exact duplicates are removed automatically.
+11. Near-duplicates remain unless deliberately reviewed.
+12. The browser is the active compatibility target.
+13. Quiz behavior and GUI presentation have separate responsibilities.
+14. Optional tags and analytics must not block ordinary import.
+15. Legacy implementations may be removed when active value is absent.
+16. Future downloads should reuse the cleaned browser-centered product.
+17. One focused change, test, verify, commit, and repeat.
 
 ---
 
-# Change Control
+# 16. Change Control
 
-Only update this document when permanent architecture changes.
+Update this document only when durable architecture changes.
 
-Never place temporary milestones or current work here.
+Do not place temporary milestones, current branch state, dated addenda, or the next executable task here.
 
-Those belong in the Restart Packet.
+Those belong in `docs/RESTART_PACKET.md`.
+
+For the detailed reasoning and migration classification behind the July 2026 rebuild, consult `docs/CONTINUITY_REBUILD_PLAN.md` and the frozen tag `before-continuity-rebuild-2026-07-20`.

@@ -72,7 +72,10 @@ def compile_questions(
         if question_label(question) not in recoverable_labels
     ]
 
-    canonical_questions = build_questions(compilable_questions)
+    canonical_questions = build_questions(
+        compilable_questions,
+        pack_id=pack_id,
+    )
 
     pack = build_pack(
         canonical_questions,

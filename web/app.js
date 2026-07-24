@@ -3,6 +3,7 @@ const SAVE_KEY = "prepflow.savedSession.v1";
 const hero = document.querySelector(".hero");
 const subjects = document.querySelector(".subjects");
 const status = document.querySelector("#status");
+const homeLauncher = document.querySelector("#home-launcher");
 
 const resumePanel = document.querySelector("#resume-panel");
 const resumeDescription = document.querySelector("#resume-description");
@@ -20,34 +21,9 @@ const quizBuilder = document.querySelector("#quiz-builder");
 const builderSelectionCount = document.querySelector("#builder-selection-count");
 const builderBookCount = document.querySelector("#builder-book-count");
 const globalBlockSizeSelect = document.querySelector("#global-block-size");
+const shuffleQuestionsToggle = document.querySelector("#shuffle-questions");
 const clearSelectionsButton = document.querySelector("#clear-selections");
 const buildQuizButton = document.querySelector("#build-quiz");
-
-const pixelStage = document.querySelector(".pixel-stage");
-
-const leftHomeControls = document.createElement("div");
-leftHomeControls.className = "home-control-stack home-control-stack-left";
-
-const rightHomeControls = document.createElement("div");
-rightHomeControls.className = "home-control-stack home-control-stack-right";
-
-pixelStage.append(leftHomeControls, rightHomeControls);
-
-leftHomeControls.append(
-  document.querySelector(".builder-summary"),
-  clearSelectionsButton,
-  discardSessionButton
-);
-
-rightHomeControls.append(
-  document.querySelector(".builder-block-size"),
-  buildQuizButton,
-  resumeSessionButton
-);
-
-/* The original containers remain only as hidden structural shells. */
-quizBuilder.hidden = true;
-resumePanel.hidden = true;
 
 const quizScreen = document.querySelector("#quiz-screen");
 const quizSubject = document.querySelector("#quiz-subject");
@@ -79,6 +55,7 @@ const selectedChapters = new Map();
 
 let sessionQuestions = [];
 let sessionBlockSize = 15;
+let sessionShuffleQuestions = true;
 
 let blockStart = 0;
 let blockEnd = 0;
@@ -94,24 +71,15 @@ let reviewQueue = [];
 let reviewMode = false;
 let currentReviewQuestion = null;
 
-function shuffle(items) {
-  const copy = [...items];
-
-  for (let index = copy.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
-  }
-
-  return copy;
-}
-
 function readSavedSession() {
-  try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
+  const raw = localStorage.getItem(SAVE_KEY);
+  const result = PrepFlowSavedSessionRules.parseSavedSession(raw, 3);
+
+  if (result.shouldClear) {
+    localStorage.removeItem(SAVE_KEY);
   }
+
+  return result.saved;
 }
 
 function clearSavedSession() {
@@ -125,12 +93,13 @@ function saveSession(screen) {
   }
 
   const state = {
-    version: 2,
+    version: 3,
     savedAt: new Date().toISOString(),
     screen,
     currentSubject,
     sessionQuestions,
     sessionBlockSize,
+    sessionShuffleQuestions,
     blockStart,
     blockEnd,
     questionIndex,
@@ -151,26 +120,33 @@ function refreshResumePanel() {
   const saved = readSavedSession();
   const hasSavedSession = Boolean(saved);
 
-  resumeSessionButton.hidden = !hasSavedSession;
-  discardSessionButton.hidden = !hasSavedSession;
+  quizBuilder.hidden = hasSavedSession;
+  resumePanel.hidden = !hasSavedSession;
+  subjects.classList.toggle("saved-session-active", hasSavedSession);
+
+  document.querySelectorAll(".subject-card").forEach((book) => {
+    book.disabled = hasSavedSession;
+  });
 
   if (!saved) {
     resumeDescription.textContent = "";
     return;
   }
 
-  const mode = saved.reviewMode ? "reviewing missed questions" : "in progress";
-  const description =
-    `${saved.currentSubject || "Custom Quiz"} — Block ${saved.blockNumber}, ${mode}.`;
+  const description = PrepFlowResumeRules.resumeDescription(saved);
 
   resumeDescription.textContent = description;
   resumeSessionButton.title = description;
-  resumeSessionButton.setAttribute("aria-label", `Continue session: ${description}`);
+  resumeSessionButton.setAttribute(
+    "aria-label",
+    PrepFlowResumeRules.resumeAriaLabel(description)
+  );
 }
 
 function hideAllScreens() {
   hero.hidden = true;
   subjects.hidden = true;
+  homeLauncher.hidden = true;
   quizBuilder.hidden = true;
   resumePanel.hidden = true;
   chapterScreen.hidden = true;
@@ -186,15 +162,13 @@ function updateSelectionStatus() {
   );
   const selectedBooks = selectedPackPaths.size;
 
-  selectionCount.textContent =
-    `${selected} ${selected === 1 ? "chapter" : "chapters"} selected`;
+  const chapterSelectionText =
+    PrepFlowSelectionRules.chapterSelectionText(selected);
 
-  builderSelectionCount.textContent =
-    `${selected} ${selected === 1 ? "chapter" : "chapters"} selected`;
-
-  builderBookCount.textContent = selected
-    ? `From ${selectedBooks} ${selectedBooks === 1 ? "book" : "books"}`
-    : "Open a book to choose chapters";
+  selectionCount.textContent = chapterSelectionText;
+  builderSelectionCount.textContent = chapterSelectionText;
+  builderBookCount.textContent =
+    PrepFlowSelectionRules.bookSelectionText(selected, selectedBooks);
 
   startButton.disabled = selected === 0;
   buildQuizButton.disabled = selected === 0;
@@ -214,9 +188,7 @@ function updateSelectionStatus() {
       book.append(badge);
     }
 
-    badge.textContent = count
-      ? `${count} ${count === 1 ? "chapter" : "chapters"} selected`
-      : "Open book";
+    badge.textContent = count > 0 ? PrepFlowSelectionRules.bookBadgeText(count) : "";
 
     book.classList.toggle("has-selections", count > 0);
   });
@@ -228,13 +200,11 @@ function showSubjects() {
 
   hero.hidden = false;
   subjects.hidden = false;
-  quizBuilder.hidden = false;
+  homeLauncher.hidden = false;
   status.hidden = true;
 
   const selected = selectedChapters.size;
-  status.textContent = selected
-    ? `${selected} ${selected === 1 ? "chapter" : "chapters"} selected. Choose another category or return to your selected category to start.`
-    : "Select a category to continue.";
+  status.textContent = PrepFlowSelectionRules.homeStatusText(selected);
 
   refreshResumePanel();
 }
@@ -353,42 +323,29 @@ function currentQuestion() {
     throw new Error(`Study category is not loaded: ${reference.packPath}`);
   }
 
-  return pack.questions[reference.questionIndex];
+  const question = pack.questions.find(
+    (candidate) => candidate.id === reference.questionId
+  );
+
+  if (!question) {
+    throw new Error(
+      `Question is not available: ${reference.questionId}`
+    );
+  }
+
+  return question;
 }
 
 function totalBlockCount() {
-  return Math.max(1, Math.ceil(sessionQuestions.length / sessionBlockSize));
-}
-
-function normalizedCorrectAnswers(question) {
-  const rawAnswers =
-    question.correct_answers ?? question.correct_answer ?? [];
-
-  return (
-    Array.isArray(rawAnswers)
-      ? rawAnswers
-      : [rawAnswers]
-  )
-    .filter((answer) => answer !== null && answer !== undefined)
-    .map((answer) => String(answer).trim().toUpperCase())
-    .filter(Boolean);
-}
-
-function isMultipleResponseQuestion(question) {
-  const questionType = question.type || question.question_type;
-  const correctAnswers = normalizedCorrectAnswers(question);
-  const stem = String(question.stem || "");
-
-  return (
-    questionType === "multiple_response"
-    || correctAnswers.length > 1
-    || /select all that apply/i.test(stem)
+  return PrepFlowSessionRules.totalBlockCount(
+    sessionQuestions.length,
+    sessionBlockSize
   );
 }
 
 function showQuestion() {
   const question = currentQuestion();
-  const isMultipleResponse = isMultipleResponseQuestion(question);
+  const isMultipleResponse = PrepFlowQuizRules.isMultipleResponseQuestion(question);
   const blockLength = blockEnd - blockStart;
 
   hideAllScreens();
@@ -397,16 +354,31 @@ function showQuestion() {
   quizSubject.textContent = currentSubject;
 
   if (reviewMode) {
-    quizPosition.textContent =
-      `Block ${blockNumber} of ${totalBlockCount()} • Review • ${reviewQueue.length + 1} remaining`;
+    quizPosition.textContent = PrepFlowDisplayRules.quizPositionText({
+      blockNumber,
+      totalBlocks: totalBlockCount(),
+      reviewMode: true,
+      reviewRemaining: reviewQueue.length + 1,
+      questionInBlock: null,
+      blockLength,
+    });
 
     quizProgress.max = Math.max(reviewQueue.length + 1, 1);
     quizProgress.value = 1;
   } else {
-    const questionInBlock = questionIndex - blockStart + 1;
+    const questionInBlock = PrepFlowSessionRules.questionPosition(
+      questionIndex,
+      blockStart
+    );
 
-    quizPosition.textContent =
-      `Block ${blockNumber} of ${totalBlockCount()} • Question ${questionInBlock} of ${blockLength}`;
+    quizPosition.textContent = PrepFlowDisplayRules.quizPositionText({
+      blockNumber,
+      totalBlocks: totalBlockCount(),
+      reviewMode: false,
+      reviewRemaining: null,
+      questionInBlock,
+      blockLength,
+    });
 
     quizProgress.max = blockLength;
     quizProgress.value = questionInBlock;
@@ -445,15 +417,18 @@ function showQuestion() {
   submitAnswer.disabled = true;
   continueButton.hidden = true;
 
-  quizScore.textContent =
-    `First pass: ${firstPassCorrect} correct, ${firstPassMissed} missed`;
+  quizScore.textContent = PrepFlowDisplayRules.runningScoreText(
+    firstPassCorrect,
+    firstPassMissed
+  );
 
   saveSession("question");
 }
 
 function beginBlock() {
-  blockEnd = Math.min(
-    blockStart + sessionBlockSize,
+  blockEnd = PrepFlowSessionRules.blockEnd(
+    blockStart,
+    sessionBlockSize,
     sessionQuestions.length
   );
 
@@ -472,14 +447,17 @@ function showFinalSummary() {
   blockSummary.hidden = false;
 
   const totalQuestions = sessionQuestions.length;
-  const percentage = totalQuestions
-    ? Math.round((firstPassCorrect / totalQuestions) * 100)
-    : 0;
+  const percentage = PrepFlowSessionRules.firstPassPercentage(
+    firstPassCorrect,
+    totalQuestions
+  );
 
   summaryTitle.textContent = "Quiz Complete";
-  summaryScore.textContent = `First-pass score: ${percentage}%`;
-  summaryMessage.textContent =
-    `${firstPassCorrect} of ${totalQuestions} correct on the first attempt.`;
+  summaryScore.textContent = PrepFlowDisplayRules.finalScoreText(percentage);
+  summaryMessage.textContent = PrepFlowDisplayRules.finalMessage(
+    firstPassCorrect,
+    totalQuestions
+  );
 
   summaryAction.textContent = "Return Home";
   summaryAction.dataset.action = "return-home";
@@ -496,32 +474,27 @@ function showBlockSummary(mastered = false) {
   const blockLength = blockEnd - blockStart;
   const missedCount = blockMissed.length;
 
-  if (mastered) {
-    summaryTitle.textContent = `Block ${blockNumber} Mastered`;
-    summaryScore.textContent =
-      `First pass: ${blockCorrect} of ${blockLength} correct.`;
-    summaryMessage.textContent =
-      "All missed questions have now been answered correctly.";
-  } else {
-    summaryTitle.textContent = `Block ${blockNumber} Complete`;
-    summaryScore.textContent =
-      `First pass: ${blockCorrect} of ${blockLength} correct.`;
-    summaryMessage.textContent =
-      missedCount === 0
-        ? "No review is needed."
-        : `${missedCount} ${missedCount === 1 ? "question needs" : "questions need"} review.`;
-  }
+  summaryTitle.textContent = PrepFlowDisplayRules.blockTitle(
+    blockNumber,
+    mastered
+  );
+  summaryScore.textContent = PrepFlowDisplayRules.firstPassBlockScoreText(
+    blockCorrect,
+    blockLength
+  );
+  summaryMessage.textContent = PrepFlowDisplayRules.blockMessage(
+    missedCount,
+    mastered
+  );
 
-  if (!mastered && missedCount > 0) {
-    summaryAction.textContent = "Review Missed Questions";
-    summaryAction.dataset.action = "review";
-  } else if (blockEnd < sessionQuestions.length) {
-    summaryAction.textContent = "Start Next Block";
-    summaryAction.dataset.action = "next-block";
-  } else {
-    summaryAction.textContent = "Finish Session";
-    summaryAction.dataset.action = "finish";
-  }
+  const nextAction = PrepFlowSummaryRules.summaryAction({
+    mastered,
+    missedCount,
+    hasMoreQuestions: blockEnd < sessionQuestions.length,
+  });
+
+  summaryAction.textContent = nextAction.label;
+  summaryAction.dataset.action = nextAction.action;
 
   saveSession(mastered ? "mastered-summary" : "block-summary");
 }
@@ -540,7 +513,7 @@ async function startQuiz() {
     for (const selection of selectedChapters.values()) {
       const pack = await loadPack(selection.packPath);
 
-      pack.questions.forEach((question, index) => {
+      pack.questions.forEach((question) => {
         const key = `${question.chapter}|${question.chapter_title}`;
 
         if (
@@ -553,7 +526,7 @@ async function startQuiz() {
         ) {
           selectedQuestions.push({
             packPath: selection.packPath,
-            questionIndex: index,
+            questionId: question.id,
           });
         }
       });
@@ -564,7 +537,11 @@ async function startQuiz() {
     return;
   }
 
-  sessionQuestions = shuffle(selectedQuestions);
+  sessionShuffleQuestions = shuffleQuestionsToggle.checked;
+  sessionQuestions = PrepFlowOrderRules.orderQuestions(
+    selectedQuestions,
+    sessionShuffleQuestions
+  );
 
   if (sessionQuestions.length === 0) {
     status.hidden = false;
@@ -595,6 +572,8 @@ async function resumeSavedSession() {
   try {
     currentSubject = saved.currentSubject || "Custom Quiz";
     sessionQuestions = saved.sessionQuestions || [];
+    sessionShuffleQuestions = saved.sessionShuffleQuestions !== false;
+    shuffleQuestionsToggle.checked = sessionShuffleQuestions;
 
     const packPaths = new Set(
       sessionQuestions
@@ -646,18 +625,9 @@ submitAnswer.addEventListener("click", () => {
   }
 
   const question = currentQuestion();
-  const correctAnswers = normalizedCorrectAnswers(question);
-
-  const selectedAnswers = Array.from(
-    selected,
-    (input) => String(input.value).trim().toUpperCase()
-  );
-
-  const selectedSet = new Set(selectedAnswers);
-  const correctSet = new Set(correctAnswers);
-  const isCorrect =
-    selectedSet.size === correctSet.size
-    && [...selectedSet].every((answer) => correctSet.has(answer));
+  const selectedAnswers = Array.from(selected, (input) => input.value);
+  const { isCorrect, correctAnswers } =
+    PrepFlowQuizRules.evaluateAnswer(question, selectedAnswers);
 
   if (isCorrect) {
     feedbackResult.textContent = "Correct!";
@@ -671,7 +641,11 @@ submitAnswer.addEventListener("click", () => {
       `Incorrect. Correct answer: ${correctAnswers.join(", ")}`;
 
     if (reviewMode) {
-      reviewQueue.push(currentReviewQuestion);
+      reviewQueue = PrepFlowReviewRules.queueAfterAnswer(
+        reviewQueue,
+        currentReviewQuestion,
+        false
+      );
     } else {
       firstPassMissed += 1;
       blockMissed.push(sessionQuestions[questionIndex]);
@@ -686,8 +660,10 @@ submitAnswer.addEventListener("click", () => {
     input.disabled = true;
   });
 
-  quizScore.textContent =
-    `First pass: ${firstPassCorrect} correct, ${firstPassMissed} missed`;
+  quizScore.textContent = PrepFlowDisplayRules.runningScoreText(
+    firstPassCorrect,
+    firstPassMissed
+  );
 
   submitAnswer.hidden = true;
   continueButton.hidden = false;
@@ -695,21 +671,27 @@ submitAnswer.addEventListener("click", () => {
 
 continueButton.addEventListener("click", () => {
   if (reviewMode) {
-    if (reviewQueue.length === 0) {
-      currentReviewQuestion = null;
+    const nextStep = PrepFlowReviewRules.nextReviewStep(reviewQueue);
+    reviewQueue = nextStep.reviewQueue;
+    currentReviewQuestion = nextStep.currentQuestion;
+
+    if (nextStep.finished) {
       reviewMode = false;
       showBlockSummary(true);
       return;
     }
 
-    currentReviewQuestion = reviewQueue.shift();
     showQuestion();
     return;
   }
 
-  questionIndex += 1;
+  const nextStep = PrepFlowNavigationRules.nextQuestionStep(
+    questionIndex,
+    blockEnd
+  );
+  questionIndex = nextStep.questionIndex;
 
-  if (questionIndex >= blockEnd) {
+  if (nextStep.blockComplete) {
     showBlockSummary(false);
     return;
   }

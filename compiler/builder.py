@@ -2,17 +2,22 @@ from compiler.ids import generate_question_id
 from compiler.models import Answer, Content, Origin, Pack, Question
 
 
-def build_question(question: dict, index: int) -> Question:
+def build_question(question: dict, index: int, pack_id: str) -> Question:
     """
-    Convert one parsed legacy question dictionary into a canonical Question.
+    Convert one normalized question dictionary into a canonical Question.
+
+    Preserve an existing permanent ID when present. Assign a Pack-namespaced
+    ID only when the incoming question does not already have one.
     """
 
     answer_type = question["question_type"]
     if answer_type == "multiple_choice":
         answer_type = "mc"
 
+    question_id = question.get("id") or generate_question_id(pack_id, index)
+
     return Question(
-        id=generate_question_id(index),
+        id=question_id,
         version=1,
         origin=Origin(
             chapter=question["chapter"],
@@ -31,15 +36,16 @@ def build_question(question: dict, index: int) -> Question:
     )
 
 
-def build_questions(questions: list[dict]) -> list[Question]:
+def build_questions(questions: list[dict], pack_id: str) -> list[Question]:
     """
-    Convert parsed legacy question dictionaries into canonical Questions.
+    Convert normalized question dictionaries into canonical Questions.
     """
 
     return [
-        build_question(question, index)
+        build_question(question, index, pack_id)
         for index, question in enumerate(questions, start=1)
     ]
+
 
 def build_pack(
     questions: list[Question],

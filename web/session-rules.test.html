@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrepFlow Session Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Session Rules Test</h1>
+  <pre id="results"></pre>
+
+  <script src="session-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const rules = window.PrepFlowSessionRules;
+    const lines = [];
+    let failures = 0;
+
+    function check(name, actual, expected) {
+      const passed = Object.is(actual, expected);
+      lines.push(`${passed ? "PASS" : "FAIL"}: ${name}`);
+
+      if (!passed) {
+        lines.push(`  expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}`);
+        failures += 1;
+      }
+    }
+
+    check("counts one block for an empty session", rules.totalBlockCount(0, 15), 1);
+    check("counts complete and partial blocks", rules.totalBlockCount(31, 15), 3);
+    check("uses a safe minimum block size", rules.totalBlockCount(3, 0), 3);
+
+    check("calculates a full block end", rules.blockEnd(0, 15, 40), 15);
+    check("caps the final block end", rules.blockEnd(30, 15, 40), 40);
+
+    check("calculates first question position", rules.questionPosition(15, 15), 1);
+    check("calculates later question position", rules.questionPosition(19, 15), 5);
+
+    check("calculates a rounded first-pass percentage", rules.firstPassPercentage(8, 15), 53);
+    check("returns zero for an empty quiz", rules.firstPassPercentage(0, 0), 0);
+
+    lines.push("");
+    lines.push(failures === 0 ? "All tests passed." : `${failures} test(s) failed.`);
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>

@@ -1,82 +1,49 @@
-<!-- PLATFORM_CHOOSER_START -->
 # PrepFlow
 
-PrepFlow is a nursing study program that lets you choose chapters, answer questions one at a time, review rationales, and repeat missed questions until they are mastered.
+PrepFlow is a browser-based nursing study application built around organized question Packs.
 
-No account is required. PrepFlow does not collect personal information or upload your study progress. Saved sessions remain in the browser or application on the device you use.
+It lets you choose chapters, answer one question at a time, review the correct answer and rationale, and repeat missed questions until they are mastered.
 
-## Use PrepFlow Now
+## Open PrepFlow
 
-[**Open PrepFlow in Your Browser**](https://bins-projects.github.io/PrepFlow/web/)
+[Open PrepFlow in your browser](https://bins-projects.github.io/PrepFlow/web/)
 
-You can begin studying immediately without installing anything.
+No account is required. Study progress is stored locally in the browser on the device being used.
 
-Your session saves locally in that browser on that device. A session saved in Safari on one Mac will not automatically appear in Chrome on another computer.
+Clearing browser or site data may remove a saved session. A session saved in one browser or device does not automatically appear in another.
 
-Clearing browser or site data may remove locally saved PrepFlow sessions.
+## Install as an App
 
-## Save PrepFlow to Your Device
+PrepFlow can be installed from a supported browser so it opens in its own window.
 
-The options below let PrepFlow open more like a normal application from your computer.
+### Chromebook or Chrome
 
-### Chromebook
-
-[**Open PrepFlow for Chromebook**](https://bins-projects.github.io/PrepFlow/web/)
-
-1. Open the link in Chrome.
-2. Click the install icon in the address bar.
+1. Open PrepFlow in Chrome.
+2. Select the install icon in the address bar.
 3. Choose **Install**.
-4. Open PrepFlow from the Chromebook Launcher.
+4. Open PrepFlow from the device launcher.
 
-### Mac
+### Mac with Safari
 
-[**Open PrepFlow for Mac**](https://bins-projects.github.io/PrepFlow/web/)
+1. Open PrepFlow in Safari.
+2. Choose **File** and then **Add to Dock**.
+3. Name it **PrepFlow** and select **Add**.
+4. Open it from the Dock, Applications, or Spotlight.
 
-1. Open the link in Safari.
-2. Click **File** in the menu bar at the very top of the screen.
-3. Click **Add to Dock**.
-4. Enter **PrepFlow** as the name and click **Add**.
-5. Open PrepFlow from the Dock, Applications folder, or Spotlight search.
-
-This saves the web-app version to the Mac so it opens in its own window like a normal application.
-
-### Windows
-
-[**Download PrepFlow for Windows**](https://github.com/bins-projects/PrepFlow/releases/latest/download/PrepFlow-Windows-x86_64.zip)
-
-1. Download the ZIP file.
-2. Open the Downloads folder.
-3. Right-click the ZIP file and choose **Extract All**.
-4. Open the extracted `PrepFlow` folder.
-5. Double-click `PrepFlow.exe`.
-
-Windows may display a Microsoft Defender SmartScreen warning because PrepFlow is not yet code-signed.
-
-Choose **More info**, then **Run anyway**, only when the file was downloaded from the official PrepFlow GitHub page.
-
----
-<!-- PLATFORM_CHOOSER_END -->
-
-# How to Use PrepFlow
+## How to Study
 
 1. Choose a study category.
 2. Select one or more chapters.
-3. Return to the category screen to add chapters from another category, or start from the current chapter screen.
-4. Choose your block size.
-5. Begin the quiz.
-6. Select the answer or answers and submit them.
-7. Read the correct answer and rationale.
-8. Continue through the block.
-9. Missed questions return for review until they are mastered.
-10. Your session saves automatically so you can leave and resume later.
+3. Add chapters from another category when needed.
+4. Choose a block size.
+5. Start the quiz.
+6. Submit each answer and review the feedback.
+7. Complete the block.
+8. Repeat missed questions until they are mastered.
 
-Selected chapters from one or more study categories are combined and shuffled once at the beginning of each session.
+PrepFlow automatically saves an unfinished session in one local save slot so it can be resumed later.
 
-The final block is shortened automatically when fewer questions remain than the selected block size.
-
----
-
-# Current Subjects
+## Study Library
 
 PrepFlow currently includes:
 
@@ -84,55 +51,35 @@ PrepFlow currently includes:
 - Pharm
 - Medical-Surgical
 
----
+## Question Types
 
-# Supported Question Types
-
-PrepFlow supports:
+The PrepFlow library contains:
 
 - Multiple Choice
 - Multiple Response
 - Completion
 - Ordered Response
 
-Ordered Response questions use drag-and-drop controls.
+Browser support for individual question types may evolve as the active study interface is improved.
 
-Long questions and rationales scroll while navigation controls remain available.
+## Study Behavior
 
----
-
-# Study Behavior
-
-During a study session, PrepFlow:
+During a session, PrepFlow:
 
 - presents one question at a time;
 - gives immediate Correct or Incorrect feedback;
-- displays the correct answer;
-- displays the rationale;
-- tracks first-pass correct and missed answers;
+- shows the correct answer and rationale;
+- tracks first-pass performance;
 - places missed questions into a review queue;
-- repeats missed review questions until answered correctly;
-- shows first-pass and mastery results.
+- repeats missed questions until answered correctly;
+- displays final first-pass results after the session is complete.
 
----
+Selected questions currently use one stable shuffled order for the session.
 
-# Automatic Save and Resume
+## Project Direction
 
-PrepFlow maintains one overwriteable local save slot.
+PrepFlow also includes a compiler that turns deliberately selected educational source material into cleaned, structured, validated Packs.
 
-Whenever a new question opens, the current session state is saved automatically.
+The browser application is the active user-facing product. Future downloadable editions should reuse the browser-centered application rather than maintain a separate study system.
 
-The saved state includes:
-
-- subject and question set;
-- shuffled question order;
-- current position;
-- block progress;
-- first-pass score;
-- missed questions;
-- mastery-review queue.
-
-When a saved session exists, the home screen displays:
-
-```text
-Continue Saved Quiz
+Internal architecture and development continuity are documented under `docs/`.

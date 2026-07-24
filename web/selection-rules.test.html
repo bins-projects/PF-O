@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PrepFlow Selection Rules Test</title>
+</head>
+<body>
+  <h1>PrepFlow Selection Rules Test</h1>
+  <pre id="results"></pre>
+
+  <script src="selection-rules.js"></script>
+  <script>
+    const results = document.querySelector("#results");
+    const lines = [];
+
+    function expect(name, actual, expected) {
+      if (actual !== expected) {
+        throw new Error(`${name}: expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}`);
+      }
+      lines.push(`PASS: ${name}`);
+    }
+
+    try {
+      expect(
+        "formats one selected chapter",
+        PrepFlowSelectionRules.chapterSelectionText(1),
+        "1 chapter selected"
+      );
+      expect(
+        "formats multiple selected chapters",
+        PrepFlowSelectionRules.chapterSelectionText(3),
+        "3 chapters selected"
+      );
+      expect(
+        "formats one selected book",
+        PrepFlowSelectionRules.bookSelectionText(2, 1),
+        "From 1 book"
+      );
+      expect(
+        "formats multiple selected books",
+        PrepFlowSelectionRules.bookSelectionText(4, 2),
+        "From 2 books"
+      );
+      expect(
+        "formats empty book selection",
+        PrepFlowSelectionRules.bookSelectionText(0, 0),
+        "Open a book to choose chapters"
+      );
+      expect(
+        "formats empty book badge",
+        PrepFlowSelectionRules.bookBadgeText(0),
+        "Open book"
+      );
+      expect(
+        "formats populated book badge",
+        PrepFlowSelectionRules.bookBadgeText(2),
+        "2 chapters selected"
+      );
+      expect(
+        "formats empty home status",
+        PrepFlowSelectionRules.homeStatusText(0),
+        "Select a category to continue."
+      );
+      expect(
+        "formats populated home status",
+        PrepFlowSelectionRules.homeStatusText(1),
+        "1 chapter selected. Choose another category or return to your selected category to start."
+      );
+
+      lines.push("", "All tests passed.");
+    } catch (error) {
+      lines.push(`FAIL: ${error.message}`);
+    }
+
+    results.textContent = lines.join("\n");
+  </script>
+</body>
+</html>
