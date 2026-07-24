@@ -6,134 +6,160 @@ This file is the primary handoff for every new PrepFlow development session.
 
 > **MANDATORY FIRST ACTION:** Read this entire file before proposing a command or changing a PrepFlow file.
 
-For the current visual milestone, also read:
+For visual work, also read:
 
 ```text
 docs/ART_SYSTEM.md
 docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md
+docs/RELEASE_2026-07-24_BOOK_MILESTONE.md
 ```
 
 The local repository at `~/projects/prepflow` is the active working copy during development. The rendered local application is part of the source of truth for visual work.
 
 ---
 
-# 1. Authority Order
+# 1. Current Release and Development Topology
 
-Use this order:
-
-1. `docs/RESTART_PACKET.md` — current branch state, exact resume point, and next step.
-2. Local branch, working-tree state, local-only files, and rendered application.
-3. Current private development branch — last committed development state.
-4. `docs/ART_SYSTEM.md` — durable art, rendering, file-format, and visual-ownership rules.
-5. `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md` — detailed visual history and active milestone guidance.
-6. `docs/ARCHITECTURE_BIBLE.md` — durable technical architecture.
-7. Charlie's explicit approval or correction.
-8. Historical documents and tags for context only.
-
-When sources conflict:
-
-1. stop before modifying anything;
-2. determine which source is newer and relevant;
-3. inspect the real local implementation and browser output;
-4. ask Charlie when approval remains ambiguous;
-5. update continuity so the conflict cannot recur.
-
----
-
-# 2. Repository and Branch State
-
-## Production
+## Public production
 
 ```text
 Repository: bins-projects/PrepFlow
 Branch: master
-Latest verified production commit: 8987fdf
+Public deployment commit: 8e8e85b1e9b9604d257b6db52e9bb802fcb91fce
+Public site: https://bins-projects.github.io/PrepFlow/web/
+Release PR: bins-projects/PrepFlow#2
 ```
 
-Production `master` remains intentionally unchanged during the redesign.
+Charlie opened the deployed site after release and confirmed that the new three-book homepage looked great.
 
-Do not merge or publish the redesign to production `master` without Charlie's explicit approval.
+## Frozen release source snapshot
+
+```text
+Source snapshot: 648bcfbf218b11b7786bdb4cd42f5a596e7b4f58
+Release branch: release/2026-07-24-book-milestone
+```
+
+The release branch exists in both:
+
+```text
+bins-projects/prepflow-dev
+bins-projects/PrepFlow
+```
+
+Both release branches point to `648bcfb`.
+
+Public `master` has merge commit `8e8e85b` because GitHub merged the fixed release branch through pull request #2. The deployed source tree is the tree from `648bcfb`.
+
+Do not move, reuse, or continue ordinary development on the release branch.
 
 ## Active development
 
 ```text
 Local repository: ~/projects/prepflow
-Private repository: bins-projects/prepflow-dev
-Public mirror repository: bins-projects/PrepFlow
 Active branch: docs/continuity-rebuild
+Private development repository: bins-projects/prepflow-dev
+Public mirror repository: bins-projects/PrepFlow
+Public mirror development branch: docs/continuity-rebuild
 ```
 
-## Completed book milestone
+Daily work continues on `docs/continuity-rebuild`, not on public `master` and not on the frozen release branch.
 
-```text
-61851cd  checkpoint: preserve approved homepage book artwork
-ca1b5d0  chore: finalize approved book UI cleanup
-```
-
-On 2026-07-24, local, `origin/docs/continuity-rebuild`, and `public/docs/continuity-rebuild` were explicitly verified at:
-
-```text
-ca1b5d0e1e5d8e598b7a202890234e43348dc4fb
-```
-
-The implementation milestone is complete and synchronized.
-
-Documentation-only commits may be newer than `ca1b5d0`; that does not mean the book implementation is unfinished.
-
-Frozen historical reference:
-
-```text
-before-continuity-rebuild-2026-07-20
-```
+The development branch is expected to move ahead of public production while the next milestone is being built.
 
 ---
 
-# 3. Supporting Documents
+# 2. Authority Order
 
-## Architecture
+Use this order:
 
-```text
-docs/ARCHITECTURE_BIBLE.md
-```
+1. Charlie's explicit approval or correction.
+2. The rendered local application for visual and interaction truth.
+3. The local repository, active branch, working tree, and local-only files.
+4. `docs/RESTART_PACKET.md` for current topology and resume procedure.
+5. `docs/ART_SYSTEM.md` for durable visual rules and asset ownership.
+6. `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md` for the active visual milestone.
+7. `docs/RELEASE_2026-07-24_BOOK_MILESTONE.md` for the current public release boundary.
+8. The private development branch for the last committed development state.
+9. The public mirror development branch for synchronization and release preparation.
+10. Public `master` for the currently deployed production state.
+11. Older dated handoffs, tags, and historical documents for context only.
 
-Defines durable technical boundaries, including separation of artwork, live state, and browser behavior.
+When sources conflict:
 
-## Art system
+1. stop before modifying anything;
+2. inspect `git status --short --branch` locally;
+3. identify the newest relevant source;
+4. inspect the real rendered result;
+5. ask Charlie when approval remains ambiguous;
+6. update continuity after the conflict is resolved.
 
-```text
-docs/ART_SYSTEM.md
-```
-
-Defines:
-
-- PrepFlow Illustrated Pixel;
-- background, nurse, book, HTML/JavaScript, and CSS ownership;
-- runtime and source asset roles;
-- approved book geometry and rendering;
-- file-format rules;
-- implemented, approved-but-not-implemented, experimental, and superseded status language.
-
-## Visual continuity
-
-```text
-docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md
-```
-
-Defines the completed book result, troubleshooting discoveries, and the next background/nurse milestone.
-
-## Historical rebuild reasoning
-
-```text
-docs/CONTINUITY_REBUILD_PLAN.md
-```
-
-Use for forensic context only. It is not the current resume authority.
+Do not overwrite newer local work merely because GitHub has an older committed copy.
 
 ---
 
-# 4. Current Product State
+# 3. Local-First Development Rule
 
-PrepFlow converts deliberately chosen educational material into independent validated Packs used by a browser-centered study application.
+The local repository is where PrepFlow is actively built and tested:
+
+```text
+~/projects/prepflow
+```
+
+Use the local working copy to:
+
+- inspect and edit application files;
+- run automated tests;
+- run the local browser server;
+- check real layout and behavior;
+- preserve local visual experiments before committing;
+- review the exact diff before a checkpoint or release.
+
+Use GitHub to:
+
+- inspect committed baselines and history;
+- create durable documentation changes without long terminal heredocs;
+- preserve verified checkpoints;
+- synchronize the intended remotes;
+- create fixed release branches and pull requests;
+- verify branch and release hashes.
+
+For large documentation rewrites, use the GitHub connector and then give Charlie one short `git pull --ff-only` command.
+
+For implementation work, do not reconstruct the project from repeated snippets when the real local files are available.
+
+---
+
+# 4. Public Release Policy
+
+PrepFlow should now be released publicly in coherent, tested chunks rather than waiting for every planned improvement.
+
+Required release sequence:
+
+1. complete one coherent milestone on `docs/continuity-rebuild`;
+2. run applicable automated tests;
+3. inspect the real local browser result;
+4. verify core interactions affected by the milestone;
+5. inspect the focused diff;
+6. commit and push the development branch to both intended remotes;
+7. verify local, private, and public-mirror development hashes;
+8. create a fixed release branch from the approved commit;
+9. open a pull request from that release branch into public `master`;
+10. review the exact release scope and removals;
+11. merge the release pull request;
+12. verify the public GitHub Pages site;
+13. record the release boundary in documentation.
+
+Public `master` must not be used as the daily working branch.
+
+Unfinished nurse, background, animation, or experimental work remains on the development branch until it forms an approved release chunk.
+
+---
+
+# 5. Current Product State
+
+PrepFlow is a browser-centered nursing study application built around validated question Packs.
+
+Authoritative product flow:
 
 ```text
 Chosen educational source
@@ -170,15 +196,15 @@ Pharm
 Medical-Surgical
 ```
 
-Read exact question counts from the Pack files rather than old documentation.
+Read exact question counts from the current Pack files rather than relying on old documentation.
 
-The old Tkinter desktop stack, PyInstaller workflow, terminal client, and obsolete DOCX prototype were intentionally removed during the continuity rebuild. Do not restore them merely because they exist in Git history.
+The browser-centered application is the active product. The removed legacy Tkinter, PyInstaller, and separate desktop-study stack must not be restored merely because it exists in history.
 
 ---
 
-# 5. Completed and Approved Book State
+# 6. Released Three-Book Milestone
 
-Approved runtime assets:
+The public site now includes the approved transparent subject books:
 
 ```text
 web/images/book-sprite-preview/prepflow-fundamentals-book.png
@@ -186,136 +212,107 @@ web/images/book-sprite-preview/prepflow-pharm-book.png
 web/images/book-sprite-preview/prepflow-medsurg-book.png
 ```
 
-Approved implementation:
+They use:
+
+- locked v21 hardcover construction;
+- transparent 1024 × 1024 PNG masters;
+- smooth alpha and browser image smoothing;
+- correct page-grain direction;
+- clean-border language;
+- approved subject colors and icons;
+- 256 CSS-pixel desktop display in the current composition;
+- equal three-column spacing;
+- transparent clickable button structure.
+
+Authoritative presentation layer:
 
 ```text
 web/approved-book-buttons.css
-web/app.js
-web/index.html
-web/pixel-home.css
 ```
 
-Verified result:
+Live state owner:
 
-- three transparent 1024 × 1024 subject-book PNG masters;
-- locked v21 hardcover construction;
-- smooth alpha and normal browser image smoothing;
-- corrected page-grain direction;
-- approved clean-border language;
-- 256 CSS-pixel desktop display;
-- equal three-column spacing;
-- complete book artwork remains clickable;
-- all three books open the correct chapter-selection screen;
-- zero-selection badges are empty and hidden;
-- selected-chapter badges remain live HTML/JavaScript state;
-- question totals remain off closed-book artwork;
-- always-visible `OPEN BOOK` ovals are removed.
+```text
+web/app.js
+```
+
+The complete book is the clickable button. A zero-selection badge is empty and hidden. A selected-count badge appears only when chapters are actually selected.
 
 Do not restore:
 
 - CSS-drawn principal books;
 - inline replacement cover emblems;
 - the Pharm-only prototype;
-- hard-edge native-256 exports;
+- native-256 hard-edge exports;
 - braided multi-color borders;
-- crosswise page bands;
-- baked question totals;
-- always-visible `OPEN BOOK` labels.
+- crosswise cover-to-cover page bands;
+- baked closed-book question totals;
+- always-visible `OPEN BOOK` ovals.
 
-Automated verification completed before commit `ca1b5d0`:
-
-```text
-72 passed
-```
-
-The cleanup commit contains only the four intended web files. Timestamped backups and proof assets were moved outside the repository to:
-
-```text
-~/prepflow-local-backups/2026-07-24-book-cleanup
-```
+Release verification included all 72 automated tests passing and real-browser approval.
 
 ---
 
-# 6. Current Background and Nurse State
+# 7. Current Background and Nurse State
 
-Current combined reference:
+Current combined visual reference:
 
 ```text
 web/images/pixel-home-stage.webp
 ```
 
-It currently contains:
+It still contains the sunset-city environment and both nurses baked into one static image.
 
-- the sunset-city environment;
-- the female nurse;
-- the male nurse.
+It is the approved visual reference but not the final ownership structure.
 
-This image is the approved visual reference, but it is not the final ownership structure.
+The next milestone must separate:
 
-Do not casually crop, regenerate, substitute, or overwrite it.
+1. a background-only static environment plate;
+2. the female nurse as a transparent sprite;
+3. the male nurse as a transparent sprite.
 
-## Approved but not implemented
+The separated assets must preserve:
 
-- a background-only static plate;
-- a separate transparent female-nurse sprite;
-- a separate transparent male-nurse sprite;
-- reusable nurse pose variants after the base sprites are approved.
+- recognizable character identity;
+- proportions;
+- clothing and stethoscopes;
+- palette;
+- upper-left lighting direction;
+- apparent scale;
+- approved composition;
+- PrepFlow Illustrated Pixel rendering language.
 
-Separate pose files should be used first. Do not create a sprite sheet until runtime animation or repeated reuse justifies one.
+Preserve the combined reference. Do not overwrite it while building the separate layers.
 
----
+Use separate pose files initially. Do not create a sprite sheet unless later animation or runtime reuse justifies it.
 
-# 7. Exact Next Visual Milestone
-
-> Rebuild the current home scene as a background-only plate plus two separate transparent nurse sprites while preserving the approved character designs, sunset-city environment, proportions, palette, lighting, apparent scale, pixel density, and current book composition.
-
-Start by documenting and inspecting the target layer boundaries before changing an asset.
-
-Required order:
-
-1. inspect the current combined reference at actual browser size;
-2. identify the background-only plate boundary;
-3. identify the female-nurse sprite boundary;
-4. identify the male-nurse sprite boundary;
-5. preserve the existing combined WebP as the rollback reference;
-6. establish one representative nurse sprite before producing pose variants;
-7. compose separate layers in the real application;
-8. verify desktop, reduced-width, reduced-height, and narrow layouts;
-9. leave the approved books unchanged during this milestone.
+Do not regenerate or flatten the complete scene when changing one isolated asset.
 
 ---
 
 # 8. Local Browser Workflow
 
-Canonical server command:
+Start the canonical local server from the repository root:
 
 ```bash
 cd ~/projects/prepflow && python3 -m http.server 8004
 ```
 
-Canonical URL:
+Open:
 
 ```text
 http://localhost:8004/web/
 ```
 
-The server must run from:
+The server must run from `~/projects/prepflow`, not from `~/projects/prepflow/web`, because the sibling `packs/` directory must also be served.
 
-```text
-~/projects/prepflow
-```
-
-It must not run from `~/projects/prepflow/web`, because the sibling `packs/` directory must also be served.
-
-Use:
+Hard refresh:
 
 ```text
 Ctrl+Shift+R
 ```
 
-for a hard refresh.
-
-A clean troubleshooting origin may use:
+Clean diagnostic origin:
 
 ```bash
 cd ~/projects/prepflow && python3 -m http.server 8005
@@ -325,21 +322,19 @@ cd ~/projects/prepflow && python3 -m http.server 8005
 http://localhost:8005/web/
 ```
 
-Port 8005 is diagnostic only; port 8004 remains canonical.
+Port 8005 is only a troubleshooting origin.
 
-## Troubleshooting order
+Troubleshooting order:
 
-Before changing CSS or artwork because something looks stale:
-
-1. verify a Python server is running;
+1. verify the Python server is running;
 2. verify its working directory;
-3. open the exact asset directly by URL;
-4. compare that asset with the homepage;
-5. inspect the actual live DOM element;
-6. inspect dynamically inserted children and pseudo-elements;
-7. only then diagnose caching or the service worker.
+3. open the target asset directly by URL;
+4. compare the direct asset with the homepage;
+5. inspect the live DOM element and its children;
+6. inspect pseudo-elements;
+7. only then diagnose CSS, cache, or service-worker behavior.
 
-The old visible ovals were produced by `.book-selected-count`, not by `.card-action` or the background image. Inspect live DOM before stacking suppression rules.
+The old `OPEN BOOK` ovals came from `.book-selected-count`, not `.card-action` and not the background image.
 
 ---
 
@@ -348,70 +343,80 @@ The old visible ovals were produced by `.book-selected-count`, not by `.card-act
 Standard loop:
 
 ```text
-Read restart authority
+Read continuity
 → inspect local status
-→ observe the real application
+→ observe the real local application
 → identify one focused change
 → implement locally
 → test
-→ inspect the real output
-→ document verified state
+→ inspect the output and diff
+→ document durable decisions
 → commit
-→ push every intended remote
+→ push intended remotes
 → verify hashes
 → repeat
 ```
 
 Permanent rules:
 
-- one executable step at a time;
-- local-first for active implementation;
-- GitHub plugin for large documentation rewrites rather than long terminal heredocs;
-- do not ask Charlie to paste hundreds of lines into the terminal;
-- do not reconstruct multi-file local work from repeated snippets when a compact archive can expose the actual files;
-- no speculative redesigns;
-- do not claim tests, pushes, previews, or approvals that were not verified;
-- preserve approved source artwork and exact SVG paths;
-- do not flatten the complete scene when changing one isolated asset;
-- keep temporary proofs, screenshots, transfer archives, and timestamped backups out of production commits;
-- after every milestone, push both intended remotes and explicitly compare hashes.
-
-When Charlie says `next`, continue to the next executable step rather than repeating the previous command.
-
----
-
-# 10. Startup Procedure for the Next Chat
-
-Before giving Charlie a modifying command:
-
-1. read this packet;
-2. read `docs/ART_SYSTEM.md`;
-3. read `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md`;
-4. inspect `git status --short --branch`;
-5. confirm the branch is `docs/continuity-rebuild`;
-6. confirm the book milestone is already complete;
-7. run the existing home screen unchanged;
-8. inspect the combined background/nurse reference;
-9. state the one focused first action for the layer-separation milestone.
-
-Do not restart book design or repeat the completed cleanup.
-
----
-
-# 11. End-of-Session Procedure
-
-Before ending substantial PrepFlow work:
-
-1. inspect all tracked and untracked files;
-2. classify production files, docs, proofs, backups, screenshots, and archives;
-3. run applicable tests and browser checks;
-4. update the relevant continuity documents;
-5. commit the focused milestone;
-6. push both `origin` and `public` when both should remain synchronized;
-7. compare local, origin, and public hashes explicitly;
-8. confirm a fresh chat can resume without conversational memory.
+- one focused change at a time;
+- when Charlie says `next`, provide the next executable step rather than repeating the previous command;
+- do not ask for code already available through GitHub or the local project;
+- do not perform speculative redesigns;
+- do not claim tests, pushes, merges, previews, or approvals that were not verified;
+- keep backup assets, screenshots, transfer archives, and temporary proofs out of production commits;
+- protect privacy before public sharing or release;
+- preserve exact approved source art;
+- update continuity whenever a durable rule, release boundary, or active milestone changes;
+- push every remote intended to remain synchronized and explicitly compare hashes.
 
 Do not assume a plain `git push` updates both remotes.
+
+---
+
+# 10. End-of-Session Procedure
+
+Before ending a substantial PrepFlow session:
+
+1. inspect `git status --short --branch`;
+2. classify every changed and untracked file;
+3. remove or relocate temporary backups from the repository;
+4. run applicable automated tests;
+5. perform real-browser checks for affected behavior;
+6. inspect the focused diff;
+7. update supporting documentation;
+8. update this restart packet when topology or milestones changed;
+9. commit one coherent milestone;
+10. push both development remotes when both should match;
+11. verify local, private, and public-mirror hashes;
+12. create a release branch only for an approved public chunk;
+13. confirm a fresh chat can resume without relying on conversational memory.
+
+---
+
+# 11. Exact Current Resume State
+
+Public production is the released book milestone:
+
+```text
+Public master: 8e8e85b1e9b9604d257b6db52e9bb802fcb91fce
+Release source snapshot: 648bcfbf218b11b7786bdb4cd42f5a596e7b4f58
+Release branch: release/2026-07-24-book-milestone
+Public site: https://bins-projects.github.io/PrepFlow/web/
+```
+
+Active development remains:
+
+```text
+~/projects/prepflow
+docs/continuity-rebuild
+```
+
+The next focused milestone is the background-only plate plus two separate nurse sprites.
+
+Do not redesign the books during that milestone.
+
+Do not merge unfinished nurse/background work directly into public `master`.
 
 ---
 
@@ -419,8 +424,4 @@ Do not assume a plain `git push` updates both remotes.
 
 Use this exact instruction:
 
-> Continue PrepFlow from my local repository at `~/projects/prepflow` on branch `docs/continuity-rebuild`. Read the current local `docs/RESTART_PACKET.md`, `docs/ART_SYSTEM.md`, and `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md` before giving me a command. Inspect `git status` first. The approved three-book milestone is complete and synchronized; begin with the background-only plate and separate nurse-sprite milestone. Give me one executable step at a time and use the GitHub plugin for large documentation rewrites instead of long terminal heredocs.
-
-The authoritative development branch is `docs/continuity-rebuild`.
-
-Production `master` remains intentionally unchanged at `8987fdf`.
+> Continue PrepFlow from my local repository at `~/projects/prepflow` on branch `docs/continuity-rebuild`. Read the current local `docs/RESTART_PACKET.md`, `docs/ART_SYSTEM.md`, `docs/VISUAL_REDESIGN_CONTINUITY_2026-07-23.md`, and `docs/RELEASE_2026-07-24_BOOK_MILESTONE.md` before giving me a command. Inspect `git status --short --branch` first. The tested book-milestone source snapshot is frozen at `648bcfb`, and the public site is deployed from public `master` merge commit `8e8e85b`. Daily work remains local-first on `docs/continuity-rebuild`; public updates are promoted in tested milestone chunks through fixed release branches. Begin with the background-only plate and separate female and male nurse sprites while preserving the approved combined scene and book composition. Give me one executable step at a time and use the GitHub plugin for large documentation rewrites instead of long terminal heredocs.
