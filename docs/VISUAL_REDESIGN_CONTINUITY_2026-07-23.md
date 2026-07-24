@@ -1,22 +1,20 @@
 # PrepFlow Visual Redesign Continuity — 2026-07-23
 
-> **Updated 2026-07-24:** The approved three-book artwork and runtime cleanup are complete, tested, committed, pushed to both development remotes, and explicitly verified at matching commit `ca1b5d0e1e5d8e598b7a202890234e43348dc4fb`. The active visual milestone is now separation of the background and nurses.
+> **Updated 2026-07-24 after public release:** The approved three-book milestone is complete, tested, released publicly, and preserved as a fixed source snapshot. Active visual development now moves to separating the background and nurses while public production remains on the released book milestone.
 
-This document is the detailed handoff for the active visual redesign.
-
-Durable art rules:
+Durable visual rules:
 
 ```text
 docs/ART_SYSTEM.md
 ```
 
-Durable technical ownership boundaries:
+Current release record:
 
 ```text
-docs/ARCHITECTURE_BIBLE.md
+docs/RELEASE_2026-07-24_BOOK_MILESTONE.md
 ```
 
-Current branch state and exact resume procedure:
+Current branch and resume authority:
 
 ```text
 docs/RESTART_PACKET.md
@@ -24,38 +22,51 @@ docs/RESTART_PACKET.md
 
 ---
 
-## 1. Active branch and protected milestones
+## 1. Release boundary
 
-Continue redesign work on:
-
-```text
-docs/continuity-rebuild
-```
-
-Production `master` remains separate until Charlie intentionally approves promotion.
-
-Important preserved commits:
+The released visual source snapshot is:
 
 ```text
-61851cd  checkpoint: preserve approved homepage book artwork
-8960ccf  docs: add permanent PrepFlow art system
-41e3b03  docs: define visual ownership boundaries
-ca1b5d0  chore: finalize approved book UI cleanup
+648bcfbf218b11b7786bdb4cd42f5a596e7b4f58
 ```
 
-On 2026-07-24, these three branch locations were verified at the same implementation commit:
+Frozen release branch:
 
 ```text
-LOCAL:  ca1b5d0e1e5d8e598b7a202890234e43348dc4fb
-ORIGIN: ca1b5d0e1e5d8e598b7a202890234e43348dc4fb
-PUBLIC: ca1b5d0e1e5d8e598b7a202890234e43348dc4fb
+release/2026-07-24-book-milestone
 ```
 
-Documentation-only commits may be newer than this implementation commit.
+That release branch exists in both:
+
+```text
+bins-projects/prepflow-dev
+bins-projects/PrepFlow
+```
+
+Public production was promoted through:
+
+```text
+PR: bins-projects/PrepFlow#2
+Public master merge commit: 8e8e85b1e9b9604d257b6db52e9bb802fcb91fce
+Public site: https://bins-projects.github.io/PrepFlow/web/
+```
+
+The merge commit hash differs from the source snapshot because GitHub created a merge commit. The deployed source tree corresponds to `648bcfb`.
+
+Charlie opened the public site after deployment and confirmed that it looked great.
+
+Daily work continues on:
+
+```text
+Local repository: ~/projects/prepflow
+Branch: docs/continuity-rebuild
+```
+
+The release branch is a frozen rollback and comparison point. Do not continue ordinary development on it.
 
 ---
 
-## 2. Completed and approved three-book milestone
+## 2. Completed and publicly released three-book milestone
 
 Approved runtime assets:
 
@@ -70,28 +81,33 @@ Approved result:
 - all three books use the locked v21 hardcover construction;
 - all three are transparent 1024 × 1024 PNG masters;
 - all three use smooth alpha and normal browser image smoothing;
-- all three use corrected page-grain direction;
+- all three use the corrected page-grain direction;
 - all three use the approved clean-border language;
 - all three display at 256 CSS pixels in the current desktop composition;
 - all three remain real `<button class="subject-card">` elements;
-- the complete transparent book is clickable;
-- all three open the correct chapter-selection screen;
+- the complete artwork is clickable;
+- each book opens the correct chapter-selection screen;
 - zero-selection badges are empty and hidden;
-- selected-chapter state remains live HTML and JavaScript;
-- selected-chapter badges appear only for actual selections;
-- question totals remain off closed-book artwork;
-- always-visible `OPEN BOOK` ovals are gone.
+- selected-chapter badges remain live HTML and JavaScript;
+- question totals remain off the closed-book artwork;
+- the obsolete always-visible `OPEN BOOK` ovals are gone;
+- the three-book spacing and visual weight were approved.
 
-The visible set was explicitly approved by Charlie.
+Verification before release:
+
+- `python -m pytest` completed with 72 passing tests;
+- `git diff --check` passed before the cleanup commit;
+- the real local browser was inspected;
+- chapter-selection behavior was checked;
+- both development remotes matched the approved source snapshot;
+- the deployed public site was checked after release.
 
 Do not restore:
 
 - CSS-drawn principal books;
-- inline replacement cover emblems;
+- inline cover-emblem replacements;
 - the Pharm-only prototype;
-- native 256 hard-edge exports;
-- hard alpha thresholds;
-- tiny-palette quantization;
+- native-256 hard-edge exports;
 - braided multi-color borders;
 - crosswise cover-to-cover page bands;
 - baked question totals;
@@ -99,7 +115,7 @@ Do not restore:
 
 ---
 
-## 3. Completed runtime cleanup
+## 3. Current implementation ownership
 
 Authoritative book presentation layer:
 
@@ -107,129 +123,108 @@ Authoritative book presentation layer:
 web/approved-book-buttons.css
 ```
 
-Live selection-state owner:
+Live state owner:
 
 ```text
 web/app.js
 ```
 
-The final cleanup committed in `ca1b5d0`:
+HTML and JavaScript own:
 
-- replaced accumulated proof CSS with one authoritative production layer;
-- retained 256-pixel desktop sizing and equal spacing;
-- retained normal image smoothing;
-- removed duplicate proof-sizing blocks;
-- removed obsolete `.card-action` handling;
-- removed temporary `.card-action` suppression experiments;
-- removed temporary DOM-removal code;
-- retained correct zero-selection badge behavior;
-- retained `.book-selected-count:empty` hiding behavior;
-- normalized book-milestone cache-version references;
-- removed the extra end-of-file whitespace in `web/pixel-home.css`.
+- real subject buttons;
+- Pack paths;
+- accessibility labels;
+- chapter-opening behavior;
+- selected-chapter state;
+- live selected-count text.
 
-Verification before commit:
+CSS owns:
 
-```text
-git diff --check: passed
-pytest: 72 passed
-```
+- placement;
+- size;
+- spacing;
+- responsive behavior;
+- hover, focus, active, and disabled presentation;
+- visibility of empty badges.
 
-The cleaned homepage remained visually correct after the cleanup.
+Artwork owns only permanent visual identity such as the subject title, subject icon, book construction, and permanent color treatment.
 
-Temporary backups and proof files were moved outside the repository to:
-
-```text
-~/prepflow-local-backups/2026-07-24-book-cleanup
-```
-
-The book milestone is closed. Do not repeat its forensic cleanup in the next chat.
+Changing application information must not be baked into artwork.
 
 ---
 
-## 4. Visual ownership authority
+## 4. Current background and nurse state
 
-Read `docs/ART_SYSTEM.md` before producing or changing a book, nurse, character, prop, background, or illustrated sprite.
-
-Current ownership:
-
-- background plate = static environment artwork without characters or dynamic data;
-- nurses = separate transparent raster sprites;
-- books = separate transparent clickable artwork;
-- live counts and selection state = HTML and JavaScript;
-- placement, sizing, responsive composition, hover, focus, and state presentation = CSS.
-
-Permanent artwork may contain permanent subject identity, icons, clothing, and permanent PrepFlow branding.
-
-Changing application information must remain outside artwork.
-
----
-
-## 5. Current background and nurse state
-
-Current combined reference:
+Approved combined reference:
 
 ```text
 web/images/pixel-home-stage.webp
 ```
 
-This image presently contains:
+The image currently contains:
 
 - the sunset-city environment;
 - the female nurse;
 - the male nurse.
 
-It is the approved visual reference but not the final ownership structure.
+It remains the approved composition reference but is not the final ownership structure.
 
-Do not casually crop, regenerate, substitute, or overwrite it.
+The next milestone must create:
 
-The active milestone must create:
+1. a background-only plate;
+2. a transparent female nurse sprite;
+3. a transparent male nurse sprite.
 
-1. a background-only static environment plate;
-2. the female nurse as a transparent sprite;
-3. the male nurse as a transparent sprite.
+The original combined image must remain preserved and unchanged as a comparison reference.
 
-The rebuilt assets must preserve:
+The separated layers must preserve:
 
-- recognizable character identity;
+- recognizable nurse identity;
+- face and hair character;
 - body proportions;
 - clothing and stethoscopes;
-- palette;
-- upper-left lighting relationship;
+- palette relationships;
 - apparent scale;
-- approved placement relationship;
-- PrepFlow Illustrated Pixel rendering language;
-- compatibility with the approved book composition.
+- upper-left lighting direction;
+- the current sunset-city mood;
+- the current relationship to the books;
+- PrepFlow Illustrated Pixel rendering language.
 
-Separate pose files should be used first. Do not create a sprite sheet until runtime animation or repeated reuse justifies it.
+Do not use the separation milestone as an excuse to redesign the nurses, books, city, or overall composition.
 
-Do not regenerate or flatten the complete PrepFlow scene when working on one isolated layer.
+Separate pose files should be used before considering a sprite sheet.
 
----
-
-## 6. Exact next visual milestone
-
-> Rebuild the current home scene as a background-only plate plus two separate transparent nurse sprites while preserving the approved character designs, sunset-city setting, proportions, lighting, pixel density, and current book composition.
-
-Begin with observation and layer planning, not immediate redrawing.
-
-Required first sequence:
-
-1. run the current application unchanged;
-2. inspect the combined scene at actual desktop size;
-3. document the exact background-only boundary;
-4. document the female-nurse sprite boundary;
-5. document the male-nurse sprite boundary;
-6. preserve the existing combined WebP as the rollback reference;
-7. choose one representative nurse sprite to establish the extraction/rebuild method;
-8. verify the representative sprite in the real application before producing the second nurse or pose variants.
-
-Do not redesign the books during this milestone.
+Do not create a sprite sheet unless animation or repeated runtime state later justifies it.
 
 ---
 
-## 7. Responsive composition rule
+## 5. Next milestone sequence
 
-Do not solve scaling by independently changing unrelated elements across many files without checking the complete scene.
+Work locally first.
+
+Recommended sequence:
+
+1. run the current homepage unchanged;
+2. capture the approved full-width and reduced-width reference composition;
+3. inspect the combined background image at native resolution;
+4. define the exact layer boundaries for the environment, female nurse, and male nurse;
+5. preserve the combined image as immutable reference artwork;
+6. create the background-only plate without changing the city composition;
+7. create the female nurse transparent sprite;
+8. create the male nurse transparent sprite;
+9. compose all three layers in the real application;
+10. verify the books retain their current size, spacing, and click behavior;
+11. verify full-width, reduced-width, reduced-height, and narrow layouts;
+12. approve the base sprites before creating alternate poses;
+13. commit and synchronize the milestone only after real-browser verification.
+
+Do not begin by generating an entirely new scene.
+
+Do not replace all layers at once without intermediate comparison proofs.
+
+---
+
+## 6. Responsive composition rule
 
 Use:
 
@@ -246,23 +241,15 @@ Current reduced-width layout authority:
 web/half-width-composition.css
 ```
 
-Treat it as layout-only. It does not define permanent book or character artwork.
+Treat it as layout-only. It does not define permanent book or nurse artwork.
 
-After layer separation, verify:
-
-- full desktop width;
-- the reduced-width development layout;
-- reduced-height layout;
-- narrow layout;
-- book and nurse overlap relationships;
-- logo and tagline separation;
-- scene extension to the bottom edge.
+The complete scene must be evaluated as a composition. Do not independently resize unrelated elements across several files without comparing the whole page.
 
 ---
 
-## 8. Local browser workflow
+## 7. Local browser workflow
 
-Canonical server command:
+Canonical server:
 
 ```bash
 cd ~/projects/prepflow && python3 -m http.server 8004
@@ -274,7 +261,7 @@ Canonical URL:
 http://localhost:8004/web/
 ```
 
-The server must run from the project root, not from `web/`, because the sibling `packs/` directory must also be served.
+The server must run from the project root so the sibling `packs/` directory is available.
 
 Hard refresh:
 
@@ -282,19 +269,7 @@ Hard refresh:
 Ctrl+Shift+R
 ```
 
-### Verified troubleshooting order
-
-Before changing code during a display problem:
-
-1. confirm a Python server is running;
-2. confirm its working directory;
-3. open the target asset directly by URL;
-4. compare the direct asset with the homepage;
-5. inspect the live DOM element;
-6. inspect pseudo-elements and dynamically inserted children;
-7. only then diagnose CSS, browser cache, or the service worker.
-
-A clean diagnostic origin may use:
+Clean diagnostic origin:
 
 ```bash
 cd ~/projects/prepflow && python3 -m http.server 8005
@@ -304,65 +279,40 @@ cd ~/projects/prepflow && python3 -m http.server 8005
 http://localhost:8005/web/
 ```
 
-Port 8005 is diagnostic only.
+Before changing code during a display problem:
 
-### Lesson from the `OPEN BOOK` diagnosis
+1. confirm the server is running;
+2. confirm its working directory;
+3. open the target asset directly;
+4. compare the direct asset with the homepage;
+5. inspect the actual live DOM element;
+6. inspect inserted children and pseudo-elements;
+7. only then diagnose CSS, cache, or service-worker behavior.
 
-The visible ovals were not baked into the background and were not `.card-action` elements.
-
-The actual live element was:
-
-```html
-<span class="book-selected-count">Open book</span>
-```
-
-The correct fix was to leave the badge empty when zero chapters were selected.
-
-When troubleshooting becomes repetitive, stop guessing and inspect the actual rendered DOM.
+The `OPEN BOOK` diagnosis proved that visible UI must be traced in the real DOM rather than inferred from old class names.
 
 ---
 
-## 9. Local-first and GitHub workflow
+## 8. Public release workflow for later visual chunks
 
-During active visual implementation, the local repository is the working source of truth.
+Visual development may continue privately and locally while the current public site remains stable.
 
-Use GitHub to:
+When a new visual milestone is ready:
 
-- inspect committed baselines;
-- preserve verified checkpoints;
-- perform large documentation rewrites instead of fragile terminal heredocs;
-- synchronize intended branches;
-- verify branch hashes.
+1. finish it on `docs/continuity-rebuild`;
+2. run automated and browser verification;
+3. synchronize both development remotes;
+4. create a new fixed release branch from the approved commit;
+5. open a release pull request into public `master`;
+6. review the exact changed assets and runtime files;
+7. merge only after approval;
+8. verify the deployed public site;
+9. record the new release boundary.
 
-For multi-file application changes, inspect the actual local working copy rather than reconstructing it from repeated snippets.
-
-For large documentation changes, use the GitHub connector and give Charlie one short pull command.
-
-Do not ask Charlie to paste hundreds of lines into an interactive heredoc when the connector can perform the rewrite.
-
----
-
-## 10. Command-flow preference
-
-- Give one executable step at a time.
-- When Charlie says `next`, continue instead of repeating the prior command.
-- Ask for terminal output only when the next decision depends on it.
-- Keep Python-server commands separate from ordinary terminal commands.
-- Explain whether an asset is a rough study, a review proof, or a usable runtime asset.
-- Preserve explicit approval locks.
+Do not move the existing `release/2026-07-24-book-milestone` branch.
 
 ---
 
-## 11. Fresh-chat resume state
+## 9. Exact visual resume instruction
 
-The approved book milestone is complete and synchronized.
-
-The next chat should not:
-
-- redesign the books;
-- repeat the book cleanup;
-- restore old CSS-drawn covers;
-- return to the Pharm-only prototype;
-- treat always-visible `OPEN BOOK` labels as desired behavior.
-
-The next chat should begin by reading the restart packet and art system, running the existing scene unchanged, and documenting the three target visual layers before editing an asset.
+> Continue the PrepFlow visual redesign from the local repository at `~/projects/prepflow` on branch `docs/continuity-rebuild`. The approved three-book version is publicly deployed and frozen at source snapshot `648bcfb` with public `master` merge commit `8e8e85b`. Preserve `web/images/pixel-home-stage.webp` as the approved combined reference. Begin by defining the layer boundaries for a background-only plate plus separate female and male nurse sprites. Preserve the current nurse identities, city mood, lighting, scale, book composition, and PrepFlow Illustrated Pixel style. Work locally first, verify the real browser, give one executable step at a time, and release later work only as a separate tested milestone chunk.
