@@ -190,13 +190,6 @@ function updateSelectionStatus() {
 
     badge.textContent = count > 0 ? PrepFlowSelectionRules.bookBadgeText(count) : "";
 
-    const action = book.querySelector(".card-action");
-    if (action) {
-      action.textContent = count === 1
-        ? "1 chapter selected"
-        : `${count} chapters selected`;
-    }
-
     book.classList.toggle("has-selections", count > 0);
   });
 }
@@ -801,9 +794,3 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
-
-    
-// Remove obsolete Open Book overlays.
-document
-  .querySelectorAll(".subject-card .card-action")
-  .forEach((label) => label.remove());

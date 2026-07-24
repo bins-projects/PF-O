@@ -1,13 +1,22 @@
-/* Final subject-book artwork layer.
-   The approved PNGs replace the legacy CSS-drawn covers while .subject-card
-   remains the JavaScript hook for opening books and tracking selections. */
+/* Approved PrepFlow subject-book artwork layer.
+   The transparent PNGs provide the book artwork.
+   HTML/JavaScript retain button behavior and selection state. */
+
+.subjects {
+  display: grid !important;
+  grid-template-columns: repeat(3, 256px) !important;
+  justify-content: center !important;
+  align-items: end !important;
+  column-gap: clamp(42px, 5vw, 78px) !important;
+}
+
 .subject-card,
 .subject-card:hover,
 .subject-card:focus-visible,
 .subject-card:active {
   position: relative !important;
   display: block !important;
-  width: 100% !important;
+  width: 256px !important;
   min-width: 0 !important;
   min-height: 0 !important;
   aspect-ratio: 1 / 1 !important;
@@ -18,7 +27,6 @@
   background: transparent !important;
   box-shadow: none !important;
   transform: none !important;
-  scale: 1 !important;
   color: inherit !important;
   cursor: pointer;
   isolation: isolate;
@@ -35,6 +43,7 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
+  image-rendering: auto !important;
   pointer-events: none;
   user-select: none;
   filter: drop-shadow(12px 15px 8px rgba(0, 0, 0, .34));
@@ -91,84 +100,16 @@
   display: none !important;
 }
 
-/* Preserve the established desktop composition while sizing the new square art. */
-@media (min-width: 760px) and (max-width: 980px) {
+@media (max-width: 900px) {
   .subjects {
-    grid-template-columns: repeat(3, 170px) !important;
+    grid-template-columns: repeat(3, clamp(150px, 28vw, 220px)) !important;
+    column-gap: clamp(16px, 3vw, 32px) !important;
   }
 
   .subject-card,
   .subject-card:hover,
-  .subject-card:focus-visible {
-    width: 170px !important;
-    min-width: 170px !important;
-    min-height: 170px !important;
+  .subject-card:focus-visible,
+  .subject-card:active {
+    width: 100% !important;
   }
-}
-
-/* Local book-size fidelity test — 2026-07-24 */
-.subjects {
-  display: grid !important;
-  grid-template-columns: repeat(3, clamp(205px, 16vw, 235px)) !important;
-  justify-content: center !important;
-  align-items: end !important;
-  column-gap: clamp(48px, 6vw, 90px) !important;
-}
-
-.subject-card,
-.subject-card:hover,
-.subject-card:focus-visible,
-.subject-card:active {
-  width: 100% !important;
-  min-width: 0 !important;
-  aspect-ratio: 1 / 1 !important;
-}
-
-/* Local native-256 Pharm fidelity proof */
-.subjects {
-  grid-template-columns: repeat(3, clamp(230px, 17vw, 255px)) !important;
-  column-gap: clamp(42px, 5vw, 78px) !important;
-}
-
-/* Local smooth-edge 1024px Pharm proof */
-.subjects {
-  grid-template-columns: repeat(3, 256px) !important;
-  column-gap: clamp(42px, 5vw, 78px) !important;
-}
-
-.subject-card img,
-.subject-card-image,
-.subject-book-image {
-  image-rendering: auto !important;
-  width: 256px !important;
-  height: 256px !important;
-  object-fit: contain !important;
-}
-
-/* Local smooth-edge 1024px Pharm proof */
-.subjects {
-  grid-template-columns: repeat(3, 256px) !important;
-  column-gap: clamp(42px, 5vw, 78px) !important;
-}
-
-.subject-card img,
-.subject-card-image,
-.subject-book-image {
-  image-rendering: auto !important;
-  width: 256px !important;
-  height: 256px !important;
-  object-fit: contain !important;
-}
-
-/* Remove obsolete Open Book labels; the complete book remains clickable. */
-.subject-card .card-action {
-  display: none !important;
-}
-
-/* Remove legacy Open Book overlays. The book image remains the button. */
-.subject-card .card-action,
-.subject-card .card-action::before,
-.subject-card .card-action::after {
-  display: none !important;
-  content: none !important;
 }

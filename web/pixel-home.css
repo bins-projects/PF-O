@@ -2418,11 +2418,3 @@ body:not(.book-open) .resume-panel {
     padding: 5px 6px;
   }
 }
-
-/* Retire legacy Open Book overlays; entire book artwork remains clickable. */
-.subject-card .card-action,
-.subject-card .card-action::before,
-.subject-card .card-action::after {
-  display: none !important;
-  content: none !important;
-}
