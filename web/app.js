@@ -188,7 +188,7 @@ function updateSelectionStatus() {
       book.append(badge);
     }
 
-    badge.textContent = PrepFlowSelectionRules.bookBadgeText(count);
+    badge.textContent = count > 0 ? PrepFlowSelectionRules.bookBadgeText(count) : "";
 
     const action = book.querySelector(".card-action");
     if (action) {
@@ -801,3 +801,9 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+    
+// Remove obsolete Open Book overlays.
+document
+  .querySelectorAll(".subject-card .card-action")
+  .forEach((label) => label.remove());
