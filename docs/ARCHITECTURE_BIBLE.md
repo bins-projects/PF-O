@@ -377,21 +377,87 @@ Medication architecture is secondary to the core ingestion, Pack, identity, and 
 
 # 10. Visual System
 
-PrepFlow's current visual identity is intentional and should be preserved while the implementation is cleaned.
+PrepFlow's visual identity is intentional and must remain structurally separate from changing application state.
 
-Core direction includes:
+The detailed authority for artwork, rendering, formats, asset folders, and approved visual decisions is:
 
-- dark navy backgrounds and panels;
-- bright blue, green, purple, pink, and gold accents;
-- 16-bit/pixel visual language;
-- layered book presentation;
-- scan lines and stepped animations;
-- category-specific accents;
-- reuse of approved committed artwork.
+```text
+docs/ART_SYSTEM.md
+```
 
-The goal is not to freeze creativity. The goal is to prevent new controls from looking unrelated to PrepFlow and to reuse approved assets rather than recreating them unnecessarily.
+## 10.1 Visual ownership boundaries
 
-Visual consolidation must be staged and visually conservative.
+The home experience is composed from separate layers with separate owners.
+
+### Background plate
+
+The background plate owns static scene artwork such as:
+
+- environment;
+- skyline;
+- sunset;
+- architecture;
+- environmental lighting;
+- noninteractive scenery.
+
+It must not permanently own characters, books, controls, counts, progress, or changing application data.
+
+### Nurse sprites
+
+Nurses are reusable transparent raster assets.
+
+They own character appearance, clothing, pose, expression, and character-specific rendering.
+
+They must remain separate from the rebuilt background plate so the same characters can support additional screens and poses.
+
+### Book assets
+
+The three subject books are separate transparent clickable assets.
+
+They own permanent subject identity, cover artwork, icons, pages, spine, tabs, and permanent PrepFlow branding.
+
+They must not contain changing totals, selected-chapter state, accessibility text, Pack paths, or interaction behavior.
+
+### HTML and JavaScript
+
+HTML and JavaScript own:
+
+- subject-button structure;
+- Pack paths;
+- accessibility labels;
+- chapter-selection counts and state;
+- saved-session state;
+- click behavior;
+- enabled and disabled behavior;
+- quiz and progress data.
+
+### CSS
+
+CSS owns:
+
+- placement;
+- display size;
+- equal spacing;
+- responsive composition;
+- hover, pressed, disabled, and focus presentation;
+- glow and drop-shadow treatment;
+- live badge placement.
+
+CSS must not redraw the principal final books, nurses, or background artwork.
+
+## 10.2 Permanent artwork versus live data
+
+Permanent identity may be baked into approved artwork.
+
+Changing application information must remain live HTML and JavaScript.
+
+Do not bake question totals, selection counts, progress, or status into closed-book artwork or static scene files.
+
+## 10.3 Asset reuse
+
+Approved committed artwork must be reused rather than recreated unnecessarily.
+
+Visual consolidation must be staged, visually conservative, and verified in the real browser application before commitment.
 
 ---
 
