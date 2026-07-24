@@ -1,22 +1,54 @@
 # PrepFlow Visual Redesign Continuity — 2026-07-23
 
-> **CURRENT LOCAL AUTHORITY:** The three approved transparent PNG books are installed and working in the local repository. This is newer than the last committed GitHub state. Do not resume from the older Pharm-only proof milestone.
+> **Updated 2026-07-24:** The three-book artwork milestone is complete, visually approved, and preserved in Git. The current local working copy contains a verified cleanup of the book CSS and selection-badge behavior that still needs its final test, commit, and two-remote synchronization before the next chat begins.
 
-This document is the authoritative detailed handoff for the unfinished PrepFlow visual redesign. The current home screen is a working visual-development canvas, not a completed design and not technical debt to remove casually.
-
-## Protected working canvas
+This document is the detailed handoff for the active visual redesign. Durable art rules now live in:
 
 ```text
-f393626  wip: checkpoint responsive home and sprite redesign
+docs/ART_SYSTEM.md
 ```
 
-Continue redesign work only on `docs/continuity-rebuild` until the new visual system is intentionally approved and merged. The stable public version remains separate.
+Durable technical ownership boundaries live in:
 
-## Latest completed visual milestone
+```text
+docs/ARCHITECTURE_BIBLE.md
+```
 
-On 2026-07-23, all three Charlie-approved transparent PNG book assets were installed into the real local application and verified in the browser.
+Current branch state and the exact next command belong in:
 
-Approved assets:
+```text
+docs/RESTART_PACKET.md
+```
+
+---
+
+## 1. Active branch and protected milestones
+
+Continue visual redesign work on:
+
+```text
+docs/continuity-rebuild
+```
+
+The stable production `master` branches remain separate until an intentional promotion.
+
+Important preserved commits on the private branch:
+
+```text
+61851cd  checkpoint: preserve approved homepage book artwork
+8960ccf  docs: add durable PrepFlow art system
+41e3b03  docs: define visual asset ownership boundaries
+```
+
+At commit `61851cd`, the approved book artwork and preliminary runtime implementation were pushed to both `origin` and `public`, and all three branch hashes were verified equal.
+
+The later documentation commits were created first on `origin`. The final milestone procedure must push the completed branch to both remotes and verify matching hashes again.
+
+---
+
+## 2. Completed and approved three-book milestone
+
+The following runtime assets are approved:
 
 ```text
 web/images/book-sprite-preview/prepflow-fundamentals-book.png
@@ -24,210 +56,266 @@ web/images/book-sprite-preview/prepflow-pharm-book.png
 web/images/book-sprite-preview/prepflow-medsurg-book.png
 ```
 
-Implementation files:
+Approved result:
+
+- all three books use the locked v21 hardcover construction;
+- all three are transparent 1024 × 1024 PNG masters;
+- all three use smooth alpha and normal browser image smoothing;
+- all three use the corrected page-grain direction;
+- all three use the approved clean-border language;
+- all three display at 256 CSS pixels in the current desktop composition;
+- all three remain real `<button class="subject-card">` elements;
+- all three open the correct chapter-selection screen;
+- the complete book artwork is clickable;
+- the obsolete always-visible `OPEN BOOK` ovals are gone;
+- zero-selection badges are empty and hidden;
+- selected-chapter state remains live HTML and JavaScript;
+- question totals remain off the closed-book artwork.
+
+The visible set was explicitly approved by Charlie on 2026-07-24.
+
+Do not restore:
+
+- CSS-drawn principal books;
+- inline cover-emblem replacements;
+- the Pharm-only prototype;
+- native 256 hard-edge exports;
+- braided multi-color borders;
+- crosswise cover-to-cover page bands;
+- baked question totals;
+- always-visible `OPEN BOOK` labels.
+
+---
+
+## 3. Current local implementation state
+
+Authoritative book presentation layer:
 
 ```text
-web/index.html
 web/approved-book-buttons.css
 ```
 
-Verified result:
+Current live state owner:
 
-- the three approved PNG books render on the home screen;
-- the old CSS-drawn book bodies and inline SVG cover emblems are no longer visible;
-- the existing `.subject-card` JavaScript hook remains intact;
-- all three books open their chapter-selection screens;
-- the layout shown in the 2026-07-23 local browser verification is visually approved by Charlie.
+```text
+web/app.js
+```
 
-This milestone is local and uncommitted at the time of this documentation pass.
+Current local cleanup, verified visually but not yet committed at the time of this update:
 
-## Current redesign state
+- duplicate proof-sizing blocks were removed from `web/approved-book-buttons.css`;
+- one production 256-pixel desktop rule remains;
+- normal image smoothing remains explicit;
+- temporary `.card-action` suppression experiments were removed;
+- temporary DOM-removal code was removed from `web/app.js`;
+- obsolete `.card-action` update logic was removed;
+- zero-count `.book-selected-count` badges remain empty;
+- `.book-selected-count:empty` hides the badge;
+- temporary cache labels were consolidated into one book-milestone version;
+- `git diff --check` passed after removing the extra blank line at the end of `web/pixel-home.css`.
 
-- The approved sunset-city background and nurses remain one combined static image.
-- The closed-book artwork is now real transparent raster artwork for all three subjects, not a Pharm-only proof.
-- Live application behavior remains in HTML and JavaScript.
-- The new presentation layer is `web/approved-book-buttons.css`, loaded after the existing home-layout styles.
-- Do not remove the `.subject-card` class; JavaScript uses it to disable books during saved sessions, update selection badges, and open chapter screens.
-- Do not infer that every historical `.subject-card` rule is active or requires an architecture rebuild merely because `grep` finds it. Inspect the actual local markup, load order, final rendered result, and behavior.
+The local browser was inspected after cleanup and remained visually correct.
 
-## Authoritative visual direction
+Do not overwrite these local uncommitted cleanup changes with the earlier checkpoint versions before the final cleanup commit is made.
 
-- Preserve the current pixel-art sunset-city background style.
-- Keep the approved sunset-city environment as the visual reference.
-- Rebuild books and buttons as reusable pixel-art sprites rather than ordinary flat interface cards.
-- Use Pharm as the first book-sprite prototype, then apply the approved system consistently to Fundamentals and Med-Surg.
-- Establish one consistent book silhouette, spine, cover, page depth, emblem area, hover state, and selected state before producing all three variants.
-- Establish reusable button styling with consistent normal, hover, pressed, disabled, and selected states.
-- Do not generate, redraw, or flatten the complete PrepFlow scene when working on one book, button, character, or other isolated asset.
+---
 
-## Graphics production and file-format rule
+## 4. Visual ownership and production authority
 
-Use transparent raster sprite assets for the principal illustrated pixel-art objects and characters.
+Read `docs/ART_SYSTEM.md` before producing or changing any book, nurse, character, prop, background, or illustrated sprite.
 
-Approved workflow:
+Current ownership summary:
 
-1. Create and refine illustrated books, nurses, props, and similarly textured pixel-art assets as transparent PNG files during design and iteration.
-2. After an asset is visually approved, an optimized transparent WebP version may be used in the shipped browser product when it preserves transparency, pixel fidelity, and intended appearance.
-3. Reserve SVG for genuinely vector-like interface symbols, simple emblems, and clean scalable icons. Do not use SVG as the default format for textured illustrated books, nurses, or environment artwork.
-4. Use CSS for positioning, sizing, responsive composition, hover/pressed/selected movement, glows, and state presentation. Do not use CSS gradients, pseudo-elements, or inline SVG to draw the principal final book or character artwork.
-5. The approved home-screen book artwork is now the three transparent PNG assets named above. Do not restore the previous CSS-built books or inline SVG cover emblems.
-6. Keep live selection status, accessibility text, Pack paths, and click behavior outside the artwork.
-7. Never substitute a generated full-screen screenshot or flattened scene for a transparent isolated sprite.
+- background plate = static environment artwork;
+- nurses = future separate transparent raster sprites;
+- books = separate transparent clickable artwork;
+- live counts and selection state = HTML and JavaScript;
+- placement, sizing, responsive behavior, hover, focus, and state presentation = CSS.
 
-## Permanent artwork versus live application data
+Permanent artwork may contain permanent identity such as subject titles, icons, and permanent PrepFlow branding.
 
-The artwork may contain permanent subject identity such as:
+Changing application information must remain outside artwork.
 
-- `PHARM`;
-- a capsule or medication emblem;
-- permanent PrepFlow branding when it belongs to the book design.
+---
 
-Changing library and application data must remain outside the artwork as live HTML. This includes:
+## 5. Current background and nurse state
 
-- chapter-selection status;
-- button labels;
-- accessibility text;
-- changing counts or progress;
-- data attributes and click behavior.
-
-### Closed-book question-count decision
-
-Do **not** display total question counts on the closed books on the home screen.
-
-Reasoning:
-
-- users choose a book by subject, not by which Pack has the largest total;
-- totals clutter the artwork and compete with the visual hierarchy;
-- the information is more useful after the book is opened.
-
-Show relevant totals inside the opened book/chapter-selection experience instead. The live chapter-selection status may remain beneath or near each closed book.
-
-The temporary Pharm proof recovered during the 2026-07-23 session had `1,238 QUESTIONS` baked into the image. That proof is useful only for layout testing. The next Pharm asset must remove that baked-in count.
-
-## Superseded Pharm-proof warning
-
-The earlier Pharm-only proof and its baked-in `1,238 QUESTIONS` limitation are historical context only. It is no longer the active milestone. The current approved Pharm PNG installed with the other two books does not display the closed-book total.
-
-Do not instruct Charlie to recreate, crop, or recover the old proof. Use the current local approved assets.
-
-## Background and nurse assets
-
-The currently approved home image contains both nurses and the sunset background in one static asset:
+Current reference asset:
 
 ```text
 web/images/pixel-home-stage.webp
 ```
 
-Treat that image as the approved reference and do not casually regenerate, crop, substitute, or replace it.
+This image presently contains both the sunset-city environment and the two nurses.
 
-Future asset work should separate:
+It is the approved visual reference, but it is not the final ownership structure.
 
-1. the environment/background;
-2. any lower environment extension or foreground needed for future compositions;
-3. reusable nurse character sprites.
+The next art milestone must separate:
 
-The two nurses should retain consistent designs, proportions, palette, and pixel density while supporting different poses for different screens, such as home, studying, reference library, and quiz completion.
+1. a background-only static environment plate;
+2. the female nurse as a transparent sprite;
+3. the male nurse as a transparent sprite.
 
-## Responsive composition rule
+The rebuilt assets must preserve:
 
-Do not solve scaling by independently adjusting unrelated pieces across several files without checking the complete composition. The final responsive system should use:
+- recognizable character identity;
+- proportions;
+- clothing and stethoscopes;
+- palette;
+- lighting direction;
+- apparent scale;
+- approved composition;
+- PrepFlow Illustrated Pixel rendering language.
+
+Separate pose files should be used first. Do not create a sprite sheet unless runtime animation later justifies it.
+
+Do not regenerate or flatten the entire PrepFlow scene when working on one isolated asset.
+
+---
+
+## 6. Responsive composition rule
+
+Do not solve scaling by independently changing unrelated elements across many files without checking the complete scene.
+
+Use:
 
 - one clear home-scene container;
 - one approved desktop reference composition;
-- proportional positioning inside that composition;
+- proportional placement inside that composition;
 - a small number of intentional breakpoints;
-- minimum readable sizes for live text and controls;
-- deliberate reflow at narrow widths rather than accidental transform conflicts.
+- readable live controls;
+- deliberate narrow-screen reflow.
 
-The focused reduced-width authority currently lives in:
+Current reduced-width layout authority:
 
 ```text
 web/half-width-composition.css
 ```
 
-Treat it as a layout-only layer. Do not use it to establish permanent book artwork or final book typography.
+Treat it as layout-only. It does not define permanent book or character artwork.
 
-## Local browser-preview workflow
+---
 
-Run the local server from its own dedicated terminal:
+## 7. Local browser workflow
+
+Canonical server command:
 
 ```bash
 cd ~/projects/prepflow && python3 -m http.server 8004
 ```
 
-Leave that terminal running while previewing. The server terminal printing a request log during page loads and hard refreshes is normal.
-
-Open:
+Canonical URL:
 
 ```text
 http://localhost:8004/web/
 ```
 
-Use `Ctrl+Shift+R` for a hard refresh after visual changes.
+The server must run from the project root, not from `web/`, because the sibling `packs/` directory must be served.
 
-Before diagnosing CSS, image, or cache behavior, verify the server is actually running and serving the current project. Do not assume the service worker is responsible. The current `web/sw.js` uses a network-first fetch strategy.
+Hard refresh:
 
-## Proven multi-file local workflow
+```text
+Ctrl+Shift+R
+```
 
-The successful 2026-07-23 repair used the actual local `web/` working copy rather than repeated terminal snippets or GitHub-only inspection. Preserve this workflow for future multi-file visual work:
+### Verified troubleshooting sequence
 
-1. treat `~/projects/prepflow` as the active working source;
-2. when direct local access is unavailable, package the smallest relevant local folder or file set;
-3. inspect the uploaded local snapshot directly;
-4. make one focused change and return only modified files with project-relative paths;
-5. apply the package locally;
-6. run the real local application and verify the rendered result and behavior;
-7. document the proven result;
-8. commit and push only afterward.
+Before changing code during a display problem:
 
-Do not reconstruct a multi-file visual feature from repeated `grep`, `sed`, and pasted excerpts when one local archive can expose the actual working copy. Do not switch the editing target to GitHub during local iteration.
+1. confirm a Python server is actually running;
+2. confirm the server process working directory;
+3. open the target runtime asset directly by URL;
+4. compare the direct asset with the homepage;
+5. inspect the live DOM element with DevTools;
+6. inspect pseudo-elements and dynamically inserted children;
+7. only then diagnose the CSS cascade, cache, or service worker.
 
-## Command-flow preference
+A clean diagnostic origin may use:
 
-- When Charlie says `next`, treat the previous paste command as completed and continue to the next executable step.
-- Do not repeat the previous command.
-- When terminal output is genuinely required, say clearly: `Paste the output here before continuing.`
-- Ordinary commands should be introduced with `Paste this`.
-- Identify the Python-server terminal only when a command must run there.
+```bash
+cd ~/projects/prepflow && python3 -m http.server 8005
+```
 
-## Change-control rules
+Diagnostic URL:
 
-- Do not disable, delete, consolidate, or reinterpret an existing visual layer solely because the CSS cascade is layered.
-- Before removing an experimental layer, identify what visual decision it represents and compare the rendered result.
-- Capture baseline screenshots before meaningful visual changes.
-- Make one isolated visual change at a time.
-- Verify full-window and reduced-window behavior after every change.
-- Do not perform final CSS cleanup until the responsive composition, books, buttons, and reusable asset strategy are approved.
-- Never claim a preview, test, server state, cleanup, or approval that was not verified.
-- Stop and reassess when troubleshooting becomes repetitive rather than stacking additional guesses.
-- Future chats must treat Charlie's explicit design corrections in this document as authoritative unless newer committed evidence replaces them.
+```text
+http://localhost:8005/web/
+```
 
-## Exact next visual milestone
+Port 8005 bypasses the old 8004 browser origin and was used to verify the current files without the prior origin cache. It is not the canonical project port.
 
-Finish verification and commit the already-approved three-book replacement.
+### Lesson from the `OPEN BOOK` diagnosis
 
-Required sequence:
+The visible ovals were not baked into the background and were not `.card-action` elements.
 
-1. begin from the current local `docs/continuity-rebuild` working copy;
-2. verify `git status --short --branch`;
-3. run the server from `~/projects/prepflow`, not from `web/`;
-4. verify the approved books at full width and reduced width;
-5. select chapters from each book and verify live selection badges;
-6. run the existing automated tests;
-7. inspect the focused diff;
-8. keep transfer archives and backups out of the commit;
-9. commit the book replacement;
-10. push and verify the intended private remote.
+The actual live element was:
 
-Do not begin another book redesign, return to a Pharm-only prototype, rebuild the stylesheet architecture, polish obsolete CSS-drawn covers, or replace the approved PNGs without Charlie's explicit request.
+```html
+<span class="book-selected-count">Open book</span>
+```
 
-## Recommended continuation order
+The correct fix was to leave the badge empty when zero chapters are selected, not to stack more CSS suppression rules.
 
-1. Complete responsive and behavior verification for the approved three-book replacement.
-2. Commit and synchronize the verified local milestone.
-3. Finalize reusable pixel-art button styling only if Charlie wants further button changes.
-4. Reassess the background-extension and environment-layer strategy using the stable canvas.
-5. Separate the background and nurses into reusable assets while preserving the approved character designs.
-6. Create pose variants for other screens.
-7. Test desktop, reduced-width, reduced-height, and narrow layouts.
-8. Consolidate obsolete experimental CSS only after visual approval and only with a focused evidence-based plan.
+When troubleshooting becomes repetitive, stop guessing and inspect the actual rendered DOM.
+
+---
+
+## 8. Local-first and GitHub workflow
+
+During visual iteration, the local repository is the working source of truth.
+
+GitHub is used to:
+
+- inspect the last committed baseline;
+- preserve a verified checkpoint;
+- perform large documentation rewrites when that avoids fragile terminal heredocs;
+- synchronize after local verification;
+- verify remote branch hashes.
+
+For multi-file application changes, inspect the actual local working copy rather than reconstructing it from repeated snippets.
+
+For large documentation changes, prefer the GitHub connector and then use one short local pull command.
+
+Do not ask Charlie to paste hundreds of lines into an interactive terminal heredoc when a connector update is available.
+
+---
+
+## 9. Command-flow preference
+
+- Give one executable step at a time.
+- When Charlie says `next`, continue to the next step rather than repeating the prior command.
+- Ask for terminal output only when the next decision depends on it.
+- Keep Python-server commands separate from ordinary terminal commands.
+- Do not use `Ctrl+K, then S` as a required save step for files written directly by terminal scripts.
+- Explain whether an asset is a rough study, a review proof, or a usable runtime asset.
+
+---
+
+## 10. Exact remaining work before the new chat
+
+The books are designed and protected. Do not start the nurse/background rebuild yet.
+
+Complete this forensic closeout first:
+
+1. update `docs/RESTART_PACKET.md` with the current branch, commits, local cleanup state, localhost lessons, and exact next-session instruction;
+2. update the dated visual handoff and durable docs so they agree;
+3. review `git status --short` and the focused diff;
+4. ensure timestamped backups and proof files remain untracked and unstaged;
+5. run the existing automated tests;
+6. verify the cleaned homepage at full width and reduced width;
+7. verify each book still opens the correct chapter screen;
+8. verify selected-chapter badges still appear only for actual selections;
+9. commit the production cleanup and final handoff documentation;
+10. push `docs/continuity-rebuild` to both `origin` and `public`;
+11. fetch both remotes and verify local, origin, and public hashes match;
+12. begin the next chat from the updated restart packet.
+
+---
+
+## 11. Exact next visual milestone after closeout
+
+> Rebuild the current home scene as a background-only plate plus two separate transparent nurse sprites while preserving the approved character designs, sunset-city setting, proportions, lighting, pixel density, and current book composition.
+
+Start that milestone by inspecting the approved current scene and documenting the target layer boundaries before editing or generating any asset.
+
+Do not redesign the books during the nurse/background milestone.
